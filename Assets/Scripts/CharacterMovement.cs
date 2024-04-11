@@ -8,15 +8,20 @@ public class CharacterMovement : MonoBehaviour
     public GameObject character;
     public Camera characterCamera;
 
-    public float joystick_speed = 4.0f;
 
     public float click_towards_speed;
     public bool use_click_towards = false;
-
-
     private Vector2 targetPosition;
-    private Vector2 _movementInput = Vector2.zero;
+
+    
     private Rigidbody2D _rigidbody;
+    public float rotationSpeed = 720f;
+    public float joystick_speed = 4.0f;
+    private Vector2 _movementInput = Vector2.zero;
+    private Vector2 _smoothedMovementInput;
+    private Vector2 _movemenetInputSmoothVelocity;
+    private float _smoothDampResponseTime = 0.1f;
+    
 
     void Start()
     {
@@ -42,8 +47,30 @@ public class CharacterMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (use_click_towards) { return; }
-        Vector2 velocity_vector2 = _movementInput * joystick_speed;
+        SetPlayerVelocity();
+        RotateInDirectionOfInput();
+    }
+
+    private void SetPlayerVelocity()
+    {
+        _smoothedMovementInput = Vector2.SmoothDamp(
+                    _smoothedMovementInput,
+                    _movementInput,
+                    ref _movemenetInputSmoothVelocity,
+                    _smoothDampResponseTime
+                    );
+        Vector2 velocity_vector2 = _smoothedMovementInput * joystick_speed;
         _rigidbody.velocity = velocity_vector2;
+    }
+
+    private void RotateInDirectionOfInput()
+    {
+        if (_movementInput != Vector2.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(character.transform.forward, _smoothedMovementInput);
+            Quaternion rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            _rigidbody.MoveRotation(rotation);
+        } 
     }
 
     private void OnMove(InputValue inputValue)
