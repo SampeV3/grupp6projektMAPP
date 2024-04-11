@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -324,8 +325,21 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2118204546}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82ce33069e86e7f4ba3944311002a034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followTransform: {fileID: 2118204546}
 --- !u!1 &725919930
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +418,7 @@ Transform:
   m_GameObject: {fileID: 725919930}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.18, y: -1.99, z: 0}
+  m_LocalPosition: {x: 0.01, y: 3.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -614,9 +628,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 2118204542}
   characterCamera: {fileID: 519420031}
-  joystick_speed: 4
   click_towards_speed: 5
   use_click_towards: 0
+  rotationSpeed: 720
+  joystick_speed: 4
 --- !u!50 &2118204544
 Rigidbody2D:
   serializedVersion: 4
@@ -708,8 +723,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 519420032}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2118204547
@@ -750,3 +764,4 @@ SceneRoots:
   - {fileID: 1685174325}
   - {fileID: 1574580508}
   - {fileID: 725919932}
+  - {fileID: 519420032}
