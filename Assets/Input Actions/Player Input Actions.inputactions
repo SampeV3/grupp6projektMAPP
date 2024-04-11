@@ -6,7 +6,7 @@
             "id": "db57313f-03cd-42bc-88a1-fcc59d16bc44",
             "actions": [
                 {
-                    "name": "Thumbstick",
+                    "name": "Move",
                     "type": "Value",
                     "id": "43611fb0-c156-4afe-ae76-731d0ea9ab82",
                     "expectedControlType": "Vector2",
@@ -23,7 +23,73 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Thumbstick",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "WASD",
+                    "id": "d5e25af7-c93b-417e-8c21-1869fedda558",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "684313ce-6cef-468f-ab95-4b1449250b46",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "75ea3cc9-0a88-488d-826f-a5bbdfa8e30f",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "60ac8a09-9d12-42ec-9610-94a212406f19",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "977c254a-5c93-49e6-ad8a-f4b347fa2af0",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "498c7901-3b5b-4ecb-bb03-788e80b00783",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
