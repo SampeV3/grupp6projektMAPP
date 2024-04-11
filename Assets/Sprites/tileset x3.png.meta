@@ -929,11 +929,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tileset x3_60
+      name: left_wall
       rect:
         serializedVersion: 2
         x: 96
-        y: 1920
+        y: 1919
         width: 96
         height: 96
       alignment: 0
@@ -992,11 +992,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tileset x3_68
+      name: right_wall
       rect:
         serializedVersion: 2
         x: 864
-        y: 1920
+        y: 1918
         width: 96
         height: 96
       alignment: 0
@@ -5015,6 +5015,8 @@ TextureImporter:
     nameFileIdTable:
       floor1: -2023197189
       floor2: 1619342929
+      left_wall: -1508891004
+      right_wall: 389563213
       tileset x3_0: -1917159456
       tileset x3_1: -1824852753
       tileset x3_10: -288930792
@@ -5444,7 +5446,6 @@ TextureImporter:
       tileset x3_58: 1527380135
       tileset x3_59: -467104110
       tileset x3_6: -326836427
-      tileset x3_60: -1508891004
       tileset x3_61: 2079405948
       tileset x3_62: 719394612
       tileset x3_63: 55968547
@@ -5452,7 +5453,6 @@ TextureImporter:
       tileset x3_65: -1152102057
       tileset x3_66: 981869456
       tileset x3_67: -1487144534
-      tileset x3_68: 389563213
       tileset x3_69: -821947961
       tileset x3_7: -1063494073
       tileset x3_70: 785257447
