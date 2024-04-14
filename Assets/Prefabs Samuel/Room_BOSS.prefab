@@ -8,9 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2856315561759354914, guid: ca8c1716f4ac663408c8cd5d8dcd49f1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3503824874025389812, guid: ca8c1716f4ac663408c8cd5d8dcd49f1, type: 3}
       propertyPath: m_Name
-      value: Grid Variant
+      value: Room_BOSS
       objectReference: {fileID: 0}
     - target: {fileID: 4083916848511730634, guid: ca8c1716f4ac663408c8cd5d8dcd49f1, type: 3}
       propertyPath: m_Tiles.Array.size
@@ -8862,11 +8866,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7086001823761661348, guid: ca8c1716f4ac663408c8cd5d8dcd49f1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.783332
       objectReference: {fileID: 0}
     - target: {fileID: 7086001823761661348, guid: ca8c1716f4ac663408c8cd5d8dcd49f1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 11.9481735
       objectReference: {fileID: 0}
     - target: {fileID: 7086001823761661348, guid: ca8c1716f4ac663408c8cd5d8dcd49f1, type: 3}
       propertyPath: m_LocalPosition.z
