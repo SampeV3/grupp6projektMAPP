@@ -5,7 +5,7 @@ using static UnityEditor.PlayerSettings;
 
 public class EnemyAI : MonoBehaviour
 {
-    //[SerializeField] private Material flashOnHit;
+    [SerializeField] private Material flashOnHit;
     [SerializeField] private GameObject projectilePrefab;
     //[SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Transform player;
@@ -16,12 +16,12 @@ public class EnemyAI : MonoBehaviour
     private SpriteRenderer sprd;
     private Animator anim;
     private int HP;
-    private bool checkLOS = false;
+    private bool playerDetected = false;
     private Coroutine moveCoroutine, combatCoroutine;
 
     void Start()
     {
-        HP = 100;
+        HP = 10;
         audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         //originalMat = sprd.material;
@@ -64,49 +64,44 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        if (checkLOS)
+        if (!playerDetected)
         {
-            CheckLineOfSight();
+            if (IsPlayerWithinDetectionRadius())
+            {
+                CheckLineOfSight();
+            }
+        }
+        else
+        {
+            if (!IsPlayerWithinDetectionRadius())
+            {
+                playerDetected = false;
+                if (combatCoroutine != null)
+                {
+                    StopCoroutine(combatCoroutine);
+                }
+            }
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-        checkLOS = true;
-
+    private bool IsPlayerWithinDetectionRadius()
+    {   
+        float dist = Vector2.Distance(transform.position, player.position);
+        if (dist <= 5f)
+        {   
+            return true;
         }
+        return false;
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            checkLOS = false;
-            StopCoroutine(combatCoroutine);
-
-        }
-    }
 
     private IEnumerator Combat()
     {
         while (HP > 0)
         {
-            float dist = Vector2.Distance(transform.position, player.position);
-            if (dist >= 0f)
-            {
-
-                anim.SetTrigger("RangedAttack");
-                Invoke("RangedAttack", 0.5f); // Sätt tid till hur länge animationen körs
-                yield return new WaitForSeconds(2.5f);
-            }
-            else
-            {
-                // MeleeAttack();
-                yield return new WaitForSeconds(2.5f);
-            }
-
+            anim.SetTrigger("RangedAttack");
+            Invoke("RangedAttack", 0.5f); // Sätt tid till hur länge animationen körs
+            yield return new WaitForSeconds(2.5f);
         }
     }
     private void RangedAttack()
@@ -128,14 +123,24 @@ public class EnemyAI : MonoBehaviour
 
         if (hitWall.collider.CompareTag("Wall") && hitPlayer.collider.CompareTag("Player") && hitPlayer.distance<hitWall.distance)
         {
-            checkLOS = false;
+            playerDetected = true;
             StopCoroutine(moveCoroutine);
             combatCoroutine = StartCoroutine(Combat());
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlayerAttack"))
+        {
+            Destroy(other.gameObject);
+            HP -= 3;
+            StartCoroutine(Flash());
+        }
+    }
     private IEnumerator Flash()
     {
-        //sprd.material = flashOnHit;
+        sprd.material = flashOnHit;
         yield return new WaitForSeconds(0.125f);
         sprd.material = originalMat;
     }
