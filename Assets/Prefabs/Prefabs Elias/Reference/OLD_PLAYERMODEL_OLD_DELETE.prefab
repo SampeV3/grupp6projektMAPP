@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3235256935378275617}
   m_Layer: 0
-  m_Name: PlayerModel_Newest
+  m_Name: OLD_PLAYERMODEL_OLD_DELETE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
