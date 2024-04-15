@@ -2758,7 +2758,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &2121380293
 RectTransform:
@@ -2772,13 +2772,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 792234923}
+  - {fileID: 1000442709}
   - {fileID: 142926065}
   - {fileID: 920210249}
   - {fileID: 1358384247}
   - {fileID: 1549690288}
   - {fileID: 2099473766}
-  - {fileID: 1000442709}
-  - {fileID: 792234923}
   - {fileID: 1135108164}
   - {fileID: 1909645976}
   m_Father: {fileID: 0}
