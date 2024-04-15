@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerTakeDamage : MonoBehaviour
 {
     //public int health;
+    [SerializeField] private Transform spawnPos;
     public int currentHealth;
     public int maxHealth = 5;
 
@@ -19,7 +20,7 @@ public class PlayerTakeDamage : MonoBehaviour
         if (currentHealth < 0)
         {
             //Spela upp player death animation? effekter? ljud? delay?
-            Destroy(gameObject);
+            transform.position = spawnPos.position;
         }
     }
 
