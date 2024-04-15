@@ -2,34 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class MinibossAI : MonoBehaviour
 {
-    //[SerializeField] private Material flashOnHit;
-    [SerializeField] private GameObject projectilePrefab, beam1, beam2;
+    [SerializeField] private Material flashOnHit;
+    [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar;
+    [SerializeField] private Transform player;
     //[SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Animator anim;
+    [SerializeField] private SpriteRenderer topSprite, botSprite;
 
     private AudioSource audioSource;
     private Material originalMat;
-    private SpriteRenderer sprd, beam1sprd, beam2sprd;
     private int HP;
     private int beamDirection;
     private bool beamsActive = false;
-    private Coroutine combatCoroutine;
     void Start()
     {
         beamDirection = 1;
         HP = 100;
         audioSource = GetComponent<AudioSource>();
-        combatCoroutine = StartCoroutine(Combat());
+        StartCoroutine(Combat());
     }
 
     private IEnumerator Combat()
     {
         StartCoroutine(FlashBeam(beam1, 4));
         yield return new WaitUntil(() => beamsActive);
-        while (HP > 50)
+        while (HP > 75)
         {
 
             RangedAttack(0);
@@ -41,28 +42,51 @@ public class MinibossAI : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             anim.SetTrigger("Shoot");
             yield return new WaitForSeconds(1f);
-
-            HP = HP - 50;
         }
         StartCoroutine(FlashBeam(beam2, 4));
-        while (HP > 0)
+        while (HP > 50)
         {
-            for (int i = 0; i < Random.Range(5,11); i++)
+            for (int i = 0; i < 2; i++)
             {
+                for (int j = 0; j < Random.Range(3, 7); j++)
+                {
 
-                RangedAttack(0);
-                yield return new WaitForSeconds(0.3f);
-                anim.SetTrigger("Shoot");
-                yield return new WaitForSeconds(1f);
+                    RangedAttack(0);
+                    yield return new WaitForSeconds(0.3f);
+                    anim.SetTrigger("Shoot");
+                    yield return new WaitForSeconds(1f);
 
-                RangedAttack(22.5f);
-                yield return new WaitForSeconds(0.3f);
-                anim.SetTrigger("Shoot");
-                yield return new WaitForSeconds(1f);
+                    RangedAttack(22.5f);
+                    yield return new WaitForSeconds(0.3f);
+                    anim.SetTrigger("Shoot");
+                    yield return new WaitForSeconds(1f);
+                }
+                StartCoroutine(RotateBeams());
             }
-            StartCoroutine(RotateBeams());
-
         }
+        while (HP > 0)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < Random.Range(3, 7); j++)
+                    {
+
+                        RangedAttack(0);
+                        yield return new WaitForSeconds(0.3f);
+                        anim.SetTrigger("Shoot");
+                        yield return new WaitForSeconds(1f);
+
+                        StartCoroutine(SpawnMortar());
+
+                        RangedAttack(22.5f);
+                        yield return new WaitForSeconds(0.3f);
+                        anim.SetTrigger("Shoot");
+                        yield return new WaitForSeconds(1f);
+                    }
+                    StartCoroutine(RotateBeams());
+                }
+            }
+        
     }
     private IEnumerator FlashBeam(GameObject beam, int flashAmount)
     {
@@ -79,6 +103,24 @@ public class MinibossAI : MonoBehaviour
         }   
         beamsprd.color = new Color(beamsprd.color.r, beamsprd.color.g, beamsprd.color.b, 1f);
         beamsActive = true;
+    }
+
+    private IEnumerator SpawnMortar()
+    {
+        GameObject mortarAim = Instantiate(mortar, player.position, Quaternion.identity);
+        Transform desiredChild = mortarAim.transform.Find("MortarBackground");
+        SpriteRenderer mortarsprd = desiredChild.GetComponent<SpriteRenderer>();
+        Color ogColor = mortarsprd.color;
+        ogColor.a = 0.1f;
+        mortarsprd.color = ogColor;
+        while (mortarsprd.color.a < 1f)
+        {
+            mortarAim.transform.Rotate(0f, 0f, 15f * Time.fixedDeltaTime);
+            ogColor.a += 0.5f* Time.deltaTime;
+            mortarsprd.color = ogColor;
+            yield return null;
+        }
+        Destroy(mortarAim);
     }
     private IEnumerator RotateBeams()
     {
@@ -110,7 +152,23 @@ public class MinibossAI : MonoBehaviour
             projectile.GetComponent<Rigidbody2D>().velocity = direction * 0.8f;    
         }
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlayerAttack"))
+        {
+            Destroy(other.gameObject);
+            HP -= 3;
+            StartCoroutine(Flash(topSprite));
+            StartCoroutine(Flash(botSprite));
+        }
+    }
 
+    private IEnumerator Flash(SpriteRenderer sprd)
+    {
+        sprd.material = flashOnHit;
+        yield return new WaitForSeconds(0.125f);
+        sprd.material = originalMat;
+    }
     void FixedUpdate()
     {
         if (beamsActive)
