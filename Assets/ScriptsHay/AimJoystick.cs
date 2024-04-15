@@ -15,15 +15,16 @@ public class AimJoystick : MonoBehaviour
 
     private void OnAim(InputValue inputValue)
     {
-        print("OnAim " + inputValue);
         GameobjectRotation = inputValue.Get<Vector2>();
-
     }
 
     void Update()
     {
         //Gets the input from the jostick
 
+        bool isStill = GameobjectRotation == Vector2.zero;
+
+    
         GameobjectRotation3 = GameobjectRotation.x;
 
         if (FacingRight)
