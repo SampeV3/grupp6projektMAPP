@@ -35,8 +35,10 @@ public class PlayerTakeDamage : MonoBehaviour
     {
         if (other.gameObject.CompareTag("EnemyBullet"))
         {
+            //handle enemy bullet:
             takeDamage(1);
             updateHealthBar();
+            Destroy(other.gameObject); 
         }
         if (other.gameObject.CompareTag("Laser"))
         {

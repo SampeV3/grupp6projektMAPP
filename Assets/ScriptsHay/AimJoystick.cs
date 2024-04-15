@@ -10,12 +10,26 @@ public class AimJoystick : MonoBehaviour
     Vector2 GameobjectRotation;
     private float GameobjectRotation2;
     private float GameobjectRotation3;
+    private bool isInvokingShooting = false;
+    
 
     public bool FacingRight = true;
+    PlayerShoot playerShoot;
+
+    private void Awake()
+    {
+        playerShoot = GetComponent<PlayerShoot>();
+    }
 
     private void OnAim(InputValue inputValue)
     {
         GameobjectRotation = inputValue.Get<Vector2>();
+    }
+
+    private void FireInvocation ()
+    {
+        playerShoot.Shoot();
+        isInvokingShooting = false;
     }
 
     void Update()
@@ -23,6 +37,11 @@ public class AimJoystick : MonoBehaviour
         //Gets the input from the jostick
 
         bool isStill = GameobjectRotation == Vector2.zero;
+        if (!isStill && !isInvokingShooting) {
+            isInvokingShooting = true;
+            Invoke("FireInvocation", 0.2f);
+        }
+                
 
     
         GameobjectRotation3 = GameobjectRotation.x;
