@@ -7,6 +7,7 @@ TagManager:
   - Wall
   - Roof
   - PlayerAttack
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

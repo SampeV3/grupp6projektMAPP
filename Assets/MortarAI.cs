@@ -16,6 +16,8 @@ public class MortarAI : MonoBehaviour
     private SpriteRenderer sprd;
     private Material originalMat;
     private int HP;
+    private bool playerDetected;
+    private Coroutine combatCoroutine;
     void Start()
     {
         HP = 10;
@@ -33,7 +35,6 @@ public class MortarAI : MonoBehaviour
             StartCoroutine(SpawnMortar());
             yield return new WaitForSeconds(2.5f);
         }
-        Destroy(gameObject);
     }
 
     private IEnumerator SpawnMortar()
@@ -50,6 +51,7 @@ public class MortarAI : MonoBehaviour
             ogColor.a += 0.5f * Time.deltaTime;
             mortarsprd.color = ogColor;
             yield return null;
+            if(HP <= 0) { Destroy(mortarAim); }
         }
         Destroy(mortarAim);
     }
@@ -61,13 +63,56 @@ public class MortarAI : MonoBehaviour
             Destroy(other.gameObject);
             HP -= 3;
             StartCoroutine(Flash());
+            if (HP <= 0)
+            {
+                StopCoroutine(combatCoroutine);
+                sprd.color = Color.red;
+                Invoke("RemoveObject", 1f);
+            }
         }
     }
 
+    private void RemoveObject()
+    {
+        Destroy(gameObject);
+    }
     private IEnumerator Flash()
     {
         sprd.material = flashOnHit;
         yield return new WaitForSeconds(0.125f);
         sprd.material = originalMat;
+    }
+
+    private void Update()
+    {
+        if (!playerDetected)
+        {
+            if (IsPlayerWithinDetectionRadius())
+            {
+                combatCoroutine = StartCoroutine(Combat());
+                playerDetected = true;
+            }
+        }
+        else
+        {
+            if (!IsPlayerWithinDetectionRadius())
+            {
+                playerDetected = false;
+                if (combatCoroutine != null)
+                {
+                    StopCoroutine(combatCoroutine);
+                }
+            }
+        }
+    }
+
+    private bool IsPlayerWithinDetectionRadius()
+    {
+        float dist = Vector2.Distance(transform.position, player.position);
+        if (dist <= 10f)
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -104,7 +104,6 @@ public class EnemyAI : MonoBehaviour
             Invoke("RangedAttack", 0.5f); // Sätt tid till hur länge animationen körs
             yield return new WaitForSeconds(2.5f);
         }
-        Destroy(gameObject);
     }
     private void RangedAttack()
     {
@@ -138,7 +137,18 @@ public class EnemyAI : MonoBehaviour
             Destroy(other.gameObject);
             HP -= 3;
             StartCoroutine(Flash());
+            if (HP <= 0)
+            {
+                StopCoroutine(combatCoroutine);
+                sprd.color = Color.red;
+                Invoke("RemoveObject", 1f);
+            }
         }
+
+    }
+    private void RemoveObject()
+    {
+        Destroy(gameObject);
     }
     private IEnumerator Flash()
     {
