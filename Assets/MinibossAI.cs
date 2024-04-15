@@ -168,13 +168,9 @@ public class MinibossAI : MonoBehaviour
                 StopCoroutine(combatCoroutine);
                 topSprite.color = Color.red;
                 botSprite.color = Color.red;
-                Invoke("RemoveObject", 1f);
+                Destroy(parent, 1f);
             }
         }
-    }
-    private void RemoveObject()
-    {
-        Destroy(parent);
     }
     private IEnumerator Flash()
     {
