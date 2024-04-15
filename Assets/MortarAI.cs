@@ -24,7 +24,6 @@ public class MortarAI : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         sprd = GetComponent<SpriteRenderer>();
         originalMat = sprd.material;
-        StartCoroutine(Combat());
     }
 
     private IEnumerator Combat()
