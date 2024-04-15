@@ -24,7 +24,7 @@ public class MinibossAI : MonoBehaviour
     void Start()
     {
         beamDirection = 1;
-        HP = 300;
+        HP = 250;
         audioSource = GetComponent<AudioSource>();
         topMat = topSprite.material;
         botMat = botSprite.material;
@@ -34,7 +34,7 @@ public class MinibossAI : MonoBehaviour
     {
         StartCoroutine(FlashBeam(beam1, 4));
         yield return new WaitUntil(() => beamsActive);
-        while (HP > 75)
+        while (HP > 220)
         {
 
             RangedAttack(0);
@@ -48,7 +48,7 @@ public class MinibossAI : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
         StartCoroutine(FlashBeam(beam2, 4));
-        while (HP > 50)
+        while (HP > 170)
         {
             for (int i = 0; i < 2; i++)
             {
