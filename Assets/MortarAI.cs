@@ -52,7 +52,8 @@ public class MortarAI : MonoBehaviour
             yield return null;
             if(HP <= 0) { Destroy(mortarAim); }
         }
-        Destroy(mortarAim);
+        mortarAim.GetComponent<CircleCollider2D>().enabled = true;
+        Destroy(mortarAim, 0.1f);
     }
    
     private void OnTriggerEnter2D(Collider2D other)
@@ -66,14 +67,9 @@ public class MortarAI : MonoBehaviour
             {
                 StopCoroutine(combatCoroutine);
                 sprd.color = Color.red;
-                Invoke("RemoveObject", 1f);
+                Destroy(gameObject, 1f);
             }
         }
-    }
-
-    private void RemoveObject()
-    {
-        Destroy(gameObject);
     }
     private IEnumerator Flash()
     {
