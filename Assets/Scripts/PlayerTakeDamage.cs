@@ -13,6 +13,7 @@ public class PlayerTakeDamage : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        updateHealthBar();
     }
 
     void updateHealthBar()
@@ -35,14 +36,17 @@ public class PlayerTakeDamage : MonoBehaviour
         if (other.gameObject.CompareTag("EnemyBullet"))
         {
             takeDamage(1);
+            updateHealthBar();
         }
         if (other.gameObject.CompareTag("Laser"))
         {
             takeDamage(1);
+            updateHealthBar();
         }
         if (other.gameObject.CompareTag("MortarAttack"))
         {
             takeDamage(1);
+            updateHealthBar();
         }
     }
 }
