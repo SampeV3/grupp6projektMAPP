@@ -20,6 +20,8 @@ public class MortarAI : MonoBehaviour
     {
         HP = 10;
         audioSource = GetComponent<AudioSource>();
+        sprd = GetComponent<SpriteRenderer>();
+        originalMat = sprd.material;
         StartCoroutine(Combat());
     }
 
@@ -31,6 +33,7 @@ public class MortarAI : MonoBehaviour
             StartCoroutine(SpawnMortar());
             yield return new WaitForSeconds(2.5f);
         }
+        Destroy(gameObject);
     }
 
     private IEnumerator SpawnMortar()
