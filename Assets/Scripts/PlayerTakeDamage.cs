@@ -7,10 +7,16 @@ public class PlayerTakeDamage : MonoBehaviour
     //public int health;
     public int currentHealth;
     public int maxHealth = 5;
+    public GameObject[] healthBarSprites = new GameObject[6];
 
     void Start()
     {
         currentHealth = maxHealth;
+    }
+
+    void updateHealthBar()
+    {
+        healthBarSprites[currentHealth].SetActive(true);
     }
 
     void takeDamage(int damageAmount)
