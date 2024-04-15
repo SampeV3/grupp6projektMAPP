@@ -5,12 +5,20 @@ using UnityEngine;
 public class PlayerTakeDamage : MonoBehaviour
 {
     //public int health;
+    [SerializeField] private Transform spawnPos;
     public int currentHealth;
     public int maxHealth = 5;
+    public GameObject[] healthBarSprites = new GameObject[6];
 
     void Start()
     {
         currentHealth = maxHealth;
+        updateHealthBar();
+    }
+
+    void updateHealthBar()
+    {
+        healthBarSprites[currentHealth].SetActive(true);
     }
 
     void takeDamage(int damageAmount)
@@ -19,23 +27,26 @@ public class PlayerTakeDamage : MonoBehaviour
         if (currentHealth < 0)
         {
             //Spela upp player death animation? effekter? ljud? delay?
-            Destroy(gameObject);
+            transform.position = spawnPos.position;
         }
     }
-    private void OnCollisionEnter2D(Collision2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("EnemyBullet"))
         {
             takeDamage(1);
+            updateHealthBar();
         }
-        if (other.gameObject.CompareTag(""))
+        if (other.gameObject.CompareTag("Laser"))
         {
             takeDamage(1);
+            updateHealthBar();
         }
-        if (other.gameObject.CompareTag(""))
+        if (other.gameObject.CompareTag("MortarAttack"))
         {
             takeDamage(1);
+            updateHealthBar();
         }
-
     }
 }

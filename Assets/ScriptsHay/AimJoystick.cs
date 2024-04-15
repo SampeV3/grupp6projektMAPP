@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AimJoystick : MonoBehaviour
 {
-    //private Joystick joystick;
+    private Joystick joystick;
     public GameObject Object;
     Vector2 GameobjectRotation;
     private float GameobjectRotation2;
@@ -12,11 +13,18 @@ public class AimJoystick : MonoBehaviour
 
     public bool FacingRight = true;
 
+    private void OnAim(InputValue inputValue)
+    {
+        GameobjectRotation = inputValue.Get<Vector2>();
+    }
+
     void Update()
     {
         //Gets the input from the jostick
-        //GameobjectRotation = new Vector2(joystick.Horizontal, joystick.Vertical);
 
+        bool isStill = GameobjectRotation == Vector2.zero;
+
+    
         GameobjectRotation3 = GameobjectRotation.x;
 
         if (FacingRight)

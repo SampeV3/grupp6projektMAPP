@@ -141,15 +141,12 @@ public class EnemyAI : MonoBehaviour
             {
                 StopCoroutine(combatCoroutine);
                 sprd.color = Color.red;
-                Invoke("RemoveObject", 1f);
+                Destroy(gameObject, 1f);
             }
         }
 
     }
-    private void RemoveObject()
-    {
-        Destroy(gameObject);
-    }
+
     private IEnumerator Flash()
     {
         sprd.material = flashOnHit;

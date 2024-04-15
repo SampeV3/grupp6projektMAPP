@@ -8,6 +8,7 @@ TagManager:
   - Roof
   - PlayerAttack
   - EnemyBullet
+  - Mortar
   layers:
   - Default
   - TransparentFX
