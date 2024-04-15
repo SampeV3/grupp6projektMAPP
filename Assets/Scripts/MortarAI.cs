@@ -18,6 +18,7 @@ public class MortarAI : MonoBehaviour
     private int HP;
     private bool playerDetected;
     private Coroutine combatCoroutine;
+    private bool isDead = false;
     void Start()
     {
         HP = 10;
@@ -61,11 +62,16 @@ public class MortarAI : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerAttack"))
         {
             Destroy(other.gameObject);
-            HP -= 3;
+            HP -= 1;
             StartCoroutine(Flash());
             if (HP <= 0)
             {
-                StopCoroutine(combatCoroutine);
+                isDead = true;
+                if (combatCoroutine != null)
+                {
+                    StopCoroutine(combatCoroutine);
+                }
+                flashOnHit = sprd.material;
                 sprd.color = Color.red;
                 Destroy(gameObject, 1f);
             }
@@ -73,9 +79,13 @@ public class MortarAI : MonoBehaviour
     }
     private IEnumerator Flash()
     {
-        sprd.material = flashOnHit;
-        yield return new WaitForSeconds(0.125f);
-        sprd.material = originalMat;
+        if (!isDead)
+        {
+            sprd.material = flashOnHit;
+            yield return new WaitForSeconds(0.125f);
+            sprd.material = originalMat;
+
+        }
     }
 
     private void Update()

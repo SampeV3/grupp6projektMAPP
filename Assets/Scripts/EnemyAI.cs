@@ -17,6 +17,7 @@ public class EnemyAI : MonoBehaviour
     private Animator anim;
     private int HP;
     private bool playerDetected = false;
+    private bool isDead = false;
     private Coroutine moveCoroutine, combatCoroutine;
 
     void Start()
@@ -88,7 +89,7 @@ public class EnemyAI : MonoBehaviour
     private bool IsPlayerWithinDetectionRadius()
     {   
         float dist = Vector2.Distance(transform.position, player.position);
-        if (dist <= 5f)
+        if (dist <= 10f)
         {   
             return true;
         }
@@ -102,7 +103,7 @@ public class EnemyAI : MonoBehaviour
         {
             anim.SetTrigger("RangedAttack");
             Invoke("RangedAttack", 0.5f); // Sätt tid till hur länge animationen körs
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(0.4f);
         }
     }
     private void RangedAttack()
@@ -119,8 +120,8 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 directionToPlayer = player.position - transform.position;
 
-        RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, directionToPlayer, 10f, playerMask);
-        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, directionToPlayer, 10f, obstacleMask);
+        RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, directionToPlayer, 50f, playerMask);
+        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, directionToPlayer, 50f, obstacleMask);
 
         if (hitWall.collider.CompareTag("Wall") && hitPlayer.collider.CompareTag("Player") && hitPlayer.distance<hitWall.distance)
         {
@@ -135,11 +136,15 @@ public class EnemyAI : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerAttack"))
         {
             Destroy(other.gameObject);
-            HP -= 3;
+            HP -= 1;
             StartCoroutine(Flash());
             if (HP <= 0)
             {
-                StopCoroutine(combatCoroutine);
+                isDead = true;
+                if (combatCoroutine != null)
+                {
+                    StopCoroutine(combatCoroutine);
+                }
                 sprd.color = Color.red;
                 Destroy(gameObject, 1f);
             }
@@ -149,8 +154,11 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator Flash()
     {
+        if(!isDead) {
         sprd.material = flashOnHit;
         yield return new WaitForSeconds(0.125f);
         sprd.material = originalMat;
+
+        }
     }
 }

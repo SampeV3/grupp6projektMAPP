@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 8786617271426860459}
   - component: {fileID: 5632716657083380893}
   - component: {fileID: 2767820736101017008}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Beam2
   m_TagString: Laser
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3411243563586082289}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 5382157671514978329}
   - component: {fileID: 71231860524043172}
   - component: {fileID: 3098535995289084811}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Beam1
   m_TagString: Laser
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3673447982699266084}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

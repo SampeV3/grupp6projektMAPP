@@ -24,7 +24,7 @@ public class MinibossAI : MonoBehaviour
     void Start()
     {
         beamDirection = 1;
-        HP = 100;
+        HP = 300;
         audioSource = GetComponent<AudioSource>();
         topMat = topSprite.material;
         botMat = botSprite.material;
@@ -106,6 +106,7 @@ public class MinibossAI : MonoBehaviour
         }   
         beamsprd.color = new Color(beamsprd.color.r, beamsprd.color.g, beamsprd.color.b, 1f);
         beamsActive = true;
+        beam.GetComponent<BoxCollider2D>().enabled = true;
     }
 
     private IEnumerator SpawnMortar()
@@ -161,11 +162,14 @@ public class MinibossAI : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerAttack"))
         {
             Destroy(other.gameObject);
-            HP -= 3;
+            HP -= 1;
             StartCoroutine(Flash());
-            if(HP < 0)
+            if(HP <= 0)
             {
-                StopCoroutine(combatCoroutine);
+                if (combatCoroutine != null)
+                {
+                    StopCoroutine(combatCoroutine);
+                }
                 topSprite.color = Color.red;
                 botSprite.color = Color.red;
                 Destroy(parent, 1f);
@@ -184,7 +188,7 @@ public class MinibossAI : MonoBehaviour
     {
         if (beamsActive)
         {
-            transform.Rotate(0f, 0f, beamDirection*10f * Time.fixedDeltaTime);
+            transform.Rotate(0f, 0f, beamDirection*20f * Time.fixedDeltaTime);
         }
         if (!playerDetected)
         {

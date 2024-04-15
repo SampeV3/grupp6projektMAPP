@@ -28,6 +28,7 @@ public class PlayerTakeDamage : MonoBehaviour
         {
             //Spela upp player death animation? effekter? ljud? delay?
             transform.position = spawnPos.position;
+            currentHealth = maxHealth;
         }
     }
 

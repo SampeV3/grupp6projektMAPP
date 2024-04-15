@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4348127167725186670}
   - component: {fileID: 6724750438995156481}
   - component: {fileID: 8055890790863937503}
+  - component: {fileID: 3709382616963817710}
   m_Layer: 7
   m_Name: Circle
   m_TagString: PlayerAttack
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0, b: 0.06809378, a: 1}
   m_FlipX: 0
@@ -164,3 +165,15 @@ MonoBehaviour:
   speed: 20
   damage: 40
   rb: {fileID: 4348127167725186670}
+--- !u!114 &3709382616963817710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246871847316479558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc79599a3b20fbc49a1221dac6b03a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
