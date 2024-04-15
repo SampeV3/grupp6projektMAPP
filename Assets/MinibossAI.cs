@@ -18,11 +18,14 @@ public class MinibossAI : MonoBehaviour
     private int HP;
     private int beamDirection;
     private bool beamsActive = false;
+    private Material topMat, botMat;
     void Start()
     {
         beamDirection = 1;
         HP = 100;
         audioSource = GetComponent<AudioSource>();
+        topMat = topSprite.material;
+        botMat = botSprite.material;
         StartCoroutine(Combat());
     }
 
@@ -86,7 +89,8 @@ public class MinibossAI : MonoBehaviour
                     StartCoroutine(RotateBeams());
                 }
             }
-        
+        Destroy(gameObject);
+
     }
     private IEnumerator FlashBeam(GameObject beam, int flashAmount)
     {
@@ -158,16 +162,17 @@ public class MinibossAI : MonoBehaviour
         {
             Destroy(other.gameObject);
             HP -= 3;
-            //StartCoroutine(Flash(topSprite));
-            //StartCoroutine(Flash(botSprite));
+            StartCoroutine(Flash());
         }
     }
 
-    private IEnumerator Flash(SpriteRenderer sprd)
+    private IEnumerator Flash()
     {
-        sprd.material = flashOnHit;
+        topSprite.material = flashOnHit;
+        botSprite.material = flashOnHit;
         yield return new WaitForSeconds(0.125f);
-        //sprd.material = originalMat;
+        topSprite.material = topMat;
+        botSprite.material = botMat;
     }
     void FixedUpdate()
     {

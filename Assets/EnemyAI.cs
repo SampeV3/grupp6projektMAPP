@@ -24,6 +24,7 @@ public class EnemyAI : MonoBehaviour
         HP = 10;
         audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
+        sprd = GetComponent<SpriteRenderer>();
         originalMat = sprd.material;
         
         moveCoroutine = StartCoroutine(MoveAround());
@@ -103,6 +104,7 @@ public class EnemyAI : MonoBehaviour
             Invoke("RangedAttack", 0.5f); // Sätt tid till hur länge animationen körs
             yield return new WaitForSeconds(2.5f);
         }
+        Destroy(gameObject);
     }
     private void RangedAttack()
     {
