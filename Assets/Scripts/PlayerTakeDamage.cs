@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class PlayerTakeDamage : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //public int health;
+    public int currentHealth;
+    public int maxHealth = 5;
+
     void Start()
     {
-        
+        currentHealth = maxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
+    void takeDamage(int damageAmount)
     {
-        
+        currentHealth -= damageAmount;
+        if (currentHealth < 0)
+        {
+            //Spela upp player death animation? effekter? ljud?
+            Destroy(gameObject);
+        }
     }
 }
