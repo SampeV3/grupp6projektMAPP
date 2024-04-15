@@ -152,7 +152,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: ba479734ef152d947b4b6ea1d49cd0a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -236,7 +236,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0.8927181, b: 1, a: 1}
   m_FlipX: 0
@@ -426,7 +426,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0.8927181, b: 1, a: 1}
   m_FlipX: 0
@@ -637,6 +637,7 @@ MonoBehaviour:
   beam1: {fileID: 3673447982699266084}
   beam2: {fileID: 3411243563586082289}
   mortar: {fileID: 1585086701132302112, guid: 6e06f60ffb662494280c7620ee1d8b33, type: 3}
+  parent: {fileID: 855631902194425370}
   player: {fileID: 0}
   anim: {fileID: 2115987290943512436}
   topSprite: {fileID: 295197728295613427}

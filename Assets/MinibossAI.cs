@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class MinibossAI : MonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
-    [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar;
+    [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar, parent;
     [SerializeField] private Transform player;
     //[SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Animator anim;
@@ -19,6 +19,8 @@ public class MinibossAI : MonoBehaviour
     private int beamDirection;
     private bool beamsActive = false;
     private Material topMat, botMat;
+    private Coroutine combatCoroutine;
+    private bool playerDetected;
     void Start()
     {
         beamDirection = 1;
@@ -26,7 +28,6 @@ public class MinibossAI : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         topMat = topSprite.material;
         botMat = botSprite.material;
-        StartCoroutine(Combat());
     }
 
     private IEnumerator Combat()
@@ -89,8 +90,6 @@ public class MinibossAI : MonoBehaviour
                     StartCoroutine(RotateBeams());
                 }
             }
-        Destroy(gameObject);
-
     }
     private IEnumerator FlashBeam(GameObject beam, int flashAmount)
     {
@@ -123,6 +122,7 @@ public class MinibossAI : MonoBehaviour
             ogColor.a += 0.5f* Time.deltaTime;
             mortarsprd.color = ogColor;
             yield return null;
+            if (HP <= 0) { Destroy(mortarAim); }
         }
         Destroy(mortarAim);
     }
@@ -163,9 +163,19 @@ public class MinibossAI : MonoBehaviour
             Destroy(other.gameObject);
             HP -= 3;
             StartCoroutine(Flash());
+            if(HP < 0)
+            {
+                StopCoroutine(combatCoroutine);
+                topSprite.color = Color.red;
+                botSprite.color = Color.red;
+                Invoke("RemoveObject", 1f);
+            }
         }
     }
-
+    private void RemoveObject()
+    {
+        Destroy(parent);
+    }
     private IEnumerator Flash()
     {
         topSprite.material = flashOnHit;
@@ -178,8 +188,24 @@ public class MinibossAI : MonoBehaviour
     {
         if (beamsActive)
         {
-            transform.Rotate(0f, 0f, beamDirection*8f * Time.fixedDeltaTime);
+            transform.Rotate(0f, 0f, beamDirection*10f * Time.fixedDeltaTime);
         }
-        print(HP);
+        if (!playerDetected)
+        {
+            if (IsPlayerWithinDetectionRadius())
+            {
+                playerDetected = true;
+                combatCoroutine = StartCoroutine(Combat());
+            }
+        }
+    }
+    private bool IsPlayerWithinDetectionRadius()
+    {
+        float dist = Vector2.Distance(transform.position, player.position);
+        if (dist <= 6f)
+        {
+            return true;
+        }
+        return false;
     }
 }
