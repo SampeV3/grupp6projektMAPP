@@ -7,23 +7,27 @@ using UnityEngine.UIElements;
 public class MinibossAI : MonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
-    [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar;
+    [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar, parent;
     [SerializeField] private Transform player;
     //[SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer topSprite, botSprite;
 
     private AudioSource audioSource;
-    private Material originalMat;
+    //[SerializeField] private Material originalMatTop, originalMatBot;
     private int HP;
     private int beamDirection;
     private bool beamsActive = false;
+    private Material topMat, botMat;
+    private Coroutine combatCoroutine;
+    private bool playerDetected;
     void Start()
     {
         beamDirection = 1;
         HP = 100;
         audioSource = GetComponent<AudioSource>();
-        StartCoroutine(Combat());
+        topMat = topSprite.material;
+        botMat = botSprite.material;
     }
 
     private IEnumerator Combat()
@@ -86,7 +90,6 @@ public class MinibossAI : MonoBehaviour
                     StartCoroutine(RotateBeams());
                 }
             }
-        
     }
     private IEnumerator FlashBeam(GameObject beam, int flashAmount)
     {
@@ -119,6 +122,7 @@ public class MinibossAI : MonoBehaviour
             ogColor.a += 0.5f* Time.deltaTime;
             mortarsprd.color = ogColor;
             yield return null;
+            if (HP <= 0) { Destroy(mortarAim); }
         }
         Destroy(mortarAim);
     }
@@ -158,22 +162,50 @@ public class MinibossAI : MonoBehaviour
         {
             Destroy(other.gameObject);
             HP -= 3;
-            StartCoroutine(Flash(topSprite));
-            StartCoroutine(Flash(botSprite));
+            StartCoroutine(Flash());
+            if(HP < 0)
+            {
+                StopCoroutine(combatCoroutine);
+                topSprite.color = Color.red;
+                botSprite.color = Color.red;
+                Invoke("RemoveObject", 1f);
+            }
         }
     }
-
-    private IEnumerator Flash(SpriteRenderer sprd)
+    private void RemoveObject()
     {
-        sprd.material = flashOnHit;
+        Destroy(parent);
+    }
+    private IEnumerator Flash()
+    {
+        topSprite.material = flashOnHit;
+        botSprite.material = flashOnHit;
         yield return new WaitForSeconds(0.125f);
-        sprd.material = originalMat;
+        topSprite.material = topMat;
+        botSprite.material = botMat;
     }
     void FixedUpdate()
     {
         if (beamsActive)
         {
-            transform.Rotate(0f, 0f, beamDirection*8f * Time.fixedDeltaTime);
+            transform.Rotate(0f, 0f, beamDirection*10f * Time.fixedDeltaTime);
         }
+        if (!playerDetected)
+        {
+            if (IsPlayerWithinDetectionRadius())
+            {
+                playerDetected = true;
+                combatCoroutine = StartCoroutine(Combat());
+            }
+        }
+    }
+    private bool IsPlayerWithinDetectionRadius()
+    {
+        float dist = Vector2.Distance(transform.position, player.position);
+        if (dist <= 6f)
+        {
+            return true;
+        }
+        return false;
     }
 }

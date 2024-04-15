@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Main Scene.unity
-    guid: b2e984918f8311047af14aa03a773493
+  - enabled: 1
+    path: Assets/Scenes/HayesScene2.unity
+    guid: df2b9737e9f5c2b4f9376e6ad2f2edcd
   - enabled: 1
     path: Assets/Scenes/Main Scene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: b2e984918f8311047af14aa03a773493
   m_configObjects: {}

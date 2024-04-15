@@ -24,7 +24,8 @@ public class EnemyAI : MonoBehaviour
         HP = 10;
         audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
-        //originalMat = sprd.material;
+        sprd = GetComponent<SpriteRenderer>();
+        originalMat = sprd.material;
         
         moveCoroutine = StartCoroutine(MoveAround());
     }
@@ -136,7 +137,18 @@ public class EnemyAI : MonoBehaviour
             Destroy(other.gameObject);
             HP -= 3;
             StartCoroutine(Flash());
+            if (HP <= 0)
+            {
+                StopCoroutine(combatCoroutine);
+                sprd.color = Color.red;
+                Invoke("RemoveObject", 1f);
+            }
         }
+
+    }
+    private void RemoveObject()
+    {
+        Destroy(gameObject);
     }
     private IEnumerator Flash()
     {
