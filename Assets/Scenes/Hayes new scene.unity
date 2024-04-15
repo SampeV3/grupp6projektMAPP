@@ -872,6 +872,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1383788825}
     m_Modifications:
+    - target: {fileID: 8834734169634807593, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 41.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834734169634807593, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 40.9
+      objectReference: {fileID: 0}
     - target: {fileID: 8834734170784175512, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
       propertyPath: m_Name
       value: Native Joystick (White)
@@ -902,11 +910,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8834734170784175513, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 82.6
       objectReference: {fileID: 0}
     - target: {fileID: 8834734170784175513, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 76.4
       objectReference: {fileID: 0}
     - target: {fileID: 8834734170784175513, guid: 5c2cb823f1af59541974bd4a360355f6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1811,6 +1819,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32fa6501859c79a48af14577e543fa91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Object: {fileID: 919383886}
+  FacingRight: 1
 --- !u!114 &6188362420573703995
 MonoBehaviour:
   m_ObjectHideFlags: 0
