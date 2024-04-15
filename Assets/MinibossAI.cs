@@ -14,7 +14,7 @@ public class MinibossAI : MonoBehaviour
     [SerializeField] private SpriteRenderer topSprite, botSprite;
 
     private AudioSource audioSource;
-    private Material originalMat;
+    //[SerializeField] private Material originalMatTop, originalMatBot;
     private int HP;
     private int beamDirection;
     private bool beamsActive = false;
@@ -158,8 +158,8 @@ public class MinibossAI : MonoBehaviour
         {
             Destroy(other.gameObject);
             HP -= 3;
-            StartCoroutine(Flash(topSprite));
-            StartCoroutine(Flash(botSprite));
+            //StartCoroutine(Flash(topSprite));
+            //StartCoroutine(Flash(botSprite));
         }
     }
 
@@ -167,7 +167,7 @@ public class MinibossAI : MonoBehaviour
     {
         sprd.material = flashOnHit;
         yield return new WaitForSeconds(0.125f);
-        sprd.material = originalMat;
+        //sprd.material = originalMat;
     }
     void FixedUpdate()
     {
@@ -175,5 +175,6 @@ public class MinibossAI : MonoBehaviour
         {
             transform.Rotate(0f, 0f, beamDirection*8f * Time.fixedDeltaTime);
         }
+        print(HP);
     }
 }

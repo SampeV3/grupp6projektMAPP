@@ -24,7 +24,7 @@ public class EnemyAI : MonoBehaviour
         HP = 10;
         audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
-        //originalMat = sprd.material;
+        originalMat = sprd.material;
         
         moveCoroutine = StartCoroutine(MoveAround());
     }
