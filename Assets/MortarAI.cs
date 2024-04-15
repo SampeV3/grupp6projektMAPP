@@ -1,0 +1,118 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UIElements;
+
+public class MortarAI : MonoBehaviour
+{
+    [SerializeField] private Material flashOnHit;
+    [SerializeField] private GameObject mortarIndicator;
+    [SerializeField] private Transform player;
+    //[SerializeField] private AudioClip projectileSFX;
+    
+    private Animator anim;
+    private AudioSource audioSource;
+    private SpriteRenderer sprd;
+    private Material originalMat;
+    private int HP;
+    private bool playerDetected;
+    private Coroutine combatCoroutine;
+    void Start()
+    {
+        HP = 10;
+        audioSource = GetComponent<AudioSource>();
+        sprd = GetComponent<SpriteRenderer>();
+        originalMat = sprd.material;
+        StartCoroutine(Combat());
+    }
+
+    private IEnumerator Combat()
+    {
+        while (HP > 0)
+        {
+            //anim.SetTrigger("Attack");
+            StartCoroutine(SpawnMortar());
+            yield return new WaitForSeconds(2.5f);
+        }
+    }
+
+    private IEnumerator SpawnMortar()
+    {
+        GameObject mortarAim = Instantiate(mortarIndicator, player.position, Quaternion.identity);
+        Transform desiredChild = mortarAim.transform.Find("MortarBackground");
+        SpriteRenderer mortarsprd = desiredChild.GetComponent<SpriteRenderer>();
+        Color ogColor = mortarsprd.color;
+        ogColor.a = 0.1f;
+        mortarsprd.color = ogColor;
+        while (mortarsprd.color.a < 1f)
+        {
+            mortarAim.transform.Rotate(0f, 0f, 15f * Time.fixedDeltaTime);
+            ogColor.a += 0.5f * Time.deltaTime;
+            mortarsprd.color = ogColor;
+            yield return null;
+            if(HP <= 0) { Destroy(mortarAim); }
+        }
+        Destroy(mortarAim);
+    }
+   
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlayerAttack"))
+        {
+            Destroy(other.gameObject);
+            HP -= 3;
+            StartCoroutine(Flash());
+            if (HP <= 0)
+            {
+                StopCoroutine(combatCoroutine);
+                sprd.color = Color.red;
+                Invoke("RemoveObject", 1f);
+            }
+        }
+    }
+
+    private void RemoveObject()
+    {
+        Destroy(gameObject);
+    }
+    private IEnumerator Flash()
+    {
+        sprd.material = flashOnHit;
+        yield return new WaitForSeconds(0.125f);
+        sprd.material = originalMat;
+    }
+
+    private void Update()
+    {
+        if (!playerDetected)
+        {
+            if (IsPlayerWithinDetectionRadius())
+            {
+                combatCoroutine = StartCoroutine(Combat());
+                playerDetected = true;
+            }
+        }
+        else
+        {
+            if (!IsPlayerWithinDetectionRadius())
+            {
+                playerDetected = false;
+                if (combatCoroutine != null)
+                {
+                    StopCoroutine(combatCoroutine);
+                }
+            }
+        }
+    }
+
+    private bool IsPlayerWithinDetectionRadius()
+    {
+        float dist = Vector2.Distance(transform.position, player.position);
+        if (dist <= 10f)
+        {
+            return true;
+        }
+        return false;
+    }
+}
