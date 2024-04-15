@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AimJoystick : MonoBehaviour
 {
-    private Joystick joystick;
+    //private Joystick joystick;
     public GameObject Object;
     Vector2 GameobjectRotation;
     private float GameobjectRotation2;
@@ -15,7 +15,7 @@ public class AimJoystick : MonoBehaviour
     void Update()
     {
         //Gets the input from the jostick
-        GameobjectRotation = new Vector2(joystick.Horizontal, joystick.Vertical);
+        //GameobjectRotation = new Vector2(joystick.Horizontal, joystick.Vertical);
 
         GameobjectRotation3 = GameobjectRotation.x;
 
