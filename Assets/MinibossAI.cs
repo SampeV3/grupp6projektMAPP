@@ -2,27 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class MinibossAI : MonoBehaviour
 {
-    //[SerializeField] private Material flashOnHit;
+    [SerializeField] private Material flashOnHit;
     [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar;
     [SerializeField] private Transform player;
     //[SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Animator anim;
+    [SerializeField] private SpriteRenderer topSprite, botSprite;
 
     private AudioSource audioSource;
     private Material originalMat;
     private int HP;
     private int beamDirection;
     private bool beamsActive = false;
-    private Coroutine combatCoroutine;
     void Start()
     {
         beamDirection = 1;
         HP = 100;
         audioSource = GetComponent<AudioSource>();
-        combatCoroutine = StartCoroutine(Combat());
+        StartCoroutine(Combat());
     }
 
     private IEnumerator Combat()
@@ -41,8 +42,6 @@ public class MinibossAI : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             anim.SetTrigger("Shoot");
             yield return new WaitForSeconds(1f);
-
-            HP = HP - 50;
         }
         StartCoroutine(FlashBeam(beam2, 4));
         while (HP > 50)
@@ -153,7 +152,23 @@ public class MinibossAI : MonoBehaviour
             projectile.GetComponent<Rigidbody2D>().velocity = direction * 0.8f;    
         }
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlayerAttack"))
+        {
+            Destroy(other.gameObject);
+            HP -= 3;
+            StartCoroutine(Flash(topSprite));
+            StartCoroutine(Flash(botSprite));
+        }
+    }
 
+    private IEnumerator Flash(SpriteRenderer sprd)
+    {
+        sprd.material = flashOnHit;
+        yield return new WaitForSeconds(0.125f);
+        sprd.material = originalMat;
+    }
     void FixedUpdate()
     {
         if (beamsActive)
