@@ -44,10 +44,10 @@ public class PlayerTakeDamage : MonoBehaviour
     void takeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        OnTakeDamage(this, damageAmount);
+        //OnTakeDamage(this, damageAmount);
         if (currentHealth <= 0)
         {
-            OnRespawn(this); //trigga eventet så att andra script kan lyssna.
+            //OnRespawn(this); //trigga eventet så att andra script kan lyssna.
             //Spela upp player death animation? effekter? ljud? delay?
             transform.position = spawnPos.position;
             currentHealth = maxHealth;
