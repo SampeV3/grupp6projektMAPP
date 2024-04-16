@@ -6,13 +6,14 @@ public class Respawn : MonoBehaviour
     void OnEnable()
     {
         PlayerTakeDamage.OnRespawn += OnRespawn;
+        PlayerTakeDamage.OnTakeDamage += OnTakeDamage;
     }
 
 
     void OnDisable()
     {
         PlayerTakeDamage.OnRespawn -= OnRespawn;
-
+        PlayerTakeDamage.OnTakeDamage -= OnTakeDamage;
     }
 
 
