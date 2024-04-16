@@ -26,8 +26,7 @@ public class EnemyAI : MonoBehaviour
         anim = GetComponent<Animator>();
         sprd = GetComponent<SpriteRenderer>();
         originalMat = sprd.material;
-        
-        moveCoroutine = StartCoroutine(MoveAround());
+
     }
 
     private IEnumerator MoveAround()
@@ -59,7 +58,7 @@ public class EnemyAI : MonoBehaviour
                 transform.position = Vector2.MoveTowards(transform.position, targetPosition, 1.6f * Time.deltaTime);
                 yield return null;
             }
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1.5f);
         }
     }
 
@@ -70,6 +69,7 @@ public class EnemyAI : MonoBehaviour
             if (IsPlayerWithinDetectionRadius())
             {
                 CheckLineOfSight();
+                moveCoroutine = StartCoroutine(MoveAround());
             }
         }
         else
@@ -88,7 +88,7 @@ public class EnemyAI : MonoBehaviour
     private bool IsPlayerWithinDetectionRadius()
     {   
         float dist = Vector2.Distance(transform.position, player.position);
-        if (dist <= 10f)
+        if (dist <= 8f)
         {   
             return true;
         }
@@ -125,7 +125,6 @@ public class EnemyAI : MonoBehaviour
         if (hitWall.collider.CompareTag("Wall") && hitPlayer.collider.CompareTag("Player") && hitPlayer.distance<hitWall.distance)
         {
             playerDetected = true;
-            StopCoroutine(moveCoroutine);
             combatCoroutine = StartCoroutine(Combat());
         }
     }
@@ -140,6 +139,10 @@ public class EnemyAI : MonoBehaviour
             if (HP <= 0)
             {
                 isDead = true;
+                if (moveCoroutine != null)
+                {
+                    StopCoroutine(moveCoroutine);
+                }
                 if (combatCoroutine != null)
                 {
                     StopCoroutine(combatCoroutine);
