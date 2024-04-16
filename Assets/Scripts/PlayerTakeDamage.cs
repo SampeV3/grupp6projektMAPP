@@ -10,6 +10,12 @@ public class PlayerTakeDamage : MonoBehaviour
     public int maxHealth = 5;
     public GameObject[] healthBarSprites = new GameObject[6];
 
+    //Events hjälper till att decoupla koden och hålla saker mer separerade ifrån varandra.
+    public delegate void RespawnAction(PlayerTakeDamage playerTakeDamage); //metod signatur för subscribers till eventet
+    public static event RespawnAction OnRespawn;
+    public delegate void TakeDamageAction(PlayerTakeDamage playerTakeDamage, int damageTaken); //metod signatur för subscribers till eventet
+    public static event TakeDamageAction OnTakeDamage; //hur eventet avfyras från detta script.
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -38,8 +44,10 @@ public class PlayerTakeDamage : MonoBehaviour
     void takeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
+        OnTakeDamage(this, damageAmount);
         if (currentHealth <= 0)
         {
+            OnRespawn(this); //trigga eventet så att andra script kan lyssna.
             //Spela upp player death animation? effekter? ljud? delay?
             transform.position = spawnPos.position;
             currentHealth = maxHealth;
