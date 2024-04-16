@@ -1895,6 +1895,10 @@ PrefabInstance:
       propertyPath: healthBarSprites.Array.data[5]
       value: 
       objectReference: {fileID: 2131291143}
+    - target: {fileID: 7691273606843410726, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7654afb1cbfa83a499ee59cff4b34849, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
