@@ -18,18 +18,33 @@ public class PlayerTakeDamage : MonoBehaviour
 
     void updateHealthBar()
     {
-        healthBarSprites[currentHealth].SetActive(true);
+        for (int i = 0; i <= maxHealth; i++)
+        {
+            GameObject batterySprite = healthBarSprites[i];
+            bool isEqualToIndex = i == currentHealth;
+            print(i);
+            if (isEqualToIndex)
+            {
+                batterySprite.SetActive(true);
+                print(i);
+            } else
+            {
+                batterySprite.SetActive(false);
+            }
+
+        }
     }
 
     void takeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
         {
             //Spela upp player death animation? effekter? ljud? delay?
             transform.position = spawnPos.position;
             currentHealth = maxHealth;
         }
+        updateHealthBar();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
