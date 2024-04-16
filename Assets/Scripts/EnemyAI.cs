@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject projectilePrefab, playerSpotted;
     //[SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Transform player;
     [SerializeField] private LayerMask playerMask, obstacleMask;
@@ -18,12 +18,13 @@ public class EnemyAI : MonoBehaviour
     private bool playerDetected = false;
     private bool isDead = false;
     private Coroutine moveCoroutine, combatCoroutine;
+    private GameObject playerSpottedWarning;
 
     void Start()
     {
         HP = 10;
         audioSource = GetComponent<AudioSource>();
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         sprd = GetComponent<SpriteRenderer>();
         originalMat = sprd.material;
 
@@ -79,6 +80,7 @@ public class EnemyAI : MonoBehaviour
                 playerDetected = false;
                 if (combatCoroutine != null)
                 {
+                    StopCoroutine(moveCoroutine);
                     StopCoroutine(combatCoroutine);
                 }
             }
@@ -100,7 +102,7 @@ public class EnemyAI : MonoBehaviour
     {
         while (HP > 0)
         {
-            anim.SetTrigger("RangedAttack");
+            //anim.SetTrigger("RangedAttack");
             Invoke("RangedAttack", 0.5f); // Sätt tid till hur länge animationen körs
             yield return new WaitForSeconds(0.4f);
         }
@@ -125,7 +127,11 @@ public class EnemyAI : MonoBehaviour
         if (hitWall.collider.CompareTag("Wall") && hitPlayer.collider.CompareTag("Player") && hitPlayer.distance<hitWall.distance)
         {
             playerDetected = true;
-            combatCoroutine = StartCoroutine(Combat());
+                GameObject playerSpottedWarning = Instantiate(playerSpotted, transform.position, Quaternion.identity, transform);
+                playerSpottedWarning.name = "PlayerSpotted";
+                playerSpottedWarning.GetComponent<Animator>().SetTrigger("PlayerDetected");
+                Destroy(playerSpottedWarning, 1f);
+                combatCoroutine = StartCoroutine(Combat());
         }
     }
 
