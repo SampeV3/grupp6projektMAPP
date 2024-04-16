@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Respawn : MonoBehaviour
+public class Respawn : MonoBehaviour, IDataPersistance
 {
     void OnEnable()
     {
@@ -9,6 +9,7 @@ public class Respawn : MonoBehaviour
         PlayerTakeDamage.OnTakeDamage += OnTakeDamage;
     }
 
+    private int deathCount = 0;
 
     void OnDisable()
     {
@@ -19,11 +20,23 @@ public class Respawn : MonoBehaviour
 
     void OnRespawn(PlayerTakeDamage playerTakeDamage)
     {
-        
+        this.deathCount++;
     }
 
     void OnTakeDamage(PlayerTakeDamage playerTakeDamage, int damageTaken)
     {
             
     }
+
+    public void LoadData(GameData data)
+    {
+        this.deathCount = data.deathCount;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.deathCount = this.deathCount;
+    }
+
+
 }
