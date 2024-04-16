@@ -28,11 +28,9 @@ public class PlayerTakeDamage : MonoBehaviour
         {
             GameObject batterySprite = healthBarSprites[i];
             bool isEqualToIndex = i == currentHealth;
-            print(i);
             if (isEqualToIndex)
             {
                 batterySprite.SetActive(true);
-                print(i);
             } else
             {
                 batterySprite.SetActive(false);
