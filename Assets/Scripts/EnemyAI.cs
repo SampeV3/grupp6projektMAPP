@@ -104,7 +104,7 @@ public class EnemyAI : MonoBehaviour
         {
             //anim.SetTrigger("RangedAttack");
             Invoke("RangedAttack", 0.5f); // Sätt tid till hur länge animationen körs
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(1f);
         }
     }
     private void RangedAttack()
