@@ -29,7 +29,7 @@ public class OnFire : MonoBehaviour
     private void ShotFired()
     {
         
-        //player.Play();
+        player.Play();
 
     }
 

@@ -44,15 +44,17 @@ public class PlayerTakeDamage : MonoBehaviour
     void takeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        //OnTakeDamage(this, damageAmount);
         if (currentHealth <= 0)
         {
-            //OnRespawn(this); //trigga eventet så att andra script kan lyssna.
             //Spela upp player death animation? effekter? ljud? delay?
             transform.position = spawnPos.position;
             currentHealth = maxHealth;
+            OnRespawn(this); //trigga eventet så att andra script kan lyssna.
+
         }
         updateHealthBar();
+        OnTakeDamage(this, damageAmount); //object reference not set to an instance of a object?
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)

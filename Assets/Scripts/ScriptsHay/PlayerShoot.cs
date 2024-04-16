@@ -15,7 +15,7 @@ public class PlayerShoot : MonoBehaviour
     {
         
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        //OnShoot();
+        OnShoot();
     }
 
 }
