@@ -6,14 +6,18 @@ using System.IO;
 
 public class FileDataHandler
 {
+    public bool useEncryption = false;
+    public readonly string encryptionCodeWord = "RobotRampage";
+
     private string dataDirPath = "";
     private string dataFileName;
     
 
-    public FileDataHandler(string dataDirPath, string dataFileName)
+    public FileDataHandler(string dataDirPath, string dataFileName, bool useEncryption)
     {
         this.dataDirPath = dataDirPath;
         this.dataFileName = dataFileName;
+        this.useEncryption = useEncryption;
     }
 
     public GameData Load()
@@ -32,6 +36,11 @@ public class FileDataHandler
                     {
                         dataToLoad = reader.ReadToEnd();
                     }
+                }
+
+                if (useEncryption)
+                {
+                    dataToLoad = EncryptDecrypt(dataToLoad);
                 }
 
                 loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
@@ -56,6 +65,11 @@ public class FileDataHandler
 
             string dataToStore = JsonUtility.ToJson(data);
 
+            if (useEncryption)
+            {
+                dataToStore = EncryptDecrypt(dataToStore);
+            }
+
             using (FileStream stream = new FileStream(fullPath, FileMode.Create))
             {
                 using (StreamWriter writer = new StreamWriter(stream))
@@ -72,6 +86,17 @@ public class FileDataHandler
             Debug.LogException(e);
         }
         return success;
+    }
+
+    private string EncryptDecrypt(string data)
+    {
+        string modifiedData = "";
+        for (int i = 0; i < data.Length; i++)
+        {
+            //simple implementation of XOR encryption
+            modifiedData += (char)(data[i] ^ encryptionCodeWord[i % encryptionCodeWord.Length]); 
+        }
+        return modifiedData;
     }
 
 }

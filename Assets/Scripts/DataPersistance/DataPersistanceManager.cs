@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.ComponentModel;
 
 public class DataPersistanceManager : MonoBehaviour
 {
+    [Header("File Storage Config")]
     public string fileName = "Default";
+    [Description("Remember to delete the savefile if not already encrypted.")]
+    public bool useXOREncryption = false;
+
     public static DataPersistanceManager Instance { get; private set;}
     private GameData gameData;
     private List<IDataPersistance> dataPersistanceObjects;
@@ -69,7 +74,7 @@ public class DataPersistanceManager : MonoBehaviour
     private void Start()
     {
         //fileName is what matters for having more than one save file!
-        this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useXOREncryption);
         this.dataPersistanceObjects = FindAllDataPersistanceObjects();
 
         LoadGame(this.gameData);
