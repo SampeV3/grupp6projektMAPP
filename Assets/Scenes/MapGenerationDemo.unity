@@ -619,7 +619,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &519420030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1156,7 +1156,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -14133,9 +14133,9 @@ GameObject:
   - component: {fileID: 1634440943}
   - component: {fileID: 1634440942}
   - component: {fileID: 1634440941}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24654,7 +24654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorTilemap: {fileID: 1441489760}
   wallTilemap: {fileID: 1634440938}
-  floorTile: {fileID: 11400000, guid: be78ba971fe21554d93723fabea6b2bb, type: 2}
+  floorTile: {fileID: 11400000, guid: b9363e488b2485449b00ec6ed3a798f6, type: 2}
   wallTop: {fileID: 11400000, guid: dc32e3af9ee3adb4ba41e024f850b293, type: 2}
   wallSideRight: {fileID: 11400000, guid: 8a550e93eceb7f5498c96d11b57901d1, type: 2}
   wallSiderLeft: {fileID: 11400000, guid: 7975a62d8450de640867086d104d8b02, type: 2}
