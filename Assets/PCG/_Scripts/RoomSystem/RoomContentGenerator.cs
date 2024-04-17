@@ -31,7 +31,7 @@ public class RoomContentGenerator : MonoBehaviour
             {
                 Destroy(item);
             }
-            RegenerateDungeon?.Invoke();
+            RegenerateDungeon?.Invoke(); //Generera procedurellt ett ny karta.
         }
     }
     public void GenerateRoomContent(DungeonData dungeonData)
@@ -54,6 +54,8 @@ public class RoomContentGenerator : MonoBehaviour
 
     private void SelectPlayerSpawnPoint(DungeonData dungeonData)
     {
+        //Välj där spawnpointen skapas
+
         int randomRoomIndex = UnityEngine.Random.Range(0, dungeonData.roomsDictionary.Count);
         Vector2Int playerSpawnPoint = dungeonData.roomsDictionary.Keys.ElementAt(randomRoomIndex);
 

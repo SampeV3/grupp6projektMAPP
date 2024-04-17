@@ -30,6 +30,14 @@ public class MinibossAI : MonoBehaviour
         botMat = botSprite.material;
     }
 
+    private void Awake()
+    {
+        if (player == null)
+        {
+            player = IsPlayer.FindPlayerTransformAutomaticallyIfNull();
+        }
+    }
+
     private IEnumerator Combat()
     {
         StartCoroutine(FlashBeam(beam1, 4));
