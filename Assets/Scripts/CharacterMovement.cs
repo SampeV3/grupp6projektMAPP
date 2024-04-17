@@ -20,7 +20,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector2 _movementInput = Vector2.zero;
     private Vector2 _smoothedMovementInput;
     private Vector2 _movemenetInputSmoothVelocity;
-    private float _smoothDampResponseTime = 0.1f;
+    private float _smoothDampResponseTime = 0.01f;
     
 
     void Start()

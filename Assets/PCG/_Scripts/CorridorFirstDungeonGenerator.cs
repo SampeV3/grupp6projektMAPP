@@ -47,23 +47,19 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     {
         floorPositions = new HashSet<Vector2Int>();
         HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
-
-       
         List<List<Vector2Int>> corridors = CreateCorridors(floorPositions, potentialRoomPositions);
-
         for (int i = 0; i < corridors.Count; i++)
         {
             //corridors[i] = IncreaseCorridorsSizeByOne(corridors[i]);
             corridors[i] = IncreaseCorridorBrushby3(corridors[i]);
             floorPositions.UnionWith(corridors[i]);
-            
         }
 
 
-            //tilemapVisualizer.PaintFloorTiles(floorPositions);
-            //WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
+        //tilemapVisualizer.PaintFloorTiles(floorPositions);
+        //WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
 
-            GenerateRooms(potentialRoomPositions);
+        GenerateRooms(potentialRoomPositions);
         //StartCoroutine(GenerateRoomsCoroutine(potentialRoomPositions));
     }
 
@@ -155,7 +151,9 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         floorPositions.UnionWith(roomPositions);
 
         tilemapVisualizer.PaintFloorTiles(floorPositions);
+
         WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
+      
     }
 
     private IEnumerator GenerateRoomsCoroutine(HashSet<Vector2Int> potentialRoomPositions)
@@ -185,8 +183,16 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         }
     }
 
+    public GameObject testPrefab;
+    private void addPrefabPosition(Vector2Int position)
+    {
+        GameObject prefab = Instantiate(testPrefab, ((Vector3Int)position), Quaternion.identity);
+
+    }
+
     private List<Vector2Int> FindAllDeadEnds(HashSet<Vector2Int> floorPositions)
     {
+        int roomPrefabPositions = 1;
         List<Vector2Int> deadEnds = new List<Vector2Int>();
         foreach (var position in floorPositions)
         {
@@ -197,8 +203,22 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                     neighboursCount++;
                 
             }
-            if (neighboursCount == 1)
-                deadEnds.Add(position);
+            if (neighboursCount == 2) //sätt till 1:a om korridorerna är smala, men 2:a om brushade!
+                if (roomPrefabPositions < 1)
+                {
+                    print(position);
+                    roomPrefabPositions++;
+                    addPrefabPosition(position);
+
+                }
+                else
+                {
+                    deadEnds.Add(position);
+                }
+                
+                
+
+                
         }
         return deadEnds;
     }
