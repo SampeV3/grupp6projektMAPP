@@ -51,8 +51,10 @@ public class PlayerTakeDamage : MonoBehaviour
 
         }
         updateHealthBar();
-        OnTakeDamage(this, damageAmount); //object reference not set to an instance of a object?
-
+        if (OnTakeDamage)
+        {
+            OnTakeDamage(this, damageAmount); //object reference not set to an instance of a object?
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
