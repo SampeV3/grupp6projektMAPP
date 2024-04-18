@@ -10,7 +10,8 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
 
     [SerializeField]
     protected SimpleRandomWalkSO randomWalkParameters;
-
+    [SerializeField]
+    protected SimpleRandomWalkSO randomBossWalkParameters;
 
     protected override void RunProceduralGeneration()
     {
