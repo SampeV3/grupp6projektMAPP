@@ -264,6 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRoom: {fileID: 378666303130500032, guid: afdc382d653128043b97c6bfaffe7852, type: 3}
   defaultRoom: {fileID: 7777476307801422254, guid: 377fa56baa708c045ab0ed6a3b4e6926, type: 3}
+  bossRoom: {fileID: 2746710959080050701, guid: 98510c6821f276d42a2269def706d864, type: 3}
   graphTest: {fileID: 826419577}
   itemParent: {fileID: 1607766029}
   cinemachineCamera: {fileID: 1792208467}
@@ -282,6 +283,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1681224901}
+        m_TargetAssemblyTypeName: AbstractDungeonGenerator, NewAssembly
+        m_MethodName: GenerateDungeon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 0
 --- !u!4 &355307592
 Transform:
   m_ObjectHideFlags: 0
@@ -1318,6 +1331,7 @@ Transform:
   - {fileID: 523585835}
   - {fileID: 90902867}
   - {fileID: 1671293751}
+  - {fileID: 1681224902}
   - {fileID: 826419578}
   - {fileID: 1607766029}
   - {fileID: 355307592}
@@ -25350,12 +25364,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemapVisualizer: {fileID: 2072839850}
   startPosition: {x: 0, y: 0}
-  randomWalkParameters: {fileID: 11400000, guid: ed58e9b5cc90cfa4c8029a69a7f0f788, type: 2}
+  randomWalkParameters: {fileID: 11400000, guid: 49417390d7b7ea94a86c8c5b5a093317, type: 2}
+  randomBossWalkParameters: {fileID: 11400000, guid: ab017181ace1aab4fa996c376e90ba7e, type: 2}
   corridorLength: 20
-  corridorCount: 10
-  roomPercent: 0.5
-  showRoomGizmo: 0
-  showCorridorsGizmo: 0
+  corridorCount: 11
+  roomPercent: 0.86
+  showRoomGizmo: 1
+  showCorridorsGizmo: 1
   OnDungeonFloorReady:
     m_PersistentCalls:
       m_Calls:
@@ -25372,6 +25387,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 1
   testPrefab: {fileID: 3735062487485767304, guid: bc8c2dafa2cbeb64f85339325927d735, type: 3}
+  bossRoomPosition: {x: 0, y: 0}
+  bossRoomIndex: 0
 --- !u!4 &1671293751
 Transform:
   m_ObjectHideFlags: 0
@@ -25387,6 +25404,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1118239119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1681224901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1681224902}
+  - component: {fileID: 1681224903}
+  m_Layer: 0
+  m_Name: RoomFirstDungeonGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1681224902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681224901}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1118239119}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1681224903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681224901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7349ff1a761c474b9fcaf52da55bf12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemapVisualizer: {fileID: 2072839850}
+  startPosition: {x: 0, y: 0}
+  randomWalkParameters: {fileID: 11400000, guid: 49417390d7b7ea94a86c8c5b5a093317, type: 2}
+  randomBossWalkParameters: {fileID: 0}
+  minRoomWidth: 255
+  minRoomHeight: 192
+  dungeonWidth: 394
+  dungeonHeight: 358
+  offset: 5
+  randomWalkRooms: 1
+  OnDungeonFloorReady:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1792208466
 GameObject:
   m_ObjectHideFlags: 0

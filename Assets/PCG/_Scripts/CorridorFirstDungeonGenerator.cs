@@ -36,7 +36,9 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         {
             roomsDictionary = this.roomsDictionary,
             corridorPositions = this.corridorPositions,
-            floorPositions = this.floorPositions
+            floorPositions = this.floorPositions,
+            bossRoomPosition = this.bossRoomPosition,
+            bossRoomIndex = this.bossRoomIndex,
         };
         OnDungeonFloorReady?.Invoke(data);
     }
@@ -165,7 +167,9 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         {
             roomsDictionary = this.roomsDictionary,
             corridorPositions = this.corridorPositions,
-            floorPositions = this.floorPositions
+            floorPositions = this.floorPositions,
+            bossRoomPosition = this.bossRoomPosition,
+            bossRoomIndex = this.bossRoomIndex,
         };
         OnDungeonFloorReady?.Invoke(data);
     }
@@ -222,7 +226,8 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         }
         return deadEnds;
     }
-
+    public Vector2Int bossRoomPosition = Vector2Int.zero;
+    public int bossRoomIndex = 0;
     private HashSet<Vector2Int> CreateRooms(HashSet<Vector2Int> potentialRoomPositions)
     {
         HashSet<Vector2Int> roomPositions = new HashSet<Vector2Int>();
@@ -230,13 +235,28 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
         List<Vector2Int> roomsToCreate = potentialRoomPositions.OrderBy(x => Guid.NewGuid()).Take(roomToCreateCount).ToList();
         ClearRoomData();
-        foreach (var roomPosition in roomsToCreate)
+        
+        for (int i = 0; i < roomsToCreate.Count; i++)
         {
-            var roomFloor = RunRandomWalk(randomWalkParameters, roomPosition);
-            
+            var roomPosition = roomsToCreate[i];
+
+            var roomFloor = i == roomsToCreate.Count - 1 ? RunRandomWalk(randomBossWalkParameters, roomPosition) : RunRandomWalk(randomWalkParameters, roomPosition);
+            if (i == roomsToCreate.Count - 1)
+            {
+                bossRoomPosition = roomPosition;
+                bossRoomIndex = i;
+            }
+
             SaveRoomData(roomPosition, roomFloor);
             roomPositions.UnionWith(roomFloor);
         }
+
+
+        foreach (var roomPosition in roomsToCreate)
+        {
+            
+        }
+
         return roomPositions;
     }
 

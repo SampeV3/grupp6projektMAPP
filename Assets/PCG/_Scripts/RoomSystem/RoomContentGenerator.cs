@@ -8,7 +8,7 @@ using UnityEngine.Events;
 public class RoomContentGenerator : MonoBehaviour
 {
     [SerializeField]
-    private RoomGenerator playerRoom, defaultRoom;
+    private RoomGenerator playerRoom, defaultRoom, bossRoom;
 
     List<GameObject> spawnedObjects = new List<GameObject>();
 
@@ -42,7 +42,7 @@ public class RoomContentGenerator : MonoBehaviour
         }
         spawnedObjects.Clear();
 
-        SelectPlayerSpawnPoint(dungeonData);
+        SelectPlayerAndBossSpawnPoint(dungeonData);
         SelectEnemySpawnPoints(dungeonData);
 
         foreach (GameObject item in spawnedObjects)
@@ -52,11 +52,11 @@ public class RoomContentGenerator : MonoBehaviour
         }
     }
 
-    private void SelectPlayerSpawnPoint(DungeonData dungeonData)
+    private void SelectPlayerAndBossSpawnPoint(DungeonData dungeonData)
     {
         //Välj där spawnpointen skapas
 
-        int randomRoomIndex = UnityEngine.Random.Range(0, dungeonData.roomsDictionary.Count);
+        int randomRoomIndex = UnityEngine.Random.Range(0, dungeonData.roomsDictionary.Count - 1);
         Vector2Int playerSpawnPoint = dungeonData.roomsDictionary.Keys.ElementAt(randomRoomIndex);
 
         graphTest.RunDijkstraAlgorithm(playerSpawnPoint, dungeonData.floorPositions);
@@ -73,6 +73,19 @@ public class RoomContentGenerator : MonoBehaviour
 
         spawnedObjects.AddRange(placedPrefabs);
 
+        int bossRoomIndex = (dungeonData.bossRoomIndex) != null ? dungeonData.bossRoomIndex : dungeonData.roomsDictionary.Count - 1;
+        roomIndex = dungeonData.roomsDictionary.Keys.ElementAt(bossRoomIndex);
+        Vector2Int bossSpawnPoint = dungeonData.bossRoomPosition;
+        placedPrefabs = bossRoom.ProcessRoom(
+             bossSpawnPoint,
+             dungeonData.roomsDictionary.Values.ElementAt(bossRoomIndex)
+             ,
+             dungeonData.GetRoomFloorWithoutCorridors(roomIndex)
+             ) ;
+
+        spawnedObjects.AddRange(placedPrefabs);
+
+        dungeonData.roomsDictionary.Remove(bossSpawnPoint); //disable default room to trigger for the bossroom :)
         dungeonData.roomsDictionary.Remove(playerSpawnPoint);
     }
 
