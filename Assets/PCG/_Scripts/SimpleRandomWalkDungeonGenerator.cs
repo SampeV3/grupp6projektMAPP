@@ -35,4 +35,12 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
         return floorPositions;
     }
 
+    protected HashSet<Vector2Int> MakeRoundRoom(SimpleRandomWalkSO parameters, Vector2Int position)
+    {
+        HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
+        
+
+        return floorPositions;
+    }
+
 }
