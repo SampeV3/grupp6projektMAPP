@@ -6,5 +6,5 @@ using UnityEngine;
 public class SimpleRandomWalkSO : ScriptableObject
 {
     public int iterations = 10, walkLength = 10;
-    public bool startRandomlyEachIteration = true;
+    public bool startRandomlyEachIteration = false;
 }

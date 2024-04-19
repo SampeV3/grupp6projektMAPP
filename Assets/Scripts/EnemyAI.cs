@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Lumin;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -28,7 +30,19 @@ public class EnemyAI : MonoBehaviour
         sprd = GetComponent<SpriteRenderer>();
         originalMat = sprd.material;
 
+      
+
     }
+
+    private void Awake()
+    {
+        if (player == null)
+        {
+            player = IsPlayer.FindPlayerTransformAutomaticallyIfNull(); //Tillagt av Elias
+        }
+    }
+
+ 
 
     private IEnumerator MoveAround()
     {

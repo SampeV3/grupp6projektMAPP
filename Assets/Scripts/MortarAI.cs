@@ -27,6 +27,14 @@ public class MortarAI : MonoBehaviour
         originalMat = sprd.material;
     }
 
+    private void Awake()
+    {
+        if (player == null)
+        {
+            player = IsPlayer.FindPlayerTransformAutomaticallyIfNull();
+        }
+    }
+
     private IEnumerator Combat()
     {
         while (HP > 0)

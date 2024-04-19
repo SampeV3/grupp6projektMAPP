@@ -6,6 +6,8 @@ public class DungeonData
     public Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary;
     public HashSet<Vector2Int> floorPositions;
     public HashSet<Vector2Int> corridorPositions;
+    public Vector2Int bossRoomPosition;
+    public int bossRoomIndex;
 
     public HashSet<Vector2Int> GetRoomFloorWithoutCorridors(Vector2Int dictionaryKey)
     {

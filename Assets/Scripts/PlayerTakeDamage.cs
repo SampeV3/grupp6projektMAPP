@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerTakeDamage : MonoBehaviour
 {
     //public int health;
-    [SerializeField] private Transform spawnPos;
+    [SerializeField] private Transform spawnTransform;
+    private Vector3 spawnPosition;
     public int currentHealth;
     public int maxHealth = 5;
     public GameObject[] healthBarSprites = new GameObject[6];
@@ -20,6 +21,11 @@ public class PlayerTakeDamage : MonoBehaviour
     {
         currentHealth = maxHealth;
         updateHealthBar();
+        if (spawnTransform == null)
+        {
+            spawnPosition = transform.position;
+        }
+
     }
 
     void updateHealthBar()
@@ -45,14 +51,16 @@ public class PlayerTakeDamage : MonoBehaviour
         if (currentHealth <= 0)
         {
             //Spela upp player death animation? effekter? ljud? delay?
-            transform.position = spawnPos.position;
+
+            transform.position = spawnTransform ? spawnTransform.position : spawnPosition;
             currentHealth = maxHealth;
             OnRespawn(this); //trigga eventet s� att andra script kan lyssna.
 
         }
         updateHealthBar();
+        
         OnTakeDamage(this, damageAmount); //object reference not set to an instance of a object?
-
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)

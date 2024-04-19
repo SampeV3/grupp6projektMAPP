@@ -24,31 +24,39 @@ public class MinibossAI : MonoBehaviour
     void Start()
     {
         beamDirection = 1;
-        HP = 250;
+        HP = 175;
         audioSource = GetComponent<AudioSource>();
         topMat = topSprite.material;
         botMat = botSprite.material;
+    }
+
+    private void Awake()
+    {
+        if (player == null)
+        {
+            player = IsPlayer.FindPlayerTransformAutomaticallyIfNull();
+        }
     }
 
     private IEnumerator Combat()
     {
         StartCoroutine(FlashBeam(beam1, 4));
         yield return new WaitUntil(() => beamsActive);
-        while (HP > 220)
+        while (HP > 135)
         {
 
             RangedAttack(0);
             yield return new WaitForSeconds(0.3f);
             anim.SetTrigger("Shoot");
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1.6f);
             
             RangedAttack(22.5f);
             yield return new WaitForSeconds(0.3f);
             anim.SetTrigger("Shoot");
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1.6f);
         }
         StartCoroutine(FlashBeam(beam2, 4));
-        while (HP > 170)
+        while (HP > 75)
         {
             for (int i = 0; i < 2; i++)
             {
@@ -58,12 +66,12 @@ public class MinibossAI : MonoBehaviour
                     RangedAttack(0);
                     yield return new WaitForSeconds(0.3f);
                     anim.SetTrigger("Shoot");
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(1.6f);
 
                     RangedAttack(22.5f);
                     yield return new WaitForSeconds(0.3f);
                     anim.SetTrigger("Shoot");
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(1.6f);
                 }
                 StartCoroutine(RotateBeams());
             }
@@ -78,14 +86,14 @@ public class MinibossAI : MonoBehaviour
                         RangedAttack(0);
                         yield return new WaitForSeconds(0.3f);
                         anim.SetTrigger("Shoot");
-                        yield return new WaitForSeconds(1f);
+                        yield return new WaitForSeconds(1.6f);
 
                         StartCoroutine(SpawnMortar());
 
                         RangedAttack(22.5f);
                         yield return new WaitForSeconds(0.3f);
                         anim.SetTrigger("Shoot");
-                        yield return new WaitForSeconds(1f);
+                        yield return new WaitForSeconds(1.6f);
                     }
                     StartCoroutine(RotateBeams());
                 }
@@ -188,7 +196,7 @@ public class MinibossAI : MonoBehaviour
     {
         if (beamsActive)
         {
-            transform.Rotate(0f, 0f, beamDirection*20f * Time.fixedDeltaTime);
+            transform.Rotate(0f, 0f, beamDirection*18f * Time.fixedDeltaTime);
         }
         if (!playerDetected)
         {

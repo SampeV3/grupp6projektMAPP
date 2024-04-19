@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
@@ -15,10 +16,17 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     private int offset = 1;
     [SerializeField]
     private bool randomWalkRooms = false;
-
+    public UnityEvent<DungeonData> OnDungeonFloorReady;
     protected override void RunProceduralGeneration()
     {
         CreateRooms();
+        //DungeonData data = new DungeonData
+        //{
+        //    roomsDictionary = this.roomsDictionary,
+        //    corridorPositions = this.corridorPositions,
+        //    floorPositions = this.floorPositions
+        //};
+        //OnDungeonFloorReady?.Invoke(data);
     }
 
     private void CreateRooms()

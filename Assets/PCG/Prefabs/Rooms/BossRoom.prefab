@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8264800944264846316}
-  - component: {fileID: 7777476307801422254}
+  - component: {fileID: 2746710959080050701}
   m_Layer: 0
-  m_Name: FightPitRoom
+  m_Name: BossRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7777476307801422254
+--- !u!114 &2746710959080050701
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,33 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3303421395954220802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 927bb5e235c4af44faebb764ab6aab28, type: 3}
+  m_Script: {fileID: 11500000, guid: 864e81a7d5a45df49b0e680cd384b15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefabPlacer: {fileID: 4341242197028722173, guid: 49d1de73f44f58940a43bf538b290285, type: 3}
   enemyPlacementData:
   - minQuantity: 1
-    maxQuantity: 10
+    maxQuantity: 1
     enemyPrefab: {fileID: 8849726027243259617, guid: ab2b111c98980454c96609f83cee1f90, type: 3}
     enemySize: {x: 1, y: 1}
-  - minQuantity: 1
-    maxQuantity: 4
-    enemyPrefab: {fileID: 687373707176975861, guid: 71a3616dafbe9e44bb4b6d99e21b7562, type: 3}
-    enemySize: {x: 2, y: 2}
-  - minQuantity: 0
-    maxQuantity: 0
-    enemyPrefab: {fileID: 855631902194425370, guid: 54b46e7bd3293eb41b9d6188acee4d00, type: 3}
-    enemySize: {x: 5, y: 5}
-  itemData:
-  - minQuantity: 3
-    maxQuantity: 6
-    itemData: {fileID: 11400000, guid: 70bb79b25760ec54d8a3c2f4d30fbde2, type: 2}
-  - minQuantity: 2
-    maxQuantity: 4
-    itemData: {fileID: 11400000, guid: d33f6fea7db47904a997959b7bdf3e4c, type: 2}
-  - minQuantity: 2
-    maxQuantity: 3
-    itemData: {fileID: 11400000, guid: 5f3d5b8de05ac3e4abb6fd4d3eab4aed, type: 2}
-  - minQuantity: 2
-    maxQuantity: 3
-    itemData: {fileID: 11400000, guid: f42e9114019933d4cbe2ee1cf58e5165, type: 2}
+  itemData: []
+  boss: {fileID: 855631902194425370, guid: 54b46e7bd3293eb41b9d6188acee4d00, type: 3}
