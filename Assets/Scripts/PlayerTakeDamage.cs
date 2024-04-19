@@ -10,11 +10,11 @@ public class PlayerTakeDamage : MonoBehaviour
     public int maxHealth = 5;
     public GameObject[] healthBarSprites = new GameObject[6];
 
-    //Events hjälper till att decoupla koden och hålla saker mer separerade ifrån varandra.
-    public delegate void RespawnAction(PlayerTakeDamage playerTakeDamage); //metod signatur för subscribers till eventet
+    //Events hjï¿½lper till att decoupla koden och hï¿½lla saker mer separerade ifrï¿½n varandra.
+    public delegate void RespawnAction(PlayerTakeDamage playerTakeDamage); //metod signatur fï¿½r subscribers till eventet
     public static event RespawnAction OnRespawn;
-    public delegate void TakeDamageAction(PlayerTakeDamage playerTakeDamage, int damageTaken); //metod signatur för subscribers till eventet
-    public static event TakeDamageAction OnTakeDamage; //hur eventet avfyras från detta script.
+    public delegate void TakeDamageAction(PlayerTakeDamage playerTakeDamage, int damageTaken); //metod signatur fï¿½r subscribers till eventet
+    public static event TakeDamageAction OnTakeDamage; //hur eventet avfyras frï¿½n detta script.
 
     void Start()
     {
@@ -47,7 +47,7 @@ public class PlayerTakeDamage : MonoBehaviour
             //Spela upp player death animation? effekter? ljud? delay?
             transform.position = spawnPos.position;
             currentHealth = maxHealth;
-            OnRespawn(this); //trigga eventet så att andra script kan lyssna.
+            OnRespawn(this); //trigga eventet sï¿½ att andra script kan lyssna.
 
         }
         updateHealthBar();
@@ -73,6 +73,14 @@ public class PlayerTakeDamage : MonoBehaviour
         {
             takeDamage(1);
             updateHealthBar();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.CompareTag("Bugster")) {
+            takeDamage(1);
+            updateHealthBar();
+            Destroy(other.gameObject);
         }
     }
 }
