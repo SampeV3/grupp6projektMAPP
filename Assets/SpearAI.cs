@@ -24,6 +24,7 @@ public class SpearAI : MonoBehaviour
     private Coroutine combatCoroutine, rotateCoroutine;
     private GameObject playerSpottedWarning;
     private bool hitSomething = false;
+    private float rotateFactor;
 
     void Start()
     {
@@ -87,16 +88,19 @@ public class SpearAI : MonoBehaviour
         {
             rotateCoroutine = StartCoroutine(RotateTowardsPlayer());
             anim.SetTrigger("Charge");
-            yield return new WaitForSeconds(3f);
-            StopCoroutine(rotateCoroutine);
+            rotateFactor = 100f;
+            yield return new WaitForSeconds(2.5f);
+            
             anim.SetTrigger("Dash");
-            Invoke("CooldownReset", 0.1f);
+            Invoke("CooldownReset", 0.03f);
             hitSomething = false;
+            rotateFactor = 35f;
             while (!hitSomething) // Continue moving until hitSomething is true
             {
-                transform.position = transform.position + -transform.up * 4f * Time.deltaTime;
+                transform.position = transform.position + -transform.up * 8f * Time.deltaTime;
                 yield return null;
             }
+            StopCoroutine(rotateCoroutine);
             anim.SetTrigger("Stunned");
             canhitSomething = false;
 
@@ -115,7 +119,7 @@ public class SpearAI : MonoBehaviour
             Vector2 directionToPlayer = player.position - transform.position;
             float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
             Quaternion desiredRotation = Quaternion.Euler(0f,0f, angle+90f);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, 60f * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, rotateFactor * Time.deltaTime);
             yield return null;
         }
     }
