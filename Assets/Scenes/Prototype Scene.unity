@@ -10807,6 +10807,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 918421493}
+    - target: {fileID: 7719120528107847966, guid: ab2b111c98980454c96609f83cee1f90, type: 3}
+      propertyPath: shootDelay
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8849726027243259617, guid: ab2b111c98980454c96609f83cee1f90, type: 3}
       propertyPath: m_Name
       value: HoverEnemy
