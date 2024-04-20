@@ -174,6 +174,7 @@ public class MinibossAI : MonoBehaviour
             StartCoroutine(Flash());
             if(HP <= 0)
             {
+                OnDied();
                 if (combatCoroutine != null)
                 {
                     StopCoroutine(combatCoroutine);
@@ -184,6 +185,17 @@ public class MinibossAI : MonoBehaviour
             }
         }
     }
+
+    private bool hasRunned = false;
+    private void OnDied()
+    {
+        if (hasRunned) return;
+        hasRunned = true;
+        SingletonClass.OnEnemyKilled();
+        int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 200;
+        SingletonClass.AwardXP(XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY);
+    }
+
     private IEnumerator Flash()
     {
         topSprite.material = flashOnHit;

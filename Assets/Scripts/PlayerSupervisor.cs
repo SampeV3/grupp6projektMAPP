@@ -7,8 +7,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     public delegate void LevelUpAction(int newLevel); //metod signatur för subscribers till eventet
     public static event LevelUpAction OnLevelUp;
 
-    public delegate void XPAddedAction(int xp_added); //metod signatur för subscribers till eventet
-    public static event XPAddedAction OnXPAdded;
+
 
     public int deathCount = 0;
     public int level = 0;
@@ -24,18 +23,14 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     {
         PlayerTakeDamage.OnRespawn += OnRespawn;
         PlayerTakeDamage.OnTakeDamage += OnTakeDamage;
-        
-    }
-
-    private static void getClass()
-    {
-
+        SingletonClass.OnXPAdded += AddXP;
     }
 
     void OnDisable()
     {
         PlayerTakeDamage.OnRespawn -= OnRespawn;
         PlayerTakeDamage.OnTakeDamage -= OnTakeDamage;
+        SingletonClass.OnXPAdded -= AddXP;
     }
 
 
@@ -52,12 +47,12 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
 
     public void AddXP(int XP_AMOUNT)
     {
-        this.XP += XP_AMOUNT; can_level_up();
-    }
-
-    public static void GiveXP(int XP_AMOUNT)
-    {
         
+        
+        this.XP += XP_AMOUNT; 
+        
+        
+        can_level_up();
     }
 
     void can_level_up ()
@@ -73,11 +68,17 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         while (this.XP >= this.experience_required)
         {
             //Level up
+
             double xp_increase_modifier = 1.2;
+            //this.XP -= experience_required;
             this.experience_required = (int)(this.experience_required * xp_increase_modifier);
+       
+            OnLevelUp(level);
             this.level++;
             levelsAdded++;
+
         }
+        
         print("Levelled up " + levelsAdded + " times");
         level_up_check_loop_is_running = false;
     }
