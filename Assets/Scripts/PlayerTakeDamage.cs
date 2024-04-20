@@ -11,11 +11,11 @@ public class PlayerTakeDamage : MonoBehaviour
     public int maxHealth = 5;
     public GameObject[] healthBarSprites = new GameObject[6];
 
-    //Events hjälper till att decoupla koden och hålla saker mer separerade ifrån varandra.
-    public delegate void RespawnAction(PlayerTakeDamage playerTakeDamage); //metod signatur för subscribers till eventet
+    //Events hjï¿½lper till att decoupla koden och hï¿½lla saker mer separerade ifrï¿½n varandra.
+    public delegate void RespawnAction(PlayerTakeDamage playerTakeDamage); //metod signatur fï¿½r subscribers till eventet
     public static event RespawnAction OnRespawn;
-    public delegate void TakeDamageAction(PlayerTakeDamage playerTakeDamage, int damageTaken); //metod signatur för subscribers till eventet
-    public static event TakeDamageAction OnTakeDamage; //hur eventet avfyras från detta script.
+    public delegate void TakeDamageAction(PlayerTakeDamage playerTakeDamage, int damageTaken); //metod signatur fï¿½r subscribers till eventet
+    public static event TakeDamageAction OnTakeDamage; //hur eventet avfyras frï¿½n detta script.
 
     public delegate void PlayerKilledByAction(PlayerTakeDamage playerTakeDamage, BulletID info);
     public static event PlayerKilledByAction OnKilledBy;
@@ -50,53 +50,57 @@ public class PlayerTakeDamage : MonoBehaviour
         }
     }
 
-    private void DoRespawn()
+    public void DoRespawn()
     {
         //Spela upp player death animation? effekter? ljud? delay?
 
         transform.position = spawnTransform ? spawnTransform.position : spawnPosition;
         playerDied = false;
         currentHealth = maxHealth;
-        OnRespawn(this); //trigga eventet så att andra script kan lyssna.
+        OnRespawn(this); //trigga eventet sï¿½ att andra script kan lyssna.
     }
 
-    void takeDamage(int damageAmount)
+    void TakeDamage(int damageAmount, Collider2D other)
     {
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
-            DoRespawn();
+            if (playerDied) return;
+            playerDied = true;
+            if (Nemesis.EnemyKilledPlayer.nemesisEnabled && other.gameObject.GetComponent<BulletID>() != null) {
+                EnemyKilledPlayer(other.gameObject.GetComponent<BulletID>()); 
+                DoRespawn();
+            }
+            else
+            {
+                DoRespawn();   
+            }
+            
         }
         updateHealthBar();
-        
-        OnTakeDamage(this, damageAmount); //object reference not set to an instance of a object?
-        
+
+        if (OnTakeDamage != null)
+            OnTakeDamage(this, damageAmount); //object reference not set to an instance of a object?
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
-        if (playerDied == false && other.gameObject.GetComponent<BulletID>() != null)
-        {
-            playerDied = true;
-            EnemyKilledPlayer(other.gameObject.GetComponent<BulletID>());    
-        }
-
+        int damageAmount = 1;
         if (other.gameObject.CompareTag("EnemyBullet"))
         {
             //handle enemy bullet:
-            takeDamage(1);
+            TakeDamage(damageAmount, other);
             updateHealthBar();
             Destroy(other.gameObject); 
         }
         if (other.gameObject.CompareTag("Laser"))
         {
-            takeDamage(1);
+            TakeDamage(damageAmount, other);
             updateHealthBar();
         }
         if (other.gameObject.CompareTag("MortarAttack"))
         {
-            takeDamage(1);
+            TakeDamage(damageAmount, other);
             updateHealthBar();
         }
     }

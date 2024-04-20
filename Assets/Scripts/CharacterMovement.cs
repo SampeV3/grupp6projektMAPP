@@ -23,7 +23,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector2 _movemenetInputSmoothVelocity;
     private float _smoothDampResponseTime = 0.01f;
 
-    //herman - jag la till en dash :)
+    //herman - jag la till en dash :) ////ser jättebra ut! - Elias
     private bool canDash = true;
     
 
