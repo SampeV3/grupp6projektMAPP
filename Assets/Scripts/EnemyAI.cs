@@ -17,11 +17,13 @@ public class EnemyAI : MonoBehaviour
     private SpriteRenderer sprd;
     private Animator anim;
     private int HP;
+    public float shootDelay = 1f;
     public int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 100;
     private bool playerDetected = false;
     private bool isDead, droppedLoot = false;
     private Coroutine moveCoroutine, combatCoroutine;
     private GameObject playerSpottedWarning;
+
 
     void Start()
     {
@@ -119,13 +121,16 @@ public class EnemyAI : MonoBehaviour
         {
             //anim.SetTrigger("RangedAttack");
             Invoke("RangedAttack", 0.5f); // Sätt tid till hur länge animationen körs
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(shootDelay);
         }
     }
     private void RangedAttack()
     {
         
         GameObject projectile = Instantiate(projectilePrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        BulletID bulletID = projectile.GetComponent<BulletID>();
+        bulletID.KillerGameObject = gameObject;
+        
         Vector2 direction = (player.position - projectile.transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         projectile.GetComponent<Rigidbody2D>().rotation = angle;
