@@ -16,6 +16,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     public int XP = 0;
     public int coins = 0;
 
+    private bool level_up_check_loop_is_running = false;
 
 
 
@@ -26,7 +27,10 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         
     }
 
-    private bool level_up_check_loop_is_running = false;
+    private static void getClass()
+    {
+
+    }
 
     void OnDisable()
     {
@@ -49,6 +53,11 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     public void AddXP(int XP_AMOUNT)
     {
         this.XP += XP_AMOUNT; can_level_up();
+    }
+
+    public static void GiveXP(int XP_AMOUNT)
+    {
+        
     }
 
     void can_level_up ()
