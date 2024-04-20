@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8569573332407228578}
   - component: {fileID: 7455293210016753509}
   - component: {fileID: 3492921212845826977}
+  - component: {fileID: 4209298977796012825}
   m_Layer: 0
   m_Name: HoverEnemy
   m_TagString: Untagged
@@ -268,3 +269,18 @@ CircleCollider2D:
   m_Offset: {x: 0.009902446, y: 0.043253362}
   serializedVersion: 2
   m_Radius: 0.3599552
+--- !u!114 &4209298977796012825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8849726027243259617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473a50d880c997f478830523af273c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 3345387460916323160, guid: cda878f6ac055a3469908d1a15e2cafa, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 7aba79979f0f7984189b093c94d9a41c, type: 2}

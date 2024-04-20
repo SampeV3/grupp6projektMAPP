@@ -18,7 +18,7 @@ public class EnemyAI : MonoBehaviour
     private Animator anim;
     private int HP;
     private bool playerDetected = false;
-    private bool isDead = false;
+    private bool isDead, droppedLoot = false;
     private Coroutine moveCoroutine, combatCoroutine;
     private GameObject playerSpottedWarning;
 
@@ -168,8 +168,20 @@ public class EnemyAI : MonoBehaviour
                     StopCoroutine(combatCoroutine);
                 }
                 sprd.color = Color.red;
+                dropLoot();
                 Destroy(gameObject, 1f);
             }
+        }
+
+    }
+
+    private void dropLoot()
+    {
+        if (!droppedLoot)
+        {
+            droppedLoot = true;
+            GetComponent<LootBag>().InstantiateLoot(transform.position);
+
         }
 
     }
