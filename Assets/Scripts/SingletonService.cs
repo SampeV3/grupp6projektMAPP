@@ -13,10 +13,15 @@ public class SingletonClass : Singleton<SingletonClass>
         OnXPAdded(xp_amount);
     }
 
+    public static void AwardXP(int xp_amount, string reason)
+    {
+        print(reason);
+        OnXPAdded(xp_amount);
+    }
+
     public static void OnEnemyKilled()
     {
         
-
     }
 
 }

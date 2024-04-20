@@ -23,6 +23,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     {
         PlayerTakeDamage.OnRespawn += OnRespawn;
         PlayerTakeDamage.OnTakeDamage += OnTakeDamage;
+        PlayerTakeDamage.OnKilledBy += OnKilledBy;
         SingletonClass.OnXPAdded += AddXP;
     }
 
@@ -30,7 +31,9 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     {
         PlayerTakeDamage.OnRespawn -= OnRespawn;
         PlayerTakeDamage.OnTakeDamage -= OnTakeDamage;
+        PlayerTakeDamage.OnKilledBy -= OnKilledBy;
         SingletonClass.OnXPAdded -= AddXP;
+
     }
 
 
@@ -81,6 +84,11 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         level_up_check_loop_is_running = false;
     }
 
+    private void OnKilledBy(PlayerTakeDamage playerTakeDamage, BulletID info)
+    {
+        print("Player killed by " + info.KillerGameObject.name + " hahahah");
+    }
+
     private void Awake()
     {
         can_level_up();
@@ -92,7 +100,8 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         this.XP = data.XP;
         this.coins = data.coins;
         //this.experience_required = data.experience_required;
-       
+        can_level_up();
+
     }
 
     public void SaveData(ref GameData data)
@@ -105,7 +114,8 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         
     }
 
-   
+    
+    
 
 
 }
