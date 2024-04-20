@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +22,9 @@ public class CharacterMovement : MonoBehaviour
     private Vector2 _smoothedMovementInput;
     private Vector2 _movemenetInputSmoothVelocity;
     private float _smoothDampResponseTime = 0.01f;
+
+    //herman - jag la till en dash :)
+    private bool canDash = true;
     
 
     void Start()
@@ -47,8 +51,11 @@ public class CharacterMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (use_click_towards) { return; }
-        SetPlayerVelocity();
-        RotateInDirectionOfInput();
+        if (canDash)
+        {
+            SetPlayerVelocity();
+            RotateInDirectionOfInput();
+        }
     }
 
     private void SetPlayerVelocity()
@@ -80,5 +87,21 @@ public class CharacterMovement : MonoBehaviour
 
     }
 
+    // herman
+    public void Dash()
+    {
+        if (canDash)
+        {
+            StartCoroutine(PerformDash());
+        }
+    }
 
+    private IEnumerator PerformDash()
+    {
+        canDash = false;
+        _rigidbody.velocity = _smoothedMovementInput.normalized * 10f;
+        yield return new WaitForSeconds(0.3f);
+        canDash = true;
+        _rigidbody.velocity = Vector2.zero;
+    }
 }

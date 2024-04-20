@@ -72,6 +72,7 @@ public class MortarAI : MonoBehaviour
         {
             Destroy(other.gameObject);
             HP -= 1;
+            OnDied();
             StartCoroutine(Flash());
             if (HP <= 0)
             {
@@ -86,6 +87,17 @@ public class MortarAI : MonoBehaviour
             }
         }
     }
+
+    private bool hasRunned = false;
+    private void OnDied()
+    {
+        if (hasRunned) return;
+        hasRunned = true;
+        SingletonClass.OnEnemyKilled();
+        int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 10;
+        SingletonClass.AwardXP(XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY);
+    }
+
     private IEnumerator Flash()
     {
         if (!isDead)

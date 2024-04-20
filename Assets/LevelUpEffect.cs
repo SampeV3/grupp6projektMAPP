@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class LevelUpEffect : MonoBehaviour
 {
-
+    public GameObject levelUIParentToHideAndShow;
     public GameObject textObject;
+    public float timeToShow = 5f;
 
     void OnEnable()
     {
@@ -20,10 +21,21 @@ public class LevelUpEffect : MonoBehaviour
         PlayerSupervisor.OnLevelUp -= OnLevelUp;
     }
 
+    void Awake()
+    {
+        levelUIParentToHideAndShow.SetActive(false);
+    }
+
     void OnLevelUp(int level)
     {
-        textObject.GetComponent<Text>().text = "Level Up " + level.ToString() + "!";
+        levelUIParentToHideAndShow.SetActive(true);
+        textObject.GetComponent<Text>().text = "Level Up " + level + "!";
+        Invoke("Hide", timeToShow);
+    }
 
+    void Hide()
+    {
+        levelUIParentToHideAndShow.SetActive(false);
     }
 
 }

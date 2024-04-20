@@ -17,10 +17,13 @@ public class EnemyAI : MonoBehaviour
     private SpriteRenderer sprd;
     private Animator anim;
     private int HP;
+    public float shootDelay = 1f;
+    public int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 100;
     private bool playerDetected = false;
     private bool isDead, droppedLoot = false;
     private Coroutine moveCoroutine, combatCoroutine;
     private GameObject playerSpottedWarning;
+
 
     void Start()
     {
@@ -84,7 +87,7 @@ public class EnemyAI : MonoBehaviour
             if (IsPlayerWithinDetectionRadius())
             {
                 CheckLineOfSight();
-                moveCoroutine = StartCoroutine(MoveAround());
+                
             }
         }
         else
@@ -118,13 +121,16 @@ public class EnemyAI : MonoBehaviour
         {
             //anim.SetTrigger("RangedAttack");
             Invoke("RangedAttack", 0.5f); // Sätt tid till hur länge animationen körs
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(shootDelay);
         }
     }
     private void RangedAttack()
     {
         
         GameObject projectile = Instantiate(projectilePrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        BulletID bulletID = projectile.GetComponent<BulletID>();
+        bulletID.KillerGameObject = gameObject;
+        
         Vector2 direction = (player.position - projectile.transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         projectile.GetComponent<Rigidbody2D>().rotation = angle;
@@ -146,6 +152,7 @@ public class EnemyAI : MonoBehaviour
                 playerSpottedWarning.GetComponent<Animator>().SetTrigger("PlayerDetected");
                 Destroy(playerSpottedWarning, 1f);
                 combatCoroutine = StartCoroutine(Combat());
+                moveCoroutine = StartCoroutine(MoveAround());
         }
     }
 
@@ -158,7 +165,12 @@ public class EnemyAI : MonoBehaviour
             StartCoroutine(Flash());
             if (HP <= 0)
             {
+
+
+                OnDied();
                 isDead = true;
+
+
                 if (moveCoroutine != null)
                 {
                     StopCoroutine(moveCoroutine);
@@ -175,13 +187,24 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    private bool hasRunned = false;
+    private void OnDied()
+    {
+        if (hasRunned) return;
+        hasRunned = true;
+        SingletonClass.OnEnemyKilled();
+        
+        SingletonClass.AwardXP(XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY);
+    }
+
     private void dropLoot()
     {
         if (!droppedLoot)
         {
             droppedLoot = true;
             GetComponent<LootBag>().InstantiateLoot(transform.position);
-
+            
+            
         }
 
     }

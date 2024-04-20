@@ -17,6 +17,11 @@ public class PlayerTakeDamage : MonoBehaviour
     public delegate void TakeDamageAction(PlayerTakeDamage playerTakeDamage, int damageTaken); //metod signatur för subscribers till eventet
     public static event TakeDamageAction OnTakeDamage; //hur eventet avfyras från detta script.
 
+    public delegate void PlayerKilledByAction(PlayerTakeDamage playerTakeDamage, BulletID info);
+    public static event PlayerKilledByAction OnKilledBy;
+    private bool playerDied;
+
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -28,7 +33,7 @@ public class PlayerTakeDamage : MonoBehaviour
 
     }
 
-    void updateHealthBar()
+    public void updateHealthBar()
     {
         for (int i = 0; i <= maxHealth; i++)
         {
@@ -45,17 +50,22 @@ public class PlayerTakeDamage : MonoBehaviour
         }
     }
 
+    private void DoRespawn()
+    {
+        //Spela upp player death animation? effekter? ljud? delay?
+
+        transform.position = spawnTransform ? spawnTransform.position : spawnPosition;
+        playerDied = false;
+        currentHealth = maxHealth;
+        OnRespawn(this); //trigga eventet så att andra script kan lyssna.
+    }
+
     void takeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
-            //Spela upp player death animation? effekter? ljud? delay?
-
-            transform.position = spawnTransform ? spawnTransform.position : spawnPosition;
-            currentHealth = maxHealth;
-            OnRespawn(this); //trigga eventet så att andra script kan lyssna.
-
+            DoRespawn();
         }
         updateHealthBar();
         
@@ -65,6 +75,13 @@ public class PlayerTakeDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+
+        if (playerDied == false && other.gameObject.GetComponent<BulletID>() != null)
+        {
+            playerDied = true;
+            EnemyKilledPlayer(other.gameObject.GetComponent<BulletID>());    
+        }
+
         if (other.gameObject.CompareTag("EnemyBullet"))
         {
             //handle enemy bullet:
@@ -83,4 +100,10 @@ public class PlayerTakeDamage : MonoBehaviour
             updateHealthBar();
         }
     }
+
+    private void EnemyKilledPlayer (BulletID info)
+    {
+        OnKilledBy(this, info);
+    }
+
 }
