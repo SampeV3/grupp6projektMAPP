@@ -25367,7 +25367,7 @@ MonoBehaviour:
   randomWalkParameters: {fileID: 11400000, guid: 49417390d7b7ea94a86c8c5b5a093317, type: 2}
   randomBossWalkParameters: {fileID: 11400000, guid: ab017181ace1aab4fa996c376e90ba7e, type: 2}
   corridorLength: 20
-  corridorCount: 11
+  corridorCount: 12
   roomPercent: 0.86
   showRoomGizmo: 1
   showCorridorsGizmo: 1

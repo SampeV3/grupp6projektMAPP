@@ -55,9 +55,18 @@ public class RoomContentGenerator : MonoBehaviour
     private void SelectPlayerAndBossSpawnPoint(DungeonData dungeonData)
     {
         //Välj där spawnpointen skapas
+        //Idé!
+        //Skapa en ny metod
+        //loopa igenom ALLA positioner och jämför med bosspositionen
+        //sen kolla magnituden (avståndet från bossspawnen) och välj en spawn point som är så långtifrån bossen som möjligt
+        //detta gör det möjligt att utöva mer high level level design i rougelike spelet.
 
-        int randomRoomIndex = UnityEngine.Random.Range(0, dungeonData.roomsDictionary.Count - 1);
+
+
+        int randomRoomIndex = UnityEngine.Random.Range(0, dungeonData.bossRoomIndex);
         Vector2Int playerSpawnPoint = dungeonData.roomsDictionary.Keys.ElementAt(randomRoomIndex);
+
+
 
         graphTest.RunDijkstraAlgorithm(playerSpawnPoint, dungeonData.floorPositions);
 

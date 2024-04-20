@@ -13,6 +13,7 @@ public class MortarAI : MonoBehaviour
     
     private Animator anim;
     private AudioSource audioSource;
+    
     private SpriteRenderer sprd;
     private Material originalMat;
     private int HP;
