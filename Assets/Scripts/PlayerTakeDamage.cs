@@ -28,7 +28,7 @@ public class PlayerTakeDamage : MonoBehaviour
 
     }
 
-    void updateHealthBar()
+    public void updateHealthBar()
     {
         for (int i = 0; i <= maxHealth; i++)
         {

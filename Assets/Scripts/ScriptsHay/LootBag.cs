@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LootBag : MonoBehaviour
 {
-    public GameObject droppedItemPrefab;
+    public UnityEngine.GameObject droppedItemPrefab;
     public List<Loot> lootList = new List<Loot>();
 
     Loot GetDroppedItem()
@@ -35,10 +35,10 @@ public class LootBag : MonoBehaviour
         Loot droppedItem = GetDroppedItem();
         if (droppedItem != null) 
         {
-            GameObject lootGameObject = Instantiate(droppedItemPrefab, spawnPosition, Quaternion.identity);
+            UnityEngine.GameObject lootGameObject = Instantiate(droppedItemPrefab, spawnPosition, Quaternion.identity);
             
             
-            //lootGameObject.AddComponent(droppedItem.effectScript.GetType());
+            lootGameObject.AddComponent<RepairPickup>();
             lootGameObject.GetComponent<SpriteRenderer>().sprite = droppedItem.lootSprite;
             float dropForce = 100f;
             Vector2 dropDirection = new Vector2 (Random.Range(-1f, 1f), Random.Range(-1f, 1f));

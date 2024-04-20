@@ -10378,6 +10378,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4209298977796012825, guid: ab2b111c98980454c96609f83cee1f90, type: 3}
+      propertyPath: lootList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7aba79979f0f7984189b093c94d9a41c, type: 2}
+    - target: {fileID: 4209298977796012825, guid: ab2b111c98980454c96609f83cee1f90, type: 3}
       propertyPath: lootList.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 7aba79979f0f7984189b093c94d9a41c, type: 2}
