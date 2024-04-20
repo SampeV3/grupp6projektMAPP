@@ -89,6 +89,10 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         print("Player killed by " + info.KillerGameObject.name + " hahahah");
     }
 
+    private void Awake()
+    {
+        can_level_up();
+    }
 
     public void LoadData(GameData data)
     {
