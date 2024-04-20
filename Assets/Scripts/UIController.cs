@@ -7,18 +7,19 @@ using UnityEngine.SceneManagement;
 public class UIController : MonoBehaviour
 {
     public GameObject inventoryPanel, pausePanel, inventoryButton, pauseButton;
-    private PlayerSupervisor playerSupervisor;
+    public PlayerSupervisor playerSupervisor;
     public TextMeshProUGUI xPPoint;
     private void Start()
     {
         inventoryPanel.SetActive(false);
         pausePanel.SetActive(false);
+        
         xPPoint.text = "00";
     }
 
     private void FixedUpdate()
     {
-        xPPoint.text = "" + 1;
+        xPPoint.text = "" + playerSupervisor.XP + " / " + playerSupervisor.experience_required;
     }
     public void OpenInventory()
     {

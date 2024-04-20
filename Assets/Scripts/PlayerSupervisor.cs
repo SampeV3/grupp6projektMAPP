@@ -72,15 +72,18 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
             double xp_increase_modifier = 1.2;
             //this.XP -= experience_required;
             this.experience_required = (int)(this.experience_required * xp_increase_modifier);
-       
-            OnLevelUp(level);
             this.level++;
             levelsAdded++;
-
+            OnLevelUp(level);
         }
         
         print("Levelled up " + levelsAdded + " times");
         level_up_check_loop_is_running = false;
+    }
+
+    private void Awake()
+    {
+        can_level_up();
     }
 
     public void LoadData(GameData data)
@@ -88,7 +91,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         this.deathCount = data.totalDeathCount;
         this.XP = data.XP;
         this.coins = data.coins;
-        this.experience_required = data.experience_required;
+        //this.experience_required = data.experience_required;
        
     }
 
@@ -96,7 +99,8 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     {
         data.totalDeathCount = this.deathCount;
         data.XP = this.XP;
-        data.experience_required = this.experience_required;
+        data.level = this.level;
+        //data.experience_required = this.experience_required;
 
         
     }
