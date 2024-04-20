@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5118820613556856967}
   - component: {fileID: 3209018484230167141}
   m_Layer: 0
-  m_Name: RepairPrefab
+  m_Name: DroppedItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,8 +110,8 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &3209018484230167141
 CircleCollider2D:
