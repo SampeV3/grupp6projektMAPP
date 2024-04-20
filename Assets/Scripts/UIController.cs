@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
 {
     public GameObject inventoryPanel, pausePanel, inventoryButton, pauseButton;
     public PlayerSupervisor playerSupervisor;
-    public TextMeshProUGUI xPPoint;
+    public TextMeshProUGUI xPPoint, levelInfo;
     private void Start()
     {
         inventoryPanel.SetActive(false);
@@ -20,6 +20,7 @@ public class UIController : MonoBehaviour
     private void FixedUpdate()
     {
         xPPoint.text = "" + playerSupervisor.XP + " / " + playerSupervisor.experience_required;
+        levelInfo.text = "Level: " + playerSupervisor.level;
     }
     public void OpenInventory()
     {
