@@ -2413,6 +2413,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3483599846004132320, guid: 273e536334e86584a9d35494998bb128, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483599846004132320, guid: 273e536334e86584a9d35494998bb128, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483599846004132320, guid: 273e536334e86584a9d35494998bb128, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483599846004132320, guid: 273e536334e86584a9d35494998bb128, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483599846004132320, guid: 273e536334e86584a9d35494998bb128, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1748.9331
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483599846004132320, guid: 273e536334e86584a9d35494998bb128, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 934.0236
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483599846004132320, guid: 273e536334e86584a9d35494998bb128, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 874.46655
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483599846004132320, guid: 273e536334e86584a9d35494998bb128, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 467.01178
+      objectReference: {fileID: 0}
     - target: {fileID: 7364516096119086271, guid: 273e536334e86584a9d35494998bb128, type: 3}
       propertyPath: m_Name
       value: LevelUpUI
