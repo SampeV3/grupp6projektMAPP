@@ -369,6 +369,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 1265476051}
   pausePanel: {fileID: 1550580093}
+  inventoryButton: {fileID: 1548585100}
+  pauseButton: {fileID: 1483147218}
 --- !u!1001 &239974493
 PrefabInstance:
   m_ObjectHideFlags: 0
