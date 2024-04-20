@@ -81,6 +81,11 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         level_up_check_loop_is_running = false;
     }
 
+    private void Awake()
+    {
+        can_level_up();
+    }
+
     public void LoadData(GameData data)
     {
         this.deathCount = data.totalDeathCount;
