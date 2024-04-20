@@ -9,9 +9,9 @@ public class Loot : ScriptableObject
     public Sprite lootSprite;
     public string lootName;
     public int dropChance;
-    public MonoScript effectScript;
+    public GameObject effectScript;
 
-    public Loot(string lootName, int dropChance, MonoScript effectScript)
+    public Loot(string lootName, int dropChance, GameObject effectScript)
     {
         this.lootName = lootName;
         this.dropChance = dropChance;
