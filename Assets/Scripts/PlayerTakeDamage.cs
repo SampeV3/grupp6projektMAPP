@@ -107,7 +107,7 @@ public class PlayerTakeDamage : MonoBehaviour
 
     private void EnemyKilledPlayer (BulletID info)
     {
-        OnKilledBy(this, info);
+        if (OnKilledBy != null) OnKilledBy(this, info);
     }
 
 }
