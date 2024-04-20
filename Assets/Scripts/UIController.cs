@@ -18,7 +18,7 @@ public class UIController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        xPPoint.text = "" + 1;
+        xPPoint.text = "" + playerSupervisor.XP;
     }
     public void OpenInventory()
     {
