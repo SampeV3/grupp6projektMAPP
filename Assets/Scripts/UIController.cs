@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
-    public GameObject inventoryPanel, pausePanel;
+    public GameObject inventoryPanel, pausePanel, inventoryButton, pauseButton;
     private void Start()
     {
         inventoryPanel.SetActive(false);
@@ -15,17 +15,23 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = 0;
         inventoryPanel.SetActive(true);
+        inventoryButton.SetActive(false);
+        pauseButton.SetActive(false);
     }
     public void ExitPanel()
     {
         Time.timeScale = 1;
         inventoryPanel ?.SetActive(false);
         pausePanel ?.SetActive(false);
+        pauseButton.SetActive(true);
+        inventoryButton?.SetActive(true);
     }
     public void PauseGame()
     {
         Time.timeScale = 0;
         pausePanel.SetActive(true);
+        inventoryButton.SetActive(false);
+        pauseButton.SetActive(false);
     }
     public void ReturnToMainMenu()
     {
