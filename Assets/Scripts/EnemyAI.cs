@@ -85,7 +85,7 @@ public class EnemyAI : MonoBehaviour
             if (IsPlayerWithinDetectionRadius())
             {
                 CheckLineOfSight();
-                moveCoroutine = StartCoroutine(MoveAround());
+                
             }
         }
         else
@@ -147,6 +147,7 @@ public class EnemyAI : MonoBehaviour
                 playerSpottedWarning.GetComponent<Animator>().SetTrigger("PlayerDetected");
                 Destroy(playerSpottedWarning, 1f);
                 combatCoroutine = StartCoroutine(Combat());
+                moveCoroutine = StartCoroutine(MoveAround());
         }
     }
 
