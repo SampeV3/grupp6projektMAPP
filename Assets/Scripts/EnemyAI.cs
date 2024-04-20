@@ -17,6 +17,7 @@ public class EnemyAI : MonoBehaviour
     private SpriteRenderer sprd;
     private Animator anim;
     private int HP;
+    public int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 100;
     private bool playerDetected = false;
     private bool isDead, droppedLoot = false;
     private Coroutine moveCoroutine, combatCoroutine;
@@ -158,7 +159,12 @@ public class EnemyAI : MonoBehaviour
             StartCoroutine(Flash());
             if (HP <= 0)
             {
+
+
+                OnDied();
                 isDead = true;
+
+
                 if (moveCoroutine != null)
                 {
                     StopCoroutine(moveCoroutine);
@@ -175,13 +181,24 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    private bool hasRunned = false;
+    private void OnDied()
+    {
+        if (hasRunned) return;
+        hasRunned = true;
+        SingletonClass.OnEnemyKilled();
+        
+        SingletonClass.AwardXP(XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY);
+    }
+
     private void dropLoot()
     {
         if (!droppedLoot)
         {
             droppedLoot = true;
             GetComponent<LootBag>().InstantiateLoot(transform.position);
-
+            
+            
         }
 
     }
