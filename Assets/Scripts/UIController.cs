@@ -1,15 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
     public GameObject inventoryPanel, pausePanel, inventoryButton, pauseButton;
+    private PlayerSupervisor playerSupervisor;
+    public TextMeshProUGUI xPPoint;
     private void Start()
     {
         inventoryPanel.SetActive(false);
         pausePanel.SetActive(false);
+        xPPoint.text = "00";
+    }
+
+    private void FixedUpdate()
+    {
+        xPPoint.text = "" + 1;
     }
     public void OpenInventory()
     {
