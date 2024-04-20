@@ -7,7 +7,9 @@ public class StartMenu : MonoBehaviour
 {
     public void StartGame()
     {
+        Time.timeScale = 0.5f;
         SceneManager.LoadScene(1);
+
     }
 
     public void QuitGame()
