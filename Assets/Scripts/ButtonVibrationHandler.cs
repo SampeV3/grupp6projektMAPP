@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +29,22 @@ public class ButtonVibrationHandler : MonoBehaviour
     {
         Debug.Log("Default Vibration performed!");
         Handheld.Vibrate();
+    }
+
+    private void LightVibration()
+    {
+        Debug.Log("Light Vibration performed!");
+    }
+
+    private void MediumVibration()
+    {
+        Debug.Log("Medium Vibration performed!");
+
+    }
+
+    private void HeavyVibration()
+    {
+        Debug.Log("Heavy Vibration performed!");
 
     }
 }
