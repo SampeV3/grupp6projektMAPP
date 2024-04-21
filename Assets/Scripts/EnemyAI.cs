@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Lumin;
+using UnityEngine.Serialization;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : EnemyMonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
     [SerializeField] private GameObject projectilePrefab, playerSpotted;
@@ -12,13 +13,14 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private LayerMask playerMask, obstacleMask;
 
+
     private AudioSource audioSource;
     private Material originalMat;
     private SpriteRenderer sprd;
     private Animator anim;
     private int HP;
     public float shootDelay = 1f;
-    public int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 100;
+    [FormerlySerializedAs("XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY")] public int xpToAwardPlayerForKillingEnemy = 100;
     private bool playerDetected = false;
     private bool isDead, droppedLoot = false;
     private Coroutine moveCoroutine, combatCoroutine;
@@ -37,16 +39,15 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake(); // Make sure to always keep that line
         if (player == null)
         {
             player = IsPlayer.FindPlayerTransformAutomaticallyIfNull(); //Tillagt av Elias
         }
     }
-
- 
-
+    
     private IEnumerator MoveAround()
     {
         while (true)
@@ -120,7 +121,7 @@ public class EnemyAI : MonoBehaviour
         while (HP > 0)
         {
             //anim.SetTrigger("RangedAttack");
-            Invoke("RangedAttack", 0.5f); // Sätt tid till hur länge animationen körs
+            Invoke(nameof(RangedAttack), 0.5f); // Sätt tid till hur länge animationen körs
             yield return new WaitForSeconds(shootDelay);
         }
     }
@@ -194,28 +195,27 @@ public class EnemyAI : MonoBehaviour
         hasRunned = true;
         SingletonClass.OnEnemyKilled();
         
-        SingletonClass.AwardXP(XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY);
+        SingletonClass.AwardXP(xpToAwardPlayerForKillingEnemy);
     }
 
+    public override bool GetIsChasingPlayer()
+    {
+        return playerDetected;
+    }
+
+    
     private void dropLoot()
     {
-        if (!droppedLoot)
-        {
-            droppedLoot = true;
-            GetComponent<LootBag>().InstantiateLoot(transform.position);
-            
-            
-        }
-
+        if (droppedLoot) return;
+        droppedLoot = true;
+        GetComponent<LootBag>().InstantiateLoot(transform.position);
     }
 
     private IEnumerator Flash()
     {
-        if(!isDead) {
+        if (isDead) yield break;
         sprd.material = flashOnHit;
         yield return new WaitForSeconds(0.125f);
         sprd.material = originalMat;
-
-        }
     }
 }

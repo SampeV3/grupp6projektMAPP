@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 530003295501931526, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
+  testAlly: {fileID: 3858980567652597406, guid: eddf911f7173ada41bfea45b6fd59cfd, type: 3}
   itemData:
   - minQuantity: 4
     maxQuantity: 6

@@ -7,7 +7,8 @@ using UnityEngine;
 public class PlayerRoom : RoomGenerator
 {
     public GameObject player;
-
+    public GameObject testAlly;
+    
     public List<ItemPlacementData> itemData;
 
     [SerializeField]
@@ -29,7 +30,17 @@ public class PlayerRoom : RoomGenerator
 
         GameObject playerObject 
             = prefabPlacer.CreateObject(player, playerSpawnPoint + new Vector2(0.5f, 0.5f));
- 
+
+        if ((testAlly) != null)
+        { //try to spawn an ally near the player to test if the navigation mesh works!! ;)
+            for (int i = 0; i < 5; i++)
+            {
+                GameObject localTestAlly = prefabPlacer.CreateObject(this.testAlly, playerSpawnPoint + new Vector2(2, 2));
+                placedObjects.Add(localTestAlly);
+            }
+            
+        } 
+       
         placedObjects.Add(playerObject);
 
         return placedObjects;

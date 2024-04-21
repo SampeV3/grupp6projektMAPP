@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -47,5 +48,32 @@ public class UIController : MonoBehaviour
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    private void OnCombatChanged(bool isInCombat, string situation)
+    {
+        
+        if (isInCombat)
+        {
+            inventoryButton.SetActive(false);
+            pauseButton.SetActive(false);
+        }
+        else
+        {
+            inventoryButton.SetActive(true);
+            pauseButton.SetActive(true);
+        }
+        
+        
+    }
+    
+    private void OnEnable()
+    {
+        PlayerTakeDamage.OnCombatSituationChanged += OnCombatChanged;
+    }
+
+    private void OnDisable()
+    {
+        PlayerTakeDamage.OnCombatSituationChanged -= OnCombatChanged;
     }
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using NavMeshPlus.Components;
+using UnityEngine.Serialization;
 
 public class RoomContentGenerator : MonoBehaviour
 {
@@ -22,6 +24,11 @@ public class RoomContentGenerator : MonoBehaviour
     private CinemachineVirtualCamera cinemachineCamera;
 
     public UnityEvent RegenerateDungeon;
+    
+    
+    //Bake a navmesh at runtime - Elias
+    //Documentation: https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#intro
+    [FormerlySerializedAs("Surface2D")] public NavMeshSurface surface2D;
 
     private void Update()
     {
@@ -50,16 +57,22 @@ public class RoomContentGenerator : MonoBehaviour
             if(item != null)
                 item.transform.SetParent(itemParent, false);
         }
+        
+        surface2D.BuildNavMeshAsync();
+
+        
     }
 
+
+    
     private void SelectPlayerAndBossSpawnPoint(DungeonData dungeonData)
     {
-        //Välj där spawnpointen skapas
-        //Idé!
+        //Vï¿½lj dï¿½r spawnpointen skapas
+        //Idï¿½!
         //Skapa en ny metod
-        //loopa igenom ALLA positioner och jämför med bosspositionen
-        //sen kolla magnituden (avståndet från bossspawnen) och välj en spawn point som är så långtifrån bossen som möjligt
-        //detta gör det möjligt att utöva mer high level level design i rougelike spelet.
+        //loopa igenom ALLA positioner och jï¿½mfï¿½r med bosspositionen
+        //sen kolla magnituden (avstï¿½ndet frï¿½n bossspawnen) och vï¿½lj en spawn point som ï¿½r sï¿½ lï¿½ngtifrï¿½n bossen som mï¿½jligt
+        //detta gï¿½r det mï¿½jligt att utï¿½va mer high level level design i rougelike spelet.
 
 
 
@@ -78,6 +91,8 @@ public class RoomContentGenerator : MonoBehaviour
             dungeonData.GetRoomFloorWithoutCorridors(roomIndex)
             );
 
+        
+        
         //FocusCameraOnThePlayer(placedPrefabs[placedPrefabs.Count - 1].transform);
 
         spawnedObjects.AddRange(placedPrefabs);
