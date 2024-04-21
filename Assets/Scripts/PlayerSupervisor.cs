@@ -59,7 +59,10 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         can_level_up();
     }
 
+    
+    
     void can_level_up ()
+    //Idea: I can make an interface with this method in it!
     {
         if (level_up_check_loop_is_running)
         {
@@ -72,7 +75,6 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         while (this.XP >= this.experience_required)
         {
             //Level up
-
             double xp_increase_modifier = 1.2;
             //this.XP -= experience_required;
             this.experience_required = (int)(this.experience_required * xp_increase_modifier);
