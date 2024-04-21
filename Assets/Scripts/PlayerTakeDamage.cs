@@ -29,7 +29,7 @@ public class PlayerTakeDamage : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        updateHealthBar();
+        UpdateHealthBar();
         if (spawnTransform == null)
         {
             spawnPosition = transform.position;
@@ -55,7 +55,7 @@ public class PlayerTakeDamage : MonoBehaviour
         }
     }
     
-    public void updateHealthBar()
+    public void UpdateHealthBar()
     {
         for (int i = 0; i <= maxHealth; i++)
         {
@@ -68,7 +68,6 @@ public class PlayerTakeDamage : MonoBehaviour
             {
                 batterySprite.SetActive(false);
             }
-
         }
     }
 
@@ -79,30 +78,38 @@ public class PlayerTakeDamage : MonoBehaviour
         transform.position = spawnTransform ? spawnTransform.position : spawnPosition;
         playerDied = false;
         currentHealth = maxHealth;
-        OnRespawn(this); //trigga eventet s� att andra script kan lyssna.
+        UpdateHealthBar();
+        if (OnRespawn != null) OnRespawn(this); //trigga eventet s� att andra script kan lyssna.
     }
-
+    
     void TakeDamage(int damageAmount, Collider2D other)
     {
-        currentHealth -= damageAmount;
-        if (currentHealth <= 0)
+        if (currentHealth < 0)
         {
-            if (playerDied) return;
+            if (OnTakeDamage != null)
+                OnTakeDamage(this, damageAmount); //object reference not set to an instance of a object?
+        }
+        currentHealth -= damageAmount;
+        UpdateHealthBar();
+        
+        if (currentHealth <= 0 && !playerDied)
+        {
             playerDied = true;
-            if (Nemesis.EnemyKilledPlayer.nemesisEnabled && other.gameObject.GetComponent<BulletID>() != null) {
-                EnemyKilledPlayer(other.gameObject.GetComponent<BulletID>()); 
-                DoRespawn();
+            if (Nemesis.EnemyKilledPlayer.nemesisEnabled && other.gameObject.GetComponent<BulletID>() != null)
+            {
+                EnemyKilledPlayer(other.gameObject.GetComponent<BulletID>());
+                
+                //How about we tell this script to respawn the player
+                //when there is a cutscene event that fires!!
+                //then the player can choose when to exit the nemesis scene :D
+                
+                Invoke(nameof(DoRespawn), 1f);
             }
             else
             {
                 DoRespawn();   
             }
-            
         }
-        updateHealthBar();
-
-        if (OnTakeDamage != null)
-            OnTakeDamage(this, damageAmount); //object reference not set to an instance of a object?
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -112,18 +119,18 @@ public class PlayerTakeDamage : MonoBehaviour
         {
             //handle enemy bullet:
             TakeDamage(damageAmount, other);
-            updateHealthBar();
+            UpdateHealthBar();
             Destroy(other.gameObject); 
         }
-        if (other.gameObject.CompareTag("Laser"))
+        else if (other.gameObject.CompareTag("Laser"))
         {
             TakeDamage(damageAmount, other);
-            updateHealthBar();
+            UpdateHealthBar();
         }
-        if (other.gameObject.CompareTag("MortarAttack"))
+        else if (other.gameObject.CompareTag("MortarAttack"))
         {
             TakeDamage(damageAmount, other);
-            updateHealthBar();
+            UpdateHealthBar();
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerSupervisor : MonoBehaviour, IDataPersistance
 {
+    
     //Events som �r till f�r UI-script s� att de kan vara helt separerade fr�n detta script!
     public delegate void LevelUpAction(int newLevel); //metod signatur f�r subscribers till eventet
     public static event LevelUpAction OnLevelUp;
@@ -86,6 +87,8 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
 
     private void OnKilledBy(PlayerTakeDamage playerTakeDamage, BulletID info)
     {
+        print("Someone killed the player oh no!");
+        if ((info.KillerGameObject) == null) { print("Unknown player killer oh no"); return; } 
         print("Player killed by " + info.KillerGameObject.name + " hahahah");
         
         

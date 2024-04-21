@@ -5249,6 +5249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdc72b0e6134db84c951777027de4022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableInventoryAndMenuButtonWhileInCombat: 0
   inventoryPanel: {fileID: 2664994061003732979}
   pausePanel: {fileID: 5127305087305965162}
   inventoryButton: {fileID: 2886545901016887493}
@@ -5275,7 +5276,6 @@ GameObject:
   - component: {fileID: 4940832060451033042}
   - component: {fileID: 2865775353507046388}
   - component: {fileID: 6999781163118378226}
-  - component: {fileID: 3584219995413341529}
   - component: {fileID: 1664027291227482255}
   m_Layer: 3
   m_Name: CharacterSprite
@@ -5626,23 +5626,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3584219995413341529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7726589997728872495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9456e8adaad188843b85b953093cffde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deathCount: 0
-  level: 0
-  experience_required: 100
-  XP: 0
-  coins: 0
 --- !u!114 &1664027291227482255
 MonoBehaviour:
   m_ObjectHideFlags: 0

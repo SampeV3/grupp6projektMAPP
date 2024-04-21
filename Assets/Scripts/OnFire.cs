@@ -28,7 +28,7 @@ public class OnFire : MonoBehaviour
 
     private void ShotFired()
     {
-        
+        if (!player.enabled) return; //avoid can not play a disabled audio source warning!
         player.Play();
 
     }
