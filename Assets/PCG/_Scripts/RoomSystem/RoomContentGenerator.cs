@@ -63,7 +63,29 @@ public class RoomContentGenerator : MonoBehaviour
         
     }
 
+    public static HashSet<Vector2Int> GetPositionsDistantEnoughFrom(Vector2Int positionToAvoid, Dictionary<Vector2Int, HashSet<Vector2Int>> positionsDictionary)
+    {
+        
+        HashSet<Vector2Int> farEnoughFrom = new HashSet<Vector2Int>();
+        float farthest = 0;
+        foreach (var key in positionsDictionary.Keys.ToList())
+        {
+            float distance = Vector2Int.Distance(positionToAvoid, key);
+            if (distance >= farthest)
+            {
+                farEnoughFrom.Clear();
+                farthest = distance;
+                farEnoughFrom.Add(key);
+            }
+        }
 
+        return farEnoughFrom;
+        
+        //HashSet<Vector2Int> farEnoughFrom = positionsDictionary.Keys
+        //    .Where(key => Vector2Int.Distance(positionToAvoid, key) >= minimumDistance)
+        //    .ToHashSet();
+            //return farEnoughFrom;
+    }
     
     private void SelectPlayerAndBossSpawnPoint(DungeonData dungeonData)
     {
@@ -76,11 +98,13 @@ public class RoomContentGenerator : MonoBehaviour
 
 
 
-        int randomRoomIndex = UnityEngine.Random.Range(0, dungeonData.bossRoomIndex);
-        Vector2Int playerSpawnPoint = dungeonData.roomsDictionary.Keys.ElementAt(randomRoomIndex);
+        //dungeonData.roomsDictionary.Keys.ElementAt(randomRoomIndex);
 
 
-
+        HashSet<Vector2Int>  eligibleSpawnPoints =
+            GetPositionsDistantEnoughFrom(dungeonData.bossRoomPosition, dungeonData.roomsDictionary);
+        int randomRoomIndex = UnityEngine.Random.Range(0, eligibleSpawnPoints.Count);
+        Vector2Int playerSpawnPoint = eligibleSpawnPoints.ElementAt(randomRoomIndex);
         graphTest.RunDijkstraAlgorithm(playerSpawnPoint, dungeonData.floorPositions);
 
         Vector2Int roomIndex = dungeonData.roomsDictionary.Keys.ElementAt(randomRoomIndex);

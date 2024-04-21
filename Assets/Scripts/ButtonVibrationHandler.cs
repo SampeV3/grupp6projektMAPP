@@ -28,7 +28,7 @@ public class ButtonVibrationHandler : MonoBehaviour
     private void DefaultVibration()
     {
         Debug.Log("Default Vibration performed!");
-        Handheld.Vibrate();
+        //Handheld.Vibrate();
     }
 
     private void LightVibration()
