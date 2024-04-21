@@ -41,9 +41,28 @@ public class Chase : MonoBehaviour
     public int attackRange = 30;
     public int HP = 5;
     public float shootDelay = 1f;
+
+    private Transform FindNearestEnemy()
+    //TODO: optimize this, the game is -- suprisingly -- becoming laggy in the editor.
+    {
+        float closest = attackRange + 1;
+        Transform closestEnemy = null;
+        foreach (var enemy in EnemyMonoBehaviour.Instances)
+        {
+            float distance = Vector3.Distance(this.transform.position, enemy.gameObject.transform.position);
+            if (distance < closest)
+            {
+                closest = distance;
+                closestEnemy = enemy.gameObject.transform;
+            }
+        }
+
+        return closestEnemy;
+    }
     
     private void CheckAttack()
     {
+        rangedTarget = FindNearestEnemy();
         if (rangedTarget != null && Vector3.Distance(transform.position, rangedTarget.position) < attackRange)
         {
             RangedAttack();   

@@ -233,8 +233,8 @@ MonoBehaviour:
   target: {fileID: 0}
   showPath: 1
   showAhead: 1
-  projectilePrefab: {fileID: 4246871847316479558, guid: 5761e53e3fe395b40b3c9a7bb946e9fb, type: 3}
+  projectilePrefab: {fileID: 7557707295270203167, guid: 070402002764f414cb9b242074fc32e0, type: 3}
   rangedTarget: {fileID: 0}
-  attackRange: 30
+  attackRange: 10
   HP: 5
-  shootDelay: 0.5
+  shootDelay: 3
