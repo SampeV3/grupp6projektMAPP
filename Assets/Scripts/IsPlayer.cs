@@ -52,11 +52,15 @@ public class IsPlayer : MonoBehaviour
     
     //https://hatchjs.com/unity-list-of-gameobjects/
     //way more hands on: https://stackoverflow.com/questions/49329764/get-all-components-with-a-specific-interface-in-unity
+
+    public static HashSet<EnemyMonoBehaviour> GetAllEnemies()
+    {
+        return EnemyMonoBehaviour.Instances;
+    }
     
     public static bool GetIsPlayerInCombat()
     {
-        HashSet<EnemyMonoBehaviour> enemies = EnemyMonoBehaviour.Instances;
-        foreach(var enemy in enemies)
+        foreach(var enemy in GetAllEnemies())
         {
             if (enemy.GetIsChasingPlayer() == true)
             {
