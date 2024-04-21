@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class Chase : MonoBehaviour
 {
@@ -10,10 +12,13 @@ public class Chase : MonoBehaviour
     public bool showPath;
     public bool showAhead;
 
+    
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        StartCoroutine(Combat());
     }
 
     private void Awake()
@@ -31,6 +36,47 @@ public class Chase : MonoBehaviour
         agent.SetDestination(target.position);
     }
 
+    public GameObject projectilePrefab;
+    public Transform rangedTarget;
+    public int attackRange = 30;
+    public int HP = 5;
+    public float shootDelay = 1f;
+    
+    private void CheckAttack()
+    {
+        if (rangedTarget != null && Vector3.Distance(transform.position, rangedTarget.position) < attackRange)
+        {
+            RangedAttack();   
+        }
+    }
+
+    public void SetRangedTarget(Transform newRangedTarget)
+    {
+        rangedTarget = newRangedTarget;
+    }
+    
+    private void RangedAttack()
+    {
+        GameObject projectile = Instantiate(projectilePrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        Vector2 direction = (rangedTarget.position - projectile.transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        projectile.GetComponent<Rigidbody2D>().rotation = angle;
+        projectile.GetComponent<Rigidbody2D>().velocity = direction * 3.5f;
+    }
+    
+    //control loop
+    private IEnumerator Combat()
+    {
+        while (HP > 0)
+        {
+            
+            Invoke(nameof(CheckAttack), 0.5f); // Sätt tid till hur länge animationen körs
+            yield return new WaitForSeconds(shootDelay);
+        }
+    }
+    
+    
+    
     private void OnDrawGizmos()
     {
         Navigate.DrawGizmos(agent, showPath, showAhead);

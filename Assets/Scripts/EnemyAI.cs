@@ -1,8 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Lumin;
 using UnityEngine.Serialization;
 
 public class EnemyAI : EnemyMonoBehaviour
@@ -129,7 +126,7 @@ public class EnemyAI : EnemyMonoBehaviour
     {
         
         GameObject projectile = Instantiate(projectilePrefab, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
-        BulletID bulletID = projectile.GetComponent<BulletID>();
+        BulletID bulletID = projectile.GetComponent<BulletID>(); //spar data om vem som skadar spelaren i kulan så vi kan räkna ut vem som dödade den !
         bulletID.KillerGameObject = gameObject;
         
         Vector2 direction = (player.position - projectile.transform.position).normalized;

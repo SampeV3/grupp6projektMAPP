@@ -13,9 +13,9 @@ public class PlayerShoot : MonoBehaviour
 
     public void Shoot()
     {
-        
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        OnShoot();
+
+        if (OnShoot != null) OnShoot();
     }
 
 }
