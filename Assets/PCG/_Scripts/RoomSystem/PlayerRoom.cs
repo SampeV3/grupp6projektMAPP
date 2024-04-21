@@ -35,7 +35,7 @@ public class PlayerRoom : RoomGenerator
         { //try to spawn an ally near the player to test if the navigation mesh works!! ;)
             for (int i = 0; i < 5; i++)
             {
-                GameObject localTestAlly = prefabPlacer.CreateObject(this.testAlly, playerSpawnPoint + new Vector2(2, 2));
+                GameObject localTestAlly = prefabPlacer.CreateObject(this.testAlly, playerSpawnPoint + new Vector2(0.5f, 0.5f));
                 placedObjects.Add(localTestAlly);
             }
             

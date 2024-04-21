@@ -30,7 +30,7 @@ public class RepairPickup : MonoBehaviour
             {
                 Destroy(gameObject);
                 playerHealth.currentHealth += (int)healthBonus;
-                playerHealth.updateHealthBar();
+                playerHealth.UpdateHealthBar();
             }
         }
     }

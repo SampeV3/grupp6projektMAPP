@@ -161,6 +161,8 @@ public class MinibossAI : EnemyMonoBehaviour
         {
             Vector2 direction = new Vector2(Mathf.Cos((offset + i * 45f) * Mathf.Deg2Rad), Mathf.Sin((offset + i * 45f) * Mathf.Deg2Rad));
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0f, 0f, offset + i * 45f));
+            BulletID bulletInfo = projectile.GetComponent<BulletID>();
+            bulletInfo.KillerGameObject = gameObject;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             projectile.GetComponent<Rigidbody2D>().rotation = angle;
             projectile.GetComponent<Rigidbody2D>().velocity = direction * 0.8f;    
