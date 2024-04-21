@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
-public class MinibossAI : MonoBehaviour
+public class MinibossAI : EnemyMonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
     [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar, parent;
@@ -30,11 +30,12 @@ public class MinibossAI : MonoBehaviour
         botMat = botSprite.material;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake(); // Make sure to always keep that line
         if (player == null)
         {
-            player = IsPlayer.FindPlayerTransformAutomaticallyIfNull();
+            player = IsPlayer.FindPlayerTransformAutomaticallyIfNull(); //Tillagt av Elias
         }
     }
 
@@ -228,4 +229,10 @@ public class MinibossAI : MonoBehaviour
         }
         return false;
     }
+
+    public override bool GetIsChasingPlayer()
+    {
+        return playerDetected;
+    } 
+    
 }

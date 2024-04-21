@@ -87,7 +87,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     private void OnKilledBy(PlayerTakeDamage playerTakeDamage, BulletID info)
     {
         print("Player killed by " + info.KillerGameObject.name + " hahahah");
-        Nemesis
+        
         
     }
 

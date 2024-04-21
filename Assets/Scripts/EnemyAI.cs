@@ -5,13 +5,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Lumin;
 using UnityEngine.Serialization;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : EnemyMonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
     [SerializeField] private GameObject projectilePrefab, playerSpotted;
     //[SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Transform player;
     [SerializeField] private LayerMask playerMask, obstacleMask;
+
 
     private AudioSource audioSource;
     private Material originalMat;
@@ -38,16 +39,15 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake(); // Make sure to always keep that line
         if (player == null)
         {
             player = IsPlayer.FindPlayerTransformAutomaticallyIfNull(); //Tillagt av Elias
         }
     }
-
- 
-
+    
     private IEnumerator MoveAround()
     {
         while (true)
@@ -198,6 +198,12 @@ public class EnemyAI : MonoBehaviour
         SingletonClass.AwardXP(xpToAwardPlayerForKillingEnemy);
     }
 
+    public override bool GetIsChasingPlayer()
+    {
+        return playerDetected;
+    }
+
+    
     private void dropLoot()
     {
         if (droppedLoot) return;

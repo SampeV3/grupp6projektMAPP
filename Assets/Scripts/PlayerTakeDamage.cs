@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,10 +18,13 @@ public class PlayerTakeDamage : MonoBehaviour
     public delegate void TakeDamageAction(PlayerTakeDamage playerTakeDamage, int damageTaken); //metod signatur f�r subscribers till eventet
     public static event TakeDamageAction OnTakeDamage; //hur eventet avfyras fr�n detta script.
 
+    public delegate void CombatSituationChanged(bool isInCombat, string combatSituation);
+    public static event CombatSituationChanged OnCombatSituationChanged;
+    
     public delegate void PlayerKilledByAction(PlayerTakeDamage playerTakeDamage, BulletID info);
     public static event PlayerKilledByAction OnKilledBy;
-    private bool playerDied;
-
+    private bool playerDied = false;
+    public bool IsInCombat = false;
 
     void Start()
     {
@@ -31,8 +35,26 @@ public class PlayerTakeDamage : MonoBehaviour
             spawnPosition = transform.position;
         }
 
+        StartCoroutine(CheckIfInCombatWhileLoop());
     }
 
+    private bool runCombatLoop = true;
+    private IEnumerator CheckIfInCombatWhileLoop()
+    {
+        
+        while (runCombatLoop)
+        {
+            bool isChased = IsPlayer.GetIsPlayerInCombat();
+            if (isChased != IsInCombat)
+            {
+                
+                if (OnCombatSituationChanged != null) OnCombatSituationChanged(isChased, "chase");
+            }
+            IsInCombat = isChased;
+            yield return new WaitForSeconds(1); // Delay for float second
+        }
+    }
+    
     public void updateHealthBar()
     {
         for (int i = 0; i <= maxHealth; i++)

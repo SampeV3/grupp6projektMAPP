@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
-public class MortarAI : MonoBehaviour
+public class MortarAI : EnemyMonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
     [SerializeField] private GameObject mortarIndicator;
@@ -28,11 +28,12 @@ public class MortarAI : MonoBehaviour
         originalMat = sprd.material;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake(); // Make sure to always keep that line
         if (player == null)
         {
-            player = IsPlayer.FindPlayerTransformAutomaticallyIfNull();
+            player = IsPlayer.FindPlayerTransformAutomaticallyIfNull(); //Tillagt av Elias
         }
     }
 
@@ -141,4 +142,10 @@ public class MortarAI : MonoBehaviour
         }
         return false;
     }
+    
+    public override bool GetIsChasingPlayer()
+    {
+        return playerDetected;
+    } 
+    
 }

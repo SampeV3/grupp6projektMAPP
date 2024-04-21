@@ -1,12 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public abstract class EnemyMonoBehaviour : MonoBehaviour
+{
+    // Inheritors have to implement this (just like with an interface) (as an override though).
+    public abstract bool GetIsChasingPlayer();
+
+    private static readonly HashSet<EnemyMonoBehaviour> instances = new HashSet<EnemyMonoBehaviour>();
+
+    // public read-only access to the instances by only providing a clone
+    // of the HashSet so nobody can remove items from the outside
+    public static HashSet<EnemyMonoBehaviour> Instances => new HashSet<EnemyMonoBehaviour>(instances);
+
+    protected virtual void Awake()
+    {
+        // simply register yourself to the existing instances
+        instances.Add(this);
+    }
+
+    protected virtual void OnDestroy()
+    {
+        // don't forget to also remove yourself at the end of your lifetime
+        instances.Remove(this);
+    }
+}
 public class IsPlayer : MonoBehaviour
 {
     public Transform playerTransform;
-    //Jag la till denna kodsnutt för att göra det enklare i editorn. /Elias
+    //Jag la till denna kodsnutt fï¿½r att gï¿½ra det enklare i editorn. /Elias
     public static Transform FindPlayerTransformAutomaticallyIfNull()
     {
         // get root objects in scene
@@ -25,4 +49,21 @@ public class IsPlayer : MonoBehaviour
         }
         return null;
     }
+    
+    //https://hatchjs.com/unity-list-of-gameobjects/
+    //way more hands on: https://stackoverflow.com/questions/49329764/get-all-components-with-a-specific-interface-in-unity
+    
+    public static bool GetIsPlayerInCombat()
+    {
+        HashSet<EnemyMonoBehaviour> enemies = EnemyMonoBehaviour.Instances;
+        foreach(var enemy in enemies)
+        {
+            if (enemy.GetIsChasingPlayer() == true)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }
