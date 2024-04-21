@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
+    public bool disableInventoryAndMenuButtonWhileInCombat = false;
     public GameObject inventoryPanel, pausePanel, inventoryButton, pauseButton;
     public PlayerSupervisor playerSupervisor;
     public TextMeshProUGUI xPPoint, levelInfo;
@@ -52,7 +53,7 @@ public class UIController : MonoBehaviour
 
     private void OnCombatChanged(bool isInCombat, string situation)
     {
-        
+        if (!disableInventoryAndMenuButtonWhileInCombat) return;
         if (isInCombat)
         {
             inventoryButton.SetActive(false);
@@ -63,8 +64,6 @@ public class UIController : MonoBehaviour
             inventoryButton.SetActive(true);
             pauseButton.SetActive(true);
         }
-        
-        
     }
     
     private void OnEnable()
