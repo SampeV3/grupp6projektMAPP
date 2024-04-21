@@ -10,6 +10,7 @@ public class Music : MonoBehaviour
     public double goalTime;
     public double musicDuration;
 
+    public bool tryCombatMusic = false;
     public int audioToggle;
 
     public AudioSource introAudioSource , loopAudioSource, combatAudioSource;
@@ -26,7 +27,8 @@ public class Music : MonoBehaviour
         //bara en idé på combat mode music, men sättet eventet triggas behöver bli mer tillförlitligt först :)
         //annars kan musiken stanna ex. mitt i en fight plötsligt i 1 - 2 sekunder
         //dessutom måste nog båda låtarna matcha varandra, så att de inte skiljer sig så mycket och det blir för mycket dissonans?
-        /*if (isInCombatMode)
+        if (!tryCombatMusic) {return;}
+        if (isInCombatMode)
         {
             loopAudioSource.DOFade(0, 1f);
             introAudioSource.DOFade(0, 1f);
@@ -38,7 +40,7 @@ public class Music : MonoBehaviour
             combatAudioSource.DOFade(0, 1f);
             loopAudioSource.DOFade(1, 1f);
             introAudioSource.DOFade(1, 1f);
-        }*/
+        }
     }
 
     private void OnEnable()
