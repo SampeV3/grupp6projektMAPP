@@ -1,17 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerTakeDamage : MonoBehaviour
 {
     //public int health;
+    
     [SerializeField] private Transform spawnTransform;
     private Vector3 spawnPosition;
     public int currentHealth;
     public int maxHealth = 5;
     public GameObject[] healthBarSprites = new GameObject[6];
 
+    
     //Events hj�lper till att decoupla koden och h�lla saker mer separerade ifr�n varandra.
     public delegate void RespawnAction(PlayerTakeDamage playerTakeDamage); //metod signatur f�r subscribers till eventet
     public static event RespawnAction OnRespawn;
@@ -20,6 +23,11 @@ public class PlayerTakeDamage : MonoBehaviour
 
     public delegate void CombatSituationChanged(bool isInCombat, string combatSituation);
     public static event CombatSituationChanged OnCombatSituationChanged;
+
+    public delegate void DoRespawnAction();
+
+    public static event DoRespawnAction ExecuteDoRespawn;
+    
     
     public delegate void PlayerKilledByAction(PlayerTakeDamage playerTakeDamage, BulletID info);
     public static event PlayerKilledByAction OnKilledBy;
@@ -134,9 +142,53 @@ public class PlayerTakeDamage : MonoBehaviour
         }
     }
 
+    public CameraFollow cameraFollow;
+    public Camera camera;
+    public GameObject cameraTest;
+    
+    public TextMeshProUGUI dialougeText;
+    
+    private IEnumerator KillCamera(Transform enemyTransform)
+    {
+        for (int i = 1; i < 3; i++)
+        {
+            if (i >= 2)
+            {
+                if (ExecuteDoRespawn != null)
+                {
+                    ExecuteDoRespawn();
+                }
+                dialougeText.gameObject.SetActive(false);
+                cameraFollow.followTransform = gameObject.transform;
+                camera.orthographicSize = 7;
+                break;
+            }
+
+            camera.orthographicSize = 2;
+            dialougeText.gameObject.SetActive(true);
+            dialougeText.text = "Hahaha! I killed you! Now that might even give me a promotion!";
+            cameraFollow.followTransform = enemyTransform;
+            yield return new WaitForSeconds(2f);
+        }
+    }
+    
     private void EnemyKilledPlayer (BulletID info)
     {
+        
+        StartCoroutine(KillCamera(info.KillerGameObject.transform));
+        
         if (OnKilledBy != null) OnKilledBy(this, info);
     }
 
+    private void OnEnable()
+    {
+        ExecuteDoRespawn += DoRespawn;
+    }
+
+    private void OnDisable()
+    {
+        ExecuteDoRespawn -= DoRespawn;
+    }
 }
+    
+
