@@ -1129,6 +1129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goalTime: 0
   musicDuration: 0
+  tryCombatMusic: 0
   audioToggle: 0
   introAudioSource: {fileID: 1028667690}
   loopAudioSource: {fileID: 1028667689}
@@ -1142,7 +1143,7 @@ AudioSource:
   m_GameObject: {fileID: 1028667687}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -929956170123787388, guid: ce66407071fd096408fcc3dc9a13f133, type: 2}
   m_audioClip: {fileID: 8300000, guid: c6f0f9b4b0004a347b9d86eec7916239, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -1238,7 +1239,7 @@ AudioSource:
   m_GameObject: {fileID: 1028667687}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -929956170123787388, guid: ce66407071fd096408fcc3dc9a13f133, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5e173b1dedda2f14f8ede901fa69a16d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
