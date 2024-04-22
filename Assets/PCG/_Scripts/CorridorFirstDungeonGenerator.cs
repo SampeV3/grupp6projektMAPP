@@ -152,8 +152,8 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
         floorPositions.UnionWith(roomPositions);
 
+        //sätt olika teman med en annan tilemapVisualizer
         tilemapVisualizer.PaintFloorTiles(floorPositions);
-
         WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
       
     }

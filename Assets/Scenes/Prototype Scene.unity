@@ -370,6 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goalTime: 0
   musicDuration: 0
+  tryCombatMusic: 0
   audioToggle: 0
   introAudioSource: {fileID: 635318392}
   loopAudioSource: {fileID: 635318391}
@@ -7694,11 +7695,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1665776110794477684, guid: ab2b111c98980454c96609f83cee1f90, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.9
+      value: -17.73
       objectReference: {fileID: 0}
     - target: {fileID: 1665776110794477684, guid: ab2b111c98980454c96609f83cee1f90, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.7
+      value: 8.82
       objectReference: {fileID: 0}
     - target: {fileID: 1665776110794477684, guid: ab2b111c98980454c96609f83cee1f90, type: 3}
       propertyPath: m_LocalPosition.z
