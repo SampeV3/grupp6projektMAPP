@@ -94,10 +94,10 @@ public class SpearAI : MonoBehaviour
             anim.SetTrigger("Dash");
             Invoke("CooldownReset", 0.03f);
             hitSomething = false;
-            rotateFactor = 35f;
+            rotateFactor = 45f;
             while (!hitSomething) // Continue moving until hitSomething is true
             {
-                transform.position = transform.position + -transform.up * 8f * Time.deltaTime;
+                transform.position = transform.position + -transform.up * 10f * Time.deltaTime;
                 yield return null;
             }
             StopCoroutine(rotateCoroutine);
