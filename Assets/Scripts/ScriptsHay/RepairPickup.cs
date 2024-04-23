@@ -5,10 +5,12 @@ using UnityEngine;
 public class RepairPickup : MonoBehaviour
 {
     PlayerTakeDamage playerHealth;
+    private UIController uIController;
     public float healthBonus = 1f;
 
     private void Start()
     {
+        uIController = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
         // Find the player GameObject with the "Player" tag and get its PlayerTakeDamage component
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
@@ -31,6 +33,11 @@ public class RepairPickup : MonoBehaviour
                 Destroy(gameObject);
                 playerHealth.currentHealth += (int)healthBonus;
                 playerHealth.UpdateHealthBar();
+            }
+            if (playerHealth.currentHealth == playerHealth.maxHealth && uIController.inventoryHealthPickups < 3)
+            {
+                uIController.inventoryHealthPickups += 1;
+                gameObject.SetActive(false);
             }
         }
     }

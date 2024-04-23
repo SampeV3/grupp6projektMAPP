@@ -9,6 +9,10 @@ TagManager:
   - PlayerAttack
   - EnemyBullet
   - Mortar
+  - MortarAttack
+  - Laser
+  - HealthPickup
+  - UIController
   layers:
   - Default
   - TransparentFX
