@@ -11,6 +11,7 @@ TagManager:
   - Mortar
   - MortarAttack
   - Laser
+  - Spear
   layers:
   - Default
   - TransparentFX

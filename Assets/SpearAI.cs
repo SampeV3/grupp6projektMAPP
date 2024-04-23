@@ -95,7 +95,7 @@ public class SpearAI : MonoBehaviour
             Invoke("CooldownReset", 0.03f);
             hitSomething = false;
             rotateFactor = 45f;
-            while (!hitSomething) // Continue moving until hitSomething is true
+            while (!hitSomething)
             {
                 transform.position = transform.position + -transform.up * 10f * Time.deltaTime;
                 yield return null;
@@ -103,14 +103,32 @@ public class SpearAI : MonoBehaviour
             StopCoroutine(rotateCoroutine);
             anim.SetTrigger("Stunned");
             canhitSomething = false;
+            Vector3 originalPosition = transform.position;
+            float shakeMagnitude = 0.05f;
+            for (int i = 0; i < 100; i++)
+            {
+                Vector3 shakeOffset = new Vector3(Random.Range(-shakeMagnitude, shakeMagnitude), Random.Range(-shakeMagnitude, shakeMagnitude), 0f);
+                transform.position = originalPosition + shakeOffset;
+                yield return new WaitForSeconds(0.01f);
+            }
+            anim.SetTrigger("Reverse");
+            float elapsedTime = 0f;
+            while (elapsedTime < 1f) 
+            {
+                transform.position = transform.position + transform.up * 0.8f * Time.deltaTime;
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
     private void CooldownReset()
     {
         canhitSomething = true;
     }
+
 
     private IEnumerator RotateTowardsPlayer()
     {
