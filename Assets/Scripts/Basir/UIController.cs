@@ -4,13 +4,23 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
+
     public GameObject inventoryPanel, pausePanel, inventoryButton, pauseButton;
+
     public PlayerSupervisor playerSupervisor;
+    public PlayerTakeDamage playerTakeDamage;
+
     public TextMeshProUGUI xPPoint, levelInfo;
+
+    public List<Button> inventoryButtonsInPanel;
+
+    public int healthAmountToIncreaseFromInventory = 1;
+    public int inventoryHealthPickups = 0;
     private void Start()
     {
         inventoryPanel.SetActive(false);
@@ -21,8 +31,12 @@ public class UIController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        xPPoint.text = "" + playerSupervisor.XP + " / " + playerSupervisor.experience_required;
+        xPPoint.text = playerSupervisor.XP + " / " + playerSupervisor.experience_required;
         levelInfo.text = "Level: " + playerSupervisor.level;
+    }
+    private void Update()
+    {
+        inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryHealthPickups;
     }
     public void OpenInventory()
     {
@@ -75,4 +89,17 @@ public class UIController : MonoBehaviour
     {
         PlayerTakeDamage.OnCombatSituationChanged -= OnCombatChanged;
     }
+
+    public void IncreaseHealthFromInventory()
+    {
+        if (playerTakeDamage.currentHealth < playerTakeDamage.maxHealth && inventoryHealthPickups > 0)
+
+        {
+            playerTakeDamage.currentHealth += healthAmountToIncreaseFromInventory;
+            inventoryHealthPickups -= 1;
+            playerTakeDamage.UpdateHealthBar();      
+        }
+    }
+
+
 }
