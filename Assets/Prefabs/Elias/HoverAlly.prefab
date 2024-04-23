@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 8702255392008997954}
   - component: {fileID: 4545743627234775992}
   - component: {fileID: -7129030025207482417}
-  m_Layer: 0
+  - component: {fileID: -8318194841637667076}
+  m_Layer: 3
   m_Name: HoverAlly
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -233,8 +234,49 @@ MonoBehaviour:
   target: {fileID: 0}
   showPath: 1
   showAhead: 1
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 1
   projectilePrefab: {fileID: 7557707295270203167, guid: 070402002764f414cb9b242074fc32e0, type: 3}
   rangedTarget: {fileID: 0}
   attackRange: 10
   HP: 5
   shootDelay: 3
+--- !u!70 &-8318194841637667076
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3858980567652597406}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.004404545, y: 0.113033295}
+  m_Size: {x: 0.54243946, y: 0.9241104}
+  m_Direction: 0
