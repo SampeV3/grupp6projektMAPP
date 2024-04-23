@@ -106,7 +106,7 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public void ActivateBoost()
+    public void ActivateBoost() //ska utökas när boost item har en funktion
     {
         if (inventoryBoostPickupAmount < 2 && inventoryBoostPickupAmount != 0)
         {
