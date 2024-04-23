@@ -24,6 +24,8 @@ public class UIController : MonoBehaviour
     public int inventoryHealthPickupAmount = 0;
     public int inventoryBoostPickupAmount = 0;
 
+    public bool weapon_1_Selected = true;
+    public bool weapon_2_Selected = false;
     //private bool isBoostActivated = false;  Ska användas senare när boost item har en funktion
     private void Start()
     {
@@ -114,5 +116,22 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void SelectWeapon_1()
+    {
+        if (weapon_2_Selected)
+        {
+            weapon_1_Selected = true;
+            weapon_2_Selected = false;
+        }
+    }
+
+    public void SelectWeapon_2()
+    {
+        if (weapon_1_Selected)
+        {
+            weapon_2_Selected = true;
+            weapon_1_Selected = false;
+        }
+    }
 
 }
