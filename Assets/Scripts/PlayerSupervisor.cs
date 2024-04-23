@@ -105,7 +105,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     {
         this.deathCount = data.totalDeathCount;
         this.XP = data.XP;
-        this.coins = data.coins;
+        this.coins = data.soft_coins;
         //this.experience_required = data.experience_required;
         can_level_up();
 

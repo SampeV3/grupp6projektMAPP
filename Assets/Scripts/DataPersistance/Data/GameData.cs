@@ -12,8 +12,9 @@ public class GameData
     public int level = 0;
     public int experience_required = 100;
     public int XP = 0; //current XP
-    public int coins = 0;
     
+    public int soft_coins = 0;
+    public int premium_coins = 0;
 
 
 
