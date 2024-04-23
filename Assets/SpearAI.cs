@@ -100,15 +100,15 @@ public class SpearAI : MonoBehaviour
                 transform.position = transform.position + -transform.up * 10f * Time.deltaTime;
                 yield return null;
             }
-            foreach (BoxCollider2D collider in GetComponents<BoxCollider2D>())
-            {
-                collider.enabled = false;
-            }
             StopCoroutine(rotateCoroutine);
             anim.SetTrigger("Stunned");
             canhitSomething = false;
             Vector3 originalPosition = transform.position;
             float shakeMagnitude = 0.05f;
+            foreach (BoxCollider2D collider in GetComponents<BoxCollider2D>())
+            {
+                collider.enabled = false;
+            }
             for (int i = 0; i < 100; i++)
             {
                 Vector3 shakeOffset = new Vector3(Random.Range(-shakeMagnitude, shakeMagnitude), Random.Range(-shakeMagnitude, shakeMagnitude), 0f);
