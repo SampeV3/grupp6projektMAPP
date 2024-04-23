@@ -15,7 +15,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [Range(0,10)]
     private int offset = 1;
     [SerializeField]
-    private bool randomWalkRooms = false;
+    public bool randomWalkRooms = false;
     public UnityEvent<DungeonData> OnDungeonFloorReady;
     protected override void RunProceduralGeneration()
     {
@@ -54,8 +54,12 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         HashSet<Vector2Int> corridors = ConnectRooms(roomCenters);
         floor.UnionWith(corridors);
 
+        //om man vill ha olika teman, skicka in olika tilemapVisualizers
+        
+        
         tilemapVisualizer.PaintFloorTiles(floor);
         WallGenerator.CreateWalls(floor, tilemapVisualizer);
+        
     }
 
     private HashSet<Vector2Int> CreateRoomsRandomly(List<BoundsInt> roomsList)
