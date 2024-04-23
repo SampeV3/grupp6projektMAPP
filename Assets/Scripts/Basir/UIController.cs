@@ -19,8 +19,12 @@ public class UIController : MonoBehaviour
 
     public List<Button> inventoryButtonsInPanel;
 
-    public int healthAmountToIncreaseFromInventory = 1;
-    public int inventoryHealthPickups = 0;
+    public int healthPickupAmountToIncrease = 1;
+    public int boostPickupAmountToIncrease = 1;
+    public int inventoryHealthPickupAmount = 0;
+    public int inventoryBoostPickupAmount = 0;
+
+    //private bool isBoostActivated = false;  Ska användas senare när boost item har en funktion
     private void Start()
     {
         inventoryPanel.SetActive(false);
@@ -36,7 +40,8 @@ public class UIController : MonoBehaviour
     }
     private void Update()
     {
-        inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryHealthPickups;
+        inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryHealthPickupAmount;
+        inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryBoostPickupAmount;
     }
     public void OpenInventory()
     {
@@ -92,12 +97,20 @@ public class UIController : MonoBehaviour
 
     public void IncreaseHealthFromInventory()
     {
-        if (playerTakeDamage.currentHealth < playerTakeDamage.maxHealth && inventoryHealthPickups > 0)
+        if (playerTakeDamage.currentHealth < playerTakeDamage.maxHealth && inventoryHealthPickupAmount > 0)
 
         {
-            playerTakeDamage.currentHealth += healthAmountToIncreaseFromInventory;
-            inventoryHealthPickups -= 1;
+            playerTakeDamage.currentHealth += healthPickupAmountToIncrease;
+            inventoryHealthPickupAmount -= 1;
             playerTakeDamage.UpdateHealthBar();      
+        }
+    }
+
+    public void ActivateBoost()
+    {
+        if (inventoryBoostPickupAmount < 2 && inventoryBoostPickupAmount != 0)
+        {
+            inventoryBoostPickupAmount -= 1;
         }
     }
 

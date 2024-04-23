@@ -5351,7 +5351,7 @@ GameObject:
   - component: {fileID: 2429949363606016822}
   m_Layer: 0
   m_Name: UI Controller
-  m_TagString: Untagged
+  m_TagString: UIController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5389,8 +5389,14 @@ MonoBehaviour:
   inventoryButton: {fileID: 2886545901016887493}
   pauseButton: {fileID: 6921489906735509331}
   playerSupervisor: {fileID: 2865775353507046388}
+  playerTakeDamage: {fileID: 0}
   xPPoint: {fileID: 6893097634763402356}
   levelInfo: {fileID: 5522363633161458475}
+  inventoryButtonsInPanel: []
+  healthPickupAmountToIncrease: 1
+  boostPickupAmountToIncrease: 1
+  inventoryHealthPickupAmount: 0
+  inventoryBoostPickupAmount: 0
 --- !u!1 &7726589997728872495
 GameObject:
   m_ObjectHideFlags: 0
