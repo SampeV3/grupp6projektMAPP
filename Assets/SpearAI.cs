@@ -100,6 +100,10 @@ public class SpearAI : MonoBehaviour
                 transform.position = transform.position + -transform.up * 10f * Time.deltaTime;
                 yield return null;
             }
+            foreach (BoxCollider2D collider in GetComponents<BoxCollider2D>())
+            {
+                collider.enabled = false;
+            }
             StopCoroutine(rotateCoroutine);
             anim.SetTrigger("Stunned");
             canhitSomething = false;
@@ -119,8 +123,10 @@ public class SpearAI : MonoBehaviour
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
-            
-
+            foreach (BoxCollider2D collider in GetComponents<BoxCollider2D>())
+            {
+                collider.enabled = true;
+            }
             yield return new WaitForSeconds(0.5f);
         }
     }
