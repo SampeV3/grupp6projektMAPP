@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class Chase : MonoBehaviour
 {
@@ -12,7 +13,21 @@ public class Chase : MonoBehaviour
     public bool showPath;
     public bool showAhead;
 
-    
+    public LayerMask obstacleMask, targetMask;
+    private bool CheckLineOfSight(Transform startTransform, Transform target, float length)
+    {
+        Vector3 directionToPlayer = target.position - startTransform.position;
+
+        RaycastHit2D hitPlayer = Physics2D.Raycast(startTransform.position, directionToPlayer, length, targetMask);
+        RaycastHit2D hitWall = Physics2D.Raycast(startTransform.position, directionToPlayer, length, obstacleMask);
+
+        if (hitWall.collider.CompareTag("Wall") && hitPlayer.collider.CompareTag("Player") && hitPlayer.distance < hitWall.distance)
+        {
+            return true;
+        }
+        return false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +58,7 @@ public class Chase : MonoBehaviour
     public float shootDelay = 1f;
 
     private Transform FindNearestEnemy()
-    //TODO: optimize this, the game is -- suprisingly -- becoming laggy in the editor.
+    //TODO: optimize this, the game is -- suprisingly -- (sometimes) becoming laggy in the editor.
     {
         float closest = attackRange + 1;
         Transform closestEnemy = null;
@@ -88,14 +103,45 @@ public class Chase : MonoBehaviour
     {
         while (HP > 0)
         {
-            
             Invoke(nameof(CheckAttack), 0.5f); // Sätt tid till hur länge animationen körs
             yield return new WaitForSeconds(shootDelay);
         }
     }
-    
-    
-    
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        int damageAmount = 1;
+        if (other.gameObject.CompareTag("EnemyBullet"))
+        {
+            //handle enemy bullet:
+            TakeDamage(damageAmount, other);
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Laser"))
+        {
+            TakeDamage(damageAmount, other);
+        }
+        else if (other.gameObject.CompareTag("MortarAttack"))
+        {
+            TakeDamage(damageAmount, other);
+        }
+    }
+
+    private void OnHealthChanged()
+    {
+        print("allied unit damaged oh no! " + HP);
+    }
+
+    private void TakeDamage(int damageAmount, Collider2D other)
+    {
+        HP -= damageAmount;
+        OnHealthChanged();
+        if (HP <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Navigate.DrawGizmos(agent, showPath, showAhead);

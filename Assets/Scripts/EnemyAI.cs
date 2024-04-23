@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
+using System;
 
 public class EnemyAI : EnemyMonoBehaviour
 {
@@ -53,14 +54,14 @@ public class EnemyAI : EnemyMonoBehaviour
             Vector2 randomDirection = Vector2.zero;
             while (distance < 4f)
             {
-                randomDirection = Random.insideUnitCircle.normalized;
+                randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, randomDirection, 50f,obstacleMask);
                 if (hit.collider != null && hit.collider.CompareTag("Wall") && hit.distance >= 4f)
                 {
                     distance = hit.distance;
                 }
             }
-            Vector2 targetPosition = new Vector2(transform.position.x, transform.position.y) + randomDirection * Random.Range(1f,distance-1.9f);
+            Vector2 targetPosition = new Vector2(transform.position.x, transform.position.y) + randomDirection * UnityEngine.Random.Range(1f,distance-1.9f);
             if (targetPosition.x > transform.position.x)
             {
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x),transform.localScale.y,transform.localScale.z);
@@ -78,8 +79,34 @@ public class EnemyAI : EnemyMonoBehaviour
         }
     }
 
-    private void Update()
+    private int SortByDistance(GameObject o1, GameObject o2)
     {
+        float dist1 = Vector2.Distance(o1.transform.position, this.transform.position);
+        float dist2 = Vector2.Distance(o2.transform.position,this. transform.position);
+ 
+        if (dist1 > dist2)
+        {
+            return 1;
+        }
+        if (dist1 < dist2)
+        {
+            return -1;
+        }
+        return 0;
+    }
+
+    private Transform FindNearestTarget()
+    {
+        string enemyTag = "Player";
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        Array.Sort(enemies, SortByDistance);
+        return enemies.Length > 0 ? enemies[0].transform : null;
+    }
+
+    private void FixedUpdate()
+    {
+        Transform newTarget = FindNearestTarget();
+        if (newTarget) { player = newTarget; }
         if (!playerDetected)
         {
             if (IsPlayerWithinDetectionRadius())
@@ -103,7 +130,8 @@ public class EnemyAI : EnemyMonoBehaviour
     }
 
     private bool IsPlayerWithinDetectionRadius()
-    {   
+    {
+   
         float dist = Vector2.Distance(transform.position, player.position);
         if (dist <= 8f)
         {   
