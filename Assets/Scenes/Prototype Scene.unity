@@ -1046,6 +1046,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 918421493}
+    - target: {fileID: 1363658418589525256, guid: 54b46e7bd3293eb41b9d6188acee4d00, type: 3}
+      propertyPath: dropItem
+      value: 
+      objectReference: {fileID: 2178522839248221096, guid: ee3a1c99dfb8e924d8a8766bca34125c, type: 3}
     - target: {fileID: 4470803232052823512, guid: 54b46e7bd3293eb41b9d6188acee4d00, type: 3}
       propertyPath: m_LocalPosition.x
       value: 35.755974
@@ -7503,6 +7507,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerModel
       objectReference: {fileID: 0}
+    - target: {fileID: 2429949363606016822, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
+      propertyPath: inventoryItemAvailable.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429949363606016822, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
+      propertyPath: inventoryItemUnavailable.a
+      value: 0.8509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429949363606016822, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
+      propertyPath: inventoryItemUnavailable.b
+      value: 0.22609468
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429949363606016822, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
+      propertyPath: inventoryItemUnavailable.g
+      value: 0.22609468
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429949363606016822, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
+      propertyPath: inventoryItemUnavailable.r
+      value: 0.2754717
+      objectReference: {fileID: 0}
     - target: {fileID: 3818261360625183644, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.11
@@ -7542,6 +7566,14 @@ PrefabInstance:
     - target: {fileID: 3818261360625183644, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932957229716951942, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 39.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932957229716951942, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
