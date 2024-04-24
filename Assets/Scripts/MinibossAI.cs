@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class MinibossAI : EnemyMonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
-    [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar, parent;
+    [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar, parent, dropItem; //dropItem tillagt av Basir
     [SerializeField] private Transform player;
     //[SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Animator anim;
@@ -20,9 +20,16 @@ public class MinibossAI : EnemyMonoBehaviour
     private bool beamsActive = false;
     private Material topMat, botMat;
     private Coroutine combatCoroutine;
+
+    private UIController uIController; //tillagt av Basir
+
     private bool playerDetected;
     void Start()
     {
+        //tilldela värden på variabler
+        uIController = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>(); //tillagt av Basir
+        dropItem = gameObject.transform.GetChild(3).gameObject; //tillagt av Basir
+        dropItem.SetActive(false); //tillagt av Basir
         beamDirection = 1;
         HP = 175;
         audioSource = GetComponent<AudioSource>();
@@ -184,15 +191,24 @@ public class MinibossAI : EnemyMonoBehaviour
                 }
                 topSprite.color = Color.red;
                 botSprite.color = Color.red;
+                uIController.isBossDead = true; //tillagt av Basir, bool i UIController används för att tillgängligöra drop item
+                StartCoroutine(DropDelay());    //tillagt av Basir
                 Destroy(parent, 1f);
             }
         }
     }
 
+    /// <summary>
+/// Kör bara koden en enda gång när bossen dött (inte flera, vilket kan hända i OnTriggerEnter2D om det kommer flera kulor exempelvis).
+/// </summary>
     private bool hasRunned = false;
     private void OnDied()
     {
         if (hasRunned) return;
+
+        uIController.isBossDead = true; //tillagt av Basir, bool i UIController används för att tillgängligöra drop item
+        StartCoroutine(DropDelay());    //tillagt av Basir
+
         hasRunned = true;
         SingletonClass.OnEnemyKilled();
         int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 200;
@@ -237,4 +253,11 @@ public class MinibossAI : EnemyMonoBehaviour
         return playerDetected;
     } 
     
+    private IEnumerator DropDelay() //tillagt av Basir
+    {
+        dropItem.transform.parent = null;
+        yield return new WaitForSeconds(0.8f);
+        
+        dropItem.gameObject.SetActive(true);
+    }
 }
