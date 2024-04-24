@@ -1,9 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Lumin;
-using Codice.CM.Client.Differences;
+
 
 public class SpearAI : MonoBehaviour
 {
