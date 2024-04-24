@@ -83,8 +83,11 @@ public class CharacterMovement : MonoBehaviour
     private void OnMove(InputValue inputValue)
     {
         _movementInput = inputValue.Get<Vector2>();
+    }
 
-
+    public void OnJoystickMove(Vector2 direction)
+    {
+        _movementInput = direction;
     }
 
     // herman

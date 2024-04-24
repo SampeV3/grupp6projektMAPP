@@ -5,10 +5,22 @@ using UnityEngine.EventSystems;
 
 public class FloatingJoystick : Joystick
 {
+
+    private void Awake()
+    {
+       
+    }
+
     protected override void Start()
     {
         base.Start();
         background.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        
+        this.GameObjectToSendMessageTo.SendMessage(this.MethodName, this.Direction);
     }
 
     public override void OnPointerDown(PointerEventData eventData)

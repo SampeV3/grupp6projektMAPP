@@ -8,6 +8,15 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public float Horizontal { get { return (snapX) ? SnapFloat(input.x, AxisOptions.Horizontal) : input.x; } }
     public float Vertical { get { return (snapY) ? SnapFloat(input.y, AxisOptions.Vertical) : input.y; } }
     public Vector2 Direction { get { return new Vector2(Horizontal, Vertical); } }
+    public GameObject GameObjectToSendMessageTo {
+        get { return gameObjectToSendMessageTo; }
+        set { gameObjectToSendMessageTo = value; }
+    }
+    public string MethodName
+    {
+        get { return methodName; }
+        set { methodName = value; }
+    }
 
     public float HandleRange
     {
@@ -30,6 +39,8 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     [SerializeField] private AxisOptions axisOptions = AxisOptions.Both;
     [SerializeField] private bool snapX = false;
     [SerializeField] private bool snapY = false;
+    [SerializeField] private GameObject gameObjectToSendMessageTo = null;
+    [SerializeField] private string methodName;
 
     [SerializeField] protected RectTransform background = null;
     [SerializeField] private RectTransform handle = null;

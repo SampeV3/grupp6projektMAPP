@@ -8,6 +8,8 @@ public class JoystickEditor : Editor
 {
     private SerializedProperty handleRange;
     private SerializedProperty deadZone;
+    private SerializedProperty gameObjectToSendMessageTo;
+    private SerializedProperty methodName;
     private SerializedProperty axisOptions;
     private SerializedProperty snapX;
     private SerializedProperty snapY;
@@ -20,6 +22,8 @@ public class JoystickEditor : Editor
     {
         handleRange = serializedObject.FindProperty("handleRange");
         deadZone = serializedObject.FindProperty("deadZone");
+        gameObjectToSendMessageTo = serializedObject.FindProperty("gameObjectToSendMessageTo");
+        methodName = serializedObject.FindProperty("methodName");
         axisOptions = serializedObject.FindProperty("axisOptions");
         snapX = serializedObject.FindProperty("snapX");
         snapY = serializedObject.FindProperty("snapY");
@@ -54,6 +58,8 @@ public class JoystickEditor : Editor
         EditorGUILayout.PropertyField(axisOptions, new GUIContent("Axis Options", "Which axes the joystick uses."));
         EditorGUILayout.PropertyField(snapX, new GUIContent("Snap X", "Snap the horizontal input to a whole value."));
         EditorGUILayout.PropertyField(snapY, new GUIContent("Snap Y", "Snap the vertical input to a whole value."));
+        EditorGUILayout.PropertyField(methodName, new GUIContent("Method Name", "Name of the method to call in the gameobject"));
+        EditorGUILayout.PropertyField(gameObjectToSendMessageTo, new GUIContent("gameObjectToSendMessageTo", "The game object to send a message to"));
     }
 
     protected virtual void DrawComponents()

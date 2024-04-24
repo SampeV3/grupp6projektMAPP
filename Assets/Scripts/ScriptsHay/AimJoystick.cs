@@ -23,9 +23,9 @@ public class AimJoystick : MonoBehaviour
         uIController = GameObject.FindGameObjectWithTag("UIController").gameObject.GetComponent<UIController>(); //tillagt av Basir
     }
 
-    private void OnAim(InputValue inputValue)
+    public void OnAim(Vector2 direction)
     {
-        GameobjectRotation = inputValue.Get<Vector2>();
+        GameobjectRotation = direction;
     }
 
     private void FireInvocation ()
