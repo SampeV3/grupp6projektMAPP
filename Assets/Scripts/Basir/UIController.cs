@@ -1,3 +1,4 @@
+using Codice.Client.Common.GameUI;
 using Codice.CM.SEIDInfo;
 using System;
 using System.Collections;
@@ -8,8 +9,29 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+
 public class UIController : MonoBehaviour
 {
+    private class PickupScript : MonoBehaviour
+    {
+        public delegate void PickupAction (GameObject pickedUpObject);
+        public static event PickupAction OnPickup;
+
+        private bool pickedUp = false;
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision != null && collision.gameObject.tag == "Player")
+            {
+                if (!pickedUp)
+                {
+                    pickedUp = true;
+                    OnPickup(this.gameObject);
+                }
+            }
+        }
+    }
+
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
     
     public GameObject inventoryPanel, pausePanel, inventoryButton, pauseButton;
@@ -95,7 +117,13 @@ public class UIController : MonoBehaviour
     void DropItem( Vector3 position, MinibossAI boss)
     {
         GameObject newItem = CreateObject(boss.drop, position);
+        PickupScript pickup = newItem.AddComponent<PickupScript>();
         
+    }
+
+    void PickupComplete (GameObject item)
+    {
+        print("Hey Basir, I picked up this " + item + " what do I do with it?");
     }
 
     public GameObject CreateObject(GameObject prefab, Vector3 placementPosition)
@@ -121,12 +149,14 @@ public class UIController : MonoBehaviour
     {
         PlayerTakeDamage.OnCombatSituationChanged += OnCombatChanged;
         MinibossAI.OnMiniBossDied += DropItem;
+        PickupScript.OnPickup += PickupComplete;
     }
 
     private void OnDisable()
     {
         PlayerTakeDamage.OnCombatSituationChanged -= OnCombatChanged;
         MinibossAI.OnMiniBossDied -= DropItem;
+        PickupScript.OnPickup -= PickupComplete;
     }
 
     public void IncreaseHealthFromInventory()
