@@ -62,6 +62,7 @@ public class UIController : MonoBehaviour
         {
             changeItemColor(inventoryButtonsInPanel[3].image, false);
         }
+        else { return; }
         inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryBoostPickupAmount;
 
         if (!isWeapon_2_picked)

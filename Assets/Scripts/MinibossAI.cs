@@ -21,15 +21,10 @@ public class MinibossAI : EnemyMonoBehaviour
     private Material topMat, botMat;
     private Coroutine combatCoroutine;
 
-    private UIController uIController; //tillagt av Basir
-
     private bool playerDetected;
     void Start()
     {
         //tilldela värden på variabler
-        uIController = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>(); //tillagt av Basir
-        dropItem = gameObject.transform.GetChild(3).gameObject; //tillagt av Basir
-        dropItem.SetActive(false); //tillagt av Basir
         beamDirection = 1;
         HP = 175;
         audioSource = GetComponent<AudioSource>();
@@ -191,8 +186,6 @@ public class MinibossAI : EnemyMonoBehaviour
                 }
                 topSprite.color = Color.red;
                 botSprite.color = Color.red;
-                uIController.isBossDead = true; //tillagt av Basir, bool i UIController används för att tillgängligöra drop item
-                StartCoroutine(DropDelay());    //tillagt av Basir
                 Destroy(parent, 1f);
             }
         }
@@ -205,10 +198,6 @@ public class MinibossAI : EnemyMonoBehaviour
     private void OnDied()
     {
         if (hasRunned) return;
-
-        uIController.isBossDead = true; //tillagt av Basir, bool i UIController används för att tillgängligöra drop item
-        StartCoroutine(DropDelay());    //tillagt av Basir
-
         hasRunned = true;
         SingletonClass.OnEnemyKilled();
         int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 200;
@@ -252,12 +241,4 @@ public class MinibossAI : EnemyMonoBehaviour
     {
         return playerDetected;
     } 
-    
-    private IEnumerator DropDelay() //tillagt av Basir
-    {
-        dropItem.transform.parent = null;
-        yield return new WaitForSeconds(0.8f);
-        
-        dropItem.gameObject.SetActive(true);
-    }
 }
