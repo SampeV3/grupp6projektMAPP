@@ -8,10 +8,14 @@ public class MinibossAI : EnemyMonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
     [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar, parent;
+    public GameObject drop;
     [SerializeField] private Transform player;
     //[SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer topSprite, botSprite;
+
+    public delegate void MinibossDiedAction(Vector3 position, MinibossAI bossClass); //metod signatur f�r subscribers till eventet
+    public static event MinibossDiedAction OnMiniBossDied;
 
     private AudioSource audioSource;
     //[SerializeField] private Material originalMatTop, originalMatBot;
@@ -193,6 +197,9 @@ public class MinibossAI : EnemyMonoBehaviour
     private void OnDied()
     {
         if (hasRunned) return;
+        OnMiniBossDied(this.transform.position, this);
+
+
         hasRunned = true;
         SingletonClass.OnEnemyKilled();
         int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 200;

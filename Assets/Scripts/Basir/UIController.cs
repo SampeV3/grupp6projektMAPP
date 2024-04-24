@@ -1,7 +1,9 @@
+using Codice.CM.SEIDInfo;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,7 +11,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
-
+    
     public GameObject inventoryPanel, pausePanel, inventoryButton, pauseButton;
     public List<GameObject> inactiveWhileInventoryOpen;
 
@@ -89,15 +91,42 @@ public class UIController : MonoBehaviour
             pauseButton.SetActive(true);
         }
     }
-    
+
+    void DropItem( Vector3 position, MinibossAI boss)
+    {
+        GameObject newItem = CreateObject(boss.drop, position);
+        
+    }
+
+    public GameObject CreateObject(GameObject prefab, Vector3 placementPosition)
+    {
+        if (prefab == null)
+            return null;
+        GameObject newItem;
+        if (Application.isPlaying)
+        {
+            newItem = Instantiate(prefab, placementPosition, Quaternion.identity);
+        }
+        else
+        {
+            newItem = Instantiate(prefab);
+            newItem.transform.position = placementPosition;
+            newItem.transform.rotation = Quaternion.identity;
+        }
+
+        return newItem;
+    }
+
     private void OnEnable()
     {
         PlayerTakeDamage.OnCombatSituationChanged += OnCombatChanged;
+        MinibossAI.OnMiniBossDied += DropItem;
     }
 
     private void OnDisable()
     {
         PlayerTakeDamage.OnCombatSituationChanged -= OnCombatChanged;
+        MinibossAI.OnMiniBossDied -= DropItem;
     }
 
     public void IncreaseHealthFromInventory()
@@ -145,9 +174,8 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public void InactivateButtons()
-    {
-        
-    }
+
+
+
 
 }
