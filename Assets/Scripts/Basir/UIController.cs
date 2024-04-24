@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
 
     public GameObject inventoryPanel, pausePanel, inventoryButton, pauseButton;
+    public List<GameObject> inactiveWhileInventoryOpen;
 
     public PlayerSupervisor playerSupervisor;
     public PlayerTakeDamage playerTakeDamage;
@@ -51,9 +52,11 @@ public class UIController : MonoBehaviour
         inventoryPanel.SetActive(true);
         inventoryButton.SetActive(false);
         pauseButton.SetActive(false);
+        SetActiveInList(inactiveWhileInventoryOpen, false);
     }
     public void ExitPanel()
     {
+        SetActiveInList(inactiveWhileInventoryOpen, true);
         Time.timeScale = 1;
         inventoryPanel ?.SetActive(false);
         pausePanel ?.SetActive(false);
@@ -132,6 +135,19 @@ public class UIController : MonoBehaviour
             weapon_2_Selected = true;
             weapon_1_Selected = false;
         }
+    }
+
+    private void SetActiveInList(List<GameObject> gameObjects, bool active)
+    {
+        foreach (var gameObject in gameObjects)
+        {
+            gameObject.SetActive(active);
+        }
+    }
+
+    public void InactivateButtons()
+    {
+        
     }
 
 }
