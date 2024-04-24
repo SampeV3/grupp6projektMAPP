@@ -5,15 +5,31 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
 
-    public Transform firePoint;
+    public Transform firePoint1, firePoint2; //ändrats av Basir
     public GameObject bulletPrefab;
+
+    UIController uIController;
 
     public delegate void OnShootAction();
     public static event OnShootAction OnShoot;
 
-    public void Shoot()
+    private void Start()
     {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        //firePoint1
+        uIController = GameObject.FindGameObjectWithTag("UIController").gameObject.GetComponent<UIController>(); //tillagt av Basir
+    }
+
+    public void Shoot()  //ändrats av Basir
+    {
+        if (uIController.weapon_1_Selected)
+        {
+            Instantiate(bulletPrefab, firePoint1.position, firePoint1.rotation);
+        }
+        if (uIController.weapon_2_Selected)
+        {
+            Instantiate(bulletPrefab, firePoint2.position, firePoint2.rotation);
+        }
+        
 
         if (OnShoot != null) OnShoot();
     }

@@ -13,6 +13,10 @@ TagManager:
   - Laser
   - HealthPickup
   - UIController
+  - Pistol1
+  - FirePointPistol1
+  - Pistol2
+  - FirePointPistol2
   layers:
   - Default
   - TransparentFX

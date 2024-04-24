@@ -18,7 +18,7 @@ public class RoomContentGenerator : MonoBehaviour
     private GraphTest graphTest;
 
 
-    public Transform itemParent;
+    public static Transform itemParent;
 
     [SerializeField]
     private CinemachineVirtualCamera cinemachineCamera;

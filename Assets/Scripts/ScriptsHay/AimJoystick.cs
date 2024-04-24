@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class AimJoystick : MonoBehaviour
 {
     private Joystick joystick;
-    public GameObject Object;
+    public GameObject pistol_1, pistol_2; //ändrats av Basir
     Vector2 GameobjectRotation;
     private float GameobjectRotation2;
     private float GameobjectRotation3;
@@ -15,15 +15,17 @@ public class AimJoystick : MonoBehaviour
 
     public bool FacingRight = true;
     PlayerShoot playerShoot;
+    UIController uIController;
 
     private void Awake()
     {
         playerShoot = GetComponent<PlayerShoot>();
+        uIController = GameObject.FindGameObjectWithTag("UIController").gameObject.GetComponent<UIController>(); //tillagt av Basir
     }
 
-    private void OnAim(InputValue inputValue)
+    public void OnAim(Vector2 direction)
     {
-        GameobjectRotation = inputValue.Get<Vector2>();
+        GameobjectRotation = direction;
     }
 
     private void FireInvocation ()
@@ -46,17 +48,34 @@ public class AimJoystick : MonoBehaviour
     
         GameobjectRotation3 = GameobjectRotation.x;
 
+        if (uIController.weapon_1_Selected) //tillagt av Basir
+        {
+            FlipWeapon(pistol_1);
+            pistol_2.SetActive(false);
+            pistol_1.SetActive(true);
+        }
+
+        if (uIController.weapon_2_Selected) //tillagt av Basir
+        {
+            FlipWeapon(pistol_2);
+            pistol_1.SetActive(false);
+            pistol_2.SetActive(true);
+        }
+
+    }
+    private void FlipWeapon(GameObject pistol) //Raderna gjordes till en egen metod (av Basir)
+    {
         if (FacingRight)
         {
             //Rotates the object if the player is facing right
             GameobjectRotation2 = GameobjectRotation.x + GameobjectRotation.y * 90;
-            Object.transform.rotation = Quaternion.Euler(0f, 0f, GameobjectRotation2);
+            pistol.transform.rotation = Quaternion.Euler(0f, 0f, GameobjectRotation2);
         }
         else
         {
             //Rotates the object if the player is facing left
             GameobjectRotation2 = GameobjectRotation.x + GameobjectRotation.y * -90;
-            Object.transform.rotation = Quaternion.Euler(0f, 180f, -GameobjectRotation2);
+            pistol.transform.rotation = Quaternion.Euler(0f, 180f, -GameobjectRotation2);
         }
         if (GameobjectRotation3 < 0 && FacingRight)
         {

@@ -10,7 +10,7 @@ public class RepairPickup : MonoBehaviour
 
     private void Start()
     {
-        uIController = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
+        uIController = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>(); //tillagt av Basir
         // Find the player GameObject with the "Player" tag and get its PlayerTakeDamage component
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
@@ -34,9 +34,9 @@ public class RepairPickup : MonoBehaviour
                 playerHealth.currentHealth += (int)healthBonus;
                 playerHealth.UpdateHealthBar();
             }
-            if (playerHealth.currentHealth == playerHealth.maxHealth && uIController.inventoryHealthPickups < 3)
+            if (playerHealth.currentHealth == playerHealth.maxHealth && uIController.inventoryHealthPickupAmount < 3) //tillagt av Basir
             {
-                uIController.inventoryHealthPickups += 1;
+                uIController.inventoryHealthPickupAmount += 1;
                 gameObject.SetActive(false);
             }
         }

@@ -22,6 +22,7 @@ public class MortarAI : EnemyMonoBehaviour
     private bool isDead = false;
     void Start()
     {
+        gameObject.transform.GetChild(0).gameObject.SetActive(false); //tillagt av Basir
         HP = 10;
         audioSource = GetComponent<AudioSource>();
         sprd = GetComponent<SpriteRenderer>();
@@ -84,6 +85,7 @@ public class MortarAI : EnemyMonoBehaviour
                 }
                 flashOnHit = sprd.material;
                 sprd.color = Color.red;
+                StartCoroutine(DropDelay()); //Tillagt av Basir
                 Destroy(gameObject, 1f);
             }
         }
@@ -147,5 +149,12 @@ public class MortarAI : EnemyMonoBehaviour
     {
         return playerDetected;
     } 
+
+    private IEnumerator DropDelay() //tillagt av Basir
+    {
+        yield return new WaitForSeconds(0.9f);
+        gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        gameObject.transform.GetChild(0).gameObject.transform.parent = null;
+    }
     
 }
