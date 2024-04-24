@@ -12,6 +12,7 @@ public class Chase : MonoBehaviour
     private bool stop;
     public bool showPath;
     public bool showAhead;
+    public Vector3 offsetPosition = new Vector3(0, -1, 0);
 
     public LayerMask obstacleMask, targetMask;
     private bool CheckLineOfSight(Transform startTransform, Transform target, float length)
@@ -48,7 +49,7 @@ public class Chase : MonoBehaviour
     void Update()
     {
         agent.speed = 8f;
-        agent.SetDestination(target.position);
+        agent.SetDestination(target.position + offsetPosition);
     }
 
     public GameObject projectilePrefab;

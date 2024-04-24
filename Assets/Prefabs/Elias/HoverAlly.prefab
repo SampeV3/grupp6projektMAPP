@@ -234,6 +234,7 @@ MonoBehaviour:
   target: {fileID: 0}
   showPath: 1
   showAhead: 1
+  offsetPosition: {x: 0, y: 2, z: 0}
   obstacleMask:
     serializedVersion: 2
     m_Bits: 64
