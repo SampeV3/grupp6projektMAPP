@@ -51,11 +51,20 @@ public class UIController : MonoBehaviour
 
     public bool weapon_1_Selected = true;
     public bool weapon_2_Selected = false;
+    public bool isWeapon_2_picked = false;
+
+    public bool isBossDead;
+
     //private bool isBoostActivated = false;  Ska användas senare när boost item har en funktion
+
+    public Color inventoryItemUnavailable;
+    
     private void Start()
     {
         inventoryPanel.SetActive(false);
         pausePanel.SetActive(false);
+
+        isBossDead = false;
         
         xPPoint.text = "00";
     }
@@ -67,8 +76,22 @@ public class UIController : MonoBehaviour
     }
     private void Update()
     {
+        if (inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text == "0")
+        {
+            changeItemColor(inventoryButtonsInPanel[2].image, false);
+        }
         inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryHealthPickupAmount;
+
+        if (inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text == "0")
+        {
+            changeItemColor(inventoryButtonsInPanel[3].image, false);
+        }
         inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryBoostPickupAmount;
+
+        if (!isWeapon_2_picked)
+        {
+            changeItemColor(inventoryButtonsInPanel[1].image, false);
+        }
     }
     public void OpenInventory()
     {
@@ -189,7 +212,7 @@ public class UIController : MonoBehaviour
 
     public void SelectWeapon_2()
     {
-        if (weapon_1_Selected)
+        if (weapon_1_Selected && isBossDead)
         {
             weapon_2_Selected = true;
             weapon_1_Selected = false;
@@ -207,5 +230,13 @@ public class UIController : MonoBehaviour
 
 
 
+
+    private void changeItemColor (Image image, bool isAvailable)
+    {
+        if (!isAvailable)
+        {
+            image.color = inventoryItemUnavailable;
+        }
+    }
 
 }
