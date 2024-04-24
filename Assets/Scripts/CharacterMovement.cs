@@ -82,6 +82,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void OnMove(InputValue inputValue)
     {
+
         _movementInput = inputValue.Get<Vector2>();
     }
 

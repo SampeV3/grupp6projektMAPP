@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#if (UNITY_EDITOR) 
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -68,3 +70,4 @@ public class JoystickEditor : Editor
         EditorGUILayout.ObjectField(handle, new GUIContent("Handle", "The handle's RectTransform component."));
     }
 }
+#endif
