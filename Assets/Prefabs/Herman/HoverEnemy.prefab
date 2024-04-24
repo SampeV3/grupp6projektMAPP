@@ -111,6 +111,8 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 64
+  shootDelay: 1
+  xpToAwardPlayerForKillingEnemy: 100
 --- !u!82 &8569573332407228578
 AudioSource:
   m_ObjectHideFlags: 0

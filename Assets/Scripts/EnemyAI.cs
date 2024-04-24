@@ -16,11 +16,12 @@ public class EnemyAI : EnemyMonoBehaviour
     private Material originalMat;
     private SpriteRenderer sprd;
     private Animator anim;
-    private int HP;
+    private float HP;
     public float shootDelay = 1f;
     [FormerlySerializedAs("XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY")] public int xpToAwardPlayerForKillingEnemy = 100;
     private bool playerDetected = false;
     private bool isDead, droppedLoot = false;
+    private bool canDealDamage = true;
     private Coroutine moveCoroutine, combatCoroutine;
     private GameObject playerSpottedWarning;
 
@@ -105,6 +106,7 @@ public class EnemyAI : EnemyMonoBehaviour
 
     private void FixedUpdate()
     {
+        GetComponent<Rigidbody2D>().WakeUp();
         Transform newTarget = FindNearestTarget();
         if (newTarget) { player = newTarget; }
         if (!playerDetected)
@@ -184,33 +186,69 @@ public class EnemyAI : EnemyMonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("PlayerAttack"))
+        if (other.gameObject.CompareTag("PlayerAttack") )
         {
             Destroy(other.gameObject);
             HP -= 1;
             StartCoroutine(Flash());
-            if (HP <= 0)
-            {
-
-
-                OnDied();
-                isDead = true;
-
-
-                if (moveCoroutine != null)
-                {
-                    StopCoroutine(moveCoroutine);
-                }
-                if (combatCoroutine != null)
-                {
-                    StopCoroutine(combatCoroutine);
-                }
-                sprd.color = Color.red;
-                dropLoot();
-                Destroy(gameObject, 1f);
-            }
+            
         }
 
+        if (HP <= 0)
+        {
+
+
+            OnDied();
+            isDead = true;
+
+
+            if (moveCoroutine != null)
+            {
+                StopCoroutine(moveCoroutine);
+            }
+            if (combatCoroutine != null)
+            {
+                StopCoroutine(combatCoroutine);
+            }
+            sprd.color = Color.red;
+            dropLoot();
+            Destroy(gameObject, 1f);
+        }
+
+
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlasmaGunLaser") && canDealDamage)
+        {
+            HP -= 0.5f;
+            StartCoroutine(Flash());
+            canDealDamage = false;
+            Invoke("damageCooldownReset", .2f);
+
+        }
+
+        if (HP <= 0)
+        {
+
+
+            OnDied();
+            isDead = true;
+
+
+            if (moveCoroutine != null)
+            {
+                StopCoroutine(moveCoroutine);
+            }
+            if (combatCoroutine != null)
+            {
+                StopCoroutine(combatCoroutine);
+            }
+            sprd.color = Color.red;
+            dropLoot();
+            Destroy(gameObject, 1f);
+        }
     }
 
     private bool hasRunned = false;
@@ -242,5 +280,10 @@ public class EnemyAI : EnemyMonoBehaviour
         sprd.material = flashOnHit;
         yield return new WaitForSeconds(0.125f);
         sprd.material = originalMat;
+    }
+
+    private void damageCooldownReset()
+    {
+       canDealDamage = true;
     }
 }

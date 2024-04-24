@@ -15,11 +15,15 @@ public class AimJoystick : MonoBehaviour
 
     public bool FacingRight = true;
     PlayerShoot playerShoot;
+    Laser Laser;
+    public GameObject PlasmaGun;
     UIController uIController;
+
 
     private void Awake()
     {
         playerShoot = GetComponent<PlayerShoot>();
+        Laser = PlasmaGun.GetComponent<Laser>(); 
         uIController = GameObject.FindGameObjectWithTag("UIController").gameObject.GetComponent<UIController>(); //tillagt av Basir
     }
 
@@ -40,9 +44,20 @@ public class AimJoystick : MonoBehaviour
 
         bool isStill = GameobjectRotation == Vector2.zero;
         if (!isStill && !isInvokingShooting) {
-            isInvokingShooting = true;
-            Invoke("FireInvocation", 0.2f);
+
+            if(uIController.weapon_1_Selected)
+            {
+                isInvokingShooting = true;
+                Invoke("FireInvocation", 0.2f);
+            }
+
+            if(uIController.weapon_2_Selected)
+            {
+                Laser.EnableLaser();
+            }
+            
         }
+        else { Laser.DisableLaser(); }
                 
 
     
@@ -55,14 +70,37 @@ public class AimJoystick : MonoBehaviour
             pistol_1.SetActive(true);
         }
 
-        if (uIController.weapon_2_Selected) //tillagt av Basir
-        {
+     
+        if (uIController.weapon_2_Selected)
+         {
+               // Instantiate(bulletPrefab, firePoint2.position, firePoint2.rotation);
             FlipWeapon(pistol_2);
             pistol_1.SetActive(false);
             pistol_2.SetActive(true);
-        }
+         }
+           
+        
 
+      /*  // Check if weapon 2 is selected and the player is aiming
+        if (uIController.weapon_2_Selected && !isStill)
+        {
+            // Enable the laser and update its position
+            laser.EnableLaser();
+            UpdateLaserPosition();
+        }
+        else
+        {
+            // Disable the laser if not aiming with weapon 2
+            laser.DisableLaser();
+        }
+      */
     }
+
+  /*  private void UpdateLaserPosition()
+    {
+        Vector3 direction = new Vector3(GameobjectRotation.x, GameobjectRotation.y, 0f);
+        laser.UpdateLaserPosition(pistol_2.transform.position, direction);
+    } */
     private void FlipWeapon(GameObject pistol) //Raderna gjordes till en egen metod (av Basir)
     {
         if (FacingRight)

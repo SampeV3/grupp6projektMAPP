@@ -17,6 +17,8 @@ TagManager:
   - FirePointPistol1
   - Pistol2
   - FirePointPistol2
+  - Spear
+  - PlasmaGunLaser
   layers:
   - Default
   - TransparentFX
