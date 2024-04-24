@@ -26,7 +26,7 @@ public class UIController : MonoBehaviour
                 if (!pickedUp)
                 {
                     pickedUp = true;
-                    OnPickup(this.gameObject);
+                    OnPickup(gameObject);
                 }
             }
         }
