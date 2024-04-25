@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1097888504590994892}
   - component: {fileID: 8500431331014577475}
   - component: {fileID: 5672046858627421031}
+  - component: {fileID: 1123963176478649859}
   m_Layer: 0
   m_Name: MortarEnemy
   m_TagString: Mortar
@@ -284,6 +285,21 @@ MonoBehaviour:
   flashOnHit: {fileID: 2100000, guid: 09f1d2aef631a0748a30d1f6c4c0a921, type: 2}
   mortarIndicator: {fileID: 1585086701132302112, guid: 6e06f60ffb662494280c7620ee1d8b33, type: 3}
   player: {fileID: 0}
+--- !u!114 &1123963176478649859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687373707176975861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473a50d880c997f478830523af273c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 3345387460916323160, guid: cda878f6ac055a3469908d1a15e2cafa, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 7aba79979f0f7984189b093c94d9a41c, type: 2}
 --- !u!1001 &2809908158702283034
 PrefabInstance:
   m_ObjectHideFlags: 0

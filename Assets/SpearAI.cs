@@ -14,13 +14,14 @@ public class SpearAI : MonoBehaviour
     private Material originalMat;
     private SpriteRenderer sprd;
     private Animator anim;
-    private int HP;
+    private float HP;
     private bool playerDetected = false;
     private bool canhitSomething = false;
     private bool isDead, droppedLoot = false;
     private Coroutine combatCoroutine, rotateCoroutine;
     private GameObject playerSpottedWarning;
     private bool hitSomething = false;
+    private bool canDealDamage = true;
     private float rotateFactor;
 
     void Start()
@@ -87,7 +88,7 @@ public class SpearAI : MonoBehaviour
             anim.SetTrigger("Charge");
             rotateFactor = 100f;
             yield return new WaitForSeconds(2.5f);
-            
+
             anim.SetTrigger("Dash");
             Invoke("CooldownReset", 0.03f);
             hitSomething = false;
@@ -114,7 +115,7 @@ public class SpearAI : MonoBehaviour
             }
             anim.SetTrigger("Reverse");
             float elapsedTime = 0f;
-            while (elapsedTime < 1f) 
+            while (elapsedTime < 1f)
             {
                 transform.position = transform.position + transform.up * 0.8f * Time.deltaTime;
                 elapsedTime += Time.deltaTime;
@@ -139,7 +140,7 @@ public class SpearAI : MonoBehaviour
         {
             Vector2 directionToPlayer = player.position - transform.position;
             float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
-            Quaternion desiredRotation = Quaternion.Euler(0f,0f, angle+90f);
+            Quaternion desiredRotation = Quaternion.Euler(0f, 0f, angle + 90f);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, rotateFactor * Time.deltaTime);
             yield return null;
         }
@@ -170,18 +171,21 @@ public class SpearAI : MonoBehaviour
             Destroy(other.gameObject);
             HP -= 1;
             StartCoroutine(Flash());
-            if (HP <= 0)
-            {
-                isDead = true;
-                if (combatCoroutine != null)
-                {
-                    StopCoroutine(combatCoroutine);
-                }
-                sprd.color = Color.red;
-                dropLoot();
-                Destroy(gameObject, 1f);
-            }
+
         }
+        if (HP <= 0)
+        {
+            isDead = true;
+            if (combatCoroutine != null)
+            {
+                StopCoroutine(combatCoroutine);
+            }
+            sprd.color = Color.red;
+            dropLoot();
+            Destroy(gameObject, 1f);
+        }
+
+    
         if (canhitSomething)
         {
             if (other.gameObject.CompareTag("Wall"))
@@ -194,6 +198,40 @@ public class SpearAI : MonoBehaviour
             }
         }
 
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlasmaGunLaser") && canDealDamage)
+        {
+            HP -= 0.5f;
+            StartCoroutine(Flash());
+            canDealDamage = false;
+            Invoke("damageCooldownReset", .2f);
+
+        }
+
+        if (HP <= 0)
+        {
+
+
+            
+            isDead = true;
+
+
+            if (rotateCoroutine != null)
+             {
+                 StopCoroutine(rotateCoroutine);
+             }
+            
+            if (combatCoroutine != null)
+            {
+                StopCoroutine(combatCoroutine);
+            }
+            sprd.color = Color.red;
+            dropLoot();
+            Destroy(gameObject, 1f);
+        }
     }
 
     private void dropLoot()
@@ -216,5 +254,15 @@ public class SpearAI : MonoBehaviour
             sprd.material = originalMat;
 
         }
+    }
+
+    private void damageCooldownReset()
+    {
+        canDealDamage = true;
+    }
+
+    private void FixedUpdate()
+    {
+        GetComponent<Rigidbody2D>().WakeUp();
     }
 }

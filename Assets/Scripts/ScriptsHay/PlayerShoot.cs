@@ -25,10 +25,7 @@ public class PlayerShoot : MonoBehaviour
         {
             Instantiate(bulletPrefab, firePoint1.position, firePoint1.rotation);
         }
-        if (uIController.weapon_2_Selected)
-        {
-            Instantiate(bulletPrefab, firePoint2.position, firePoint2.rotation);
-        }
+        
         
 
         if (OnShoot != null) OnShoot();

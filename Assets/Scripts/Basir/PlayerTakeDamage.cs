@@ -123,6 +123,7 @@ public class PlayerTakeDamage : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         int damageAmount = 1;
+        int spearDamage = 2;
         if (other.gameObject.CompareTag("EnemyBullet"))
         {
             //handle enemy bullet:
@@ -138,6 +139,11 @@ public class PlayerTakeDamage : MonoBehaviour
         else if (other.gameObject.CompareTag("MortarAttack"))
         {
             TakeDamage(damageAmount, other);
+            UpdateHealthBar();
+        }
+        else if (other.gameObject.CompareTag("Spear"))
+        {
+            TakeDamage(spearDamage, other);
             UpdateHealthBar();
         }
     }

@@ -15,13 +15,15 @@ public class MinibossAI : EnemyMonoBehaviour
 
     private AudioSource audioSource;
     //[SerializeField] private Material originalMatTop, originalMatBot;
-    private int HP;
+    private float HP;
     private int beamDirection;
     private bool beamsActive = false;
     private Material topMat, botMat;
     private Coroutine combatCoroutine;
 
     private bool playerDetected;
+    private bool isDead, droppedLoot = false;
+    private bool canDealDamage = true;
     void Start()
     {
         //tilldela värden på variabler
@@ -177,6 +179,8 @@ public class MinibossAI : EnemyMonoBehaviour
             Destroy(other.gameObject);
             HP -= 1;
             StartCoroutine(Flash());
+
+        }
             if(HP <= 0)
             {
                 OnDied();
@@ -189,11 +193,36 @@ public class MinibossAI : EnemyMonoBehaviour
                 Destroy(parent, 1f);
             }
         }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlasmaGunLaser") && canDealDamage)
+        {
+            HP -= 0.5f;
+            StartCoroutine(Flash());
+            canDealDamage = false;
+            Invoke("damageCooldownReset", .2f);
+
+        }
+
+        if (HP <= 0)
+        {
+
+
+            OnDied();
+            isDead = true;
+
+            if (combatCoroutine != null)
+            {
+                StopCoroutine(combatCoroutine);
+            }
+            topSprite.color = Color.red;
+            botSprite.color = Color.red;
+            dropLoot();
+            Destroy(gameObject, 1f);
+        }
     }
 
-    /// <summary>
-/// Kör bara koden en enda gång när bossen dött (inte flera, vilket kan hända i OnTriggerEnter2D om det kommer flera kulor exempelvis).
-/// </summary>
     private bool hasRunned = false;
     private void OnDied()
     {
@@ -206,6 +235,7 @@ public class MinibossAI : EnemyMonoBehaviour
 
     private IEnumerator Flash()
     {
+        if (isDead) yield break;
         topSprite.material = flashOnHit;
         botSprite.material = flashOnHit;
         yield return new WaitForSeconds(0.125f);
@@ -214,6 +244,7 @@ public class MinibossAI : EnemyMonoBehaviour
     }
     void FixedUpdate()
     {
+        GetComponent<Rigidbody2D>().WakeUp();
         if (beamsActive)
         {
             transform.Rotate(0f, 0f, beamDirection*18f * Time.fixedDeltaTime);
@@ -226,6 +257,7 @@ public class MinibossAI : EnemyMonoBehaviour
                 combatCoroutine = StartCoroutine(Combat());
             }
         }
+        
     }
     private bool IsPlayerWithinDetectionRadius()
     {
@@ -236,9 +268,20 @@ public class MinibossAI : EnemyMonoBehaviour
         }
         return false;
     }
-
+    private void dropLoot()
+    {
+        if (droppedLoot) return;
+        droppedLoot = true;
+        GetComponent<LootBag>().InstantiateLoot(transform.position);
+    }
     public override bool GetIsChasingPlayer()
     {
         return playerDetected;
-    } 
+    }
+
+    private void damageCooldownReset()
+    {
+        canDealDamage = true;
+    }
+
 }
