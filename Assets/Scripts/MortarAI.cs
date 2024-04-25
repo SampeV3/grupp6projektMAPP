@@ -16,10 +16,11 @@ public class MortarAI : EnemyMonoBehaviour
     
     private SpriteRenderer sprd;
     private Material originalMat;
-    private int HP;
+    private float HP;
     private bool playerDetected;
     private Coroutine combatCoroutine;
-    private bool isDead = false;
+    private bool isDead, droppedLoot = false;
+    private bool canDealDamage = true;
     void Start()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false); //tillagt av Basir
@@ -76,20 +77,58 @@ public class MortarAI : EnemyMonoBehaviour
             HP -= 1;
             OnDied();
             StartCoroutine(Flash());
-            if (HP <= 0)
+
+        }
+
+        if (HP <= 0)
+        {
+            isDead = true;
+            if (combatCoroutine != null)
             {
-                isDead = true;
-                if (combatCoroutine != null)
-                {
-                    StopCoroutine(combatCoroutine);
-                }
-                flashOnHit = sprd.material;
-                sprd.color = Color.red;
-                StartCoroutine(DropDelay()); //Tillagt av Basir
-                Destroy(gameObject, 1f);
+                StopCoroutine(combatCoroutine);
+            }
+
+            flashOnHit = sprd.material;
+            sprd.color = Color.red;
+            StartCoroutine(DropDelay()); //Tillagt av Basi
+            Destroy(gameObject, 1f);     //Destroy(gameObject, 1f);
             }
         }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlasmaGunLaser") && canDealDamage)
+        {
+            HP -= 0.5f;
+            StartCoroutine(Flash());
+            canDealDamage = false;
+            Invoke("damageCooldownReset", .2f);
+
+        }
+
+        if (HP <= 0)
+        {
+
+
+            OnDied();
+            isDead = true;
+
+
+           /*if (moveCoroutine != null)
+            {
+                StopCoroutine(moveCoroutine);
+            }
+           */
+            if (combatCoroutine != null)
+            {
+                StopCoroutine(combatCoroutine);
+            }
+            sprd.color = Color.red;
+            dropLoot();
+            Destroy(gameObject, 1f);
+        }
     }
+
 
     private bool hasRunned = false;
     private void OnDied()
@@ -103,13 +142,10 @@ public class MortarAI : EnemyMonoBehaviour
 
     private IEnumerator Flash()
     {
-        if (!isDead)
-        {
-            sprd.material = flashOnHit;
-            yield return new WaitForSeconds(0.125f);
-            sprd.material = originalMat;
-
-        }
+        if (isDead) yield break;
+        sprd.material = flashOnHit;
+        yield return new WaitForSeconds(0.125f);
+        sprd.material = originalMat;
     }
 
     private void Update()
@@ -156,5 +192,17 @@ public class MortarAI : EnemyMonoBehaviour
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
         gameObject.transform.GetChild(0).gameObject.transform.parent = null;
     }
-    
+
+    private void dropLoot()
+    {
+        if (droppedLoot) return;
+        droppedLoot = true;
+        GetComponent<LootBag>().InstantiateLoot(transform.position);
+    }
+
+    private void damageCooldownReset()
+    {
+        canDealDamage = true;
+    }
+
 }

@@ -80,27 +80,8 @@ public class AimJoystick : MonoBehaviour
          }
            
         
-
-      /*  // Check if weapon 2 is selected and the player is aiming
-        if (uIController.weapon_2_Selected && !isStill)
-        {
-            // Enable the laser and update its position
-            laser.EnableLaser();
-            UpdateLaserPosition();
-        }
-        else
-        {
-            // Disable the laser if not aiming with weapon 2
-            laser.DisableLaser();
-        }
-      */
     }
 
-  /*  private void UpdateLaserPosition()
-    {
-        Vector3 direction = new Vector3(GameobjectRotation.x, GameobjectRotation.y, 0f);
-        laser.UpdateLaserPosition(pistol_2.transform.position, direction);
-    } */
     private void FlipWeapon(GameObject pistol) //Raderna gjordes till en egen metod (av Basir)
     {
         if (FacingRight)

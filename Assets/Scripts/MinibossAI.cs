@@ -15,12 +15,14 @@ public class MinibossAI : EnemyMonoBehaviour
 
     private AudioSource audioSource;
     //[SerializeField] private Material originalMatTop, originalMatBot;
-    private int HP;
+    private float HP;
     private int beamDirection;
     private bool beamsActive = false;
     private Material topMat, botMat;
     private Coroutine combatCoroutine;
     private bool playerDetected;
+    private bool isDead, droppedLoot = false;
+    private bool canDealDamage = true;
     void Start()
     {
         beamDirection = 1;
@@ -175,6 +177,8 @@ public class MinibossAI : EnemyMonoBehaviour
             Destroy(other.gameObject);
             HP -= 1;
             StartCoroutine(Flash());
+
+        }
             if(HP <= 0)
             {
                 OnDied();
@@ -187,7 +191,36 @@ public class MinibossAI : EnemyMonoBehaviour
                 Destroy(parent, 1f);
             }
         }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlasmaGunLaser") && canDealDamage)
+        {
+            HP -= 0.5f;
+            StartCoroutine(Flash());
+            canDealDamage = false;
+            Invoke("damageCooldownReset", .2f);
+
+        }
+
+        if (HP <= 0)
+        {
+
+
+            OnDied();
+            isDead = true;
+
+            if (combatCoroutine != null)
+            {
+                StopCoroutine(combatCoroutine);
+            }
+            topSprite.color = Color.red;
+            botSprite.color = Color.red;
+            dropLoot();
+            Destroy(gameObject, 1f);
+        }
     }
+
 
     private bool hasRunned = false;
     private void OnDied()
@@ -201,6 +234,7 @@ public class MinibossAI : EnemyMonoBehaviour
 
     private IEnumerator Flash()
     {
+        if (isDead) yield break;
         topSprite.material = flashOnHit;
         botSprite.material = flashOnHit;
         yield return new WaitForSeconds(0.125f);
@@ -231,10 +265,20 @@ public class MinibossAI : EnemyMonoBehaviour
         }
         return false;
     }
-
+    private void dropLoot()
+    {
+        if (droppedLoot) return;
+        droppedLoot = true;
+        GetComponent<LootBag>().InstantiateLoot(transform.position);
+    }
     public override bool GetIsChasingPlayer()
     {
         return playerDetected;
-    } 
-    
+    }
+
+    private void damageCooldownReset()
+    {
+        canDealDamage = true;
+    }
+
 }

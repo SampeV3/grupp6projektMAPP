@@ -544,6 +544,7 @@ GameObject:
   - component: {fileID: 2997479333141861437}
   - component: {fileID: 1363658418589525256}
   - component: {fileID: 3286097240572091896}
+  - component: {fileID: 451543691505319692}
   m_Layer: 0
   m_Name: Miniboss controller
   m_TagString: Untagged
@@ -769,3 +770,18 @@ CircleCollider2D:
   m_Offset: {x: -0.0009146619, y: 0.0023594978}
   serializedVersion: 2
   m_Radius: 0.09518484
+--- !u!114 &451543691505319692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6810210864640955895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473a50d880c997f478830523af273c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 3345387460916323160, guid: cda878f6ac055a3469908d1a15e2cafa, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 7aba79979f0f7984189b093c94d9a41c, type: 2}
