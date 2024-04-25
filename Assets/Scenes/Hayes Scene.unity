@@ -267,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 148864929}
   - component: {fileID: 148864930}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Laser02
   m_TagString: PlasmaGunLaser
   m_Icon: {fileID: 0}
@@ -10244,7 +10244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1629942100}
   - component: {fileID: 1629942101}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Line
   m_TagString: PlasmaGunLaser
   m_Icon: {fileID: 0}
@@ -10452,11 +10452,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3932957229716951942, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.3
+      value: -41.6
       objectReference: {fileID: 0}
     - target: {fileID: 3932957229716951942, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 6.7
       objectReference: {fileID: 0}
     - target: {fileID: 4018295606989516646, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: firePoint2
@@ -10949,6 +10949,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905150063}
   m_CullTransparentMesh: 1
+--- !u!1001 &1905694068
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2750494643715559943, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
+      propertyPath: m_Name
+      value: SpearEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875271012097281828, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.9756145
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875271012097281828, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.8981843
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875271012097281828, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875271012097281828, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875271012097281828, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875271012097281828, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875271012097281828, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875271012097281828, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875271012097281828, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875271012097281828, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
 --- !u!1 &1936895681
 GameObject:
   m_ObjectHideFlags: 0
@@ -11324,3 +11381,4 @@ SceneRoots:
   - {fileID: 635318393}
   - {fileID: 1332949351}
   - {fileID: 1489345102}
+  - {fileID: 1905694068}

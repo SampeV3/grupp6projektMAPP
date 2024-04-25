@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5598548415020615087}
   - component: {fileID: 3958177165803307876}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: MortarIndicator
   m_TagString: MortarAttack
   m_Icon: {fileID: 0}

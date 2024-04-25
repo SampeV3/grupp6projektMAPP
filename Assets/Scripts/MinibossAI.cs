@@ -243,6 +243,7 @@ public class MinibossAI : EnemyMonoBehaviour
     }
     void FixedUpdate()
     {
+        GetComponent<Rigidbody2D>().WakeUp();
         if (beamsActive)
         {
             transform.Rotate(0f, 0f, beamDirection*18f * Time.fixedDeltaTime);
@@ -255,6 +256,7 @@ public class MinibossAI : EnemyMonoBehaviour
                 combatCoroutine = StartCoroutine(Combat());
             }
         }
+        
     }
     private bool IsPlayerWithinDetectionRadius()
     {

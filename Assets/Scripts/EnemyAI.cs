@@ -189,7 +189,7 @@ public class EnemyAI : EnemyMonoBehaviour
         if (other.gameObject.CompareTag("PlayerAttack") )
         {
             Destroy(other.gameObject);
-            HP -= 1;
+            HP -= 1; // damagemultiplier to be added
             StartCoroutine(Flash());
             
         }
