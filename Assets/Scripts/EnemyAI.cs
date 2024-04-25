@@ -24,6 +24,8 @@ public class EnemyAI : EnemyMonoBehaviour
     private bool canDealDamage = true;
     private Coroutine moveCoroutine, combatCoroutine;
     private GameObject playerSpottedWarning;
+    private static int dmgMultiplier = 1;
+   
 
 
     void Start()
@@ -189,7 +191,7 @@ public class EnemyAI : EnemyMonoBehaviour
         if (other.gameObject.CompareTag("PlayerAttack") )
         {
             Destroy(other.gameObject);
-            HP -= 1; // damagemultiplier to be added
+            HP -= 1 * dmgMultiplier; // damagemultiplier to be added
             StartCoroutine(Flash());
             
         }
@@ -222,7 +224,7 @@ public class EnemyAI : EnemyMonoBehaviour
     {
         if (other.gameObject.CompareTag("PlasmaGunLaser") && canDealDamage)
         {
-            HP -= 0.5f;
+            HP -= 0.5f * dmgMultiplier;
             StartCoroutine(Flash());
             canDealDamage = false;
             Invoke("damageCooldownReset", .2f);
@@ -285,5 +287,18 @@ public class EnemyAI : EnemyMonoBehaviour
     private void damageCooldownReset()
     {
        canDealDamage = true;
+    }
+
+    public static void DamageMultiplier(int amount)
+    {
+        dmgMultiplier += amount;
+    }
+
+    public static IEnumerator TempDmgIncrease(int amount, float time)
+    {
+        DamageMultiplier(amount);
+        yield return new WaitForSeconds(time);
+        DamageMultiplier(-amount);
+        //StartCoroutine(EnemyAI.TempDmgIncrease(1, 60));
     }
 }
