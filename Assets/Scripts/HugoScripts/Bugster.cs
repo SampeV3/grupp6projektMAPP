@@ -21,6 +21,7 @@ public class Bugster : MonoBehaviour
     private float proportion;
 
     private bool playerDetected = false;
+    private bool isCollided = false;
 
     private int direction = 1; //-1 = facing right, 1 == facing left
 
@@ -37,8 +38,10 @@ public class Bugster : MonoBehaviour
             proportion = totalDistance/totalVelocity;
             velocityX = distanceX/proportion;
             velocityY = distanceY/proportion;
-            transform.Translate(new Vector2(velocityX*direction, velocityY) * Time.deltaTime);
             CheckWall();
+            if(isCollided == false) {
+                transform.Translate(new Vector2(velocityX*direction, velocityY) * Time.deltaTime);
+            }
             if(velocityX > 0 && direction == 1) {
                 transform.rotation = Quaternion.Euler(new Vector3(0, 1, 0) * 180);
                 direction = -1;
@@ -74,63 +77,52 @@ public class Bugster : MonoBehaviour
         if(direction == 1) {
             if(velocityY > 0) {
                 xHit = Physics2D.Raycast(castDownX.position, Vector2.left, 0.5f, whatIsWall);
-                //Debug.DrawRay(castDownX.position, Vector2.left * 0.5f, Color.red, 0.5f);
+                Debug.DrawRay(castDownX.position, Vector2.left * 0.5f, Color.red, 0.5f);
+                yHit = Physics2D.Raycast(castRightY.position, Vector2.up, 0.25f, whatIsWall);
+                Debug.DrawRay(castRightY.position, Vector2.up * 0.25f, Color.red, 0.25f);
             }
             else if(velocityY < 0) {
                 xHit = Physics2D.Raycast(castUpX.position, Vector2.left, 0.5f, whatIsWall);
-                //Debug.DrawRay(castUpX.position, Vector2.left * 0.5f, Color.red, 0.5f);
+                Debug.DrawRay(castUpX.position, Vector2.left * 0.5f, Color.red, 0.5f);
+                yHit = Physics2D.Raycast(castRightY.position, Vector2.down, 0.25f, whatIsWall);
+                Debug.DrawRay(castRightY.position, Vector2.down * 0.25f, Color.red, 0.25f);
             }
         }
         else if(direction == -1) {
             if(velocityY > 0) {
                 xHit = Physics2D.Raycast(castDownX.position, Vector2.right, 0.5f, whatIsWall);
-                //Debug.DrawRay(castDownX.position, Vector2.right * 0.5f, Color.red, 0.5f);
+                Debug.DrawRay(castDownX.position, Vector2.right * 0.5f, Color.red, 0.5f);
+                yHit = Physics2D.Raycast(castRightY.position, Vector2.up, 0.25f, whatIsWall);
+                Debug.DrawRay(castRightY.position, Vector2.up * 0.25f, Color.red, 0.25f);
             }
             else if(velocityY < 0) {
                 xHit = Physics2D.Raycast(castUpX.position, Vector2.right, 0.5f, whatIsWall);
-                //Debug.DrawRay(castUpX.position, Vector2.right * 0.5f, Color.red, 0.5f);
-            }
-        }
-
-        if(velocityY > 0) {
-            if(direction == 1) {
-                yHit = Physics2D.Raycast(castRightY.position, Vector2.up, 0.25f, whatIsWall);
-                //Debug.DrawRay(castRightY.position, Vector2.up * 0.25f, Color.red, 0.25f);
-            }
-            else if(direction == -1) {
-                yHit = Physics2D.Raycast(castLeftY.position, Vector2.up, 0.25f, whatIsWall);
-                //Debug.DrawRay(castLeftY.position, Vector2.up * 0.25f, Color.red, 0.25f);
-            }
-        }
-        else if(velocityY < 0) {
-            if(direction == 1) {
+                Debug.DrawRay(castUpX.position, Vector2.right * 0.5f, Color.red, 0.5f);
                 yHit = Physics2D.Raycast(castRightY.position, Vector2.down, 0.25f, whatIsWall);
-                //Debug.DrawRay(castRightY.position, Vector2.down * 0.25f, Color.red, 0.25f);
-            }
-            else if(direction == -1) {
-                yHit = Physics2D.Raycast(castLeftY.position, Vector2.down, 0.25f, whatIsWall);
-                //Debug.DrawRay(castLeftY.position, Vector2.down * 0.25f, Color.red, 0.25f);
+                Debug.DrawRay(castRightY.position, Vector2.down * 0.25f, Color.red, 0.25f);
             }
         }
         
 
         if(xHit.collider != null && xHit.collider.CompareTag("Wall")) {
+            isCollided = true;
             if(velocityY > 0) {
-                transform.Translate(new Vector2(0, totalVelocity-1.0f) * Time.deltaTime);
+                transform.Translate(new Vector2(0, totalVelocity) * Time.deltaTime);
             }
             else if(velocityY < 0) {
-                transform.Translate(new Vector2(0, -totalVelocity+1.0f) * Time.deltaTime);
+                transform.Translate(new Vector2(0, -totalVelocity) * Time.deltaTime);
             }
             
         }
-        if(yHit.collider != null && yHit.collider.CompareTag("Wall")) {
-            if(direction == 1) {
-                transform.Translate(new Vector2(-totalVelocity+1.0f, 0) * Time.deltaTime);
-            }
-            else if(direction == -1) {
-                transform.Translate(new Vector2(totalVelocity-1.0f, 0) * Time.deltaTime);
-            }
+        else if(yHit.collider != null && yHit.collider.CompareTag("Wall")) {
+            isCollided = true;
+            transform.Translate(new Vector2(-totalVelocity, 0) * Time.deltaTime);
         }
+        else {
+            isCollided = false;
+        }
+        
+        
     }
     
 }
