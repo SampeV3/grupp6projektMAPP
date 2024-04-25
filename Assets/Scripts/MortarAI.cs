@@ -205,4 +205,9 @@ public class MortarAI : EnemyMonoBehaviour
         canDealDamage = true;
     }
 
+    private void FixedUpdate()
+    {
+        GetComponent<Rigidbody2D>().WakeUp();
+    }
+
 }
