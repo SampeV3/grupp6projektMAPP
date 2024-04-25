@@ -213,7 +213,7 @@ public class UIController : MonoBehaviour
 
     public void SelectWeapon_2()
     {
-        if (weapon_1_Selected && isBossDead)
+        if (weapon_1_Selected)
         {
             weapon_2_Selected = true;
             weapon_1_Selected = false;
