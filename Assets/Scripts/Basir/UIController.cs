@@ -140,8 +140,8 @@ public class UIController : MonoBehaviour
 
     void DropItem( Vector3 position, MinibossAI boss)
     {
-        GameObject newItem = CreateObject(boss.drop, position);
-        PickupScript pickup = newItem.AddComponent<PickupScript>();
+        //GameObject newItem = CreateObject(boss.drop, position);
+        //PickupScript pickup = newItem.AddComponent<PickupScript>();
         
     }
 
@@ -172,14 +172,14 @@ public class UIController : MonoBehaviour
     private void OnEnable()
     {
         PlayerTakeDamage.OnCombatSituationChanged += OnCombatChanged;
-        MinibossAI.OnMiniBossDied += DropItem;
+        //MinibossAI.OnMiniBossDied += DropItem;
         PickupScript.OnPickup += PickupComplete;
     }
 
     private void OnDisable()
     {
         PlayerTakeDamage.OnCombatSituationChanged -= OnCombatChanged;
-        MinibossAI.OnMiniBossDied -= DropItem;
+        //MinibossAI.OnMiniBossDied -= DropItem;
         PickupScript.OnPickup -= PickupComplete;
     }
 
