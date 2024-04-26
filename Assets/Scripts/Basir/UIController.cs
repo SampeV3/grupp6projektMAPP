@@ -279,7 +279,7 @@ public class UIController : MonoBehaviour, IDataPersistance
 
         public double GetPercentageModifier()
         {
-            return (1 - modifier) * 100;
+            return Math.Round((1d - modifier) * 100);
         }
 
         public int GetLevel ()
