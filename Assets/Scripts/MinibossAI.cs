@@ -24,6 +24,7 @@ public class MinibossAI : EnemyMonoBehaviour
     private bool playerDetected;
     private bool isDead, droppedLoot = false;
     private bool canDealDamage = true;
+    private static int dmgMultiplier = 1;
     void Start()
     {
         //tilldela värden på variabler
@@ -177,7 +178,7 @@ public class MinibossAI : EnemyMonoBehaviour
         if (other.gameObject.CompareTag("PlayerAttack"))
         {
             Destroy(other.gameObject);
-            HP -= 1;
+            HP -= 1 * dmgMultiplier;
             StartCoroutine(Flash());
 
         }
@@ -198,7 +199,7 @@ public class MinibossAI : EnemyMonoBehaviour
     {
         if (other.gameObject.CompareTag("PlasmaGunLaser") && canDealDamage)
         {
-            HP -= 0.5f;
+            HP -= 0.5f * dmgMultiplier;
             StartCoroutine(Flash());
             canDealDamage = false;
             Invoke("damageCooldownReset", .2f);
@@ -282,6 +283,20 @@ public class MinibossAI : EnemyMonoBehaviour
     private void damageCooldownReset()
     {
         canDealDamage = true;
+    }
+
+    public static void DamageMultiplier(int amount)
+    {
+        dmgMultiplier += amount;
+    }
+
+    public static IEnumerator TempDmgIncrease(int amount, float time)
+    {
+        DamageMultiplier(amount);
+        Debug.Log("Damage multiplier increased to: " + dmgMultiplier);
+        yield return new WaitForSeconds(time);
+        DamageMultiplier(-amount);
+        Debug.Log("Damage multiplier decreased to: " + dmgMultiplier);
     }
 
 }

@@ -23,6 +23,7 @@ public class SpearAI : MonoBehaviour
     private bool hitSomething = false;
     private bool canDealDamage = true;
     private float rotateFactor;
+    private static int dmgMultiplier = 1;
 
     void Start()
     {
@@ -169,7 +170,7 @@ public class SpearAI : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerAttack"))
         {
             Destroy(other.gameObject);
-            HP -= 1;
+            HP -= 1 * dmgMultiplier;
             StartCoroutine(Flash());
 
         }
@@ -204,7 +205,7 @@ public class SpearAI : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PlasmaGunLaser") && canDealDamage)
         {
-            HP -= 0.5f;
+            HP -= 0.5f * dmgMultiplier;
             StartCoroutine(Flash());
             canDealDamage = false;
             Invoke("damageCooldownReset", .2f);
@@ -264,5 +265,19 @@ public class SpearAI : MonoBehaviour
     private void FixedUpdate()
     {
         GetComponent<Rigidbody2D>().WakeUp();
+    }
+
+    public static void DamageMultiplier(int amount)
+    {
+        dmgMultiplier += amount;
+    }
+
+    public static IEnumerator TempDmgIncrease(int amount, float time)
+    {
+        DamageMultiplier(amount);
+        Debug.Log("Damage multiplier increased to: " + dmgMultiplier);
+        yield return new WaitForSeconds(time);
+        DamageMultiplier(-amount);
+        Debug.Log("Damage multiplier decreased to: " + dmgMultiplier);
     }
 }
