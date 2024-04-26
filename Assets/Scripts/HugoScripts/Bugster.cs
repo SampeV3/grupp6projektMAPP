@@ -6,11 +6,11 @@ using System;
 public class Bugster : MonoBehaviour
 {
 
-    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject player, playerSpotted;
 
     [SerializeField] private Transform castUpX, castDownX, castRightY, castLeftY;
 
-    [SerializeField] private LayerMask whatIsWall;
+    [SerializeField] private LayerMask whatIsWall, playerMask;
 
     private float totalVelocity = 2.0f;
     private float totalDistance;
@@ -25,7 +25,9 @@ public class Bugster : MonoBehaviour
 
     private int direction = 1; //-1 = facing right, 1 == facing left
 
-    RaycastHit2D xHit, yHit;
+    private RaycastHit2D xHit, yHit;
+    private Coroutine moveCoroutine, combatCoroutine;
+    private GameObject playerSpottedWarning;
 
 
     // Update is called once per frame
@@ -53,23 +55,26 @@ public class Bugster : MonoBehaviour
         }   
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.CompareTag("Player")) {
-            playerDetected = true;
-            
+    void FixedUpdate() {
+        if (!playerDetected)
+        {
+            if (IsPlayerWithinDetectionRadius())
+            {
+                CheckLineOfSight();
+                
+            }
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D other) {
-        if(other.gameObject.CompareTag("Player")) {
-            playerDetected = false;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.CompareTag("PlayerAttack")) {
-            Destroy(other.gameObject);
-            Destroy(gameObject);
+        else
+        {
+            if (!IsPlayerWithinDetectionRadius())
+            {
+                playerDetected = false;
+                if (combatCoroutine != null)
+                {
+                    StopCoroutine(moveCoroutine);
+                    StopCoroutine(combatCoroutine);
+                }
+            }
         }
     }
 
@@ -77,29 +82,29 @@ public class Bugster : MonoBehaviour
         if(direction == 1) {
             if(velocityY > 0) {
                 xHit = Physics2D.Raycast(castDownX.position, Vector2.left, 0.5f, whatIsWall);
-                Debug.DrawRay(castDownX.position, Vector2.left * 0.5f, Color.red, 0.5f);
+                //Debug.DrawRay(castDownX.position, Vector2.left * 0.5f, Color.red, 0.5f);
                 yHit = Physics2D.Raycast(castRightY.position, Vector2.up, 0.25f, whatIsWall);
-                Debug.DrawRay(castRightY.position, Vector2.up * 0.25f, Color.red, 0.25f);
+                //Debug.DrawRay(castRightY.position, Vector2.up * 0.25f, Color.red, 0.25f);
             }
             else if(velocityY < 0) {
                 xHit = Physics2D.Raycast(castUpX.position, Vector2.left, 0.5f, whatIsWall);
-                Debug.DrawRay(castUpX.position, Vector2.left * 0.5f, Color.red, 0.5f);
+                //Debug.DrawRay(castUpX.position, Vector2.left * 0.5f, Color.red, 0.5f);
                 yHit = Physics2D.Raycast(castRightY.position, Vector2.down, 0.25f, whatIsWall);
-                Debug.DrawRay(castRightY.position, Vector2.down * 0.25f, Color.red, 0.25f);
+                //Debug.DrawRay(castRightY.position, Vector2.down * 0.25f, Color.red, 0.25f);
             }
         }
         else if(direction == -1) {
             if(velocityY > 0) {
                 xHit = Physics2D.Raycast(castDownX.position, Vector2.right, 0.5f, whatIsWall);
-                Debug.DrawRay(castDownX.position, Vector2.right * 0.5f, Color.red, 0.5f);
+                //Debug.DrawRay(castDownX.position, Vector2.right * 0.5f, Color.red, 0.5f);
                 yHit = Physics2D.Raycast(castRightY.position, Vector2.up, 0.25f, whatIsWall);
-                Debug.DrawRay(castRightY.position, Vector2.up * 0.25f, Color.red, 0.25f);
+                //Debug.DrawRay(castRightY.position, Vector2.up * 0.25f, Color.red, 0.25f);
             }
             else if(velocityY < 0) {
                 xHit = Physics2D.Raycast(castUpX.position, Vector2.right, 0.5f, whatIsWall);
-                Debug.DrawRay(castUpX.position, Vector2.right * 0.5f, Color.red, 0.5f);
+                //Debug.DrawRay(castUpX.position, Vector2.right * 0.5f, Color.red, 0.5f);
                 yHit = Physics2D.Raycast(castRightY.position, Vector2.down, 0.25f, whatIsWall);
-                Debug.DrawRay(castRightY.position, Vector2.down * 0.25f, Color.red, 0.25f);
+                //Debug.DrawRay(castRightY.position, Vector2.down * 0.25f, Color.red, 0.25f);
             }
         }
         
@@ -122,7 +127,34 @@ public class Bugster : MonoBehaviour
             isCollided = false;
         }
         
-        
+    }
+
+    private bool IsPlayerWithinDetectionRadius()
+    {
+   
+        float dist = Vector2.Distance(transform.position, player.transform.position);
+        if (dist <= 8f)
+        {   
+            return true;
+        }
+        return false;
+    }
+
+    private void CheckLineOfSight()
+    {
+        Vector3 directionToPlayer = player.transform.position - transform.position;
+
+        RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, directionToPlayer, 50f, playerMask);
+        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, directionToPlayer, 50f, whatIsWall);
+
+        if (hitWall.collider.CompareTag("Wall") && hitPlayer.collider.CompareTag("Player") && hitPlayer.distance<hitWall.distance)
+        {
+            playerDetected = true;
+                GameObject playerSpottedWarning = Instantiate(playerSpotted, transform.position, Quaternion.identity, transform);
+                playerSpottedWarning.name = "PlayerSpotted";
+                playerSpottedWarning.GetComponent<Animator>().SetTrigger("PlayerDetected");
+                Destroy(playerSpottedWarning, 1f);
+        }
     }
     
 }

@@ -146,6 +146,11 @@ public class PlayerTakeDamage : MonoBehaviour
             TakeDamage(spearDamage, other);
             UpdateHealthBar();
         }
+        else if(other.gameObject.CompareTag("Bugster")) {
+            TakeDamage(spearDamage, other);
+            UpdateHealthBar();
+            Destroy(other.gameObject);
+        }
     }
 
     public CameraFollow cameraFollow;
