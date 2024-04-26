@@ -1,34 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
-class Stat<T>
-{
-    private string name;
-    private T baseValue;
 
-    public Stat(string name, T baseValue)
-    {
-        
-        this.name = name;
-        this.baseValue = baseValue;
-    }
-
-    public T getBaseValue()
-    {
-        return this.baseValue;
-    }
-
-    public string GetName()
-    {
-        return this.name;
-    }
-}
-
-
-public class SpearAI : EnemyMonoBehaviour
+public class SpearAI : MonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
     [SerializeField] private GameObject playerSpotted;
@@ -36,20 +10,11 @@ public class SpearAI : EnemyMonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private LayerMask playerMask, obstacleMask;
 
-    public override bool GetIsChasingPlayer()
-    {
-        return playerDetected;
-    }
-
-    private float HP;
-    
-    
     private AudioSource audioSource;
     private Material originalMat;
     private SpriteRenderer sprd;
     private Animator anim;
-
-    
+    private float HP;
     private bool playerDetected = false;
     private bool canhitSomething = false;
     private bool isDead, droppedLoot = false;
@@ -58,13 +23,11 @@ public class SpearAI : EnemyMonoBehaviour
     private bool hitSomething = false;
     private bool canDealDamage = true;
     private float rotateFactor;
+    private static int dmgMultiplier = 1;
 
     void Start()
     {
         HP = 10;
-        
-        
-        
         audioSource = GetComponent<AudioSource>();
         //anim = GetComponent<Animator>();
         sprd = GetComponent<SpriteRenderer>();
@@ -207,7 +170,7 @@ public class SpearAI : EnemyMonoBehaviour
         if (other.gameObject.CompareTag("PlayerAttack"))
         {
             Destroy(other.gameObject);
-            HP -= 1;
+            HP -= 1 * dmgMultiplier;
             StartCoroutine(Flash());
 
         }
@@ -235,13 +198,14 @@ public class SpearAI : EnemyMonoBehaviour
                 hitSomething = true;
             }
         }
+
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("PlasmaGunLaser") && canDealDamage)
         {
-            HP -= 0.5f;
+            HP -= 0.5f * dmgMultiplier;
             StartCoroutine(Flash());
             canDealDamage = false;
             Invoke("damageCooldownReset", .2f);
@@ -301,5 +265,19 @@ public class SpearAI : EnemyMonoBehaviour
     private void FixedUpdate()
     {
         GetComponent<Rigidbody2D>().WakeUp();
+    }
+
+    public static void DamageMultiplier(int amount)
+    {
+        dmgMultiplier += amount;
+    }
+
+    public static IEnumerator TempDmgIncrease(int amount, float time)
+    {
+        DamageMultiplier(amount);
+        Debug.Log("Damage multiplier increased to: " + dmgMultiplier);
+        yield return new WaitForSeconds(time);
+        DamageMultiplier(-amount);
+        Debug.Log("Damage multiplier decreased to: " + dmgMultiplier);
     }
 }

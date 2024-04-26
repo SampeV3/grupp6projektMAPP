@@ -21,6 +21,7 @@ public class MortarAI : EnemyMonoBehaviour
     private Coroutine combatCoroutine;
     private bool isDead, droppedLoot = false;
     private bool canDealDamage = true;
+    private static int dmgMultiplier = 1;
     void Start()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false); //tillagt av Basir
@@ -74,7 +75,7 @@ public class MortarAI : EnemyMonoBehaviour
         if (other.gameObject.CompareTag("PlayerAttack"))
         {
             Destroy(other.gameObject);
-            HP -= 1;
+            HP -= 1 * dmgMultiplier;
             OnDied();
             StartCoroutine(Flash());
 
@@ -99,7 +100,7 @@ public class MortarAI : EnemyMonoBehaviour
     {
         if (other.gameObject.CompareTag("PlasmaGunLaser") && canDealDamage)
         {
-            HP -= 0.5f;
+            HP -= 0.5f * dmgMultiplier;
             StartCoroutine(Flash());
             canDealDamage = false;
             Invoke("damageCooldownReset", .2f);
@@ -208,6 +209,20 @@ public class MortarAI : EnemyMonoBehaviour
     private void FixedUpdate()
     {
         GetComponent<Rigidbody2D>().WakeUp();
+    }
+
+    public static void DamageMultiplier(int amount)
+    {
+        dmgMultiplier += amount;
+    }
+
+    public static IEnumerator TempDmgIncrease(int amount, float time)
+    {
+        DamageMultiplier(amount);
+        Debug.Log("Damage multiplier increased to: " + dmgMultiplier);
+        yield return new WaitForSeconds(time);
+        DamageMultiplier(-amount);
+        Debug.Log("Damage multiplier decreased to: " + dmgMultiplier);
     }
 
 }
