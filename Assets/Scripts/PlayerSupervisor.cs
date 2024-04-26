@@ -12,6 +12,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
 
     public int deathCount = 0;
     public int level = 0;
+    public int in_run_points_to_spend = 0;
     public int experience_required = 100;
     public int XP = 0;
     public int coins = 0;
@@ -59,7 +60,16 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         can_level_up();
     }
 
-    
+    public bool purchaseWith_in_run_points_to_spend(int cost)
+    {
+        if (this.in_run_points_to_spend >= cost)
+        {
+            this.in_run_points_to_spend -= cost;
+            return true;
+        }
+
+        return false;
+    }
     
     void can_level_up ()
     //Idea: I can make an interface with this method in it!
@@ -80,6 +90,8 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
             this.experience_required = (int)(this.experience_required * xp_increase_modifier);
             this.level++;
             levelsAdded++;
+            this.in_run_points_to_spend++;
+            
             OnLevelUp(level);
         }
         
@@ -106,6 +118,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         this.deathCount = data.totalDeathCount;
         this.XP = data.XP;
         this.coins = data.soft_coins;
+        in_run_points_to_spend = data.in_run_points_to_spend;
         //this.experience_required = data.experience_required;
         can_level_up();
 
@@ -116,9 +129,11 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         data.totalDeathCount = this.deathCount;
         data.XP = this.XP;
         data.level = this.level;
+        data.in_run_points_to_spend = in_run_points_to_spend;
+
         //data.experience_required = this.experience_required;
 
-        
+
     }
 
     

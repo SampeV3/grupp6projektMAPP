@@ -11,9 +11,11 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
     public void OnBeforeSerialize()
     {
         keys.Clear(); values.Clear();
+        Debug.Log("Serializing " + this);
         foreach(KeyValuePair<TKey, TValue> pair in this)
         {
-            keys.Add(pair.Key); values.Add(pair.Value);
+            keys.Add(pair.Key); 
+            values.Add(pair.Value);
         }
     }
 
@@ -27,8 +29,10 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
                 + " which indicates that something went horribly wrong.");
         }
 
+        
         for (int i = 0; i < keys.Count; i++)
         {
+            Debug.Log(keys[i] + " " + values[i]);
             this.Add(keys[i], values[i]);
         }
 

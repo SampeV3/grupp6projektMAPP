@@ -3,6 +3,8 @@ using Codice.CM.SEIDInfo;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
@@ -11,7 +13,7 @@ using UnityEngine.UI;
 
 
 
-public class UIController : MonoBehaviour
+public class UIController : MonoBehaviour, IDataPersistance
 {
     private class PickupScript : MonoBehaviour
     {
@@ -55,7 +57,7 @@ public class UIController : MonoBehaviour
 
     public bool isBossDead;
 
-    //private bool isBoostActivated = false;  Ska användas senare när boost item har en funktion
+    //private bool isBoostActivated = false;  Ska anvï¿½ndas senare nï¿½r boost item har en funktion
 
     public Color inventoryItemUnavailable;
     
@@ -69,6 +71,12 @@ public class UIController : MonoBehaviour
         xPPoint.text = "00";
     }
 
+    
+    [SerializeField]
+    private static Dictionary<string, UpgradableStat> _upgradableStats = new Dictionary<string, UpgradableStat>();
+
+    [SerializeField] private List<UpgradeTemplateReferences> upgradeReferenceClasses = new List<UpgradeTemplateReferences>();
+    
     private void FixedUpdate()
     {
         xPPoint.text = playerSupervisor.XP + " / " + playerSupervisor.experience_required;
@@ -194,7 +202,7 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public void ActivateBoost() //ska utökas när boost item har en funktion
+    public void ActivateBoost() //ska utï¿½kas nï¿½r boost item har en funktion
     {
         if (inventoryBoostPickupAmount < 2 && inventoryBoostPickupAmount != 0)
         {
@@ -227,11 +235,7 @@ public class UIController : MonoBehaviour
             gameObject.SetActive(active);
         }
     }
-
-
-
-
-
+    
     private void changeItemColor (Image image, bool isAvailable)
     {
         if (!isAvailable)
@@ -240,4 +244,187 @@ public class UIController : MonoBehaviour
         }
     }
 
+    //tillagt av Elias: uppgradderingar :D
+
+    private class UpgradableStat
+    {
+        private int level;
+        public static int MAX_LEVEL = 5;
+        private double modifier = 1;
+        [SerializeField] double upgradeAmount = 0.03;
+        private bool LevelUp()
+        {
+            print((level < MAX_LEVEL) + " level " + level);
+            if (level < MAX_LEVEL)
+            {
+                this.modifier += upgradeAmount;
+                level += 1;
+                return true;
+            }
+            return false;
+        }
+
+        public bool IncreaseModifier()
+        {
+            return LevelUp();
+        }
+        
+        public double GetModifier()
+        {
+            return modifier;
+        }
+
+        public double GetPercentageModifier()
+        {
+            return (1 - modifier) * 100;
+        }
+
+        public int GetLevel ()
+        {
+            return level;
+        }
+        
+        public UpgradableStat (int initialLevel)
+        {
+            this.level = initialLevel;
+            for (int i = 0; i < initialLevel; i++)
+            {
+                IncreaseModifier();
+            }
+        }
+        
+    }
+
+    public static double GetSkillModifier(string skillName)
+    {
+        if (_upgradableStats.ContainsKey(skillName))
+        {
+            return _upgradableStats[skillName].GetModifier();
+        }
+        else
+        {
+            return (double)1;
+        }
+        
+    }
+    public TextMeshProUGUI shopLabelText;
+
+    public void SetInRunShopLabeLText()
+    {
+        shopLabelText.text = "You have " + playerSupervisor.in_run_points_to_spend + " amount of skill points to spend";
+    }
+    public void UpgradeSkill(UpgradeTemplateReferences refs, string skillName)
+    {
+        int costToBuy = 1;
+        char perkChar = char.Parse("_");
+        if (skillName.EndsWith(perkChar))
+        {
+            
+        }
+        else
+        {
+            if (playerSupervisor.purchaseWith_in_run_points_to_spend(costToBuy) == false)
+            {
+                print("You do not have enough in_run_points_to_spend. Try levelling up some more :)");
+                return;
+            }
+
+            SetInRunShopLabeLText();
+        }
+        
+        print("update skill " + skillName);
+        if (!_upgradableStats.ContainsKey(skillName))
+        {
+            print( skillName + "Not added in list!");
+            _upgradableStats.Add(skillName, new UpgradableStat(0));
+        }
+
+        var skill = _upgradableStats[skillName];
+        var success = skill.IncreaseModifier();
+        if (success)
+        {
+            UpdateSkillInfoText(refs, skillName, skill);
+        }
+        print("These keys are now in the dictionary: ");
+        foreach (string _skillName in _upgradableStats.Keys)
+        {
+            print(_skillName);
+        }
+    }
+
+    private static void UpdateSkillInfoText(UpgradeTemplateReferences refs, string skillName, UpgradableStat skill)
+    {
+        refs.infoText.text = "Upgrade " + skillName + " level " + skill.GetLevel() + " out of " + UpgradableStat.MAX_LEVEL + " currently is giving a bonus of " + skill.GetPercentageModifier() + "%.";
+    }
+
+    public void OnOpenUpgradeMenu()
+    {
+        SetInRunShopLabeLText();
+        foreach (UpgradeTemplateReferences refs in upgradeReferenceClasses)
+        {
+            Button button = refs.upgradeButton;
+            print("Add listener to onClick! to " + button);
+            string skillName = button.gameObject.name;
+            if (_upgradableStats.ContainsKey(skillName))
+            {
+                UpdateSkillInfoText(refs, skillName, _upgradableStats[skillName]);
+            }
+            button.onClick.AddListener(() => UpgradeSkill(refs, skillName));
+        }
+    }
+
+    public void OnCloseUpgradeMenu()
+    {
+        foreach (UpgradeTemplateReferences refs in upgradeReferenceClasses)
+        {
+            Button button = refs.upgradeButton;
+            print("Remove listener to onClick! to " + button);
+            button.onClick.RemoveListener(() => UpgradeSkill(refs, button.gameObject.name));
+        }
+    }
+    
+    public void SaveData(ref GameData data)
+    {
+        print("Save data from UI Controller");
+        print("These keys will be stored: ");
+        foreach (string skillName in _upgradableStats.Keys)
+        {
+            print(skillName);
+        }
+
+        foreach (string skillName in _upgradableStats.Keys)
+        {
+            print("Store " + skillName + " at level " + _upgradableStats[skillName].GetLevel());
+            data.skillLevels.Add(skillName, _upgradableStats[skillName].GetLevel());
+        }
+        OnCloseUpgradeMenu();
+        print("New gameData");
+        foreach (string skillName in data.skillLevels.Keys)
+        {
+            print(skillName);
+        }
+    }
+
+    public void LoadData(GameData data)
+    {
+        
+        print("These keys will be loaded: ");
+        foreach (string skillName in _upgradableStats.Keys)
+        {
+            print(skillName);
+        }
+        
+        foreach (var skillName in data.skillLevels.Keys)
+        {
+            print("Loaded" + skillName);
+            int level = data.skillLevels[skillName];
+            print("Load" + skillName + " level " + level);
+            _upgradableStats[skillName] = new UpgradableStat(level);
+        }
+        
+        OnOpenUpgradeMenu();
+    }    
+
 }
+
+

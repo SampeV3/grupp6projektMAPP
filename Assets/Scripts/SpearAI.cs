@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public class SpearAI : MonoBehaviour
+public class SpearAI : EnemyMonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
     [SerializeField] private GameObject playerSpotted;
@@ -24,6 +24,11 @@ public class SpearAI : MonoBehaviour
     private bool canDealDamage = true;
     private float rotateFactor;
     private static int dmgMultiplier = 1;
+
+    public override bool GetIsChasingPlayer()
+    {
+        return playerDetected;
+    }
 
     void Start()
     {

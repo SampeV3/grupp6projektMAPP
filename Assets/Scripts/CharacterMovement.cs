@@ -66,7 +66,11 @@ public class CharacterMovement : MonoBehaviour
                     ref _movemenetInputSmoothVelocity,
                     _smoothDampResponseTime
                     );
-        Vector2 velocity_vector2 = _smoothedMovementInput * joystick_speed;
+
+        double skillModifier = UIController.GetSkillModifier("MoveSpeed");
+        float extraSpeed = joystick_speed * (float)skillModifier;
+        //print("New extra speed: " + extraSpeed);
+        Vector2 velocity_vector2 = _smoothedMovementInput * extraSpeed;
         _rigidbody.velocity = velocity_vector2;
     }
 

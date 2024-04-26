@@ -78,7 +78,7 @@ public class DataPersistanceManager : MonoBehaviour
         this.dataPersistanceObjects = FindAllDataPersistanceObjects();
 
         LoadGame(this.gameData);
-    }
+    } //TODO fix serializableDictionary
 
     private void OnApplicationQuit()
     {
