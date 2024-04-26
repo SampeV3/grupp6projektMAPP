@@ -435,7 +435,8 @@ public class UIController : MonoBehaviour, IDataPersistance
             _upgradableStats[skillName] = new UpgradableStat(level);
         }
         
-        OnOpenUpgradeMenu();
+        //only really need to run this line if the menu is open when the game starts, e.g. when testing
+        //OnOpenUpgradeMenu();
     }    
 
 }
