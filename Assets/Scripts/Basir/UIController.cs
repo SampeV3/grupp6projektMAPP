@@ -79,7 +79,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     
     private void FixedUpdate()
     {
-        xPPoint.text = playerSupervisor.XP + " / " + playerSupervisor.experience_required;
+        xPPoint.text = playerSupervisor.XP + " / " + playerSupervisor.experienceRequired;
         levelInfo.text = "Level: " + playerSupervisor.level;
     }
     private void Update()
@@ -252,16 +252,19 @@ public class UIController : MonoBehaviour, IDataPersistance
         public static int MAX_LEVEL = 5;
         private double modifier = 1;
         [SerializeField] double upgradeAmount = 0.03;
-        private bool LevelUp()
+
+        public bool CanLevelUp()
         {
             print((level < MAX_LEVEL) + " level " + level);
-            if (level < MAX_LEVEL)
-            {
-                this.modifier += upgradeAmount;
-                level += 1;
-                return true;
-            }
-            return false;
+            return level < MAX_LEVEL;
+        }
+        
+        private bool LevelUp()
+        {
+            if (!CanLevelUp()) return false;
+            this.modifier += upgradeAmount;
+            level += 1;
+            return true;
         }
 
         public bool IncreaseModifier()
@@ -316,6 +319,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     public void UpgradeSkill(UpgradeTemplateReferences refs, string skillName)
     {
         int costToBuy = 1;
+        var skill = _upgradableStats[skillName];
         char perkChar = char.Parse("_");
         if (skillName.EndsWith(perkChar))
         {
@@ -323,12 +327,18 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
         else
         {
+            SetInRunShopLabeLText();
+            if (skill.CanLevelUp() == false)
+            {
+                print("This skill is already maxed out at " + skill.GetLevel() + "/" + UpgradableStat.MAX_LEVEL);
+                return;
+            }
             if (playerSupervisor.purchaseWith_in_run_points_to_spend(costToBuy) == false)
             {
                 print("You do not have enough in_run_points_to_spend. Try levelling up some more :)");
                 return;
             }
-
+            
             SetInRunShopLabeLText();
         }
         
@@ -339,7 +349,7 @@ public class UIController : MonoBehaviour, IDataPersistance
             _upgradableStats.Add(skillName, new UpgradableStat(0));
         }
 
-        var skill = _upgradableStats[skillName];
+        
         var success = skill.IncreaseModifier();
         if (success)
         {
@@ -395,14 +405,17 @@ public class UIController : MonoBehaviour, IDataPersistance
         foreach (string skillName in _upgradableStats.Keys)
         {
             print("Store " + skillName + " at level " + _upgradableStats[skillName].GetLevel());
-            data.skillLevels.Add(skillName, _upgradableStats[skillName].GetLevel());
+            if (!data.skillLevels.ContainsKey(skillName))
+            {
+                data.skillLevels.Add(skillName, _upgradableStats[skillName].GetLevel());
+            }
+            else
+            {
+                data.skillLevels[skillName] = _upgradableStats[skillName].GetLevel();
+            }
+            
         }
         OnCloseUpgradeMenu();
-        print("New gameData");
-        foreach (string skillName in data.skillLevels.Keys)
-        {
-            print(skillName);
-        }
     }
 
     public void LoadData(GameData data)

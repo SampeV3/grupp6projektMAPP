@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 public class PlayerSupervisor : MonoBehaviour, IDataPersistance
 {
@@ -13,10 +14,9 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     public int deathCount = 0;
     public int level = 0;
     public int in_run_points_to_spend = 0;
-    public int experience_required = 100;
+    [FormerlySerializedAs("experience_required")] public int experienceRequired = 100;
     public int XP = 0;
-    public int coins = 0;
-
+    
     private bool level_up_check_loop_is_running = false;
 
 
@@ -57,7 +57,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         this.XP += XP_AMOUNT; 
         
         
-        can_level_up();
+        RunLevelUpLoop();
     }
 
     public bool purchaseWith_in_run_points_to_spend(int cost)
@@ -71,8 +71,10 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         return false;
     }
     
-    void can_level_up ()
-    //Idea: I can make an interface with this method in it!
+    /// <summary>
+    /// If you earn more XP so you can level up several times, having a single if statement is not enough - we have to loop until Xp is less than (<) the XpRequired
+    /// </summary>
+    void RunLevelUpLoop ()
     {
         if (level_up_check_loop_is_running)
         {
@@ -82,21 +84,23 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
 
         //potentially: move to the FixedUpdate loop :)
         int levelsAdded = 0;
-        while (this.XP >= this.experience_required)
+        while (this.XP >= this.experienceRequired)
         {
-            //Level up
-            double xp_increase_modifier = 1.2;
-            //this.XP -= experience_required;
-            this.experience_required = (int)(this.experience_required * xp_increase_modifier);
-            this.level++;
             levelsAdded++;
-            this.in_run_points_to_spend++;
-            
-            OnLevelUp(level);
+            LevelUp();
         }
-        
         print("Levelled up " + levelsAdded + " times");
         level_up_check_loop_is_running = false;
+    }
+
+    private void LevelUp()
+    {
+        double xp_increase_modifier = 1.2;
+        this.XP -= experienceRequired;
+        this.experienceRequired = (int)(this.experienceRequired * xp_increase_modifier);
+        this.level++;
+        this.in_run_points_to_spend++;
+        if (OnLevelUp != null) OnLevelUp(level);
     }
 
     private void OnKilledBy(PlayerTakeDamage playerTakeDamage, BulletID info)
@@ -110,25 +114,30 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
 
     private void Awake()
     {
-        can_level_up();
+        RunLevelUpLoop();
     }
 
     public void LoadData(GameData data)
     {
         this.deathCount = data.totalDeathCount;
+        
         this.XP = data.XP;
-        this.coins = data.soft_coins;
+        this.level = data.level;
+        this.experienceRequired = data.experience_required;
+        
         in_run_points_to_spend = data.in_run_points_to_spend;
-        //this.experience_required = data.experience_required;
-        can_level_up();
-
+        
+        RunLevelUpLoop();
     }
 
     public void SaveData(ref GameData data)
     {
         data.totalDeathCount = this.deathCount;
+        
         data.XP = this.XP;
         data.level = this.level;
+        data.experience_required = this.experienceRequired;
+        
         data.in_run_points_to_spend = in_run_points_to_spend;
 
         //data.experience_required = this.experience_required;

@@ -7325,7 +7325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f232c3fad23c94eab18af270ee9e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: Default
+  fileName: Default.json
   useXOREncryption: 0
 --- !u!4 &1489345102
 Transform:
@@ -7507,26 +7507,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerModel
       objectReference: {fileID: 0}
-    - target: {fileID: 2429949363606016822, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
-      propertyPath: inventoryItemAvailable.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2429949363606016822, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
-      propertyPath: inventoryItemUnavailable.a
-      value: 0.8509804
-      objectReference: {fileID: 0}
-    - target: {fileID: 2429949363606016822, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
-      propertyPath: inventoryItemUnavailable.b
-      value: 0.22609468
-      objectReference: {fileID: 0}
-    - target: {fileID: 2429949363606016822, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
-      propertyPath: inventoryItemUnavailable.g
-      value: 0.22609468
-      objectReference: {fileID: 0}
-    - target: {fileID: 2429949363606016822, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
-      propertyPath: inventoryItemUnavailable.r
-      value: 0.2754717
-      objectReference: {fileID: 0}
     - target: {fileID: 3818261360625183644, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.11
@@ -7567,18 +7547,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3932957229716951942, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 39.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3932957229716951942, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 7770624029613275152, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
-    - {fileID: 3684716698835386821, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
