@@ -318,8 +318,16 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
     public void UpgradeSkill(UpgradeTemplateReferences refs, string skillName)
     {
-        int costToBuy = 1;
+        print("update skill " + skillName);
+        if (!_upgradableStats.ContainsKey(skillName))
+        {
+            print( skillName + "Not added in list!");
+            _upgradableStats.Add(skillName, new UpgradableStat(0));
+        }
         var skill = _upgradableStats[skillName];
+
+        
+        int costToBuy = 1;
         char perkChar = char.Parse("_");
         if (skillName.EndsWith(perkChar))
         {
@@ -342,12 +350,7 @@ public class UIController : MonoBehaviour, IDataPersistance
             SetInRunShopLabeLText();
         }
         
-        print("update skill " + skillName);
-        if (!_upgradableStats.ContainsKey(skillName))
-        {
-            print( skillName + "Not added in list!");
-            _upgradableStats.Add(skillName, new UpgradableStat(0));
-        }
+
 
         
         var success = skill.IncreaseModifier();
