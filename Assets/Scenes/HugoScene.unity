@@ -483,18 +483,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 34117292699328391, guid: ec7a58428b40a2f4cba23016cdf2b409, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1248797693078808259, guid: ec7a58428b40a2f4cba23016cdf2b409, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1248797693078808259, guid: ec7a58428b40a2f4cba23016cdf2b409, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1612993267
-      objectReference: {fileID: 0}
     - target: {fileID: 3730328881615323945, guid: ec7a58428b40a2f4cba23016cdf2b409, type: 3}
       propertyPath: m_LocalPosition.x
       value: 40.16
@@ -539,28 +527,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bugster
       objectReference: {fileID: 0}
-    - target: {fileID: 4514571919424273865, guid: ec7a58428b40a2f4cba23016cdf2b409, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 8344550608312946966, guid: ec7a58428b40a2f4cba23016cdf2b409, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 146317927}
-    - target: {fileID: 8344550608312946966, guid: ec7a58428b40a2f4cba23016cdf2b409, type: 3}
-      propertyPath: playerSpotted
-      value: 
-      objectReference: {fileID: 8878756988717134239, guid: 34a2f940884a32e4a8be2985a36a0865, type: 3}
-    - target: {fileID: 8344550608312946966, guid: ec7a58428b40a2f4cba23016cdf2b409, type: 3}
-      propertyPath: playerMask.m_Bits
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8610621013503029363, guid: ec7a58428b40a2f4cba23016cdf2b409, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1582685544634540959, guid: ec7a58428b40a2f4cba23016cdf2b409, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec7a58428b40a2f4cba23016cdf2b409, type: 3}

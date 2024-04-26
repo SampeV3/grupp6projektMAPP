@@ -156,5 +156,11 @@ public class Bugster : MonoBehaviour
                 Destroy(playerSpottedWarning, 1f);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.CompareTag("PlayerAttack")) {
+            Destroy(gameObject);
+        }
+    }
     
 }
