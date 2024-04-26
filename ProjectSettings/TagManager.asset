@@ -20,6 +20,7 @@ TagManager:
   - Spear
   - PlasmaGunLaser
   - Bugster
+  - DamageMultiplier
   layers:
   - Default
   - TransparentFX

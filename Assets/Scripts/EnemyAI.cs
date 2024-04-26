@@ -297,8 +297,10 @@ public class EnemyAI : EnemyMonoBehaviour
     public static IEnumerator TempDmgIncrease(int amount, float time)
     {
         DamageMultiplier(amount);
+        Debug.Log("Damage multiplier increased to: " + dmgMultiplier);
         yield return new WaitForSeconds(time);
         DamageMultiplier(-amount);
+        Debug.Log("Damage multiplier decreased to: " + dmgMultiplier);
         //StartCoroutine(EnemyAI.TempDmgIncrease(1, 60));
     }
 }
