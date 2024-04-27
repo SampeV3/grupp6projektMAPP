@@ -11,7 +11,7 @@ public class EnemyAI : EnemyMonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private LayerMask playerMask, obstacleMask;
 
-
+    private Rigidbody2D rigidBody2D;
     private AudioSource audioSource;
     private Material originalMat;
     private SpriteRenderer sprd;
@@ -35,8 +35,8 @@ public class EnemyAI : EnemyMonoBehaviour
         //anim = GetComponent<Animator>();
         sprd = GetComponent<SpriteRenderer>();
         originalMat = sprd.material;
+        rigidBody2D = GetComponent<Rigidbody2D>();
 
-      
 
     }
 
@@ -108,7 +108,7 @@ public class EnemyAI : EnemyMonoBehaviour
 
     private void FixedUpdate()
     {
-        GetComponent<Rigidbody2D>().WakeUp();
+        rigidBody2D.WakeUp();
         Transform newTarget = FindNearestTarget();
         if (newTarget) { player = newTarget; }
         if (!playerDetected)

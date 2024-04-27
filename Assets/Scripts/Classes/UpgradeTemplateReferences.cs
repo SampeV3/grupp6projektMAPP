@@ -7,4 +7,5 @@ public class UpgradeTemplateReferences : MonoBehaviour
     public Button upgradeButton;
     public  TextMeshProUGUI upgradeButtonText;
     public TextMeshProUGUI infoText;
+    public bool isPerk = false;
 }

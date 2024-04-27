@@ -57,6 +57,19 @@ public class IsPlayer : MonoBehaviour
     {
         return EnemyMonoBehaviour.Instances;
     }
+
+    public static List<EnemyMonoBehaviour> GetEnemiesPlayerIsInCombatWith()
+    {
+        var enemies = new List<EnemyMonoBehaviour>(); 
+        foreach(var enemy in GetAllEnemies())
+        {
+            if (enemy.GetIsChasingPlayer() == true)
+            {
+                enemies.Add(enemy);
+            }
+        }
+        return enemies;
+    }
     
     public static bool GetIsPlayerInCombat()
     {
@@ -69,5 +82,8 @@ public class IsPlayer : MonoBehaviour
         }
         return false;
     }
+    
+    
+    
     
 }
