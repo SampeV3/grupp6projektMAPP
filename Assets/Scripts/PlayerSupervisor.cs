@@ -14,6 +14,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     public int deathCount = 0;
     public int level = 0;
     public int in_run_points_to_spend = 0;
+    public int perkPoints = 0;
     [FormerlySerializedAs("experience_required")] public int experienceRequired = 100;
     public int XP = 0;
     
@@ -67,7 +68,16 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
             this.in_run_points_to_spend -= cost;
             return true;
         }
+        return false;
+    }
 
+    public bool PurchaseWithPerkPoints(int cost)
+    {
+        if (this.perkPoints >= cost)
+        {
+            this.perkPoints -= cost;
+            return true;
+        }
         return false;
     }
     
@@ -124,6 +134,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         this.XP = data.XP;
         this.level = data.level;
         this.experienceRequired = data.experience_required;
+        this.perkPoints = data.perkPoints;
         
         in_run_points_to_spend = data.in_run_points_to_spend;
         
@@ -137,7 +148,8 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         data.XP = this.XP;
         data.level = this.level;
         data.experience_required = this.experienceRequired;
-        
+
+        data.perkPoints = this.perkPoints;
         data.in_run_points_to_spend = in_run_points_to_spend;
 
         //data.experience_required = this.experience_required;

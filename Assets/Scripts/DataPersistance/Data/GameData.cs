@@ -13,10 +13,14 @@ public class GameData
     public int experience_required = 100;
     public int XP = 0; //current XP
     
+    
     public int soft_coins = 0;
     public int premium_coins = 0;
+    
+    
+    
     public int in_run_points_to_spend;
-
+    public int perkPoints;
 
 
 
@@ -35,6 +39,7 @@ public class GameData
         this.coinsCollected = new SerializableDictionary<string, bool>();
         this.skillLevels = new SerializableDictionary<string, int>();
         this.in_run_points_to_spend = 0;
+        this.perkPoints = 0;
 
         //Neat way to create gui ID:s automatically. These can be used for the dictionary. You have to right click the inspector.
         //[ContextMenu("Generate GUIID for id")]
