@@ -6675,6 +6675,7 @@ GameObject:
   - component: {fileID: 2865775353507046388}
   - component: {fileID: 6999781163118378226}
   - component: {fileID: 1664027291227482255}
+  - component: {fileID: 4236000308082319359}
   m_Layer: 3
   m_Name: CharacterSprite
   m_TagString: Player
@@ -7046,6 +7047,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnFireSound: {fileID: 8300000, guid: a05cd5748011c4a4abb8bd76b048eae5, type: 3}
   player: {fileID: 0}
+--- !u!114 &4236000308082319359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7726589997728872495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1635ed17e8381434a86b7eacd8fae333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7811106870592160213
 GameObject:
   m_ObjectHideFlags: 0
