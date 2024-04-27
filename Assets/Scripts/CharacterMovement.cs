@@ -121,9 +121,10 @@ public class CharacterMovement : MonoBehaviour
     private IEnumerator PerformDash()
     {
         double extraDashSpeed = UIController.GetSkillModifier("DashSpeed");
+        double extraDashDuration = UIController.GetSkillModifier("DashDuration");
         canDash = false;
         _rigidbody.velocity = _smoothedMovementInput.normalized * (10f * (float)extraDashSpeed);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.3f * (float)extraDashDuration);
         canDash = true;
         _rigidbody.velocity = Vector2.zero;
     }

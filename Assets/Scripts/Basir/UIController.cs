@@ -395,7 +395,8 @@ public class UIController : MonoBehaviour, IDataPersistance
         {
             Button button = refs.upgradeButton;
             print("Remove listener to onClick! to " + button);
-            button.onClick.RemoveListener(() => UpgradeSkill(refs, button.gameObject.name));
+            button.onClick.RemoveAllListeners();
+            //button.onClick.RemoveListener(() => UpgradeSkill(refs, button.gameObject.name));
         }
     }
     
