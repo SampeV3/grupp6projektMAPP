@@ -95,7 +95,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     private bool TakeDamageGrace = false;
     private void ResetGrace()
     {
-        
+        TakeDamageGrace = false;
     }
     
     void TakeDamage(int damageAmount, Collider2D other)
