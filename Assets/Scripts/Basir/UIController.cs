@@ -259,17 +259,18 @@ public class UIController : MonoBehaviour, IDataPersistance
             return level < MAX_LEVEL;
         }
         
-        private bool LevelUp()
-        {
-            if (!CanLevelUp()) return false;
-            this.modifier += upgradeAmount;
-            level += 1;
-            return true;
-        }
-
         public bool IncreaseModifier()
         {
-            return LevelUp();
+
+            if (!CanLevelUp())
+            {
+                return false;
+            }
+            
+            this.modifier += upgradeAmount;
+            level++;
+            
+            return true;
         }
         
         public double GetModifier()
@@ -289,9 +290,11 @@ public class UIController : MonoBehaviour, IDataPersistance
         
         public UpgradableStat (int initialLevel)
         {
-            this.level = initialLevel;
+            
+            print("Reinitiliaze skill " + this.level + " to " + initialLevel);
             for (int i = 0; i < initialLevel; i++)
             {
+                print("Increase level " + i);
                 IncreaseModifier();
             }
         }
@@ -434,7 +437,7 @@ public class UIController : MonoBehaviour, IDataPersistance
         {
             print("Loaded" + skillName);
             int level = data.skillLevels[skillName];
-            print("Load" + skillName + " level " + level);
+            print("Load " + skillName + " at current level " + level);
             _upgradableStats[skillName] = new UpgradableStat(level);
         }
         

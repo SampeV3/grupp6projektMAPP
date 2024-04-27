@@ -7325,7 +7325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f232c3fad23c94eab18af270ee9e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: Default.json
+  fileName: WeLoveGames.json
   useXOREncryption: 0
 --- !u!4 &1489345102
 Transform:
@@ -7509,7 +7509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 923608874363423466, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3295486571537170005, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7581,7 +7581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5165008194509831980, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.99114597
       objectReference: {fileID: 0}
     - target: {fileID: 5165008194509831980, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7589,7 +7589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5165008194509831980, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.00000003178909
       objectReference: {fileID: 0}
     - target: {fileID: 5216616681716111260, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_AnchorMax.x
