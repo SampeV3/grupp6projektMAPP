@@ -85,14 +85,29 @@ public class CharacterMovement : MonoBehaviour
 
     private void OnMove(InputValue inputValue)
     {
-
         _movementInput = inputValue.Get<Vector2>();
     }
 
+    private bool useJoystick = true;
     public void OnJoystickMove(Vector2 direction)
     {
+        if (!useJoystick) return;
         _movementInput = direction;
     }
+
+    private void OnDeveloperToggleMovementMode()
+    {
+        useJoystick = !useJoystick;
+    }
+    
+    private void OnDeveloper() //see playerinput actions
+    {
+        Dash();
+    }
+
+   
+    
+ 
 
     // herman
     public void Dash()
@@ -105,8 +120,9 @@ public class CharacterMovement : MonoBehaviour
 
     private IEnumerator PerformDash()
     {
+        double extraDashSpeed = UIController.GetSkillModifier("DashSpeed");
         canDash = false;
-        _rigidbody.velocity = _smoothedMovementInput.normalized * 10f;
+        _rigidbody.velocity = _smoothedMovementInput.normalized * (10f * (float)extraDashSpeed);
         yield return new WaitForSeconds(0.3f);
         canDash = true;
         _rigidbody.velocity = Vector2.zero;
