@@ -4,16 +4,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PlayerTakeDamage : MonoBehaviour
+public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 {
     //public int health;
     
     [SerializeField] private Transform spawnTransform;
     private Vector3 spawnPosition;
+    public double takeDamageGraceDuration = 0.4;
     public int currentHealth;
     public int maxHealth = 5;
     public GameObject[] healthBarSprites = new GameObject[6];
 
+    
     
     //Events hj�lper till att decoupla koden och h�lla saker mer separerade ifr�n varandra.
     public delegate void RespawnAction(PlayerTakeDamage playerTakeDamage); //metod signatur f�r subscribers till eventet
@@ -55,8 +57,8 @@ public class PlayerTakeDamage : MonoBehaviour
             bool isChased = IsPlayer.GetIsPlayerInCombat();
             if (isChased != IsInCombat)
             {
-                
                 if (OnCombatSituationChanged != null) OnCombatSituationChanged(isChased, "chase");
+                OnEnemyEncounter(isChased);
             }
             IsInCombat = isChased;
             yield return new WaitForSeconds(1); // Delay for float second
@@ -89,9 +91,27 @@ public class PlayerTakeDamage : MonoBehaviour
         UpdateHealthBar();
         if (OnRespawn != null) OnRespawn(this); //trigga eventet s� att andra script kan lyssna.
     }
+
+    private bool TakeDamageGrace = false;
+    private void ResetGrace()
+    {
+        TakeDamageGrace = false;
+    }
     
     void TakeDamage(int damageAmount, Collider2D other)
     {
+
+        if (TakeDamageGrace)
+        {
+            return;
+        }
+
+        TakeDamageGrace = true;
+        float graceDuration = (float)this.takeDamageGraceDuration * (float) UIController.GetSkillModifier("Health Grace Duration");
+        print("Health grace duration: " + graceDuration);
+        Invoke(nameof(ResetGrace), graceDuration);
+        
+        
         if (currentHealth < 0)
         {
             if (OnTakeDamage != null)
@@ -154,8 +174,11 @@ public class PlayerTakeDamage : MonoBehaviour
     
     public TextMeshProUGUI dialougeText;
     
+    [SerializeField] private Dictionary<string, GameObject> enemyKillDict;
+    
     private IEnumerator KillCamera(Transform enemyTransform)
     {
+        GameObject enemyGameObject = enemyTransform.gameObject;
         for (int i = 1; i < 3; i++)
         {
             if (i >= 2)
@@ -172,10 +195,42 @@ public class PlayerTakeDamage : MonoBehaviour
 
             camera.orthographicSize = 2;
             dialougeText.gameObject.SetActive(true);
+
+            //NOW!
+            //Name the Enemy into a random name not already used
+            //remember that name
+            //store that name in a list
+            //when a prefab is instanciated, determine wheter to use that name or not.
+            
+            
             dialougeText.text = "Hahaha! I killed you! Now that might even give me a promotion!";
+            
             cameraFollow.followTransform = enemyTransform;
             yield return new WaitForSeconds(2f);
         }
+    }
+
+    private void OnEnemyEncounter(bool isChased)
+    {
+        if (!isChased)
+        {
+            return;
+        }
+        var enemies = IsPlayer.GetEnemiesPlayerIsInCombatWith();
+        
+
+        //determine if player has met an enemy previously
+        
+        
+        //if met previously
+        
+        //say something about that encounter :)
+        
+        //then run the game as usual
+        
+
+
+
     }
     
     private void EnemyKilledPlayer (BulletID info)
@@ -195,6 +250,18 @@ public class PlayerTakeDamage : MonoBehaviour
     {
         ExecuteDoRespawn -= DoRespawn;
     }
+
+    public void SaveData(ref GameData data)
+    {
+        
+    }
+
+    public void LoadData(GameData data)
+    {
+        
+    }
 }
+
+
     
 

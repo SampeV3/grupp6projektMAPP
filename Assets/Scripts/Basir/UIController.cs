@@ -248,8 +248,9 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     private class UpgradableStat
     {
+        private bool isPerk;
         private int level;
-        public static int MAX_LEVEL = 5;
+        public static int MAX_LEVEL = 12;
         private double modifier = 1;
         [SerializeField] double upgradeAmount = 0.03;
 
@@ -287,10 +288,15 @@ public class UIController : MonoBehaviour, IDataPersistance
         {
             return level;
         }
-        
-        public UpgradableStat (int initialLevel)
+
+        public bool GetIsPerk()
         {
-            
+            return isPerk;
+        }
+        
+        public UpgradableStat (int initialLevel, bool isPerk)
+        {
+            this.isPerk = isPerk;
             print("Reinitiliaze skill " + this.level + " to " + initialLevel);
             for (int i = 0; i < initialLevel; i++)
             {
@@ -315,46 +321,52 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
     public TextMeshProUGUI shopLabelText;
 
-    public void SetInRunShopLabeLText()
+    public void SetShopLabelPointsText()
     {
-        shopLabelText.text = "You have " + playerSupervisor.in_run_points_to_spend + " amount of skill points to spend";
+        string text =
+            string.Format(
+                "You have {0} skill points to spend and {1} perk points to spend. Perks are permanent upgrades while skill points will reset upon dying.",
+                playerSupervisor.in_run_points_to_spend, playerSupervisor.perkPoints);
+        shopLabelText.text = text;
     }
+    
     public void UpgradeSkill(UpgradeTemplateReferences refs, string skillName)
     {
         print("update skill " + skillName);
         if (!_upgradableStats.ContainsKey(skillName))
         {
-            print( skillName + "Not added in list!");
-            _upgradableStats.Add(skillName, new UpgradableStat(0));
+            print( skillName + "Not added in list! so adding it now! :D");
+            _upgradableStats.Add(skillName, new UpgradableStat(0, refs.isPerk));
         }
         var skill = _upgradableStats[skillName];
-
-        
-        int costToBuy = 1;
-        char perkChar = char.Parse("_");
-        if (skillName.EndsWith(perkChar))
+        SetShopLabelPointsText();
+        if (skill.CanLevelUp() == false)
         {
+            print("This skill is already maxed out at " + skill.GetLevel() + "/" + UpgradableStat.MAX_LEVEL);
+            return;
+        }
+        
+        int costToBuy = 1; //TODO: flytta till upgrade klassen?
+        
+        if (refs.isPerk)
+        {
+            if (playerSupervisor.PurchaseWithPerkPoints(costToBuy) == false)
+            {
+                print("You do not have enough perk points to spend. Try advancing through some more floors.");
+                return;
+            }
             
         }
         else
         {
-            SetInRunShopLabeLText();
-            if (skill.CanLevelUp() == false)
-            {
-                print("This skill is already maxed out at " + skill.GetLevel() + "/" + UpgradableStat.MAX_LEVEL);
-                return;
-            }
-            if (playerSupervisor.purchaseWith_in_run_points_to_spend(costToBuy) == false)
+            if (playerSupervisor.purchaseWith_in_run_points_to_spend(costToBuy) == false) //This will update the points.
             {
                 print("You do not have enough in_run_points_to_spend. Try levelling up some more :)");
                 return;
             }
-            
-            SetInRunShopLabeLText();
         }
         
-
-
+        SetShopLabelPointsText();
         
         var success = skill.IncreaseModifier();
         if (success)
@@ -367,15 +379,16 @@ public class UIController : MonoBehaviour, IDataPersistance
             print(_skillName);
         }
     }
-
+    
     private static void UpdateSkillInfoText(UpgradeTemplateReferences refs, string skillName, UpgradableStat skill)
     {
         refs.infoText.text = "Upgrade " + skillName + " level " + skill.GetLevel() + " out of " + UpgradableStat.MAX_LEVEL + " currently is giving a bonus of " + skill.GetPercentageModifier() + "%.";
     }
 
+    
+    
     public void OnOpenUpgradeMenu()
     {
-        SetInRunShopLabeLText();
         foreach (UpgradeTemplateReferences refs in upgradeReferenceClasses)
         {
             Button button = refs.upgradeButton;
@@ -389,6 +402,8 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
     }
 
+    
+    
     public void OnCloseUpgradeMenu()
     {
         foreach (UpgradeTemplateReferences refs in upgradeReferenceClasses)
@@ -399,7 +414,8 @@ public class UIController : MonoBehaviour, IDataPersistance
             //button.onClick.RemoveListener(() => UpgradeSkill(refs, button.gameObject.name));
         }
     }
-    
+
+    private const string PerkIdentifierString = "#";
     public void SaveData(ref GameData data)
     {
         print("Save data from UI Controller");
@@ -409,16 +425,26 @@ public class UIController : MonoBehaviour, IDataPersistance
             print(skillName);
         }
 
-        foreach (string skillName in _upgradableStats.Keys)
+        foreach (string unmodifiedSkillName in _upgradableStats.Keys)
         {
-            print("Store " + skillName + " at level " + _upgradableStats[skillName].GetLevel());
-            if (!data.skillLevels.ContainsKey(skillName))
+            string skillNameToStore = unmodifiedSkillName; //Only use for the data.skillLevels dictionary
+            UpgradableStat skill = _upgradableStats[unmodifiedSkillName];
+            
+            print("Store " + unmodifiedSkillName + " at level " + _upgradableStats[unmodifiedSkillName].GetLevel());
+            
+            //Serialize name key as a perk //Note that this could also be moved to the upgradableStat class I suppose...
+            if (skill.GetIsPerk())
             {
-                data.skillLevels.Add(skillName, _upgradableStats[skillName].GetLevel());
+                skillNameToStore = unmodifiedSkillName + PerkIdentifierString;
+            }
+            
+            if (!data.skillLevels.ContainsKey(skillNameToStore))
+            {
+                data.skillLevels.Add(skillNameToStore, _upgradableStats[unmodifiedSkillName].GetLevel());
             }
             else
             {
-                data.skillLevels[skillName] = _upgradableStats[skillName].GetLevel();
+                data.skillLevels[skillNameToStore] = _upgradableStats[unmodifiedSkillName].GetLevel();
             }
             
         }
@@ -434,12 +460,21 @@ public class UIController : MonoBehaviour, IDataPersistance
             print(skillName);
         }
         
-        foreach (var skillName in data.skillLevels.Keys)
+        foreach (var unmodifiedSkillName in data.skillLevels.Keys)
         {
+            string skillName = unmodifiedSkillName;
+            int levelLoaded = data.skillLevels[skillName];
+            print("Load " + skillName + " at current level " + levelLoaded);
             print("Loaded" + skillName);
-            int level = data.skillLevels[skillName];
-            print("Load " + skillName + " at current level " + level);
-            _upgradableStats[skillName] = new UpgradableStat(level);
+            
+            //Deserialize perk identifier
+            bool isPerk = skillName.EndsWith(PerkIdentifierString);
+            if (isPerk)
+            {
+                skillName = skillName.Remove(unmodifiedSkillName.Length - PerkIdentifierString.Length);
+            }
+            
+            _upgradableStats[skillName] = new UpgradableStat(levelLoaded, isPerk);
         }
         
         //only really need to run this line if the menu is open when the game starts, e.g. when testing
