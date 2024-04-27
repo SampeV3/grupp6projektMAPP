@@ -250,7 +250,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     {
         private bool isPerk;
         private int level;
-        public static int MAX_LEVEL = 5;
+        public static int MAX_LEVEL = 12;
         private double modifier = 1;
         [SerializeField] double upgradeAmount = 0.03;
 
