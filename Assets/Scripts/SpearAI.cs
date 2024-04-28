@@ -43,7 +43,7 @@ public class SpearAI : EnemyMonoBehaviour
 
     }
 
-    private void Awake()
+    protected override void Awake()
     {
         if (player == null)
         {

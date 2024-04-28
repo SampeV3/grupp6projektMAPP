@@ -24,8 +24,7 @@ public class RoomContentGenerator : MonoBehaviour
     private CinemachineVirtualCamera cinemachineCamera;
 
     public UnityEvent RegenerateDungeon;
-    
-    
+
     //Bake a navmesh at runtime - Elias
     //Documentation: https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#intro
     [FormerlySerializedAs("Surface2D")] public NavMeshSurface surface2D;
@@ -34,13 +33,19 @@ public class RoomContentGenerator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            foreach (var item in spawnedObjects)
-            {
-                Destroy(item);
-            }
-            RegenerateDungeon?.Invoke(); //Generera procedurellt ett ny karta.
+            ProcedurallyCreateNewDungeon();
         }
     }
+
+    public void ProcedurallyCreateNewDungeon()
+    {
+        foreach (var item in spawnedObjects)
+        {
+            Destroy(item);
+        }
+        RegenerateDungeon?.Invoke(); //Generera procedurellt ett ny karta.
+    }
+
     public void GenerateRoomContent(DungeonData dungeonData)
     {
         foreach (GameObject item in spawnedObjects)
@@ -157,5 +162,16 @@ public class RoomContentGenerator : MonoBehaviour
 
         }
     }
+
+    private void OnEnable()
+    {
+        PlayerTakeDamage.OnPermaDeathAction += ProcedurallyCreateNewDungeon;
+    }
+
+    private void OnDisable()
+    {
+        PlayerTakeDamage.OnPermaDeathAction -= ProcedurallyCreateNewDungeon;
+    }
+
 
 }

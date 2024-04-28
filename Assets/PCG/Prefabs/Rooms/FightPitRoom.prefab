@@ -47,31 +47,27 @@ MonoBehaviour:
   prefabPlacer: {fileID: 4341242197028722173, guid: 49d1de73f44f58940a43bf538b290285, type: 3}
   enemyPlacementData:
   - minQuantity: 1
-    maxQuantity: 10
+    maxQuantity: 4
     enemyPrefab: {fileID: 8849726027243259617, guid: ab2b111c98980454c96609f83cee1f90, type: 3}
     enemySize: {x: 1, y: 1}
-  - minQuantity: 1
-    maxQuantity: 4
+  - minQuantity: 0
+    maxQuantity: 2
     enemyPrefab: {fileID: 687373707176975861, guid: 71a3616dafbe9e44bb4b6d99e21b7562, type: 3}
     enemySize: {x: 2, y: 2}
   - minQuantity: 0
-    maxQuantity: 0
-    enemyPrefab: {fileID: 855631902194425370, guid: 54b46e7bd3293eb41b9d6188acee4d00, type: 3}
-    enemySize: {x: 5, y: 5}
-  - minQuantity: 0
-    maxQuantity: 2
+    maxQuantity: 1
     enemyPrefab: {fileID: 2750494643715559943, guid: 5f3e4eb7c8a0930438c0c04c541b2d5a, type: 3}
     enemySize: {x: 2, y: 2}
   itemData:
-  - minQuantity: 3
+  - minQuantity: 1
     maxQuantity: 6
     itemData: {fileID: 11400000, guid: 70bb79b25760ec54d8a3c2f4d30fbde2, type: 2}
-  - minQuantity: 2
+  - minQuantity: 1
     maxQuantity: 4
     itemData: {fileID: 11400000, guid: d33f6fea7db47904a997959b7bdf3e4c, type: 2}
-  - minQuantity: 2
+  - minQuantity: 1
     maxQuantity: 3
     itemData: {fileID: 11400000, guid: 5f3d5b8de05ac3e4abb6fd4d3eab4aed, type: 2}
-  - minQuantity: 2
+  - minQuantity: 1
     maxQuantity: 3
     itemData: {fileID: 11400000, guid: f42e9114019933d4cbe2ee1cf58e5165, type: 2}

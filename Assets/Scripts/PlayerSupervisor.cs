@@ -16,6 +16,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     public int in_run_points_to_spend = 0;
     public int perkPoints = 0;
     [FormerlySerializedAs("experience_required")] public int experienceRequired = 100;
+    private int startingExperienceRequired;
     public int XP = 0;
     
     private bool level_up_check_loop_is_running = false;
@@ -24,6 +25,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
 
     void OnEnable()
     {
+        startingExperienceRequired = experienceRequired;
         PlayerTakeDamage.OnRespawn += OnRespawn;
         PlayerTakeDamage.OnTakeDamage += OnTakeDamage;
         PlayerTakeDamage.OnKilledBy += OnKilledBy;
@@ -157,7 +159,13 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
 
     }
 
-    
+    public void OnPermaDeath()
+    {
+        this.XP = 0;
+        this.level = 0;
+        this.in_run_points_to_spend = 0;
+        this.experienceRequired = startingExperienceRequired;
+    }
     
 
 

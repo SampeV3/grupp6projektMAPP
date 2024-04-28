@@ -302,6 +302,21 @@ public class UIController : MonoBehaviour, IDataPersistance
         {
             return isPerk;
         }
+
+        public void ResetSkillIfNotPerk()
+        {
+            if (this.isPerk == false)
+            {
+                this.level = 0;
+                this.modifier = 1;
+            }
+        }
+
+        public void ResetSkill()
+        {
+            this.level = 0;
+            this.modifier = 0;
+        }
         
         public UpgradableStat (int initialLevel, bool isPerk)
         {
@@ -489,6 +504,18 @@ public class UIController : MonoBehaviour, IDataPersistance
         //only really need to run this line if the menu is open when the game starts, e.g. when testing
         //OnOpenUpgradeMenu();
     }    
+
+    public void OnPermaDeath()
+    {
+        foreach (string skillName in _upgradableStats.Keys)
+        {
+            _upgradableStats[skillName].ResetSkillIfNotPerk();
+        }
+        inventoryHealthPickupAmount = 0;
+        inventoryBoostPickupAmount = 0;
+
+    }
+    
 
 }
 
