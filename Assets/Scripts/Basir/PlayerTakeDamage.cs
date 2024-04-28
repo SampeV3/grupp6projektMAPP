@@ -195,6 +195,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         }
         else if (other.gameObject.CompareTag("Laser"))
         {
+            
             TakeDamage(damageAmount, other);
             UpdateHealthBar();
         }

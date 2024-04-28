@@ -7773,8 +7773,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathCount: 0
   level: 0
-  in_run_points_to_spend: 20
-  perkPoints: 20
+  in_run_points_to_spend: 0
+  perkPoints: 0
   experienceRequired: 100
   XP: 0
 --- !u!82 &6999781163118378226
