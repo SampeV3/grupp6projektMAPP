@@ -497,8 +497,16 @@ public class UIController : MonoBehaviour, IDataPersistance
         
         //only really need to run this line if the menu is open when the game starts, e.g. when testing
         //OnOpenUpgradeMenu();
-    }    
+    }
 
+    [SerializeField] private List<GameObject> inactiveWhilePlayerFrozen;
+    public void OnCharacterFrozen()
+    {
+        SetActiveInList(inactiveWhilePlayerFrozen, false);    
+    }
+    
+    
+    
     public void OnPermaDeath()
     {
         foreach (string skillName in _upgradableStats.Keys)

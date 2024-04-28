@@ -7409,6 +7409,12 @@ MonoBehaviour:
   - {fileID: 2041072995753216677}
   - {fileID: 2633762169044085051}
   shopLabelText: {fileID: 4145896142465505538}
+  inactiveWhilePlayerFrozen:
+  - {fileID: 2317053042227635026}
+  - {fileID: 1195882856954082024}
+  - {fileID: 862636875313274779}
+  - {fileID: 872894926314509509}
+  - {fileID: 923608874363423466}
 --- !u!1 &7726589997728872495
 GameObject:
   m_ObjectHideFlags: 0
@@ -7654,7 +7660,7 @@ MonoBehaviour:
   - {fileID: 1384456688183739906}
   - {fileID: 1780815687646755905}
   - {fileID: 1241506102703279277}
-  OnPermaDeath:
+  onPermaDeath:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2429949363606016822}
@@ -7681,9 +7687,60 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onFreezeActions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3870987068061573463}
+        m_TargetAssemblyTypeName: CharacterMovement, NewAssembly
+        m_MethodName: FreezeCharacter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4940832060451033042}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4940832060451033042}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2429949363606016822}
+        m_TargetAssemblyTypeName: UIController, NewAssembly
+        m_MethodName: OnCharacterFrozen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   IsInCombat: 0
   cameraFollow: {fileID: 4113035927147576998}
-  camera: {fileID: 8989249721829577698}
+  playerCamera: {fileID: 8989249721829577698}
   cameraTest: {fileID: 0}
   dialougeText: {fileID: 7066339879594307869}
 --- !u!114 &4940832060451033042
@@ -7727,7 +7784,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7726589997728872495}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a05cd5748011c4a4abb8bd76b048eae5, type: 3}
@@ -7829,7 +7886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnFireSound: {fileID: 8300000, guid: a05cd5748011c4a4abb8bd76b048eae5, type: 3}
-  player: {fileID: 0}
+  player: {fileID: 6999781163118378226}
 --- !u!114 &4236000308082319359
 MonoBehaviour:
   m_ObjectHideFlags: 0
