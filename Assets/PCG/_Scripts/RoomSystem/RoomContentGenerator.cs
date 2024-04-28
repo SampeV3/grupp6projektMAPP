@@ -41,7 +41,8 @@ public class RoomContentGenerator : MonoBehaviour
     {
         foreach (var item in spawnedObjects)
         {
-            Destroy(item);
+            //Destroy(item);
+            item.gameObject.SetActive(false);
         }
         RegenerateDungeon?.Invoke(); //Generera procedurellt ett ny karta.
     }

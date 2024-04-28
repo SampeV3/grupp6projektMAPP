@@ -89,19 +89,24 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 
     public void DoRespawn()
     {
-        
-        
+
+
 
         transform.position = spawnTransform ? spawnTransform.position : spawnPosition;
         playerDied = false;
         currentHealth = maxHealth;
         UpdateHealthBar();
-        
-        if (OnRespawn != null) OnRespawn(this); //trigga eventet s� att andra script kan lyssna.
-        //Spela upp player death animation? effekter? ljud? delay?
 
-        
+        if (OnRespawn != null) OnRespawn(this); //trigga eventet s� att andra script kan lyssna.
+                                                //Spela upp player death animation? effekter? ljud? delay?
+
+
         OnPermaDeath.Invoke();
+        Invoke(nameof(RegenerateDungeon), 0);
+    }
+
+    private void RegenerateDungeon()
+    {
         OnPermaDeathAction();
     }
 
