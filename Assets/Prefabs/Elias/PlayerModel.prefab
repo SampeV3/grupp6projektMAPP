@@ -7653,6 +7653,33 @@ MonoBehaviour:
   - {fileID: 1384456688183739906}
   - {fileID: 1780815687646755905}
   - {fileID: 1241506102703279277}
+  OnPermaDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2429949363606016822}
+        m_TargetAssemblyTypeName: UIController, NewAssembly
+        m_MethodName: OnPermaDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2865775353507046388}
+        m_TargetAssemblyTypeName: PlayerSupervisor, NewAssembly
+        m_MethodName: OnPermaDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   IsInCombat: 0
   cameraFollow: {fileID: 4113035927147576998}
   camera: {fileID: 8989249721829577698}
@@ -7688,8 +7715,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathCount: 0
   level: 0
-  in_run_points_to_spend: 0
-  perkPoints: 0
+  in_run_points_to_spend: 20
+  perkPoints: 20
   experienceRequired: 100
   XP: 0
 --- !u!82 &6999781163118378226

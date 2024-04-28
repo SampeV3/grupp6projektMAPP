@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using static PlayerTakeDamage;
 public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 {
     //public int health;
@@ -15,11 +17,15 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     public int maxHealth = 5;
     public GameObject[] healthBarSprites = new GameObject[6];
 
-    
-    
+    public UnityEvent OnPermaDeath;
+    public delegate void PermaDeathAction(); //metod signatur f�r subscribers till eventet
+    public static event PermaDeathAction OnPermaDeathAction;
+
     //Events hj�lper till att decoupla koden och h�lla saker mer separerade ifr�n varandra.
     public delegate void RespawnAction(PlayerTakeDamage playerTakeDamage); //metod signatur f�r subscribers till eventet
     public static event RespawnAction OnRespawn;
+
+
     public delegate void TakeDamageAction(PlayerTakeDamage playerTakeDamage, int damageTaken); //metod signatur f�r subscribers till eventet
     public static event TakeDamageAction OnTakeDamage; //hur eventet avfyras fr�n detta script.
 
@@ -83,13 +89,20 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 
     public void DoRespawn()
     {
-        //Spela upp player death animation? effekter? ljud? delay?
+        
+        
 
         transform.position = spawnTransform ? spawnTransform.position : spawnPosition;
         playerDied = false;
         currentHealth = maxHealth;
         UpdateHealthBar();
+        
         if (OnRespawn != null) OnRespawn(this); //trigga eventet s� att andra script kan lyssna.
+        //Spela upp player death animation? effekter? ljud? delay?
+
+        
+        OnPermaDeath.Invoke();
+        OnPermaDeathAction();
     }
 
     private bool TakeDamageGrace = false;
@@ -131,7 +144,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
                 //when there is a cutscene event that fires!!
                 //then the player can choose when to exit the nemesis scene :D
                 
-                Invoke(nameof(DoRespawn), 1f);
+                Invoke(nameof(DoRespawn), 1.4f);
             }
             else
             {
