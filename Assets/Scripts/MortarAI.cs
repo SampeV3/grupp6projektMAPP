@@ -179,6 +179,10 @@ public class MortarAI : EnemyMonoBehaviour
         {
             return true;
         }
+        if (player == null)
+        {
+            return false;
+        }
         return false;
     }
     
