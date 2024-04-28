@@ -82,7 +82,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
     private void Update()
     {
-        if (inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text == "0")
+        if (inventoryHealthPickupAmount == 0)
         {
             changeItemColor(inventoryButtonsInPanel[2].image, false);
         }
@@ -92,7 +92,7 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
         inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryHealthPickupAmount;
 
-        if (inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text == "0")
+        if (inventoryBoostPickupAmount == 0)
         {
             changeItemColor(inventoryButtonsInPanel[3].image, false);
         }
@@ -245,11 +245,11 @@ public class UIController : MonoBehaviour, IDataPersistance
     {
         if (!isAvailable)
         {
-            image.color = inventoryItemUnavailable;
+            image.color = inventoryItemUnavailable; //färg för icke-tillgängliga items
         }
         else
         {
-            image.color = inventoryItemAvailable;
+            image.color = inventoryItemAvailable;  //återställa vanlig färg på tillgängliga items
         }
     }
 
