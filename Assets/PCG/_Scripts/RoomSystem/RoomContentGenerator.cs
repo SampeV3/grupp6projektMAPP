@@ -33,6 +33,7 @@ public class RoomContentGenerator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            print("New Room");
             ProcedurallyCreateNewDungeon();
         }
     }
@@ -41,8 +42,8 @@ public class RoomContentGenerator : MonoBehaviour
     {
         foreach (var item in spawnedObjects)
         {
-            //Destroy(item);
-            item.gameObject.SetActive(false);
+            Destroy(item);
+            //item.gameObject.SetActive(false);
         }
         RegenerateDungeon?.Invoke(); //Generera procedurellt ett ny karta.
     }

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class CharacterMovement : MonoBehaviour
 {
 
-
+    
     public GameObject character;
     public Camera characterCamera;
 
@@ -26,7 +26,6 @@ public class CharacterMovement : MonoBehaviour
     //herman - jag la till en dash :) ////ser jättebra ut! - Elias
     private bool canDash = true;
     
-
     void Start()
     {
 
@@ -105,7 +104,15 @@ public class CharacterMovement : MonoBehaviour
         Dash();
     }
 
-   
+    public void FreezeCharacter()
+    {
+        _rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
+
+    public void UnFreezeCharacter()
+    {
+        _rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
     
  
 

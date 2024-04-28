@@ -11,14 +11,12 @@ public class PrefabPlacer : MonoBehaviour, IDataPersistance
     [SerializeField]
     private GameObject itemPrefab;
 
-    //Implement factory pattern here!
-
-    private Hashtable enemiesOnTheBoard;
+    //Implement factory pattern here?
     private Dictionary<UniqueId, EnemyMonoBehaviour> storyRobotEnemies;
     
     public void LoadData(GameData data)
     {
-        enemiesOnTheBoard = new Hashtable();
+        
     }
 
     public void SaveData(ref GameData data)
@@ -47,7 +45,7 @@ public class PrefabPlacer : MonoBehaviour, IDataPersistance
                     
                     
                     placedObjects.Add(CreateObject(prefabEnemy, possiblePlacementSpot.Value + new Vector2(0.5f, 0.5f))); //Instantiate(placementData.enemyPrefab,possiblePlacementSpot.Value + new Vector2(0.5f, 0.5f), Quaternion.identity)
-                    enemiesOnTheBoard.Add( placedObjects.Last());
+                   
                     
                 }
             }
