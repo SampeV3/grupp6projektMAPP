@@ -57,9 +57,7 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public bool isBossDead;
 
-    //private bool isBoostActivated = false;  Ska anv�ndas senare n�r boost item har en funktion
-
-    public Color inventoryItemUnavailable;
+    public Color inventoryItemUnavailable, inventoryItemAvailable;
     
     private void Start()
     {
@@ -88,13 +86,20 @@ public class UIController : MonoBehaviour, IDataPersistance
         {
             changeItemColor(inventoryButtonsInPanel[2].image, false);
         }
+        else
+        {
+            changeItemColor(inventoryButtonsInPanel[2].image, true);
+        }
         inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryHealthPickupAmount;
 
         if (inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text == "0")
         {
             changeItemColor(inventoryButtonsInPanel[3].image, false);
         }
-        else { return; }
+        else 
+        { 
+            changeItemColor(inventoryButtonsInPanel[3].image, true);
+        }
         inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryBoostPickupAmount;
 
         if (!isWeapon_2_picked)
@@ -241,6 +246,10 @@ public class UIController : MonoBehaviour, IDataPersistance
         if (!isAvailable)
         {
             image.color = inventoryItemUnavailable;
+        }
+        else
+        {
+            image.color = inventoryItemAvailable;
         }
     }
 

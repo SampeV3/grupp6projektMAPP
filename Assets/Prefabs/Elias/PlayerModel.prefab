@@ -4745,7 +4745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7191194894161462249
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7402,6 +7402,7 @@ MonoBehaviour:
   isWeapon_2_picked: 0
   isBossDead: 0
   inventoryItemUnavailable: {r: 0.2754717, g: 0.22609468, b: 0.22609468, a: 0.8509804}
+  inventoryItemAvailable: {r: 1, g: 1, b: 1, a: 1}
   upgradeReferenceClasses:
   - {fileID: 7130116363722819786}
   - {fileID: 1651630661732249049}
@@ -10393,7 +10394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2465850695282686485, guid: 7639673a82b05a5458e25959da8be911, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00011197244
+      value: 0.000012625007
       objectReference: {fileID: 0}
     - target: {fileID: 2729527041986574945, guid: 7639673a82b05a5458e25959da8be911, type: 3}
       propertyPath: m_text
@@ -10401,7 +10402,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2804631494372013442, guid: 7639673a82b05a5458e25959da8be911, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.9911459
+      value: 0.99114585
       objectReference: {fileID: 0}
     - target: {fileID: 2804631494372013442, guid: 7639673a82b05a5458e25959da8be911, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10409,7 +10410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2804631494372013442, guid: 7639673a82b05a5458e25959da8be911, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.00000003178909
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2805751503826215121, guid: 7639673a82b05a5458e25959da8be911, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10465,7 +10466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3778241605610248543, guid: 7639673a82b05a5458e25959da8be911, type: 3}
       propertyPath: m_Size
-      value: 0.99114585
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3778241605610248543, guid: 7639673a82b05a5458e25959da8be911, type: 3}
       propertyPath: m_Value
