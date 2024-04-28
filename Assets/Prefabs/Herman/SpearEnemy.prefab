@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1827964012202804551}
   - component: {fileID: 1607346823342292292}
   - component: {fileID: 2036017114648096245}
+  - component: {fileID: 3531516327751453957}
   m_Layer: 4
   m_Name: SpearEnemy
   m_TagString: Spear
@@ -249,6 +250,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1949749, y: 1.8573856}
   m_EdgeRadius: 0
+--- !u!114 &3531516327751453957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2750494643715559943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941b4bc671a5cc549b88ae2c94f4a705, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KillerGameObject: {fileID: 2750494643715559943}
 --- !u!1 &3321344052363346186
 GameObject:
   m_ObjectHideFlags: 0
