@@ -1,12 +1,6 @@
-using Codice.Client.Common.GameUI;
-using Codice.CM.SEIDInfo;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using TMPro;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -57,9 +51,7 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public bool isBossDead;
 
-    //private bool isBoostActivated = false;  Ska anv�ndas senare n�r boost item har en funktion
-
-    public Color inventoryItemUnavailable;
+    public Color inventoryItemUnavailable, inventoryItemAvailable;
     
     private void Start()
     {
@@ -84,17 +76,24 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
     private void Update()
     {
-        if (inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text == "0")
+        if (inventoryHealthPickupAmount == 0)
         {
             changeItemColor(inventoryButtonsInPanel[2].image, false);
         }
+        else
+        {
+            changeItemColor(inventoryButtonsInPanel[2].image, true);
+        }
         inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryHealthPickupAmount;
 
-        if (inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text == "0")
+        if (inventoryBoostPickupAmount == 0)
         {
             changeItemColor(inventoryButtonsInPanel[3].image, false);
         }
-        else { return; }
+        else 
+        { 
+            changeItemColor(inventoryButtonsInPanel[3].image, true);
+        }
         inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryBoostPickupAmount;
 
         if (!isWeapon_2_picked)
@@ -240,7 +239,11 @@ public class UIController : MonoBehaviour, IDataPersistance
     {
         if (!isAvailable)
         {
-            image.color = inventoryItemUnavailable;
+            image.color = inventoryItemUnavailable; //färg för icke-tillgängliga items
+        }
+        else
+        {
+            image.color = inventoryItemAvailable;  //återställa vanlig färg på tillgängliga items
         }
     }
 
@@ -292,6 +295,21 @@ public class UIController : MonoBehaviour, IDataPersistance
         public bool GetIsPerk()
         {
             return isPerk;
+        }
+
+        public void ResetSkillIfNotPerk()
+        {
+            if (this.isPerk == false)
+            {
+                this.level = 0;
+                this.modifier = 1;
+            }
+        }
+
+        public void ResetSkill()
+        {
+            this.level = 0;
+            this.modifier = 0;
         }
         
         public UpgradableStat (int initialLevel, bool isPerk)
@@ -479,7 +497,27 @@ public class UIController : MonoBehaviour, IDataPersistance
         
         //only really need to run this line if the menu is open when the game starts, e.g. when testing
         //OnOpenUpgradeMenu();
-    }    
+    }
+
+    [SerializeField] private List<GameObject> inactiveWhilePlayerFrozen;
+    public void OnCharacterFrozen()
+    {
+        SetActiveInList(inactiveWhilePlayerFrozen, false);    
+    }
+    
+    
+    
+    public void OnPermaDeath()
+    {
+        foreach (string skillName in _upgradableStats.Keys)
+        {
+            _upgradableStats[skillName].ResetSkillIfNotPerk();
+        }
+        inventoryHealthPickupAmount = 0;
+        inventoryBoostPickupAmount = 0;
+
+    }
+    
 
 }
 

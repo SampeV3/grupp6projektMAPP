@@ -1,13 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using UnityEditor;
 using UnityEngine;
 
-public class PrefabPlacer : MonoBehaviour
+public class PrefabPlacer : MonoBehaviour, IDataPersistance
 {
     [SerializeField]
     private GameObject itemPrefab;
+
+    //Implement factory pattern here?
+    private Dictionary<UniqueId, EnemyMonoBehaviour> storyRobotEnemies;
+    
+    public void LoadData(GameData data)
+    {
+        
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        
+    }
+
 
     public List<GameObject> PlaceEnemies(List<EnemyPlacementData> enemyPlacementData, ItemPlacementHelper itemPlacementHelper)
     {
@@ -25,8 +41,12 @@ public class PrefabPlacer : MonoBehaviour
                     );
                 if (possiblePlacementSpot.HasValue)
                 {
-
-                    placedObjects.Add(CreateObject(placementData.enemyPrefab, possiblePlacementSpot.Value + new Vector2(0.5f, 0.5f))); //Instantiate(placementData.enemyPrefab,possiblePlacementSpot.Value + new Vector2(0.5f, 0.5f), Quaternion.identity)
+                    GameObject prefabEnemy = placementData.enemyPrefab;
+                    
+                    
+                    placedObjects.Add(CreateObject(prefabEnemy, possiblePlacementSpot.Value + new Vector2(0.5f, 0.5f))); //Instantiate(placementData.enemyPrefab,possiblePlacementSpot.Value + new Vector2(0.5f, 0.5f), Quaternion.identity)
+                   
+                    
                 }
             }
         }

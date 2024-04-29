@@ -266,7 +266,6 @@ MonoBehaviour:
   defaultRoom: {fileID: 7777476307801422254, guid: 377fa56baa708c045ab0ed6a3b4e6926, type: 3}
   bossRoom: {fileID: 2746710959080050701, guid: 98510c6821f276d42a2269def706d864, type: 3}
   graphTest: {fileID: 826419577}
-  itemParent: {fileID: 1607766029}
   cinemachineCamera: {fileID: 1792208467}
   RegenerateDungeon:
     m_PersistentCalls:
@@ -381,7 +380,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Tryck p\xE5 Space f\xF6r att generera en ny bana."
+  m_Text: 
 --- !u!222 &357306963
 CanvasRenderer:
   m_ObjectHideFlags: 0

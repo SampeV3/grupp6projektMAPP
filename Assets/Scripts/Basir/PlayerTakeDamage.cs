@@ -1,9 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+using static PlayerTakeDamage;
 public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 {
     //public int health;
@@ -15,11 +19,19 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     public int maxHealth = 5;
     public GameObject[] healthBarSprites = new GameObject[6];
 
+    [FormerlySerializedAs("OnPermaDeath")] [Description("Fires upon permanent death.")]
+    public UnityEvent onPermaDeath;
+    [Description("Event when the players actions should be frozen.")]
+    public UnityEvent onFreezeActions; 
     
-    
+    public delegate void PermaDeathAction(); //metod signatur f�r subscribers till eventet
+    public static event PermaDeathAction OnPermaDeathAction;
+
     //Events hj�lper till att decoupla koden och h�lla saker mer separerade ifr�n varandra.
     public delegate void RespawnAction(PlayerTakeDamage playerTakeDamage); //metod signatur f�r subscribers till eventet
     public static event RespawnAction OnRespawn;
+
+
     public delegate void TakeDamageAction(PlayerTakeDamage playerTakeDamage, int damageTaken); //metod signatur f�r subscribers till eventet
     public static event TakeDamageAction OnTakeDamage; //hur eventet avfyras fr�n detta script.
 
@@ -81,15 +93,38 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         }
     }
 
-    public void DoRespawn()
+    private void RepositionToStartLocation()
     {
-        //Spela upp player death animation? effekter? ljud? delay?
-
         transform.position = spawnTransform ? spawnTransform.position : spawnPosition;
         playerDied = false;
         currentHealth = maxHealth;
         UpdateHealthBar();
+
+    }
+    
+    public void DoRespawn()
+    {
+        
         if (OnRespawn != null) OnRespawn(this); //trigga eventet s� att andra script kan lyssna.
+
+
+        onPermaDeath.Invoke();
+        //Spela upp player death animation? effekter? ljud? delay?
+        //lägg till scripts till eventet. 
+
+        if (OnPermaDeathAction != null)
+        {
+            Invoke(nameof(RegenerateDungeon), 0.1f); //add extra delay...
+        }
+        else
+        {
+            RepositionToStartLocation();
+        }
+    }
+
+    private void RegenerateDungeon()
+    {
+        OnPermaDeathAction();
     }
 
     private bool TakeDamageGrace = false;
@@ -125,13 +160,14 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             playerDied = true;
             if (Nemesis.EnemyKilledPlayer.nemesisEnabled && other.gameObject.GetComponent<BulletID>() != null)
             {
+                onFreezeActions.Invoke();
                 EnemyKilledPlayer(other.gameObject.GetComponent<BulletID>());
                 
                 //How about we tell this script to respawn the player
                 //when there is a cutscene event that fires!!
                 //then the player can choose when to exit the nemesis scene :D
                 
-                Invoke(nameof(DoRespawn), 1f);
+                
             }
             else
             {
@@ -140,6 +176,12 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         }
     }
 
+    private void EnemyKilledPlayer (BulletID info)
+    {
+        StartCoroutine(KillCamera(info.KillerGameObject.transform));
+        if (OnKilledBy != null) OnKilledBy(this, info);   
+    }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         int damageAmount = 1;
@@ -153,6 +195,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         }
         else if (other.gameObject.CompareTag("Laser"))
         {
+            
             TakeDamage(damageAmount, other);
             UpdateHealthBar();
         }
@@ -169,7 +212,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     }
 
     public CameraFollow cameraFollow;
-    public Camera camera;
+    [FormerlySerializedAs("camera")] public Camera playerCamera;
     public GameObject cameraTest;
     
     public TextMeshProUGUI dialougeText;
@@ -183,17 +226,18 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         {
             if (i >= 2)
             {
+                
+                dialougeText.gameObject.SetActive(false);
+                cameraFollow.followTransform = gameObject.transform;
+                playerCamera.orthographicSize = 7;
                 if (ExecuteDoRespawn != null)
                 {
                     ExecuteDoRespawn();
                 }
-                dialougeText.gameObject.SetActive(false);
-                cameraFollow.followTransform = gameObject.transform;
-                camera.orthographicSize = 7;
                 break;
             }
 
-            camera.orthographicSize = 2;
+            playerCamera.orthographicSize = 2;
             dialougeText.gameObject.SetActive(true);
 
             //NOW!
@@ -233,13 +277,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 
     }
     
-    private void EnemyKilledPlayer (BulletID info)
-    {
-        
-        StartCoroutine(KillCamera(info.KillerGameObject.transform));
-        
-        if (OnKilledBy != null) OnKilledBy(this, info);
-    }
+
 
     private void OnEnable()
     {

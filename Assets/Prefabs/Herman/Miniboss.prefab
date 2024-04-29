@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 8786617271426860459}
   - component: {fileID: 5632716657083380893}
   - component: {fileID: 2767820736101017008}
+  - component: {fileID: 5971328296237694572}
   m_Layer: 4
   m_Name: Beam2
   m_TagString: Laser
@@ -294,6 +295,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.69927734}
   m_EdgeRadius: 0
+--- !u!114 &5971328296237694572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3411243563586082289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941b4bc671a5cc549b88ae2c94f4a705, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KillerGameObject: {fileID: 6810210864640955895}
 --- !u!1 &3658250002660763024
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,6 +425,7 @@ GameObject:
   - component: {fileID: 5382157671514978329}
   - component: {fileID: 71231860524043172}
   - component: {fileID: 3098535995289084811}
+  - component: {fileID: 3071480421822680367}
   m_Layer: 4
   m_Name: Beam1
   m_TagString: Laser
@@ -530,6 +545,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.6390888}
   m_EdgeRadius: 0
+--- !u!114 &3071480421822680367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3673447982699266084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941b4bc671a5cc549b88ae2c94f4a705, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KillerGameObject: {fileID: 6810210864640955895}
 --- !u!1 &6810210864640955895
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +759,7 @@ MonoBehaviour:
   beam2: {fileID: 3411243563586082289}
   mortar: {fileID: 1585086701132302112, guid: 6e06f60ffb662494280c7620ee1d8b33, type: 3}
   parent: {fileID: 855631902194425370}
+  dropItem: {fileID: 0}
   player: {fileID: 0}
   anim: {fileID: 2115987290943512436}
   topSprite: {fileID: 295197728295613427}
