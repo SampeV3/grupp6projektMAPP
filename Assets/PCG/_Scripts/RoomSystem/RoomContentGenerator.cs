@@ -24,7 +24,8 @@ public class RoomContentGenerator : MonoBehaviour
     private CinemachineVirtualCamera cinemachineCamera;
 
     public UnityEvent RegenerateDungeon;
-
+    public UnityEvent OnFinishedDungeonPlacement;
+    
     //Bake a navmesh at runtime - Elias
     //Documentation: https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#intro
     [FormerlySerializedAs("Surface2D")] public NavMeshSurface surface2D;
@@ -43,7 +44,6 @@ public class RoomContentGenerator : MonoBehaviour
         foreach (var item in spawnedObjects)
         {
             Destroy(item);
-            //item.gameObject.SetActive(false);
         }
         RegenerateDungeon?.Invoke(); //Generera procedurellt ett ny karta.
     }
@@ -67,6 +67,7 @@ public class RoomContentGenerator : MonoBehaviour
         
         surface2D.BuildNavMeshAsync();
 
+        OnFinishedDungeonPlacement.Invoke();
         
     }
 

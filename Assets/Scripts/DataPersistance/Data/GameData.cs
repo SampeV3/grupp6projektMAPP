@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 [System.Serializable]
+
 
 public class GameData
 {
@@ -22,14 +24,12 @@ public class GameData
     public int in_run_points_to_spend;
     public int perkPoints;
 
-
-
-
-
-
+    public SerializableDictionary<string, EnemyData> enemies;
+    
     public Vector3 playerPosition = Vector3.zero;
+    //DICTIONARIES ARE NOT SUPPORTED IN JSON so a custom SerializableDictionary is used.
     public SerializableDictionary<string, bool> coinsCollected; //Example
-    //DICTIONARIES ARE NOT SUPPORTED IN JSON.
+    
     public SerializableDictionary<string, int> skillLevels; //Example
 
 
@@ -40,7 +40,7 @@ public class GameData
         this.skillLevels = new SerializableDictionary<string, int>();
         this.in_run_points_to_spend = 0;
         this.perkPoints = 0;
-
+        this.enemies = new SerializableDictionary<string, EnemyData>();
         //Neat way to create gui ID:s automatically. These can be used for the dictionary. You have to right click the inspector.
         //[ContextMenu("Generate GUIID for id")]
         //private void GenerateGuiid()

@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public abstract class EnemyMonoBehaviour : MonoBehaviour
 {
     // Inheritors have to implement this (just like with an interface) (as an override though).
     public abstract bool GetIsChasingPlayer();
 
+    public string enemyType;
+    public EnemyData persistentEnemyData;
+    
     private static readonly HashSet<EnemyMonoBehaviour> instances = new HashSet<EnemyMonoBehaviour>();
 
     // public read-only access to the instances by only providing a clone
@@ -26,7 +30,10 @@ public abstract class EnemyMonoBehaviour : MonoBehaviour
         // don't forget to also remove yourself at the end of your lifetime
         instances.Remove(this);
     }
+    
 }
+
+
 public class IsPlayer : MonoBehaviour
 {
     public Transform playerTransform;

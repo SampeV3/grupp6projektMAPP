@@ -38,6 +38,8 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     public delegate void CombatSituationChanged(bool isInCombat, string combatSituation);
     public static event CombatSituationChanged OnCombatSituationChanged;
 
+    
+    
     public delegate void DoRespawnAction();
 
     public static event DoRespawnAction ExecuteDoRespawn;
@@ -83,6 +85,8 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         {
             GameObject batterySprite = healthBarSprites[i];
             bool isEqualToIndex = i == currentHealth;
+            //kan förenklas till: batterySprite.SetActive(isEqualToIndex);
+            
             if (isEqualToIndex)
             {
                 batterySprite.SetActive(true);
@@ -158,7 +162,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         if (currentHealth <= 0 && !playerDied)
         {
             playerDied = true;
-            if (Nemesis.EnemyKilledPlayer.nemesisEnabled && other.gameObject.GetComponent<BulletID>() != null)
+            if (Nemesis.NemesisController.nemesisEnabled && other.gameObject.GetComponent<BulletID>() != null)
             {
                 onFreezeActions.Invoke();
                 EnemyKilledPlayer(other.gameObject.GetComponent<BulletID>());
@@ -175,13 +179,6 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             }
         }
     }
-
-    private void EnemyKilledPlayer (BulletID info)
-    {
-        StartCoroutine(KillCamera(info.KillerGameObject.transform));
-        if (OnKilledBy != null) OnKilledBy(this, info);   
-    }
-    
     private void OnTriggerEnter2D(Collider2D other)
     {
         int damageAmount = 1;
@@ -210,50 +207,106 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             UpdateHealthBar();
         }
     }
+    
+    private void EnemyKilledPlayer (BulletID info)
+    {
+        //NOW!
+        //Name the Enemy into a random name or ID not already used
+        //remember that name
+        
+        
+        GameObject enemy = info.KillerGameObject;
+        EnemyMonoBehaviour superEnemyClass = enemy.GetComponent<EnemyMonoBehaviour>();
+        EnemyData enemyData = superEnemyClass.persistentEnemyData != null ? superEnemyClass.persistentEnemyData : new EnemyData();
 
+        string randomName = "Bert the AI killer";
+        
+        enemyData.kills++;
+        enemyData.name = randomName;
+        enemyData.enemyType = superEnemyClass.enemyType;
+        
+        string killerDialouge = "Hahaha! I killed you! Now that might even give me a promotion!";
+        
+        
+        MoveCameraClass moveCam = new MoveCameraClass
+        {
+            secondsDuration = 3f,
+            targetTransform = enemy.transform,
+            dialougeText = killerDialouge,
+            callbackMethodName = null,
+            doRespawn = true
+        };
+        StartCoroutine(CameraToTarget(moveCam));
+        if (OnKilledBy != null) OnKilledBy(this, info); 
+        
+        superEnemyClass.persistentEnemyData = enemyData;
+
+    }
+    
     public CameraFollow cameraFollow;
     [FormerlySerializedAs("camera")] public Camera playerCamera;
     public GameObject cameraTest;
     
     public TextMeshProUGUI dialougeText;
-    
-    [SerializeField] private Dictionary<string, GameObject> enemyKillDict;
-    
-    private IEnumerator KillCamera(Transform enemyTransform)
+
+    private class MoveCameraClass
     {
-        GameObject enemyGameObject = enemyTransform.gameObject;
+        public float secondsDuration = 2f;
+        public string dialougeText = "";
+        public string callbackMethodName = null;
+        public bool doRespawn = false;
+        public Transform targetTransform;
+    }
+    
+    //Improvements I can make: 
+    //1. use a unity cutscene plugin editor rather than this simple method
+    //2. cinemacamera rather than the current camera
+    private IEnumerator CameraToTarget(MoveCameraClass camInfo)
+    {
+        
         for (int i = 1; i < 3; i++)
         {
             if (i >= 2)
             {
                 
-                dialougeText.gameObject.SetActive(false);
-                cameraFollow.followTransform = gameObject.transform;
-                playerCamera.orthographicSize = 7;
-                if (ExecuteDoRespawn != null)
+                DisableEnemyCam();
+                if (camInfo.doRespawn)
                 {
-                    ExecuteDoRespawn();
+                    if (OnRespawn != null)
+                    {
+                        OnRespawn(this);
+                    }
+                }
+                
+                if (camInfo.callbackMethodName != null)
+                {
+                    Invoke(camInfo.callbackMethodName, 0f);
                 }
                 break;
             }
-
-            playerCamera.orthographicSize = 2;
-            dialougeText.gameObject.SetActive(true);
-
-            //NOW!
-            //Name the Enemy into a random name not already used
-            //remember that name
-            //store that name in a list
-            //when a prefab is instanciated, determine wheter to use that name or not.
-            
-            
-            dialougeText.text = "Hahaha! I killed you! Now that might even give me a promotion!";
-            
-            cameraFollow.followTransform = enemyTransform;
-            yield return new WaitForSeconds(2f);
+            EnableEnemyCam(camInfo.targetTransform, camInfo.dialougeText);
+            yield return new WaitForSeconds(camInfo.secondsDuration);
         }
     }
+    
+    private void EnableEnemyCam(Transform enemyTransform, string text)
+    {
+        playerCamera.orthographicSize = 2;
+        dialougeText.gameObject.SetActive(true);
+        dialougeText.text = text;
+        cameraFollow.followTransform = enemyTransform;
+    }
 
+    private void DisableEnemyCam()
+    {
+        dialougeText.gameObject.SetActive(false);
+        cameraFollow.followTransform = gameObject.transform;
+        playerCamera.orthographicSize = 7;
+    }
+
+    private SerializableDictionary<string, int> enemiesWithKills;
+    
+    
     private void OnEnemyEncounter(bool isChased)
     {
         if (!isChased)
@@ -261,8 +314,35 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             return;
         }
         var enemies = IsPlayer.GetEnemiesPlayerIsInCombatWith();
-        
 
+        foreach (var enemy in enemies)
+        {
+            
+            if (enemy.persistentEnemyData != null)
+            {
+                bool didEncounterBefore = enemy.persistentEnemyData.GetDidEncounter();
+                if (didEncounterBefore)
+                {
+                  continue;  
+                }
+                enemy.persistentEnemyData.SetDidEncounter(true);
+                
+                string encounterText =
+                    "Worm! When I killed you I gained lots of experience and favour. If I kill you again, I will be even more well rewarded! Attack!";
+                MoveCameraClass moveCam = new MoveCameraClass
+                {
+                    secondsDuration = 3f,
+                    targetTransform = enemy.transform,
+                    dialougeText = encounterText,
+                    callbackMethodName = null,
+                    doRespawn = true
+                };
+                StartCoroutine(CameraToTarget(moveCam));
+            }
+        }
+        //PROBLEM! När kameran zoomas in kommer fiender fortsätta anfalla. Finns det möjlighet att pausa spelet?
+        
+        
         //determine if player has met an enemy previously
         
         
@@ -272,7 +352,17 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         
         //then run the game as usual
         
-
+        //information I want the enemy to have
+        //number of player kills
+        //if possible; HOW, the context of those kills
+        //e.g. did the enemy STEAL the kill, did the enemy kill you all by themselves, etc?
+        //name so the player may recognize the generated villain
+        //apperance
+        //I can store it all in a string like this:
+        // name=Big Evil Robot level = 10 playerKills = 20 usedDialouges = {"hahaha", "lol 20 kills hahahahahah"}
+        //did someone make a class to string serializer?
+        
+        
 
 
     }
@@ -288,7 +378,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     {
         ExecuteDoRespawn -= DoRespawn;
     }
-
+    private SerializableDictionary<string, EnemyData> enemyDataDict;
     public void SaveData(ref GameData data)
     {
         
@@ -296,10 +386,26 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 
     public void LoadData(GameData data)
     {
-        
+      
     }
 }
 
+[System.Serializable]
+public class EnemyData
+{
+    public string enemyType;
+    public string name;
+    public int kills = 0;
 
-    
+    private bool didEncounter = false;
 
+    public void SetDidEncounter(bool encountered)
+    {
+        didEncounter = encountered;
+    }
+
+    public bool GetDidEncounter()
+    {
+        return didEncounter;
+    }
+}

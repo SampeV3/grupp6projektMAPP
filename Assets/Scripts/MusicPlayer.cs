@@ -20,6 +20,7 @@ public class Music : MonoBehaviour
         double startTime = AudioSettings.dspTime + 0.2;
         introAudioSource.PlayScheduled(startTime);
         loopAudioSource.PlayScheduled(startTime + introDuration);
+        //DontDestroyOnLoad(this.gameObject);
     }
 
     void OnCombat(bool isInCombatMode, string situation)

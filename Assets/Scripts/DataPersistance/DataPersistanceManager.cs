@@ -89,8 +89,14 @@ public class DataPersistanceManager : MonoBehaviour
     {
         IEnumerable<IDataPersistance> dataPersistanceObjects = FindObjectsOfType<MonoBehaviour>()
             .OfType<IDataPersistance>();
-
+        
         return new List<IDataPersistance>(dataPersistanceObjects);
 
     }
+
+    public static string GenerateUniqueId()
+    {
+        return System.Guid.NewGuid().ToString();
+    }
+    
 }
