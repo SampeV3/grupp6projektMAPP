@@ -25833,12 +25833,12 @@ MonoBehaviour:
   wallSiderLeft: {fileID: 11400000, guid: 20b1fb4a389f716498cb73a3cbcad746, type: 2}
   wallBottom: {fileID: 11400000, guid: 1db7e7ee9c9b3d84588df7b0409e368b, type: 2}
   wallFull: {fileID: 11400000, guid: 20b1fb4a389f716498cb73a3cbcad746, type: 2}
-  wallInnerCornerDownLeft: {fileID: 11400000, guid: a4a8fd2caea494c45916e75fc21be5c2, type: 2}
-  wallInnerCornerDownRight: {fileID: 11400000, guid: 32fb4d0075b44bf43b045b03663afc2c, type: 2}
-  wallDiagonalCornerDownRight: {fileID: 11400000, guid: ece443381d8fc294f928c22650a87c24, type: 2}
-  wallDiagonalCornerDownLeft: {fileID: 11400000, guid: f0876383a0a9e9f4a8f543d8515e12c0, type: 2}
-  wallDiagonalCornerUpRight: {fileID: 11400000, guid: 809171e13e7908f40a916074c244f08c, type: 2}
-  wallDiagonalCornerUpLeft: {fileID: 11400000, guid: 990709a76d4f9124db8ca4026e79a932, type: 2}
+  wallInnerCornerDownLeft: {fileID: 11400000, guid: 59ca453180d72da45a562af095583db5, type: 2}
+  wallInnerCornerDownRight: {fileID: 11400000, guid: e29273fd65d7fb94997806c5c69300ed, type: 2}
+  wallDiagonalCornerDownRight: {fileID: 11400000, guid: 99fadc869067a8747b8091dc0e5236f3, type: 2}
+  wallDiagonalCornerDownLeft: {fileID: 11400000, guid: 9d00919f54a1ca244a8ad836635b893f, type: 2}
+  wallDiagonalCornerUpRight: {fileID: 11400000, guid: 59ca453180d72da45a562af095583db5, type: 2}
+  wallDiagonalCornerUpLeft: {fileID: 11400000, guid: e29273fd65d7fb94997806c5c69300ed, type: 2}
 --- !u!4 &2072839851
 Transform:
   m_ObjectHideFlags: 0
