@@ -10,10 +10,12 @@ public class SpearAI : EnemyMonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private LayerMask playerMask, obstacleMask;
 
+
     private AudioSource audioSource;
     private Material originalMat;
     private SpriteRenderer sprd;
     private Animator anim;
+    public int xpToAwardForKillingEnemy = 50;
     private float HP;
     private bool playerDetected = false;
     private bool canhitSomething = false;
@@ -235,6 +237,7 @@ public class SpearAI : EnemyMonoBehaviour
                 StopCoroutine(combatCoroutine);
             }
             sprd.color = Color.red;
+            OnDied();
             dropLoot();
             Destroy(gameObject, 1f);
         }
@@ -250,6 +253,17 @@ public class SpearAI : EnemyMonoBehaviour
         }
 
     }
+
+    private bool hasRunned = false;
+    private void OnDied()
+    {
+        if (hasRunned) return;
+        hasRunned = true;
+        SingletonClass.OnEnemyKilled(this);
+
+        SingletonClass.AwardXP(xpToAwardForKillingEnemy);
+    }
+
 
     private IEnumerator Flash()
     {

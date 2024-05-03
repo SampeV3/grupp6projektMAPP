@@ -115,11 +115,11 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         if (OnLevelUp != null) OnLevelUp(level);
     }
 
-    private void OnKilledBy(PlayerTakeDamage playerTakeDamage, BulletID info)
+    private void OnKilledBy(PlayerTakeDamage playerTakeDamage, EnemyData enemyData, GameObject KillerGameObject)
     {
         print("Someone killed the player oh no!");
-        if ((info.KillerGameObject) == null) { print("Unknown player killer oh no"); return; } 
-        print("Player killed by " + info.KillerGameObject.name + " hahahah");
+        if ((KillerGameObject) == null) { print("Unknown player killer oh no"); return; } 
+        print("Player killed by " + KillerGameObject.name + " hahahah");
         
         
     }

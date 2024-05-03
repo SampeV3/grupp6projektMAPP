@@ -45,7 +45,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     public static event DoRespawnAction ExecuteDoRespawn;
     
     
-    public delegate void PlayerKilledByAction(PlayerTakeDamage playerTakeDamage, BulletID info);
+    public delegate void PlayerKilledByAction(PlayerTakeDamage playerTakeDamage, EnemyData enemyData, GameObject enemyKiller);
     public static event PlayerKilledByAction OnKilledBy;
     private bool playerDied = false;
     public bool IsInCombat = false;
@@ -175,6 +175,8 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             }
             else
             {
+                print((other.gameObject.GetComponent<BulletID>() != null) + " BulletID not found so respawn immidiately");
+
                 DoRespawn();   
             }
         }
@@ -213,18 +215,20 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         //NOW!
         //Name the Enemy into a random name or ID not already used
         //remember that name
-        
+       
         
         GameObject enemy = info.KillerGameObject;
         EnemyMonoBehaviour superEnemyClass = enemy.GetComponent<EnemyMonoBehaviour>();
-        EnemyData enemyData = superEnemyClass.persistentEnemyData != null ? superEnemyClass.persistentEnemyData : new EnemyData();
+        EnemyData enemyData = superEnemyClass.GetEnemyData() != null ? superEnemyClass.GetEnemyData() : new EnemyData();
 
         string randomName = "Bert the AI killer";
         
         enemyData.kills++;
+        
         enemyData.name = randomName;
         enemyData.enemyType = superEnemyClass.enemyType;
         
+
         string killerDialouge = "Hahaha! I killed you! Now that might even give me a promotion!";
         
         
@@ -237,10 +241,10 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             doRespawn = true
         };
         StartCoroutine(CameraToTarget(moveCam));
-        if (OnKilledBy != null) OnKilledBy(this, info); 
         
-        superEnemyClass.persistentEnemyData = enemyData;
-
+        print("Create new killer EnemyData");
+        superEnemyClass.SetEnemyData(enemyData);
+        if (OnKilledBy != null) OnKilledBy(this, enemyData, info.KillerGameObject);
     }
     
     public CameraFollow cameraFollow;
@@ -268,19 +272,19 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         {
             if (i >= 2)
             {
-                
+
                 DisableEnemyCam();
+                if (camInfo.callbackMethodName != null)
+                {
+                    Invoke(camInfo.callbackMethodName, 0f);
+                }
                 if (camInfo.doRespawn)
                 {
                     if (OnRespawn != null)
                     {
                         OnRespawn(this);
                     }
-                }
-                
-                if (camInfo.callbackMethodName != null)
-                {
-                    Invoke(camInfo.callbackMethodName, 0f);
+                    ExecuteDoRespawn();
                 }
                 break;
             }
@@ -313,31 +317,15 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         {
             return;
         }
-        var enemies = IsPlayer.GetEnemiesPlayerIsInCombatWith();
+        List<EnemyMonoBehaviour> enemies = IsPlayer.GetEnemiesPlayerIsInCombatWith();
 
         foreach (var enemy in enemies)
         {
             
-            if (enemy.persistentEnemyData != null)
+            if (enemy.GetEnemyData() != null)
             {
-                bool didEncounterBefore = enemy.persistentEnemyData.GetDidEncounter();
-                if (didEncounterBefore)
-                {
-                  continue;  
-                }
-                enemy.persistentEnemyData.SetDidEncounter(true);
-                
-                string encounterText =
-                    "Worm! When I killed you I gained lots of experience and favour. If I kill you again, I will be even more well rewarded! Attack!";
-                MoveCameraClass moveCam = new MoveCameraClass
-                {
-                    secondsDuration = 3f,
-                    targetTransform = enemy.transform,
-                    dialougeText = encounterText,
-                    callbackMethodName = null,
-                    doRespawn = true
-                };
-                StartCoroutine(CameraToTarget(moveCam));
+                print("enemy.persistentEnemyData " + " is " + enemy.GetEnemyData());
+                EncounterOldEnemy(enemy);
             }
         }
         //PROBLEM! När kameran zoomas in kommer fiender fortsätta anfalla. Finns det möjlighet att pausa spelet?
@@ -366,7 +354,29 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 
 
     }
-    
+
+    private void EncounterOldEnemy(EnemyMonoBehaviour enemy)
+    {
+        bool didEncounterBefore = enemy.GetEnemyData().GetDidEncounter();
+        if (didEncounterBefore && !playerDied)
+        {
+            return;
+        }
+        enemy.GetEnemyData().SetDidEncounter(true);
+
+        string encounterText =
+            "Worm! When I killed you I gained lots of experience and favour. If I kill you again, I will be even more well rewarded! Attack!";
+        
+        MoveCameraClass moveCam = new MoveCameraClass
+        {
+            secondsDuration = 3f,
+            targetTransform = enemy.transform,
+            dialougeText = encounterText,
+            callbackMethodName = null,
+            doRespawn = false
+        };
+        StartCoroutine(CameraToTarget(moveCam));
+    }
 
 
     private void OnEnable()
@@ -393,6 +403,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 [System.Serializable]
 public class EnemyData
 {
+    public string id = "";
     public string enemyType;
     public string name;
     public int kills = 0;
@@ -408,4 +419,11 @@ public class EnemyData
     {
         return didEncounter;
     }
+
+    public EnemyData() //constructor
+    {
+        string itemID = System.Guid.NewGuid().ToString();
+        id = itemID;
+    }
+
 }

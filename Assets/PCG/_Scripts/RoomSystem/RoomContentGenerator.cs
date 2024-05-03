@@ -67,9 +67,13 @@ public class RoomContentGenerator : MonoBehaviour
         
         surface2D.BuildNavMeshAsync();
 
-        OnFinishedDungeonPlacement.Invoke();
-        
+        Invoke("OnCompleted", 5f);
     }
+
+    private void OnCompleted ()
+    {
+        OnFinishedDungeonPlacement.Invoke();
+    } 
 
     public static HashSet<Vector2Int> GetPositionsDistantEnoughFrom(Vector2Int positionToAvoid, Dictionary<Vector2Int, HashSet<Vector2Int>> positionsDictionary)
     {
@@ -129,7 +133,7 @@ public class RoomContentGenerator : MonoBehaviour
 
         spawnedObjects.AddRange(placedPrefabs);
 
-        int bossRoomIndex = (dungeonData.bossRoomIndex) != null ? dungeonData.bossRoomIndex : dungeonData.roomsDictionary.Count - 1;
+        int bossRoomIndex = dungeonData.bossRoomIndex;
         roomIndex = dungeonData.roomsDictionary.Keys.ElementAt(bossRoomIndex);
         Vector2Int bossSpawnPoint = dungeonData.bossRoomPosition;
         placedPrefabs = bossRoom.ProcessRoom(

@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -6,101 +10,100 @@ namespace Nemesis
     public class NemesisController : MonoBehaviour, IDataPersistance
     {
         public static bool nemesisEnabled = true; //så att spelaren kan ha som preferens att ha det eller inte ;)
-        private SerializableDictionary<string, EnemyData> enemyDataDict;
+        public static SerializableDictionary<string, EnemyData> independentEnemyDataDict = new SerializableDictionary<string, EnemyData>();
+        private static List<string> enemyIDsSpawned = new List<string>();
+
         //update when enemy kills player
         //when player kills enemy
         //when player flees from enemy
         //when enemey flees from player
-        
-        //how?
-        //idea. 1. every script needs to reference this list only
-        //idea 2. 
-        
-        
-        
-        public static CameraFollow cameraFollow;
 
-        public static CameraFollow CenterCamera(GameObject enemy)
+        public static void InsertEnemyDataToEnemyInstances()
         {
-            cameraFollow.followTransform = enemy.transform;
-            return cameraFollow;
-        }
-
-        public static void saySomethingEvil()
-        {
-            //OK SO NOW I KNOW I need to..
             
-            //Store data for the enemy,
-            //  Did I kill you before?
-            //  When I kill you the first time,
-            //      what do I say?
-            //  How did the enemy kill the player? Assist, accident
-            //  Did you flee from me before? I.e. I targeted you and then you fled?
-            //          then the enemy can say.. oh so you decided to show up again?
-                // need information about player - enemy interactions basically!
-                
-                //alright great!
-                
+            foreach (EnemyMonoBehaviour enemy in EnemyMonoBehaviour.Instances)
+            {
+                foreach (var (key, enemyData) in independentEnemyDataDict)
+                {
+                    print(enemyData.id + " " + enemyData.name + " " + enemyData.kills + " " + enemyData.enemyType);  
+                    if (enemyData.enemyType.Equals("SpearAI"))
+                    {
+                        print("SpearAI equals SpearAI   " + enemyData.enemyType.Trim().Equals(enemy.enemyType.Trim()));
+                        print(!enemyIDsSpawned.Contains(enemyData.id));
+                    }
+                    string loadedType = enemyData.enemyType.Trim();
+                    string currentType = enemy.enemyType.Trim();
+                    bool sameEnemyType = string.Equals(loadedType, currentType);
+                    if (!sameEnemyType)
+                    {
+                        print(loadedType + " and " + currentType + " are not equals to each other why!!! tf");
+                    }
+                    
+
+                    bool notAlreadyCreated = !enemy.enemyDataFieldDefined;
+                    bool notAlreadySpawned = !enemyIDsSpawned.Contains(enemyData.id);
+
+                    if (notAlreadyCreated && sameEnemyType && notAlreadySpawned)
+                    {
+                        enemy.SetEnemyData(enemyData);
+                        enemy.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+                        enemyIDsSpawned.Add(key);
+                    }
+                }
+
+            }
+            
+            
         }
 
-        public void AddOldEnemyDataToExistingEnemies()
-        {
-            foreach (EnemyMonoBehaviour enemy in IsPlayer.GetAllEnemies())
-            {
-                if (!enemy.isActiveAndEnabled || enemy.persistentEnemyData != null)
-                {
-                    continue;
-                }
-                AddEnemyDataToEnemyMonoBehaviour(enemy);
-            }
-        }
-
-        private void AddEnemyDataToEnemyMonoBehaviour(EnemyMonoBehaviour enemy)
-        {
-            foreach (var (key, enemyData) in enemyDataDict)
-            {
-                if (enemy.enemyType.Equals(enemyData.enemyType))
-                {
-                    enemy.persistentEnemyData = enemyData;
-                    enemyDataDict.Remove(key);
-                    break;
-                }
-            }
-        }
-
-        public void UpdateEnemyDataDictionary()
-        {
-            foreach (EnemyMonoBehaviour enemy in IsPlayer.GetAllEnemies())
-            {
-                EnemyData enemyData = enemy.persistentEnemyData;
-                if (enemyData == null)
-                {
-                    continue;
-                }
-                enemyDataDict[enemyData.name] = enemyData;
-            }
-        }
-        
+         
         public void SaveData(ref GameData data)
         {
-            data.enemies = enemyDataDict;
+            data.enemies = independentEnemyDataDict;
         }
 
         public void LoadData(GameData data)
         {
-            print("EnemyDataDict " + data.enemies);
-            foreach(string enemyName in data.enemies.Keys)
-            {
-                EnemyData enemyData = data.enemies[enemyName];
-                print(enemyData.kills + " " + enemyData.name);
-
-            }
-        
-            enemyDataDict = data.enemies;
+            independentEnemyDataDict = data.enemies;
         }
-        
+
+        void OnEnable()
+        {
+            PlayerTakeDamage.OnKilledBy += OnPlayerKilled;
+        }
+
+        void OnDisable()
+        {
+            PlayerTakeDamage.OnKilledBy -= OnPlayerKilled;
+        }
+
+        private void OnPlayerKilled(PlayerTakeDamage playerTakeDamage, EnemyData enemyData, GameObject enemyKiller)
+        {
+            independentEnemyDataDict.Add(enemyData.id, enemyData);   
+        }
+
+        public static void OnEnemyKilled(EnemyData enemyData)
+        {
+            if (enemyData != null)
+            {
+                independentEnemyDataDict.Remove(enemyData.id);
+            }
+        }
+
+        public static void OnEnemyDestroyed(EnemyData enemyData)
+        {
+            enemyIDsSpawned.Remove(enemyData.id);
+        }
+
+        public static void OnEnemySpawned(EnemyMonoBehaviour enemy)
+        {
+            InsertEnemyDataToEnemyInstances();
+
+        }
+
     }
-    
-    
-    
+
+   
+
+
 }

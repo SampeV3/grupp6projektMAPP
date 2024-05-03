@@ -299,7 +299,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 709246189}
         m_TargetAssemblyTypeName: Nemesis.NemesisController, NewAssembly
-        m_MethodName: AddOldEnemyDataToExistingEnemies
+        m_MethodName: InsertEnemyDataToEnemyInstances
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -913,7 +913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f232c3fad23c94eab18af270ee9e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: ProceduralGenerationScene
+  fileName: ProceduralGenerationScene3
   useXOREncryption: 0
 --- !u!114 &709246189
 MonoBehaviour:

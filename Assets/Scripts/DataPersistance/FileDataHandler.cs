@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using Codice.CM.Client.Differences.Merge;
 
 public class FileDataHandler
 {
@@ -23,6 +24,7 @@ public class FileDataHandler
     public GameData Load()
     {
         string fullPath = Path.Combine(dataDirPath, dataFileName);
+        Debug.Log("Load from " + fullPath);
         GameData loadedData = null;
 
         if (File.Exists(fullPath))

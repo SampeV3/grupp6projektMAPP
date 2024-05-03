@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using UnityEngine.Events;
 
 public abstract class EnemyMonoBehaviour : MonoBehaviour
 {
@@ -11,8 +12,34 @@ public abstract class EnemyMonoBehaviour : MonoBehaviour
     public abstract bool GetIsChasingPlayer();
 
     public string enemyType;
-    public EnemyData persistentEnemyData;
     
+    protected EnemyData persistentEnemyData = null;
+    public bool enemyDataFieldDefined = false;
+
+    public EnemyData GetEnemyData()
+    {
+        print("Return persistentEnemyData " + this.persistentEnemyData);
+        if (this.persistentEnemyData == null)
+        {
+            return null;
+        }
+
+        return this.persistentEnemyData;
+    }
+
+    public void SetEnemyData(EnemyData newPersistentEnemyData)
+    {
+        this.enemyDataFieldDefined = newPersistentEnemyData != null;
+        this.persistentEnemyData = newPersistentEnemyData;
+    }
+
+    protected static void OnDied(EnemyData enemyData)
+    {
+        if (enemyData != null) {
+            Nemesis.NemesisController.independentEnemyDataDict.Remove(enemyData.id);
+        }
+    }
+
     private static readonly HashSet<EnemyMonoBehaviour> instances = new HashSet<EnemyMonoBehaviour>();
 
     // public read-only access to the instances by only providing a clone
@@ -23,14 +50,18 @@ public abstract class EnemyMonoBehaviour : MonoBehaviour
     {
         // simply register yourself to the existing instances
         instances.Add(this);
+        Nemesis.NemesisController.OnEnemySpawned(this);
     }
 
     protected virtual void OnDestroy()
     {
         // don't forget to also remove yourself at the end of your lifetime
         instances.Remove(this);
+        if (this.GetEnemyData() != null)
+        {
+            Nemesis.NemesisController.OnEnemyDestroyed(this.GetEnemyData());
+        }
     }
-    
 }
 
 
