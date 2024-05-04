@@ -235,7 +235,7 @@ public class MinibossAI : EnemyMonoBehaviour
     {
         if (hasRunned) return;
         hasRunned = true;
-        SingletonClass.OnEnemyKilled();
+        SingletonClass.OnEnemyKilled(this);
         int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 200;
         SingletonClass.AwardXP(XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY);
     }

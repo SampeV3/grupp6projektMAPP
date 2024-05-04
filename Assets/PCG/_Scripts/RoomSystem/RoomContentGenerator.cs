@@ -24,7 +24,8 @@ public class RoomContentGenerator : MonoBehaviour
     private CinemachineVirtualCamera cinemachineCamera;
 
     public UnityEvent RegenerateDungeon;
-
+    public UnityEvent OnFinishedDungeonPlacement;
+    
     //Bake a navmesh at runtime - Elias
     //Documentation: https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#intro
     [FormerlySerializedAs("Surface2D")] public NavMeshSurface surface2D;
@@ -43,7 +44,6 @@ public class RoomContentGenerator : MonoBehaviour
         foreach (var item in spawnedObjects)
         {
             Destroy(item);
-            //item.gameObject.SetActive(false);
         }
         RegenerateDungeon?.Invoke(); //Generera procedurellt ett ny karta.
     }
@@ -67,8 +67,13 @@ public class RoomContentGenerator : MonoBehaviour
         
         surface2D.BuildNavMeshAsync();
 
-        
+        Invoke("OnCompleted", 5f);
     }
+
+    private void OnCompleted ()
+    {
+        OnFinishedDungeonPlacement.Invoke();
+    } 
 
     public static HashSet<Vector2Int> GetPositionsDistantEnoughFrom(Vector2Int positionToAvoid, Dictionary<Vector2Int, HashSet<Vector2Int>> positionsDictionary)
     {
@@ -128,7 +133,7 @@ public class RoomContentGenerator : MonoBehaviour
 
         spawnedObjects.AddRange(placedPrefabs);
 
-        int bossRoomIndex = (dungeonData.bossRoomIndex) != null ? dungeonData.bossRoomIndex : dungeonData.roomsDictionary.Count - 1;
+        int bossRoomIndex = dungeonData.bossRoomIndex;
         roomIndex = dungeonData.roomsDictionary.Keys.ElementAt(bossRoomIndex);
         Vector2Int bossSpawnPoint = dungeonData.bossRoomPosition;
         placedPrefabs = bossRoom.ProcessRoom(

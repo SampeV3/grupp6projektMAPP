@@ -282,6 +282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a852f37fd7d238f4db95b977d3a4f03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 3
+  enemyDataFieldDefined: 0
   flashOnHit: {fileID: 2100000, guid: 09f1d2aef631a0748a30d1f6c4c0a921, type: 2}
   mortarIndicator: {fileID: 1585086701132302112, guid: 6e06f60ffb662494280c7620ee1d8b33, type: 3}
   player: {fileID: 0}

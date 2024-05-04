@@ -19,9 +19,9 @@ public class SingletonClass : Singleton<SingletonClass>
         OnXPAdded(xp_amount);
     }
 
-    public static void OnEnemyKilled()
+    public static void OnEnemyKilled(EnemyMonoBehaviour enemy)
     {
-        
+        Nemesis.NemesisController.OnEnemyKilled(enemy.GetEnemyData());
     }
 
 }

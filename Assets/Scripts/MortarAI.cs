@@ -53,6 +53,9 @@ public class MortarAI : EnemyMonoBehaviour
     private IEnumerator SpawnMortar()
     {
         GameObject mortarAim = Instantiate(mortarIndicator, player.position, Quaternion.identity);
+        BulletID hitIdentifier = mortarAim.GetComponent<BulletID>();
+        hitIdentifier.KillerGameObject = gameObject;
+        
         Transform desiredChild = mortarAim.transform.Find("MortarBackground");
         SpriteRenderer mortarsprd = desiredChild.GetComponent<SpriteRenderer>();
         Color ogColor = mortarsprd.color;
@@ -136,7 +139,7 @@ public class MortarAI : EnemyMonoBehaviour
     {
         if (hasRunned) return;
         hasRunned = true;
-        SingletonClass.OnEnemyKilled();
+        SingletonClass.OnEnemyKilled(this);
         int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 10;
         SingletonClass.AwardXP(XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY);
     }

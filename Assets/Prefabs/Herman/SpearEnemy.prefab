@@ -103,6 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78f0fd00a7afea47908a9a0be4de7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 2
+  enemyDataFieldDefined: 0
   flashOnHit: {fileID: 2100000, guid: 09f1d2aef631a0748a30d1f6c4c0a921, type: 2}
   playerSpotted: {fileID: 8878756988717134239, guid: 34a2f940884a32e4a8be2985a36a0865, type: 3}
   player: {fileID: 0}
@@ -112,6 +114,7 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 64
+  xpToAwardForKillingEnemy: 50
 --- !u!95 &1486591820879913343
 Animator:
   serializedVersion: 5

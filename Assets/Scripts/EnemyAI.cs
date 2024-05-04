@@ -199,7 +199,7 @@ public class EnemyAI : EnemyMonoBehaviour
         if (HP <= 0)
         {
 
-
+            
             OnDied();
             isDead = true;
 
@@ -258,7 +258,7 @@ public class EnemyAI : EnemyMonoBehaviour
     {
         if (hasRunned) return;
         hasRunned = true;
-        SingletonClass.OnEnemyKilled();
+        SingletonClass.OnEnemyKilled(this);
         
         SingletonClass.AwardXP(xpToAwardPlayerForKillingEnemy);
     }
