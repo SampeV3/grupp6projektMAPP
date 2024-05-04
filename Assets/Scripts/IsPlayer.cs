@@ -1,4 +1,4 @@
-using System.Collections;
+using System;using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,12 +6,22 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.Events;
 
+public enum EnemyType{
+    PleaseSelect = 0,
+    HoverEnemy = 1,
+    SpearEnemy = 2,
+    Mortar = 3,
+    MiniBoss = 4,
+}
+
+//remember to implement the override for the awake method!
 public abstract class EnemyMonoBehaviour : MonoBehaviour
 {
     // Inheritors have to implement this (just like with an interface) (as an override though).
     public abstract bool GetIsChasingPlayer();
 
-    public string enemyType;
+    public EnemyType enemyType;
+    
     
     protected EnemyData persistentEnemyData = null;
     public bool enemyDataFieldDefined = false;

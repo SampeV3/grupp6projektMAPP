@@ -53,6 +53,9 @@ public class MortarAI : EnemyMonoBehaviour
     private IEnumerator SpawnMortar()
     {
         GameObject mortarAim = Instantiate(mortarIndicator, player.position, Quaternion.identity);
+        BulletID hitIdentifier = mortarAim.GetComponent<BulletID>();
+        hitIdentifier.KillerGameObject = gameObject;
+        
         Transform desiredChild = mortarAim.transform.Find("MortarBackground");
         SpriteRenderer mortarsprd = desiredChild.GetComponent<SpriteRenderer>();
         Color ogColor = mortarsprd.color;

@@ -12,12 +12,7 @@ namespace Nemesis
         public static bool nemesisEnabled = true; //så att spelaren kan ha som preferens att ha det eller inte ;)
         public static SerializableDictionary<string, EnemyData> independentEnemyDataDict = new SerializableDictionary<string, EnemyData>();
         private static List<string> enemyIDsSpawned = new List<string>();
-
-        //update when enemy kills player
-        //when player kills enemy
-        //when player flees from enemy
-        //when enemey flees from player
-
+        
         public static void InsertEnemyDataToEnemyInstances()
         {
             
@@ -25,21 +20,12 @@ namespace Nemesis
             {
                 foreach (var (key, enemyData) in independentEnemyDataDict)
                 {
-                    print(enemyData.id + " " + enemyData.name + " " + enemyData.kills + " " + enemyData.enemyType);  
-                    if (enemyData.enemyType.Equals("SpearAI"))
-                    {
-                        print("SpearAI equals SpearAI   " + enemyData.enemyType.Trim().Equals(enemy.enemyType.Trim()));
-                        print(!enemyIDsSpawned.Contains(enemyData.id));
-                    }
-                    string loadedType = enemyData.enemyType.Trim();
-                    string currentType = enemy.enemyType.Trim();
-                    bool sameEnemyType = string.Equals(loadedType, currentType);
-                    if (!sameEnemyType)
-                    {
-                        print(loadedType + " and " + currentType + " are not equals to each other why!!! tf");
-                    }
+                    //print(" " + enemyData.name + " " + enemyData.kills + " " + enemyData.enemyType);  
+                    EnemyType loadedType = enemyData.enemyType;
+                    EnemyType currentType = enemy.enemyType;
                     
-
+                    bool sameEnemyType = (int)loadedType == (int)currentType;
+                    //print(enemyData.enemyType + " is the same as " + enemy.enemyType + " = " + sameEnemyType);
                     bool notAlreadyCreated = !enemy.enemyDataFieldDefined;
                     bool notAlreadySpawned = !enemyIDsSpawned.Contains(enemyData.id);
 
@@ -49,6 +35,7 @@ namespace Nemesis
                         enemy.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
                         enemyIDsSpawned.Add(key);
                     }
+                    
                 }
 
             }
@@ -98,7 +85,6 @@ namespace Nemesis
         public static void OnEnemySpawned(EnemyMonoBehaviour enemy)
         {
             InsertEnemyDataToEnemyInstances();
-
         }
 
     }

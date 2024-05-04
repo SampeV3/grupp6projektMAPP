@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5598548415020615087}
   - component: {fileID: 3958177165803307876}
+  - component: {fileID: -2268168375355000983}
   m_Layer: 4
   m_Name: MortarIndicator
   m_TagString: MortarAttack
@@ -154,6 +155,19 @@ CircleCollider2D:
   m_Offset: {x: 0.0015218258, y: 0}
   serializedVersion: 2
   m_Radius: 0.38674784
+--- !u!114 &-2268168375355000983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585086701132302112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941b4bc671a5cc549b88ae2c94f4a705, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KillerGameObject: {fileID: 0}
 --- !u!1 &6409474282712045967
 GameObject:
   m_ObjectHideFlags: 0

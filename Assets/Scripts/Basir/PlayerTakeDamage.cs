@@ -62,18 +62,27 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         StartCoroutine(CheckIfInCombatWhileLoop());
     }
 
+   
     private bool runCombatLoop = true;
     private IEnumerator CheckIfInCombatWhileLoop()
     {
         
         while (runCombatLoop)
         {
-            bool isChased = IsPlayer.GetIsPlayerInCombat();
+            var isChased = IsPlayer.GetIsPlayerInCombat();
             if (isChased != IsInCombat)
             {
-                if (OnCombatSituationChanged != null) OnCombatSituationChanged(isChased, "chase");
-                OnEnemyEncounter(isChased);
+                if (OnCombatSituationChanged != null)
+                {
+                    OnCombatSituationChanged(isChased, "chase"); //fire event delegate
+                }
             }
+
+            if (isChased)
+            {
+                OnEnemyEncounter(IsPlayer.GetEnemiesPlayerIsInCombatWith()); //Nemesis encounter check
+            }
+            
             IsInCombat = isChased;
             yield return new WaitForSeconds(1); // Delay for float second
         }
@@ -228,7 +237,6 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         enemyData.name = randomName;
         enemyData.enemyType = superEnemyClass.enemyType;
         
-
         string killerDialouge = "Hahaha! I killed you! Now that might even give me a promotion!";
         
         
@@ -255,6 +263,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 
     private class MoveCameraClass
     {
+        public bool scaleTime = false;
         public float secondsDuration = 2f;
         public string dialougeText = "";
         public string callbackMethodName = null;
@@ -267,12 +276,18 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     //2. cinemacamera rather than the current camera
     private IEnumerator CameraToTarget(MoveCameraClass camInfo)
     {
-        
+        if (camInfo.scaleTime)
+        {
+            Time.timeScale = 0.1f;
+        }
         for (int i = 1; i < 3; i++)
         {
             if (i >= 2)
             {
-
+                if (camInfo.scaleTime)
+                {
+                    Time.timeScale = 1;
+                }
                 DisableEnemyCam();
                 if (camInfo.callbackMethodName != null)
                 {
@@ -295,9 +310,12 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     
     private void EnableEnemyCam(Transform enemyTransform, string text)
     {
+        //TODO zoom the camera closer to the enemy
         playerCamera.orthographicSize = 2;
         dialougeText.gameObject.SetActive(true);
         dialougeText.text = text;
+        
+        
         cameraFollow.followTransform = enemyTransform;
     }
 
@@ -309,25 +327,18 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     }
 
     private SerializableDictionary<string, int> enemiesWithKills;
-    
-    
-    private void OnEnemyEncounter(bool isChased)
-    {
-        if (!isChased)
-        {
-            return;
-        }
-        List<EnemyMonoBehaviour> enemies = IsPlayer.GetEnemiesPlayerIsInCombatWith();
 
+    private void OnEnemyEncounter(List<EnemyMonoBehaviour> enemies)
+    {
         foreach (var enemy in enemies)
         {
-            
-            if (enemy.GetEnemyData() != null)
+            if (enemy.enemyDataFieldDefined)
             {
-                print("enemy.persistentEnemyData " + " is " + enemy.GetEnemyData());
                 EncounterOldEnemy(enemy);
             }
         }
+        
+        
         //PROBLEM! När kameran zoomas in kommer fiender fortsätta anfalla. Finns det möjlighet att pausa spelet?
         
         
@@ -357,23 +368,26 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 
     private void EncounterOldEnemy(EnemyMonoBehaviour enemy)
     {
-        bool didEncounterBefore = enemy.GetEnemyData().GetDidEncounter();
+        EnemyData enemyData = enemy.GetEnemyData();
+        bool didEncounterBefore = enemyData.GetDidEncounter();
         if (didEncounterBefore && !playerDied)
         {
             return;
         }
-        enemy.GetEnemyData().SetDidEncounter(true);
+        enemyData.SetDidEncounter(true);
 
         string encounterText =
-            "Worm! When I killed you I gained lots of experience and favour. If I kill you again, I will be even more well rewarded! Attack!";
+            "Hey, it's you! Remember me? I killed you earlier.. and now I will do it again haha!";
         
+       
         MoveCameraClass moveCam = new MoveCameraClass
         {
-            secondsDuration = 3f,
+            scaleTime = true,
+            secondsDuration = 4f / 10f,
             targetTransform = enemy.transform,
             dialougeText = encounterText,
             callbackMethodName = null,
-            doRespawn = false
+            doRespawn = false,
         };
         StartCoroutine(CameraToTarget(moveCam));
     }
@@ -403,10 +417,10 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 [System.Serializable]
 public class EnemyData
 {
-    public string id = "";
-    public string enemyType;
+    public string id;
+    public EnemyType enemyType;
     public string name;
-    public int kills = 0;
+    public int kills;
 
     private bool didEncounter = false;
 
@@ -424,6 +438,9 @@ public class EnemyData
     {
         string itemID = System.Guid.NewGuid().ToString();
         id = itemID;
+        kills = 0;
+        name = "";
     }
 
 }
+

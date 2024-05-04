@@ -47,6 +47,7 @@ public class SpearAI : EnemyMonoBehaviour
 
     protected override void Awake()
     {
+        base.Awake(); // Make sure to always keep that line
         if (player == null)
         {
             player = IsPlayer.FindPlayerTransformAutomaticallyIfNull(); //Tillagt av Elias
