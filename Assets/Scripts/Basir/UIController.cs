@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -47,9 +48,6 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public bool weapon_1_Selected = true;
     public bool weapon_2_Selected = false;
-    public bool isWeapon_2_picked = false;
-
-    public bool isBossDead;
 
     public Color inventoryItemUnavailable, inventoryItemAvailable;
     
@@ -58,8 +56,6 @@ public class UIController : MonoBehaviour, IDataPersistance
         inventoryPanel.SetActive(false);
         pausePanel.SetActive(false);
 
-        isBossDead = false;
-        
         xPPoint.text = "00";
     }
 
@@ -96,10 +92,6 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
         inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryBoostPickupAmount;
 
-        if (!isWeapon_2_picked)
-        {
-            changeItemColor(inventoryButtonsInPanel[1].image, false);
-        }
     }
     public void OpenInventory()
     {
@@ -113,10 +105,8 @@ public class UIController : MonoBehaviour, IDataPersistance
     {
         SetActiveInList(inactiveWhileInventoryOpen, true);
         Time.timeScale = 1;
-        inventoryPanel ?.SetActive(false);
-        pausePanel ?.SetActive(false);
-        pauseButton.SetActive(true);
-        inventoryButton?.SetActive(true);
+        StartCoroutine(AnimationDelay());
+
     }
     public void PauseGame()
     {
@@ -517,8 +507,20 @@ public class UIController : MonoBehaviour, IDataPersistance
         inventoryBoostPickupAmount = 0;
 
     }
-    
+    private IEnumerator AnimationDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        inventoryPanel?.SetActive(false);
+        pauseButton.SetActive(true);
+        inventoryButton?.SetActive(true);
+        pausePanel?.SetActive(false);
+
+
+    }
+
 
 }
+
+
 
 
