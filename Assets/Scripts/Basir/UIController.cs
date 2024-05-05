@@ -104,8 +104,9 @@ public class UIController : MonoBehaviour, IDataPersistance
     public void ExitPanel()
     {
         SetActiveInList(inactiveWhileInventoryOpen, true);
-        Time.timeScale = 1;
+        
         StartCoroutine(AnimationDelay());
+        Time.timeScale = 1;
 
     }
     public void PauseGame()

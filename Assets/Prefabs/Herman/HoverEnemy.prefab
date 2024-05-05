@@ -288,4 +288,3 @@ MonoBehaviour:
   droppedItemPrefab: {fileID: 3345387460916323160, guid: cda878f6ac055a3469908d1a15e2cafa, type: 3}
   lootList:
   - {fileID: 11400000, guid: 7aba79979f0f7984189b093c94d9a41c, type: 2}
-  - {fileID: 11400000, guid: de5cfffdc7bc6f0469a639c17b89fa70, type: 2}
