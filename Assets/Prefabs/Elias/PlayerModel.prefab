@@ -339,7 +339,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190333
+    rgba: 253
   m_fontColor: {r: 0.9924528, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1865,7 +1865,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190325
+    rgba: 16777461
   m_fontColor: {r: 0.9622642, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -2994,6 +2994,7 @@ GameObject:
   - component: {fileID: 1034092783910990727}
   - component: {fileID: 207250664908126817}
   - component: {fileID: 8500983783311985030}
+  - component: {fileID: 4862964053104190325}
   m_Layer: 5
   m_Name: InventoryPanel
   m_TagString: Untagged
@@ -3065,6 +3066,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &4862964053104190325
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2664994061003732979}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: acf6e25b694a85b4e922a9a254c0916a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2773366988670003798
 GameObject:
   m_ObjectHideFlags: 0
@@ -3275,7 +3297,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278782463
+    rgba: 592383
   m_fontColor: {r: 1, g: 0.035848916, b: 0.035848916, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3720,7 +3742,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4289913904
+    rgba: 11723824
   m_fontColor: {r: 0.1873051, g: 0.89433956, b: 0.69655466, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -4725,6 +4747,18 @@ MonoBehaviour:
           m_StringArgument: SettingsEnd
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 623073797507157898}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Start
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4816443876748827216
 GameObject:
   m_ObjectHideFlags: 0
@@ -4963,7 +4997,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7191194894161462249
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6498,6 +6532,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4862964053104190325}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: End
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &6794762711452217420
@@ -8500,7 +8546,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255363
+    rgba: 65283
   m_fontColor: {r: 0.01332593, g: 1, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
