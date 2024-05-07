@@ -370,10 +370,11 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     {
         EnemyData enemyData = enemy.GetEnemyData();
         bool didEncounterBefore = enemyData.GetDidEncounter();
-        if (didEncounterBefore && !playerDied)
+        if (didEncounterBefore || !playerDied)
         {
             return;
         }
+        
         enemyData.SetDidEncounter(true);
 
         string encounterText =
