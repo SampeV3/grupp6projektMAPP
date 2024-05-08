@@ -27,12 +27,9 @@ public class AutoScroll : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        StartCoroutine(AutoScrollText());
-    }
 
-    IEnumerator AutoScrollText()
+
+    public IEnumerator AutoScrollText()
     {
         while(myGorectTransform.localPosition.y < boundaryTextEnd)
         {
@@ -46,5 +43,6 @@ public class AutoScroll : MonoBehaviour
             }
             yield return null;
         }
+
     }
 }
