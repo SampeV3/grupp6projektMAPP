@@ -35,12 +35,10 @@ public class StartMenu : MonoBehaviour
 
     public void OpenSettings()
     {
-        StartCoroutine(AnimationDelay("Settings", 0.8f));
         audioSource.PlayOneShot(openPanelSound);
     }
     public void ExitSettings()
     {
-        StartCoroutine(AnimationDelay("ExitSettings", 0.5f));
         audioSource.PlayOneShot(closePanelSound);
     }
 
@@ -63,16 +61,6 @@ public class StartMenu : MonoBehaviour
         {
             transition.SetTrigger("Start");
             Application.Quit();
-        }
-        if(command == "Settings")
-        {
-            mainMenu.SetActive(false);
-            settingsPanel.SetActive(true);
-        }
-        if(command == "ExitSettings")
-        {
-            mainMenu.SetActive(true);
-            settingsPanel.SetActive(false);
         }
         
     }
