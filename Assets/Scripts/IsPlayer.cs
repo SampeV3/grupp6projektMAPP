@@ -22,6 +22,8 @@ public abstract class EnemyMonoBehaviour : MonoBehaviour
 
     public EnemyType enemyType;
     
+    protected float HP = 10;
+    
     
     protected EnemyData persistentEnemyData = null;
     public bool enemyDataFieldDefined = false;
@@ -40,8 +42,12 @@ public abstract class EnemyMonoBehaviour : MonoBehaviour
     public void SetEnemyData(EnemyData newPersistentEnemyData)
     {
         this.enemyDataFieldDefined = newPersistentEnemyData != null;
+        if (this.enemyDataFieldDefined)
+        {
+            this.HP += newPersistentEnemyData.GetExtraHealth();
+        }
         this.persistentEnemyData = newPersistentEnemyData;
-    }
+    } 
 
     protected static void OnDied(EnemyData enemyData)
     {
