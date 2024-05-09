@@ -425,6 +425,13 @@ public class EnemyData
 
     private bool didEncounter = false;
 
+    public float GetExtraHealth()
+    {
+        return kills * 2;
+    }
+    
+    
+    
     public void SetDidEncounter(bool encountered)
     {
         didEncounter = encountered;
