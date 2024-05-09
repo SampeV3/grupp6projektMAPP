@@ -229,7 +229,8 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         GameObject enemy = info.KillerGameObject;
         EnemyMonoBehaviour superEnemyClass = enemy.GetComponent<EnemyMonoBehaviour>();
         EnemyData enemyData = superEnemyClass.GetEnemyData() != null ? superEnemyClass.GetEnemyData() : new EnemyData();
-
+        enemyData.SetDidEncounter(true); // ????
+        
         string randomName = "Bert the AI killer";
         
         enemyData.kills++;
@@ -370,7 +371,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     {
         EnemyData enemyData = enemy.GetEnemyData();
         bool didEncounterBefore = enemyData.GetDidEncounter();
-        if (didEncounterBefore || !playerDied)
+        if (didEncounterBefore || playerDied)
         {
             return;
         }
