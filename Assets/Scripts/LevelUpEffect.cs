@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelUpEffect : MonoBehaviour
 {
     public GameObject levelUIParentToHideAndShow;
-    public GameObject textObject;
-    public float timeToShow = 5f;
+    public TextMeshProUGUI description, levelText;
+    
+    public float timeToShow = 4f;
 
     void OnEnable()
     {
@@ -29,7 +31,8 @@ public class LevelUpEffect : MonoBehaviour
     void OnLevelUp(int level)
     {
         levelUIParentToHideAndShow.SetActive(true);
-        textObject.GetComponent<Text>().text = "Level Up " + level + "!";
+        description.text = "Level Up!";
+        levelText.text = "" + level;
         Invoke(nameof(Hide), timeToShow);
     }
 

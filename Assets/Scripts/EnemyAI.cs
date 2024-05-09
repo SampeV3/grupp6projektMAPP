@@ -16,7 +16,7 @@ public class EnemyAI : EnemyMonoBehaviour
     private Material originalMat;
     private SpriteRenderer sprd;
     private Animator anim;
-    private float HP;
+    
     public float shootDelay = 1f;
     [FormerlySerializedAs("XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY")] public int xpToAwardPlayerForKillingEnemy = 100;
     private bool playerDetected = false;
@@ -30,14 +30,12 @@ public class EnemyAI : EnemyMonoBehaviour
 
     void Start()
     {
-        HP = 10;
+        
         audioSource = GetComponent<AudioSource>();
         //anim = GetComponent<Animator>();
         sprd = GetComponent<SpriteRenderer>();
         originalMat = sprd.material;
         rigidBody2D = GetComponent<Rigidbody2D>();
-
-
     }
 
     protected override void Awake()

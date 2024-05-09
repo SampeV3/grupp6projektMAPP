@@ -31,9 +31,14 @@ namespace Nemesis
 
                     if (notAlreadyCreated && sameEnemyType && notAlreadySpawned)
                     {
+                        enemyData.SetDidEncounter(false);
                         enemy.SetEnemyData(enemyData);
-                        enemy.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
                         enemyIDsSpawned.Add(key);
+                        if (enemy.TryGetComponent<SpriteRenderer>(out SpriteRenderer rend))
+                        {
+                            rend.color = Color.green;
+                        } 
+                        
                     }
                     
                 }
