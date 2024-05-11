@@ -3395,7 +3395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3375247756335085094
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3497,8 +3497,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1462261583937015531}
   m_HandleRect: {fileID: 5165008194509831980}
   m_Direction: 0
-  m_Value: -30.35252
-  m_Size: 0.99557287
+  m_Value: 0
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5527,7 +5527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7080916222968510020
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6249,7 +6249,7 @@ RectTransform:
   m_Father: {fileID: 1727082314552442138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.9999999, y: 1}
   m_AnchoredPosition: {x: NaN, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9261,7 +9261,7 @@ RectTransform:
   m_Father: {fileID: 7125105190515502087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: NaN}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13800,6 +13800,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3932957229716951942}
     m_Modifications:
+    - target: {fileID: 1280976927802884964, guid: 35177e35bfb708b45978e077eab3a0ef, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.2879107
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280976927802884964, guid: 35177e35bfb708b45978e077eab3a0ef, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.2879107
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280976927802884964, guid: 35177e35bfb708b45978e077eab3a0ef, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.2879107
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280976927802884964, guid: 35177e35bfb708b45978e077eab3a0ef, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0757
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280976927802884964, guid: 35177e35bfb708b45978e077eab3a0ef, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.206
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872639897639589488, guid: 35177e35bfb708b45978e077eab3a0ef, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4fed99aea47d8de48b6bdca7aa44b581, type: 3}
     - target: {fileID: 3769876395007959024, guid: 35177e35bfb708b45978e077eab3a0ef, type: 3}
       propertyPath: m_Name
       value: PlasmaGun
@@ -13950,6 +13974,10 @@ PrefabInstance:
     - target: {fileID: 7364516096119086271, guid: 273e536334e86584a9d35494998bb128, type: 3}
       propertyPath: m_Name
       value: LevelUpUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364516096119086271, guid: 273e536334e86584a9d35494998bb128, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
