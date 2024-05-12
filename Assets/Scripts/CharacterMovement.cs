@@ -16,6 +16,7 @@ public class CharacterMovement : MonoBehaviour
 
     
     private Rigidbody2D _rigidbody;
+    private Animator anim;
     public float rotationSpeed = 720f;
     public float joystick_speed = 4.0f;
     private Vector2 _movementInput = Vector2.zero;
@@ -31,6 +32,7 @@ public class CharacterMovement : MonoBehaviour
 
         targetPosition = new Vector2(0.0f, 0.0f);
         _rigidbody = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -92,6 +94,8 @@ public class CharacterMovement : MonoBehaviour
     {
         if (!useJoystick) return;
         _movementInput = direction;
+        anim.SetFloat("xAxis", direction.x);
+        anim.SetFloat("yAxis", direction.y);
     }
 
     private void OnDeveloperToggleMovementMode()
