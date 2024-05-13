@@ -24,17 +24,16 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     [Description("Event when the players actions should be frozen.")]
     public UnityEvent onFreezeActions; 
     
+    
+    
     public delegate void PermaDeathAction(); //metod signatur f�r subscribers till eventet
     public static event PermaDeathAction OnPermaDeathAction;
 
     //Events hj�lper till att decoupla koden och h�lla saker mer separerade ifr�n varandra.
     public delegate void RespawnAction(PlayerTakeDamage playerTakeDamage); //metod signatur f�r subscribers till eventet
     public static event RespawnAction OnRespawn;
-
-    public delegate void reload(); 
-
-    public static event reload reloadData;
-
+    
+    
     public delegate void TakeDamageAction(PlayerTakeDamage playerTakeDamage, int damageTaken); //metod signatur f�r subscribers till eventet
     public static event TakeDamageAction OnTakeDamage; //hur eventet avfyras fr�n detta script.
 
@@ -61,11 +60,10 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         {
             spawnPosition = transform.position;
         }
-
+        
         StartCoroutine(CheckIfInCombatWhileLoop());
     }
-
-   
+    
     private bool runCombatLoop = true;
     private IEnumerator CheckIfInCombatWhileLoop()
     {
@@ -401,10 +399,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     private void OnEnable()
     {
         ExecuteDoRespawn += DoRespawn;
-        if (reloadData != null)
-        {
-            reloadData();
-        }
+        
     }
 
     private void OnDisable()
