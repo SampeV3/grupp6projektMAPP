@@ -288,7 +288,7 @@ public class UIController : MonoBehaviour, IDataPersistance
 
         public double GetPercentageModifier()
         {
-            return Math.Round((1d - modifier) * 100);
+            return Math.Round(modifier * 100) - 100;
         }
 
         public int GetLevel ()
@@ -404,6 +404,8 @@ public class UIController : MonoBehaviour, IDataPersistance
     
     private static void UpdateSkillInfoText(UpgradeTemplateReferences refs, string skillName, UpgradableStat skill)
     {
+        
+        
         refs.infoText.text = "Upgrade " + skillName + " level " + skill.GetLevel() + " out of " + UpgradableStat.MAX_LEVEL + " currently is giving a bonus of " + skill.GetPercentageModifier() + "%.";
     }
 
