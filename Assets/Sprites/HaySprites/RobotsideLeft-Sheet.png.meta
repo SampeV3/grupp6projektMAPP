@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 512
+  spritePixelsToUnits: 5120
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,7 +121,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: RobotsideLeft-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 6400
+        height: 6400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7ac971bbefe0f34db15d34e93e4cbde
+      internalID: -1290262500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RobotsideLeft-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 6400
+        y: 0
+        width: 6400
+        height: 6400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18c5fd6f193dc3548b9c1d8466ea1cee
+      internalID: -491762398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RobotsideLeft-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 12800
+        y: 0
+        width: 6400
+        height: 6400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2c1f50c7e7ca654bb4ad5325abebeee
+      internalID: 48740140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RobotsideLeft-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 19171
+        y: 0
+        width: 5946
+        height: 6400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a49bae0a31bd83449dfdef7cbc71283
+      internalID: -1620094030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +216,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RobotsideLeft-Sheet_0: -1290262500
+      RobotsideLeft-Sheet_1: -491762398
+      RobotsideLeft-Sheet_2: -1360461255
+      RobotsideLeft-Sheet_3: 48740140
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
