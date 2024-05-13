@@ -244,8 +244,7 @@ public class MinibossAI : EnemyMonoBehaviour
     public GameObject elevator;
     private void spawnLevelPortal()
     {
-        levelElevator = Instantiate(elevator, this.tranform)
-        
+        GameObject levelElevator = Instantiate(elevator, transform);
     }
 
     private IEnumerator Flash()
