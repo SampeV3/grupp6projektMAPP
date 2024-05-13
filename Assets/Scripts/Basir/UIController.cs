@@ -523,7 +523,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     private IEnumerator AnimationDelay()
     {
         yield return new WaitForSeconds(1);
-        animatorObject.GetComponent<Animator>().SetTrigger("Star");
+        animatorObject.GetComponent<Animator>().SetTrigger("Start");
         SceneManager.LoadScene(0);
 
     }
