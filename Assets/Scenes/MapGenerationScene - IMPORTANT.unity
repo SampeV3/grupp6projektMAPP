@@ -265,6 +265,7 @@ MonoBehaviour:
   playerRoom: {fileID: 378666303130500032, guid: afdc382d653128043b97c6bfaffe7852, type: 3}
   defaultRoom: {fileID: 7777476307801422254, guid: 377fa56baa708c045ab0ed6a3b4e6926, type: 3}
   bossRoom: {fileID: 2746710959080050701, guid: 98510c6821f276d42a2269def706d864, type: 3}
+  dataPersistanceManager: {fileID: 709246188}
   graphTest: {fileID: 826419577}
   cinemachineCamera: {fileID: 1792208467}
   RegenerateDungeon:
@@ -300,6 +301,18 @@ MonoBehaviour:
       - m_Target: {fileID: 709246189}
         m_TargetAssemblyTypeName: Nemesis.NemesisController, NewAssembly
         m_MethodName: InsertEnemyDataToEnemyInstances
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 709246188}
+        m_TargetAssemblyTypeName: DataPersistanceManager, NewAssembly
+        m_MethodName: Refresh
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
