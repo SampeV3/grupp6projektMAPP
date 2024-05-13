@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -67,6 +68,20 @@ public class LevelElevator : PromptQuestion
             StartCoroutine(Open());
         }
     }
-    
-    
+
+    private int i = 1;
+    private void Start()
+    {
+        i++;
+        if (i > 5)
+        {
+            
+        }
+        else
+        {
+            //if (BeforeNextLevel != null) BeforeNextLevel();
+            //if (ToNextLevel != null) ToNextLevel();
+        }
+        
+    }
 }

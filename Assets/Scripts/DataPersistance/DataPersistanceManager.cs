@@ -37,7 +37,7 @@ public class DataPersistanceManager : MonoBehaviour
         Debug.Log(startText + " " + gameData.ToString());
     }
 
-    public void LoadGame(GameData gameData)
+    public void LoadGame()
     {
         this.gameData = this.fileDataHandler.Load();
         if (this.gameData == null)
@@ -73,14 +73,19 @@ public class DataPersistanceManager : MonoBehaviour
 
     //Temporary control:
 
+    public void Refresh()
+    {
+        this.dataPersistanceObjects = FindAllDataPersistanceObjects();
+
+        LoadGame();
+    }
+    
     private void Start()
     {
         //fileName is what matters for having more than one save file!
         this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useXOREncryption);
-        this.dataPersistanceObjects = FindAllDataPersistanceObjects();
-
-        LoadGame(this.gameData);
-    } //TODO fix serializableDictionary
+        Refresh();
+    }
 
     private void OnApplicationQuit()
     {
@@ -101,21 +106,5 @@ public class DataPersistanceManager : MonoBehaviour
     {
         return System.Guid.NewGuid().ToString();
     }
-
-    private void reloadData()
-    {
-        LoadGame(this.gameData);
-    }
     
-    private void OnEnable()
-    {
-        LevelElevator.ToNextLevel += SaveGame;
-        PlayerTakeDamage.reloadData += reloadData;
-    }
-
-    private void OnDisable()
-    {
-        LevelElevator.ToNextLevel -= SaveGame;
-        PlayerTakeDamage.reloadData -= reloadData;
-    }
 }

@@ -12,6 +12,8 @@ public class RoomContentGenerator : MonoBehaviour
     [SerializeField]
     private RoomGenerator playerRoom, defaultRoom, bossRoom;
 
+    [SerializeField] private DataPersistanceManager dataPersistanceManager;
+
     List<GameObject> spawnedObjects = new List<GameObject>();
 
     [SerializeField]
@@ -41,6 +43,7 @@ public class RoomContentGenerator : MonoBehaviour
 
     public void ProcedurallyCreateNewDungeon()
     {
+        dataPersistanceManager.SaveGame();
         foreach (var item in spawnedObjects)
         {
             Destroy(item);
@@ -67,7 +70,7 @@ public class RoomContentGenerator : MonoBehaviour
         
         surface2D.BuildNavMeshAsync();
 
-        Invoke("OnCompleted", 5f);
+        Invoke("OnCompleted", 0.5f);
     }
 
     private void OnCompleted ()
@@ -174,9 +177,6 @@ public class RoomContentGenerator : MonoBehaviour
     {
         PlayerTakeDamage.OnPermaDeathAction += ProcedurallyCreateNewDungeon;
         LevelElevator.ToNextLevel += LevelElevatorOnToNextLevel;
-        {
-
-        };
     }
 
     private void OnDisable()
@@ -188,7 +188,8 @@ public class RoomContentGenerator : MonoBehaviour
     private void LevelElevatorOnToNextLevel()
     {
         print("TODO: INCREASE DIFFICULITY");
+        ProcedurallyCreateNewDungeon();
         
-        Invoke("ProcedurallyCreateNewDungeon", 0.3f);
+        
     }
 }
