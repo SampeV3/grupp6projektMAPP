@@ -16,7 +16,6 @@ public class MortarAI : EnemyMonoBehaviour
     
     private SpriteRenderer sprd;
     private Material originalMat;
-    private float HP;
     private bool playerDetected;
     private Coroutine combatCoroutine;
     private bool isDead, droppedLoot = false;
