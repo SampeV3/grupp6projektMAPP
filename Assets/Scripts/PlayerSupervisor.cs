@@ -30,18 +30,25 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         PlayerTakeDamage.OnTakeDamage += OnTakeDamage;
         PlayerTakeDamage.OnKilledBy += OnKilledBy;
         SingletonClass.OnXPAdded += AddXP;
+        LevelElevator.BeforeNextLevel += LevelElevatorOnToNextLevel;
     }
-
+    
     void OnDisable()
     {
         PlayerTakeDamage.OnRespawn -= OnRespawn;
         PlayerTakeDamage.OnTakeDamage -= OnTakeDamage;
         PlayerTakeDamage.OnKilledBy -= OnKilledBy;
         SingletonClass.OnXPAdded -= AddXP;
-
+        LevelElevator.BeforeNextLevel -= LevelElevatorOnToNextLevel;
     }
 
-
+    private void LevelElevatorOnToNextLevel()
+    {
+        print("Awarded 1 perk point");
+        this.perkPoints += 1;
+        
+        
+    }
     void OnRespawn(PlayerTakeDamage playerTakeDamage)
     {
         this.deathCount++;
@@ -153,10 +160,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
 
         data.perkPoints = this.perkPoints;
         data.in_run_points_to_spend = in_run_points_to_spend;
-
-        //data.experience_required = this.experience_required;
-
-
+        
     }
 
     public void OnPermaDeath()

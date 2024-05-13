@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -84,7 +85,8 @@ public class DataPersistanceManager : MonoBehaviour
     {
         SaveGame();
     }
-
+    
+    
     private List<IDataPersistance> FindAllDataPersistanceObjects ()
     {
         IEnumerable<IDataPersistance> dataPersistanceObjects = FindObjectsOfType<MonoBehaviour>()
@@ -98,5 +100,16 @@ public class DataPersistanceManager : MonoBehaviour
     {
         return System.Guid.NewGuid().ToString();
     }
+
     
+    
+    private void OnEnable()
+    {
+        LevelElevator.ToNextLevel += SaveGame;
+    }
+
+    private void OnDisable()
+    {
+        LevelElevator.ToNextLevel -= SaveGame;
+    }
 }

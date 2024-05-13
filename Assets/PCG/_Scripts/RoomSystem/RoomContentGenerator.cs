@@ -173,12 +173,22 @@ public class RoomContentGenerator : MonoBehaviour
     private void OnEnable()
     {
         PlayerTakeDamage.OnPermaDeathAction += ProcedurallyCreateNewDungeon;
+        LevelElevator.ToNextLevel += LevelElevatorOnToNextLevel;
+        {
+
+        };
     }
 
     private void OnDisable()
     {
         PlayerTakeDamage.OnPermaDeathAction -= ProcedurallyCreateNewDungeon;
+        LevelElevator.ToNextLevel -= LevelElevatorOnToNextLevel;
     }
 
-
+    private void LevelElevatorOnToNextLevel()
+    {
+        print("TODO: INCREASE DIFFICULITY");
+        
+        Invoke("ProcedurallyCreateNewDungeon", 0.3f);
+    }
 }

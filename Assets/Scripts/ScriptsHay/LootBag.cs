@@ -43,6 +43,8 @@ public class LootBag : MonoBehaviour
             float dropForce = 100f;
             Vector2 dropDirection = new Vector2 (Random.Range(-1f, 1f), Random.Range(-1f, 1f));
             lootGameObject.GetComponent<Rigidbody2D>().AddForce(dropDirection * dropForce, ForceMode2D.Impulse);
+            lootGameObject.transform.SetParent(RoomContentGenerator.itemParent); //detta så att gamla objekt förstörs när en ny dungeon genereras // Elias
+            
         }
     }
 

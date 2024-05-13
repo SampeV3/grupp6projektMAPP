@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -10,6 +12,8 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour, IDataPersistance
 {
+    
+    
     private class PickupScript : MonoBehaviour
     {
         public delegate void PickupAction (GameObject pickedUpObject);
@@ -33,7 +37,9 @@ public class UIController : MonoBehaviour, IDataPersistance
     
     public GameObject inventoryPanel, pausePanel, inventoryButton, pauseButton;
     public List<GameObject> inactiveWhileInventoryOpen;
+    public List<GameObject> inactiveWhilePromptedQuestion;
     public List<GameObject> inactiveWhilePause;
+    
 
     public PlayerSupervisor playerSupervisor;
     public PlayerTakeDamage playerTakeDamage;
@@ -521,11 +527,62 @@ public class UIController : MonoBehaviour, IDataPersistance
         SceneManager.LoadScene(0);
 
     }
+
+
+    [SerializeField] private PromptData promptFields;
     
+    public void PromptQuestion(PromptQuestion prompt)
+    {
+        if (promptFields.promptObject.activeInHierarchy)
+        {
+            print("Already prompting the user");
+            return;
+        }
+        SetActiveInList(inactiveWhilePromptedQuestion, false);
+        promptFields.questionText.text = prompt.questionText;
+        promptFields.cancelText.text = prompt.cancelText;
+        promptFields.progressText.text = prompt.progressText;
+        promptFields.promptObject.SetActive(true);
+        promptFields.CancelButton.onClick.AddListener(CancelButtonOnclicked);
+        promptFields.ProgressButton.onClick.AddListener(ProgressButtonOnclicked);
+
+        void cleanupConnections()
+        {
+            promptFields.CancelButton.onClick.RemoveListener(CancelButtonOnclicked);
+            promptFields.ProgressButton.onClick.AddListener(ProgressButtonOnclicked);
+            
+        }
+        
+        void CancelButtonOnclicked()
+        {
+            cleanupConnections();
+            StartCoroutine(prompt.OnCancel(promptFields));
+        }
+
+
+        void ProgressButtonOnclicked()
+        {
+            cleanupConnections();
+            StartCoroutine(prompt.OnProgress(promptFields));
+        }
+    }
+
+    
+    
+}
+
+public abstract class PromptQuestion : MonoBehaviour
+{
+    public string name;
+    public string questionText;
+    public string cancelText;
+    public string progressText;
+    
+    public abstract IEnumerator OnCancel(PromptData promptFields);
+    public abstract IEnumerator OnProgress(PromptData promptFields);
 
 
 }
-
 
 
 

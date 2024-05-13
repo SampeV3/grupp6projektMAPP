@@ -21,6 +21,7 @@ TagManager:
   - PlasmaGunLaser
   - Bugster
   - DamageMultiplier
+  - LevelElevator
   layers:
   - Default
   - TransparentFX
