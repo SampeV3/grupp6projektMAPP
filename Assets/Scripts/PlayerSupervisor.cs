@@ -8,9 +8,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     //Events som �r till f�r UI-script s� att de kan vara helt separerade fr�n detta script!
     public delegate void LevelUpAction(int newLevel); //metod signatur f�r subscribers till eventet
     public static event LevelUpAction OnLevelUp;
-
-
-
+    
     public int deathCount = 0;
     public int level = 0;
     public int in_run_points_to_spend = 0;
@@ -40,6 +38,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         PlayerTakeDamage.OnKilledBy -= OnKilledBy;
         SingletonClass.OnXPAdded -= AddXP;
         LevelElevator.BeforeNextLevel -= LevelElevatorOnToNextLevel;
+        
     }
 
     private void LevelElevatorOnToNextLevel()

@@ -55,6 +55,7 @@ public class DataPersistanceManager : MonoBehaviour
 
     public void SaveGame()
     {
+        print("Game is being saved");
         foreach (IDataPersistance dataPersistanceObject in dataPersistanceObjects)
         {
             dataPersistanceObject.SaveData(ref gameData);
@@ -101,15 +102,20 @@ public class DataPersistanceManager : MonoBehaviour
         return System.Guid.NewGuid().ToString();
     }
 
-    
+    private void reloadData()
+    {
+        LoadGame(this.gameData);
+    }
     
     private void OnEnable()
     {
         LevelElevator.ToNextLevel += SaveGame;
+        PlayerTakeDamage.reloadData += reloadData;
     }
 
     private void OnDisable()
     {
         LevelElevator.ToNextLevel -= SaveGame;
+        PlayerTakeDamage.reloadData -= reloadData;
     }
 }
