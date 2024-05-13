@@ -16,7 +16,6 @@ public class SpearAI : EnemyMonoBehaviour
     private SpriteRenderer sprd;
     private Animator anim;
     public int xpToAwardForKillingEnemy = 50;
-    private float HP;
     private bool playerDetected = false;
     private bool canhitSomething = false;
     private bool isDead, droppedLoot = false;

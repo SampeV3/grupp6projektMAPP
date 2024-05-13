@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -15,7 +16,6 @@ public class MinibossAI : EnemyMonoBehaviour
 
     private AudioSource audioSource;
     //[SerializeField] private Material originalMatTop, originalMatBot;
-    private float HP;
     private int beamDirection;
     private bool beamsActive = false;
     private Material topMat, botMat;
@@ -238,6 +238,13 @@ public class MinibossAI : EnemyMonoBehaviour
         SingletonClass.OnEnemyKilled(this);
         int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 200;
         SingletonClass.AwardXP(XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY);
+        spawnLevelPortal();
+    }
+
+    public GameObject elevator;
+    private void spawnLevelPortal()
+    {
+        GameObject levelElevator = Instantiate(elevator, transform);
     }
 
     private IEnumerator Flash()
@@ -281,6 +288,10 @@ public class MinibossAI : EnemyMonoBehaviour
         droppedLoot = true;
         GetComponent<LootBag>().InstantiateLoot(transform.position);
     }
+
+ 
+
+
     public override bool GetIsChasingPlayer()
     {
         return playerDetected;
