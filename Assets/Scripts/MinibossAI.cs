@@ -236,7 +236,7 @@ public class MinibossAI : EnemyMonoBehaviour
         if (hasRunned) return;
         hasRunned = true;
         SingletonClass.OnEnemyKilled(this);
-        int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 200;
+        int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 500;
         SingletonClass.AwardXP(XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY);
         spawnLevelPortal();
     }
@@ -244,7 +244,11 @@ public class MinibossAI : EnemyMonoBehaviour
     public GameObject elevator;
     private void spawnLevelPortal()
     {
-        GameObject levelElevator = Instantiate(elevator, transform);
+        GameObject levelElevator = Instantiate(elevator, transform.position, Quaternion.identity);
+        levelElevator.transform.SetParent(RoomContentGenerator.itemParent);
+        print("Spawned elevator prefab at " + transform + " " + levelElevator);
+        
+        
     }
 
     private IEnumerator Flash()

@@ -8,9 +8,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     //Events som �r till f�r UI-script s� att de kan vara helt separerade fr�n detta script!
     public delegate void LevelUpAction(int newLevel); //metod signatur f�r subscribers till eventet
     public static event LevelUpAction OnLevelUp;
-
-
-
+    
     public int deathCount = 0;
     public int level = 0;
     public int in_run_points_to_spend = 0;
@@ -30,18 +28,26 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         PlayerTakeDamage.OnTakeDamage += OnTakeDamage;
         PlayerTakeDamage.OnKilledBy += OnKilledBy;
         SingletonClass.OnXPAdded += AddXP;
+        LevelElevator.BeforeNextLevel += LevelElevatorOnToNextLevel;
     }
-
+    
     void OnDisable()
     {
         PlayerTakeDamage.OnRespawn -= OnRespawn;
         PlayerTakeDamage.OnTakeDamage -= OnTakeDamage;
         PlayerTakeDamage.OnKilledBy -= OnKilledBy;
         SingletonClass.OnXPAdded -= AddXP;
-
+        LevelElevator.BeforeNextLevel -= LevelElevatorOnToNextLevel;
+        
     }
 
-
+    private void LevelElevatorOnToNextLevel()
+    {
+        print("Awarded 1 perk point");
+        this.perkPoints += 1;
+        
+        
+    }
     void OnRespawn(PlayerTakeDamage playerTakeDamage)
     {
         this.deathCount++;
@@ -153,10 +159,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
 
         data.perkPoints = this.perkPoints;
         data.in_run_points_to_spend = in_run_points_to_spend;
-
-        //data.experience_required = this.experience_required;
-
-
+        
     }
 
     public void OnPermaDeath()

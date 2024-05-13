@@ -31,6 +31,9 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     public delegate void RespawnAction(PlayerTakeDamage playerTakeDamage); //metod signatur f�r subscribers till eventet
     public static event RespawnAction OnRespawn;
 
+    public delegate void reload(); 
+
+    public static event reload reloadData;
 
     public delegate void TakeDamageAction(PlayerTakeDamage playerTakeDamage, int damageTaken); //metod signatur f�r subscribers till eventet
     public static event TakeDamageAction OnTakeDamage; //hur eventet avfyras fr�n detta script.
@@ -398,6 +401,10 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     private void OnEnable()
     {
         ExecuteDoRespawn += DoRespawn;
+        if (reloadData != null)
+        {
+            reloadData();
+        }
     }
 
     private void OnDisable()
