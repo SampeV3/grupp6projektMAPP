@@ -3497,8 +3497,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1462261583937015531}
   m_HandleRect: {fileID: 5165008194509831980}
   m_Direction: 0
-  m_Value: -30.353813
-  m_Size: 0.995883
+  m_Value: -30.352083
+  m_Size: 0.9959875
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5046,7 +5046,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1678, y: 675.5}
+  m_AnchoredPosition: {x: 1891, y: 589}
   m_SizeDelta: {x: 170, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2368680502274415643
@@ -5629,7 +5629,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7454923202170067482}
   m_HandleRect: {fileID: 5216616681716111260}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -9090,7 +9090,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 516, y: -0.00018310547}
+  m_AnchoredPosition: {x: 516, y: -0.00012207031}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2496828631492423478
@@ -10684,7 +10684,7 @@ MonoBehaviour:
   weapon_2_Selected: 0
   inventoryItemUnavailable: {r: 0.2754717, g: 0.22609468, b: 0.22609468, a: 0.8509804}
   inventoryItemAvailable: {r: 1, g: 1, b: 1, a: 1}
-  animatorObject: {fileID: 0}
+  animatorObject: {fileID: 4396156691314147209}
   upgradeReferenceClasses:
   - {fileID: 7130116363722819786}
   - {fileID: 1651630661732249049}
@@ -14122,6 +14122,11 @@ PrefabInstance:
 --- !u!95 &290316447428607179 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5756464034915456067, guid: e9138f1b3c803bc4f986623fc8cb7d58, type: 3}
+  m_PrefabInstance: {fileID: 5468628678963226760}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &4396156691314147209 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8567590278861526785, guid: e9138f1b3c803bc4f986623fc8cb7d58, type: 3}
   m_PrefabInstance: {fileID: 5468628678963226760}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &4817036810280205997 stripped
