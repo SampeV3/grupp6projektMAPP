@@ -33,6 +33,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     
     public GameObject inventoryPanel, pausePanel, inventoryButton, pauseButton;
     public List<GameObject> inactiveWhileInventoryOpen;
+    public List<GameObject> inactiveWhilePause;
 
     public PlayerSupervisor playerSupervisor;
     public PlayerTakeDamage playerTakeDamage;
@@ -50,6 +51,8 @@ public class UIController : MonoBehaviour, IDataPersistance
     public bool weapon_2_Selected = false;
 
     public Color inventoryItemUnavailable, inventoryItemAvailable;
+
+    public Transform animatorObject;
     
     private void Start()
     {
@@ -104,8 +107,9 @@ public class UIController : MonoBehaviour, IDataPersistance
     public void ExitPanel()
     {
         SetActiveInList(inactiveWhileInventoryOpen, true);
+        pauseButton?.SetActive(true);
         
-        StartCoroutine(AnimationDelay());
+        //StartCoroutine(AnimationDelay());
         Time.timeScale = 1;
 
     }
@@ -118,7 +122,9 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene(0);
+        StartCoroutine(AnimationDelay());
+        Time.timeScale = 1;
+        //SceneManager.LoadScene(0);
     }
 
     private void OnCombatChanged(bool isInCombat, string situation)
@@ -510,14 +516,12 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
     private IEnumerator AnimationDelay()
     {
-        yield return new WaitForSeconds(1f);
-        inventoryPanel?.SetActive(false);
-        pauseButton.SetActive(true);
-        inventoryButton?.SetActive(true);
-        pausePanel?.SetActive(false);
-
+        yield return new WaitForSeconds(1);
+        animatorObject.GetComponent<Animator>().SetTrigger("Star");
+        SceneManager.LoadScene(0);
 
     }
+    
 
 
 }

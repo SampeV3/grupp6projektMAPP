@@ -12,4 +12,9 @@ public class BulletScript : MonoBehaviour
             
         }
     }
+
+    private void Awake()
+    {
+        GetComponent<Animator>().SetTrigger("Bullet");
+    }
 }
