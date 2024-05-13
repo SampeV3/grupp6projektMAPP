@@ -121,16 +121,17 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
     public void PauseGame()
     {
-        Time.timeScale = 0;
+        
         pausePanel.SetActive(true);
         inventoryButton.SetActive(false);
         pauseButton.SetActive(false);
+        Time.timeScale = 0;
     }
     public void ReturnToMainMenu()
     {
         StartCoroutine(AnimationDelay());
         Time.timeScale = 1;
-        //SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0);
     }
 
     private void OnCombatChanged(bool isInCombat, string situation)
