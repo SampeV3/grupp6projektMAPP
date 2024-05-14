@@ -13569,6 +13569,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 6526198078814687516}
     m_Modifications:
     - target: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+      propertyPath: methodName
+      value: OnJoystickMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
       propertyPath: gameObjectToSendMessageTo
       value: 
       objectReference: {fileID: 7726589997728872495}
