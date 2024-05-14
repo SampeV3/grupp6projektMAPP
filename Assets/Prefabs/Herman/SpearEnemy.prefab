@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 2
+  HP: 10
   enemyDataFieldDefined: 0
   flashOnHit: {fileID: 2100000, guid: 09f1d2aef631a0748a30d1f6c4c0a921, type: 2}
   playerSpotted: {fileID: 8878756988717134239, guid: 34a2f940884a32e4a8be2985a36a0865, type: 3}
