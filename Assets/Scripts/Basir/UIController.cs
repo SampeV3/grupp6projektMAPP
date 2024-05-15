@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -35,10 +33,9 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
     
-    public GameObject inventoryPanel, pausePanel, inventoryButton, pauseButton;
-    public List<GameObject> inactiveWhileInventoryOpen;
+    public GameObject inventoryButton, pauseButton;
+    public List<GameObject> inactiveWhilePaused;
     public List<GameObject> inactiveWhilePromptedQuestion;
-    public List<GameObject> inactiveWhilePause;
     
 
     public PlayerSupervisor playerSupervisor;
@@ -56,7 +53,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     public bool weapon_1_Selected = true;
     public bool weapon_2_Selected = false;
 
-    public Color inventoryItemUnavailable, inventoryItemAvailable;
+    public Color inventoryItemUnavailable;
 
     public Transform animatorObject;
     
@@ -90,37 +87,18 @@ public class UIController : MonoBehaviour, IDataPersistance
             inventoryButtonsInPanel[3].GetComponent<Animator>().enabled = false;
             changeItemColor(inventoryButtonsInPanel[3].image, false);
         }
-        else 
-        { 
-            changeItemColor(inventoryButtonsInPanel[3].image, true);
-        }
         inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryBoostPickupAmount;
 
     }
-    public void OpenInventory()
-    {
-        Time.timeScale = 0;
-        //inventoryPanel.SetActive(true);
-        //inventoryButton.SetActive(false);
-        //pauseButton.SetActive(false);
-        SetActiveInList(inactiveWhileInventoryOpen, false);
-    }
     public void ExitPanel()
     {
-        SetActiveInList(inactiveWhileInventoryOpen, true);
-        pauseButton?.SetActive(true);
-        
-        //StartCoroutine(AnimationDelay());
+        SetActiveInList(inactiveWhilePaused, true);
         Time.timeScale = 1;
-
     }
     public void PauseGame()
     {
-        
-        pausePanel.SetActive(true);
-        inventoryButton.SetActive(false);
-        pauseButton.SetActive(false);
         Time.timeScale = 0;
+        SetActiveInList(inactiveWhilePaused, false);
     }
     public void ReturnToMainMenu()
     {
@@ -141,13 +119,6 @@ public class UIController : MonoBehaviour, IDataPersistance
             inventoryButton.SetActive(true);
             pauseButton.SetActive(true);
         }
-    }
-
-    void DropItem( Vector3 position, MinibossAI boss)
-    {
-        //GameObject newItem = CreateObject(boss.drop, position);
-        //PickupScript pickup = newItem.AddComponent<PickupScript>();
-        
     }
 
     void PickupComplete (GameObject item)
@@ -177,14 +148,12 @@ public class UIController : MonoBehaviour, IDataPersistance
     private void OnEnable()
     {
         PlayerTakeDamage.OnCombatSituationChanged += OnCombatChanged;
-        //MinibossAI.OnMiniBossDied += DropItem;
         PickupScript.OnPickup += PickupComplete;
     }
 
     private void OnDisable()
     {
         PlayerTakeDamage.OnCombatSituationChanged -= OnCombatChanged;
-        //MinibossAI.OnMiniBossDied -= DropItem;
         PickupScript.OnPickup -= PickupComplete;
     }
 
@@ -238,10 +207,6 @@ public class UIController : MonoBehaviour, IDataPersistance
         if (!isAvailable)
         {
             image.color = inventoryItemUnavailable; //färg för icke-tillgängliga items
-        }
-        else
-        {
-            image.color = inventoryItemAvailable;  //återställa vanlig färg på tillgängliga items
         }
     }
 
