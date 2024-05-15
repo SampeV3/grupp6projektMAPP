@@ -21,4 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MapGenerationScene - IMPORTANT.unity
     guid: d34a3d7eda020d647b0f3e3d2d5b3c3a
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 15f8d0687a5d16a4086e20d59ea9e20e, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 4db9fcd5b25c818498482afcb2093834, type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: 46c0cf67132ad494c8f3afa138e5ec35, type: 2}
