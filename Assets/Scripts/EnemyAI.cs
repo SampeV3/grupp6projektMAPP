@@ -111,24 +111,11 @@ public class EnemyAI : EnemyMonoBehaviour
         if (newTarget) { player = newTarget; }
         if (!playerDetected)
         {
-            if (IsPlayerWithinDetectionRadius())
-            {
-                CheckLineOfSight();
-                
-            }
+
+             CheckLineOfSight();
+    
         }
-        else
-        {
-            if (!IsPlayerWithinDetectionRadius())
-            {
-                playerDetected = false;
-                if (combatCoroutine != null)
-                {
-                    StopCoroutine(moveCoroutine);
-                    StopCoroutine(combatCoroutine);
-                }
-            }
-        }
+        
     }
 
     private bool IsPlayerWithinDetectionRadius()
@@ -169,10 +156,13 @@ public class EnemyAI : EnemyMonoBehaviour
     {
         Vector3 directionToPlayer = player.position - transform.position;
 
-        RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, directionToPlayer, 50f, playerMask);
-        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, directionToPlayer, 50f, obstacleMask);
-
-        if (hitWall.collider.CompareTag("Wall") && hitPlayer.collider.CompareTag("Player") && hitPlayer.distance<hitWall.distance)
+        RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, directionToPlayer, 8f, playerMask);
+        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, directionToPlayer, 8f, obstacleMask);
+        if (hitWall.distance == 0)
+        {
+            hitWall.distance = 100;
+        };
+        if (hitPlayer.collider.CompareTag("Player") && hitPlayer.distance<hitWall.distance)
         {
             playerDetected = true;
                 GameObject playerSpottedWarning = Instantiate(playerSpotted, transform.position, Quaternion.identity, transform);
@@ -181,6 +171,14 @@ public class EnemyAI : EnemyMonoBehaviour
                 Destroy(playerSpottedWarning, 1f);
                 combatCoroutine = StartCoroutine(Combat());
                 moveCoroutine = StartCoroutine(MoveAround());
+        }
+        else
+        {
+            playerDetected = false;
+            if (combatCoroutine != null)
+            {
+                StopCoroutine(combatCoroutine);
+            }
         }
     }
 
@@ -191,7 +189,9 @@ public class EnemyAI : EnemyMonoBehaviour
             Destroy(other.gameObject);
             HP -= 1 * dmgMultiplier; // damagemultiplier to be added
             StartCoroutine(Flash());
-            
+            ActivateOnDamage();
+            ActivateNearbyEnemies();
+
         }
 
         if (HP <= 0)
@@ -226,6 +226,8 @@ public class EnemyAI : EnemyMonoBehaviour
             StartCoroutine(Flash());
             canDealDamage = false;
             Invoke("damageCooldownReset", .2f);
+            ActivateOnDamage();
+            ActivateNearbyEnemies();
 
         }
 
@@ -248,6 +250,43 @@ public class EnemyAI : EnemyMonoBehaviour
             sprd.color = Color.red;
             dropLoot();
             Destroy(gameObject, 1f);
+        }
+    }
+    private void ActivateOnDamage()
+    {
+        if (!playerDetected)
+        {
+            playerDetected = true;
+            GameObject playerSpottedWarning = Instantiate(playerSpotted, transform.position, Quaternion.identity, transform);
+            playerSpottedWarning.name = "PlayerSpotted";
+            playerSpottedWarning.GetComponent<Animator>().SetTrigger("PlayerDetected");
+            Destroy(playerSpottedWarning, 1f);
+            if (combatCoroutine != null)
+            {
+                StopCoroutine(moveCoroutine);
+                StopCoroutine(combatCoroutine);
+            }
+            else{ combatCoroutine = StartCoroutine(Combat());
+                moveCoroutine = StartCoroutine(MoveAround());
+            }
+            
+            
+        }
+    }
+    private void ActivateNearbyEnemies()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5f);
+
+        foreach (Collider2D hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag("Enemy") && hitCollider.gameObject != gameObject)
+            {
+                EnemyAI enemy = hitCollider.GetComponent<EnemyAI>();
+                if (enemy != null)
+                {
+                    enemy.ActivateOnDamage();
+                }
+            }
         }
     }
 
@@ -291,6 +330,7 @@ public class EnemyAI : EnemyMonoBehaviour
     {
         dmgMultiplier += amount;
     }
+
 
     public static IEnumerator TempDmgIncrease(int amount, float time)
     {
