@@ -62,9 +62,6 @@ public class UIController : MonoBehaviour, IDataPersistance
     
     private void Start()
     {
-        inventoryPanel.SetActive(false);
-        pausePanel.SetActive(false);
-
         xPPoint.text = "00";
     }
 
@@ -83,16 +80,14 @@ public class UIController : MonoBehaviour, IDataPersistance
     {
         if (inventoryHealthPickupAmount == 0)
         {
+            inventoryButtonsInPanel[2].GetComponent<Animator>().enabled = false;
             changeItemColor(inventoryButtonsInPanel[2].image, false);
-        }
-        else
-        {
-            changeItemColor(inventoryButtonsInPanel[2].image, true);
         }
         inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryHealthPickupAmount;
 
         if (inventoryBoostPickupAmount == 0)
         {
+            inventoryButtonsInPanel[3].GetComponent<Animator>().enabled = false;
             changeItemColor(inventoryButtonsInPanel[3].image, false);
         }
         else 
@@ -105,9 +100,9 @@ public class UIController : MonoBehaviour, IDataPersistance
     public void OpenInventory()
     {
         Time.timeScale = 0;
-        inventoryPanel.SetActive(true);
-        inventoryButton.SetActive(false);
-        pauseButton.SetActive(false);
+        //inventoryPanel.SetActive(true);
+        //inventoryButton.SetActive(false);
+        //pauseButton.SetActive(false);
         SetActiveInList(inactiveWhileInventoryOpen, false);
     }
     public void ExitPanel()
@@ -129,9 +124,8 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
     public void ReturnToMainMenu()
     {
-        StartCoroutine(AnimationDelay());
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+        StartCoroutine(AnimationDelay());
     }
 
     private void OnCombatChanged(bool isInCombat, string situation)
@@ -526,7 +520,6 @@ public class UIController : MonoBehaviour, IDataPersistance
     private IEnumerator AnimationDelay()
     {
         yield return new WaitForSeconds(1);
-        animatorObject.GetComponent<Animator>().SetTrigger("Start");
         SceneManager.LoadScene(0);
 
     }
