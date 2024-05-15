@@ -53,6 +53,8 @@ public class UIController : MonoBehaviour, IDataPersistance
     public bool weapon_1_Selected = true;
     public bool weapon_2_Selected = false;
 
+    public AudioClip clickSound;
+
     public Color inventoryItemUnavailable;
 
     public Transform animatorObject;
