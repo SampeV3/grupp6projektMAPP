@@ -109,10 +109,9 @@ public class EnemyAI : EnemyMonoBehaviour
         rigidBody2D.WakeUp();
         Transform newTarget = FindNearestTarget();
         if (newTarget) { player = newTarget; }
-        if (!playerDetected)
+        if (!playerDetected && IsPlayerWithinDetectionRadius())
         {
-
-             CheckLineOfSight();
+            CheckLineOfSight();
     
         }
         
@@ -156,8 +155,8 @@ public class EnemyAI : EnemyMonoBehaviour
     {
         Vector3 directionToPlayer = player.position - transform.position;
 
-        RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, directionToPlayer, 8f, playerMask);
-        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, directionToPlayer, 8f, obstacleMask);
+        RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, directionToPlayer, 10f, playerMask);
+        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, directionToPlayer, 10f, obstacleMask);
         if (hitWall.distance == 0)
         {
             hitWall.distance = 100;
@@ -269,8 +268,7 @@ public class EnemyAI : EnemyMonoBehaviour
             else{ combatCoroutine = StartCoroutine(Combat());
                 moveCoroutine = StartCoroutine(MoveAround());
             }
-            
-            
+                   
         }
     }
     private void ActivateNearbyEnemies()
