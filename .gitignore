@@ -75,3 +75,4 @@ crashlytics-build.properties
 # Our own gitignore stuff
 .DS_Store
 **/.DS_Store
+Assets/Plugins/CodeAssist/Editor/ExternalReferences/SystemBinariesForDotNetStandard20.unitypackage.meta
