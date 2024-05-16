@@ -60,7 +60,7 @@ public class MortarAI : EnemyMonoBehaviour
         Color ogColor = mortarsprd.color;
         ogColor.a = 0.1f;
         mortarsprd.color = ogColor;
-        while (mortarsprd.color.a < 1f)
+        while (mortarsprd != null && mortarsprd.color.a < 1f)
         {
             mortarAim.transform.Rotate(0f, 0f, 15f * Time.fixedDeltaTime);
             ogColor.a += 0.5f * Time.deltaTime;
@@ -68,13 +68,17 @@ public class MortarAI : EnemyMonoBehaviour
             yield return null;
             if(HP <= 0) { Destroy(mortarAim); }
         }
+        if (mortarsprd != null)
+        {
         mortarAim.GetComponent<CircleCollider2D>().enabled = true;
         Destroy(mortarAim, 0.1f);
+
+        }
     }
    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("PlayerAttack"))
+        if (other.gameObject.CompareTag("PlayerAttack")) 
         {
             Destroy(other.gameObject);
             HP -= 1 * dmgMultiplier;
@@ -90,8 +94,6 @@ public class MortarAI : EnemyMonoBehaviour
             {
                 StopCoroutine(combatCoroutine);
             }
-
-            flashOnHit = sprd.material;
             sprd.color = Color.red;
             StartCoroutine(DropDelay()); //Tillagt av Basi
             Destroy(gameObject, 1f);     //Destroy(gameObject, 1f);
