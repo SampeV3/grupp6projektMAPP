@@ -1,21 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
     public Animator transition;
-    public GameObject settingsPanel, mainMenu;
+    public GameObject settingsPanel, localizationsPanel;
 
     public AudioClip clickSound, openPanelSound, closePanelSound;
 
     private AudioSource audioSource;
-    //public GameObject transitionImage;
-    //private bool transitionPlayed;
 
     private void Start()
     {
+        settingsPanel.SetActive(false);
+        localizationsPanel.SetActive(false);
         Time.timeScale = 1.0f;
         audioSource = GetComponent<AudioSource>();
     }
@@ -23,7 +22,7 @@ public class StartMenu : MonoBehaviour
     public void StartGame()
     {
         StartCoroutine(AnimationDelay("Load", 1.0f));
-        Time.timeScale = 1;
+        Time.timeScale = 1; //ändrar time scale till 1 igen om man har kommit hit från spelet
         audioSource.PlayOneShot(clickSound);
     }
 
@@ -33,12 +32,26 @@ public class StartMenu : MonoBehaviour
         audioSource.PlayOneShot(clickSound);
     }
 
+    public void OpenLocalizationsPanel()
+    {
+        localizationsPanel.SetActive(true);
+        audioSource.PlayOneShot(openPanelSound);
+    }
+
+    public void ExitLocalizationsPanel()
+    {
+        StartCoroutine(AnimationDelay("ExitLocalization", 1f));
+        audioSource.PlayOneShot(openPanelSound);
+    }
+
     public void OpenSettings()
     {
+        settingsPanel.SetActive(true);
         audioSource.PlayOneShot(openPanelSound);
     }
     public void ExitSettings()
     {
+        StartCoroutine(AnimationDelay("ExitSettings", 1f));
         audioSource.PlayOneShot(closePanelSound);
     }
 
@@ -46,22 +59,35 @@ public class StartMenu : MonoBehaviour
 
     private IEnumerator AnimationDelay(string command, float delayTime)
     {
-        //transitionImage.SetActive(true);
-        
-
-        yield return new WaitForSeconds(delayTime);
+        if (command == "ExitSettings")
+        {
+            settingsPanel.GetComponent<Animator>().SetTrigger("Exit");
+            yield return new WaitForSeconds(delayTime);
+            settingsPanel.SetActive(false);
+        }
         
         if (command == "Load")
         {
+            yield return new WaitForSeconds(delayTime);
             transition.SetTrigger("Start");
             SceneManager.LoadScene(1);
         }
 
         if (command == "Quit")
         {
+            yield return new WaitForSeconds(delayTime);
             transition.SetTrigger("Start");
             Application.Quit();
         }
+
+        if (command == "ExitLocalization")
+        {
+            localizationsPanel.GetComponent<Animator>().SetTrigger("End");
+            yield return new WaitForSeconds(delayTime);
+            localizationsPanel.SetActive(false);
+        }
+
+        
         
     }
 }
