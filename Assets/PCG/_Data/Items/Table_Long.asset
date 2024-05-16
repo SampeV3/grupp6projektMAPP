@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a83f2a5bea8447489822be80764763e, type: 3}
   m_Name: Table_Long
   m_EditorClassIdentifier: 
-  sprite: {fileID: -4302411898996096202, guid: fc5028170ab84ed4bbf43948f12a52d6, type: 3}
+  sprite: {fileID: 21300000, guid: 61e1abdc9b5701e428d727699f65b1d8, type: 3}
   size: {x: 2, y: 1}
   placementType: 0
   addOffset: 1
   health: 3
+  nonDestructible: 0
