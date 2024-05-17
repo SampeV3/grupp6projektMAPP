@@ -72,7 +72,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     
     private void FixedUpdate()
     {
-        xPPoint.text = playerSupervisor.XP + " / " + playerSupervisor.experienceRequired;
+        xPPoint.text = "XP:" + playerSupervisor.XP + "/" + playerSupervisor.experienceRequired;
         levelInfo.text = "Level: " + playerSupervisor.level;
     }
     private void Update()
@@ -82,7 +82,7 @@ public class UIController : MonoBehaviour, IDataPersistance
             inventoryButtonsInPanel[2].GetComponent<Animator>().enabled = false;
             changeItemColor(inventoryButtonsInPanel[2].image, false);
         }
-        inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryHealthPickupAmount;
+        inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventoryHealthPickupAmount + "/3";
 
         if (inventoryBoostPickupAmount == 0)
         {
@@ -161,12 +161,11 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public void IncreaseHealthFromInventory()
     {
-        if (playerTakeDamage.currentHealth < playerTakeDamage.maxHealth && inventoryHealthPickupAmount > 0)
-
+        if (playerTakeDamage.currentHealth < playerTakeDamage.maxHealth && inventoryBoostPickupAmount > 0)
         {
             playerTakeDamage.currentHealth += healthPickupAmountToIncrease;
             inventoryHealthPickupAmount -= 1;
-            playerTakeDamage.UpdateHealthBar();      
+            playerTakeDamage.UpdateHealthBar();
         }
     }
 
