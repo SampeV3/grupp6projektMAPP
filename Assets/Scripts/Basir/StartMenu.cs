@@ -1,11 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
     public Animator transition;
+
+    public ParticleSystem playButtonEffekt;
+
     public GameObject settingsPanel, localizationsPanel;
+    public List<GameObject> mainMenuButtons;
 
     public AudioClip clickSound, openPanelSound, closePanelSound;
 
@@ -17,12 +22,16 @@ public class StartMenu : MonoBehaviour
         localizationsPanel.SetActive(false);
         Time.timeScale = 1.0f;
         audioSource = GetComponent<AudioSource>();
+        foreach (GameObject go in mainMenuButtons)
+        {
+            go.SetActive(true);
+        }
     }
 
     public void StartGame()
     {
         StartCoroutine(AnimationDelay("Load", 1.0f));
-        Time.timeScale = 1; //ändrar time scale till 1 igen om man har kommit hit från spelet
+        Time.timeScale = 1; //ändrar time scale till 1 igen om man har kommit hit från pause panelen i spelet
         audioSource.PlayOneShot(clickSound);
     }
 
@@ -35,23 +44,31 @@ public class StartMenu : MonoBehaviour
     public void OpenLocalizationsPanel()
     {
         localizationsPanel.SetActive(true);
+        SetMainMenuButtonsAnimations("Disabled", mainMenuButtons);
+        playButtonEffekt.Stop();
         audioSource.PlayOneShot(openPanelSound);
     }
 
     public void ExitLocalizationsPanel()
     {
         StartCoroutine(AnimationDelay("ExitLocalization", 1f));
+        SetMainMenuButtonsAnimations("Normal", mainMenuButtons);
+        playButtonEffekt.Play();
         audioSource.PlayOneShot(openPanelSound);
     }
 
     public void OpenSettings()
     {
         settingsPanel.SetActive(true);
+        SetMainMenuButtonsAnimations("Disabled", mainMenuButtons);
+        playButtonEffekt.Stop();
         audioSource.PlayOneShot(openPanelSound);
     }
     public void ExitSettings()
     {
         StartCoroutine(AnimationDelay("ExitSettings", 1f));
+        SetMainMenuButtonsAnimations("Normal", mainMenuButtons);
+        playButtonEffekt.Play();
         audioSource.PlayOneShot(closePanelSound);
     }
 
@@ -89,5 +106,13 @@ public class StartMenu : MonoBehaviour
 
         
         
+    }
+
+    private void SetMainMenuButtonsAnimations(string trigger, List<GameObject> buttons)
+    {
+        foreach (GameObject go in buttons)
+        {
+            go.GetComponent<Animator>().SetTrigger(trigger);
+        }
     }
 }
