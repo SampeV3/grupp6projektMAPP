@@ -38,6 +38,7 @@ public class StartMenu : MonoBehaviour
     public void QuitGame()
     {
         StartCoroutine(AnimationDelay("Quit", 1.0f));
+        SetMainMenuButtonsAnimations("Disabled", mainMenuButtons);
         audioSource.PlayOneShot(clickSound);
     }
 
