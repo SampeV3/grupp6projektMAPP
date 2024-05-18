@@ -33,7 +33,7 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
     
-    public GameObject inventoryButton, pauseButton;
+    public GameObject inventoryButton, pauseButton, inventoryPanel;
     public List<GameObject> inactiveWhilePaused;
     public List<GameObject> inactiveWhilePromptedQuestion;
     
@@ -62,6 +62,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     private void Start()
     {
         xPPoint.text = "00";
+        inventoryPanel.SetActive(false);
     }
 
     
@@ -92,6 +93,17 @@ public class UIController : MonoBehaviour, IDataPersistance
         inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryBoostPickupAmount;
 
     }
+
+    public void OpenInventory()
+    {
+        PauseGame();
+        inventoryPanel.SetActive(true);
+    }
+    public void ExitInventory()
+    {
+        ExitPanel();
+        StartCoroutine(AnimationDelay("ExitInventory", 1f));
+    }
     public void ExitPanel()
     {
         SetActiveInList(inactiveWhilePaused, true);
@@ -104,8 +116,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
     public void ReturnToMainMenu()
     {
-        Time.timeScale = 1;
-        StartCoroutine(AnimationDelay());
+       StartCoroutine(AnimationDelay("MainMenu", 1f));
     }
 
     private void OnCombatChanged(bool isInCombat, string situation)
@@ -483,10 +494,26 @@ public class UIController : MonoBehaviour, IDataPersistance
         inventoryBoostPickupAmount = 0;
 
     }
-    private IEnumerator AnimationDelay()
+
+
+    private IEnumerator AnimationDelay(String command, float delay)
     {
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(0);
+        if (command == "ExitInventory")
+        {
+            inventoryPanel.GetComponent<Animator>().SetTrigger("End");
+            yield return new WaitForSeconds(delay);
+            inventoryPanel.SetActive(false);
+            
+        }
+        if(command == "MainMenu")
+        {
+            yield return new WaitForSeconds(delay);
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(0);
+
+        }
+
+        
 
     }
 
