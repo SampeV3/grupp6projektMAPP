@@ -33,7 +33,7 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
     
-    public GameObject inventoryButton, pauseButton, inventoryPanel;
+    public GameObject inventoryButton, pauseButton, inventoryPanel, upgradesPanel;
     public List<GameObject> inactiveWhilePaused;
     public List<GameObject> inactiveWhilePromptedQuestion;
     
@@ -63,6 +63,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     {
         xPPoint.text = "00";
         inventoryPanel.SetActive(false);
+        upgradesPanel.SetActive(false);
     }
 
     
@@ -96,23 +97,40 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public void OpenInventory()
     {
-        PauseGame();
+        SetTimeScale();
         inventoryPanel.SetActive(true);
     }
     public void ExitInventory()
     {
-        ExitPanel();
-        StartCoroutine(AnimationDelay("ExitInventory", 1f));
+        
+        StartCoroutine(AnimationDelay("ExitInventory", 0.5f));
     }
-    public void ExitPanel()
+
+    public void OpenUpgradesPanel()
     {
-        SetActiveInList(inactiveWhilePaused, true);
-        Time.timeScale = 1;
+        //SetTimeScale();
+        upgradesPanel.SetActive(true);
     }
-    public void PauseGame()
+
+    public void ExitUpgradesPanel()
     {
-        Time.timeScale = 0;
-        SetActiveInList(inactiveWhilePaused, false);
+        //SetTimeScale();
+        StartCoroutine(AnimationDelay("ExitUpgrades", 1f));
+    }
+
+    private void SetTimeScale()
+    {
+        Time.timeScale = (Time.timeScale == 0) ? 1 : 0;
+
+        if (Time.timeScale > 0)
+        {
+            SetActiveInList(inactiveWhilePaused, true);
+        }
+        else
+        {
+            SetActiveInList(inactiveWhilePaused, false);
+        }
+
     }
     public void ReturnToMainMenu()
     {
@@ -501,19 +519,28 @@ public class UIController : MonoBehaviour, IDataPersistance
         if (command == "ExitInventory")
         {
             inventoryPanel.GetComponent<Animator>().SetTrigger("End");
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSecondsRealtime(delay);
             inventoryPanel.SetActive(false);
-            
+            SetTimeScale();
+
         }
         if(command == "MainMenu")
         {
-            yield return new WaitForSeconds(delay);
-            Time.timeScale = 1f;
+            yield return new WaitForSecondsRealtime(delay);
             SceneManager.LoadScene(0);
+        }
+
+        if (command == "ExitUpgrades")
+        {
+            upgradesPanel.GetComponent<Animator>().SetTrigger("End");
+            yield return new WaitForSecondsRealtime(delay);
+            
+            upgradesPanel.SetActive(false);
+            
 
         }
 
-        
+
 
     }
 
