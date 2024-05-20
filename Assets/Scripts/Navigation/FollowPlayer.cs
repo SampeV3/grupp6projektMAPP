@@ -12,8 +12,9 @@ public class Chase : MonoBehaviour
     private bool stop;
     public bool showPath;
     public bool showAhead;
-    public Vector3 offsetPosition = new Vector3(0, -1, 0);
-
+    public Vector3 offsetPosition = new Vector3(0, 0, 0);
+    public bool alliedToPlayer = true;
+    
     public LayerMask obstacleMask, targetMask;
     private bool CheckLineOfSight(Transform startTransform, Transform target, float length)
     {
@@ -78,7 +79,7 @@ public class Chase : MonoBehaviour
     
     private void CheckAttack()
     {
-        rangedTarget = FindNearestEnemy();
+        rangedTarget = alliedToPlayer ? FindNearestEnemy() : IsPlayer.FindPlayerTransformAutomaticallyIfNull();
         if (rangedTarget != null && Vector3.Distance(transform.position, rangedTarget.position) < attackRange)
         {
             RangedAttack();   

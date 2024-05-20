@@ -30,7 +30,6 @@ public abstract class EnemyMonoBehaviour : MonoBehaviour
 
     public EnemyData GetEnemyData()
     {
-        print("Return persistentEnemyData " + this.persistentEnemyData);
         if (this.persistentEnemyData == null)
         {
             return null;
