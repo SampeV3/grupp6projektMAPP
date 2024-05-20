@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class MinibossAI : EnemyMonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
-    [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar, parent, dropItem; //dropItem tillagt av Basir
+    [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar, parent, dropItem, pane, healthWhite, healthRed, canvas; //dropItem tillagt av Basir
     [SerializeField] private Transform player;
     //[SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer topSprite, botSprite;
+    private List<GameObject> whitePanels = new List<GameObject>();
+    private List<GameObject> redPanels = new List<GameObject>();
 
     private AudioSource audioSource;
     //[SerializeField] private Material originalMatTop, originalMatBot;
@@ -20,6 +22,7 @@ public class MinibossAI : EnemyMonoBehaviour
     private bool beamsActive = false;
     private Material topMat, botMat;
     private Coroutine combatCoroutine;
+    private Coroutine whiteHealthCoroutine = null;
 
     private bool playerDetected;
     private bool isDead, droppedLoot = false;
@@ -33,10 +36,27 @@ public class MinibossAI : EnemyMonoBehaviour
         audioSource = GetComponent<AudioSource>();
         topMat = topSprite.material;
         botMat = botSprite.material;
+        for (int i = 1; i < 321; i++)
+        {
+            GameObject panel = Instantiate(pane, healthWhite.transform);
+            RectTransform rectTransform = panel.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector3((float)(-386 + i*2.5), 416.8f, 0);
+            whitePanels.Add(panel);
+        }
+        for (int i = 1; i < 321; i++)
+        {
+            GameObject panel = Instantiate(pane, healthWhite.transform);
+            RectTransform rectTransform = panel.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector3((float)(-386 + i * 2.5), 416.8f, 0);
+            panel.GetComponent<Image>().color = Color.red;
+            redPanels.Add(panel);
+        }
+
     }
 
     protected override void Awake()
     {
+
         base.Awake(); // Make sure to always keep that line
         if (player == null)
         {
@@ -46,6 +66,8 @@ public class MinibossAI : EnemyMonoBehaviour
 
     private IEnumerator Combat()
     {
+        canvas.SetActive(true);
+        StartCoroutine(UpdateWhiteHealth());
         StartCoroutine(FlashBeam(beam1, 4));
         yield return new WaitUntil(() => beamsActive);
         while (HP > 135)
@@ -178,6 +200,31 @@ public class MinibossAI : EnemyMonoBehaviour
         BulletID bulletInfo = projectile.GetComponent<BulletID>();
         bulletInfo.KillerGameObject = gameObject;
     }
+    private IEnumerator UpdateWhiteHealth()
+    {
+        yield return new WaitForSeconds(2.7f);
+        while (redPanels.Count < whitePanels.Count)
+        {
+            whitePanels[whitePanels.Count - 1].SetActive(false);
+            whitePanels.RemoveAt(whitePanels.Count - 1);
+
+            yield return new WaitForSeconds(0.05f);
+        }
+        whiteHealthCoroutine = null;
+    }
+    private IEnumerator UpdateRedHealth()
+    {
+        while (HP / 175.0f * 321.0f < redPanels.Count)
+        {
+            redPanels[redPanels.Count - 1].SetActive(false);
+            redPanels.RemoveAt(redPanels.Count - 1);
+            yield return null;
+        }
+        if (whiteHealthCoroutine == null)
+        {
+            whiteHealthCoroutine = StartCoroutine(UpdateWhiteHealth());
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -186,6 +233,7 @@ public class MinibossAI : EnemyMonoBehaviour
             Destroy(other.gameObject);
             HP -= 1 * dmgMultiplier;
             StartCoroutine(Flash());
+            StartCoroutine(UpdateRedHealth());
 
         }
             if(HP <= 0)
@@ -198,6 +246,7 @@ public class MinibossAI : EnemyMonoBehaviour
                 topSprite.color = Color.red;
                 botSprite.color = Color.red;
                 Destroy(parent, 1f);
+                canvas.SetActive(false);
             }
         }
 
@@ -209,6 +258,7 @@ public class MinibossAI : EnemyMonoBehaviour
             StartCoroutine(Flash());
             canDealDamage = false;
             Invoke("damageCooldownReset", .2f);
+            StartCoroutine(UpdateRedHealth());
 
         }
 
@@ -227,6 +277,7 @@ public class MinibossAI : EnemyMonoBehaviour
             botSprite.color = Color.red;
             dropLoot();
             Destroy(gameObject, 1f);
+            canvas.SetActive(false);
         }
     }
 
@@ -280,7 +331,7 @@ public class MinibossAI : EnemyMonoBehaviour
     private bool IsPlayerWithinDetectionRadius()
     {
         float dist = Vector2.Distance(transform.position, player.position);
-        if (dist <= 6f)
+        if (dist <= 15f)
         {
             return true;
         }

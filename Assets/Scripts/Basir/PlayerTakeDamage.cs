@@ -7,21 +7,29 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using static PlayerTakeDamage;
 public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 {
     //public int health;
     
     [SerializeField] private Transform spawnTransform;
+
     private Vector3 spawnPosition;
+
     public double takeDamageGraceDuration = 0.4;
+
     public int currentHealth;
     public int maxHealth = 5;
-    public GameObject[] healthBarSprites = new GameObject[6];
+
+    public Sprite[] healthBarSprites = new Sprite[6];
 
     [FormerlySerializedAs("OnPermaDeath")] [Description("Fires upon permanent death.")]
+
     public UnityEvent onPermaDeath;
+
     [Description("Event when the players actions should be frozen.")]
+
     public UnityEvent onFreezeActions; 
     
     
@@ -52,10 +60,12 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     private bool playerDied = false;
     public bool IsInCombat = false;
 
+    public Button healthBar;
+
     void Start()
     {
         currentHealth = maxHealth;
-        UpdateHealthBar();
+        healthBar.GetComponent<Image>().sprite = healthBarSprites[maxHealth];
         if (spawnTransform == null)
         {
             spawnPosition = transform.position;
@@ -93,16 +103,9 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     {
         for (int i = 0; i <= maxHealth; i++)
         {
-            GameObject batterySprite = healthBarSprites[i];
-            bool isEqualToIndex = i == currentHealth;
-            //kan förenklas till: batterySprite.SetActive(isEqualToIndex);
-            
-            if (isEqualToIndex)
+            if (i == currentHealth)
             {
-                batterySprite.SetActive(true);
-            } else
-            {
-                batterySprite.SetActive(false);
+                healthBar.GetComponent<Image>().sprite = healthBarSprites[i];
             }
         }
     }

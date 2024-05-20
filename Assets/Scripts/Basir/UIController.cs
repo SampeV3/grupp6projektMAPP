@@ -33,7 +33,7 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
     
-    public GameObject inventoryButton, pauseButton;
+    public GameObject inventoryButton, pauseButton, inventoryPanel, upgradesPanel;
     public List<GameObject> inactiveWhilePaused;
     public List<GameObject> inactiveWhilePromptedQuestion;
     
@@ -55,13 +55,13 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public AudioClip clickSound;
 
-    public Color inventoryItemUnavailable;
-
     public Transform animatorObject;
     
     private void Start()
     {
         xPPoint.text = "00";
+        inventoryPanel.SetActive(false);
+        upgradesPanel.SetActive(false);
     }
 
     
@@ -72,40 +72,75 @@ public class UIController : MonoBehaviour, IDataPersistance
     
     private void FixedUpdate()
     {
-        xPPoint.text = playerSupervisor.XP + " / " + playerSupervisor.experienceRequired;
+        xPPoint.text = "XP:" + playerSupervisor.XP + "/" + playerSupervisor.experienceRequired;
         levelInfo.text = "Level: " + playerSupervisor.level;
     }
     private void Update()
     {
-        if (inventoryHealthPickupAmount == 0)
+        if (inventoryHealthPickupAmount > 0)
         {
-            inventoryButtonsInPanel[2].GetComponent<Animator>().enabled = false;
-            changeItemColor(inventoryButtonsInPanel[2].image, false);
+            inventoryButtonsInPanel[2].GetComponent<Animator>().enabled = true;
         }
-        inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryHealthPickupAmount;
+        else
+        {
+            inventoryButtonsInPanel[2].GetComponent<Animator>().enabled =false;
+        }
 
-        if (inventoryBoostPickupAmount == 0)
+        inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventoryHealthPickupAmount + "/3";
+
+        if (inventoryBoostPickupAmount > 0)
+        {
+            inventoryButtonsInPanel[3].GetComponent<Animator>().enabled = true;
+        }
+        else
         {
             inventoryButtonsInPanel[3].GetComponent<Animator>().enabled = false;
-            changeItemColor(inventoryButtonsInPanel[3].image, false);
         }
-        inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryBoostPickupAmount;
+
+        inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventoryBoostPickupAmount + "/5";
 
     }
-    public void ExitPanel()
+
+    public void OpenInventory()
     {
-        SetActiveInList(inactiveWhilePaused, true);
-        Time.timeScale = 1;
+        SetTimeScale();
+        inventoryPanel.SetActive(true);
     }
-    public void PauseGame()
+    public void ExitInventory()
     {
-        Time.timeScale = 0;
-        SetActiveInList(inactiveWhilePaused, false);
+        
+        StartCoroutine(AnimationDelay("ExitInventory", 0.5f));
+    }
+
+    public void OpenUpgradesPanel()
+    {
+        //SetTimeScale();
+        upgradesPanel.SetActive(true);
+    }
+
+    public void ExitUpgradesPanel()
+    {
+        //SetTimeScale();
+        StartCoroutine(AnimationDelay("ExitUpgrades", 1f));
+    }
+
+    private void SetTimeScale()
+    {
+        Time.timeScale = (Time.timeScale == 0) ? 1 : 0;
+
+        if (Time.timeScale > 0)
+        {
+            SetActiveInList(inactiveWhilePaused, true);
+        }
+        else
+        {
+            SetActiveInList(inactiveWhilePaused, false);
+        }
+
     }
     public void ReturnToMainMenu()
     {
-        Time.timeScale = 1;
-        StartCoroutine(AnimationDelay());
+       StartCoroutine(AnimationDelay("MainMenu", 1f));
     }
 
     private void OnCombatChanged(bool isInCombat, string situation)
@@ -162,11 +197,10 @@ public class UIController : MonoBehaviour, IDataPersistance
     public void IncreaseHealthFromInventory()
     {
         if (playerTakeDamage.currentHealth < playerTakeDamage.maxHealth && inventoryHealthPickupAmount > 0)
-
         {
             playerTakeDamage.currentHealth += healthPickupAmountToIncrease;
             inventoryHealthPickupAmount -= 1;
-            playerTakeDamage.UpdateHealthBar();      
+            playerTakeDamage.UpdateHealthBar();
         }
     }
 
@@ -204,12 +238,9 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
     }
     
-    private void changeItemColor (Image image, bool isAvailable)
+    private void changeItemColor (GameObject gameObject)
     {
-        if (!isAvailable)
-        {
-            image.color = inventoryItemUnavailable; //färg för icke-tillgängliga items
-        }
+        gameObject.GetComponent<Animator>().SetTrigger("Disabled");
     }
 
     //tillagt av Elias: uppgradderingar :D
@@ -484,10 +515,35 @@ public class UIController : MonoBehaviour, IDataPersistance
         inventoryBoostPickupAmount = 0;
 
     }
-    private IEnumerator AnimationDelay()
+
+
+    private IEnumerator AnimationDelay(String command, float delay)
     {
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(0);
+        if (command == "ExitInventory")
+        {
+            inventoryPanel.GetComponent<Animator>().SetTrigger("End");
+            yield return new WaitForSecondsRealtime(delay);
+            inventoryPanel.SetActive(false);
+            SetTimeScale();
+
+        }
+        if(command == "MainMenu")
+        {
+            yield return new WaitForSecondsRealtime(delay);
+            SceneManager.LoadScene(0);
+        }
+
+        if (command == "ExitUpgrades")
+        {
+            upgradesPanel.GetComponent<Animator>().SetTrigger("End");
+            yield return new WaitForSecondsRealtime(delay);
+            
+            upgradesPanel.SetActive(false);
+            
+
+        }
+
+
 
     }
 

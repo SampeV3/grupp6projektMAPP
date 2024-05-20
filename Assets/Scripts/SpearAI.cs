@@ -72,6 +72,7 @@ public class SpearAI : EnemyMonoBehaviour
                 if (combatCoroutine != null)
                 {
                     StopCoroutine(combatCoroutine);
+                    StopCoroutine(rotateCoroutine);
                 }
             }
         }
@@ -187,6 +188,7 @@ public class SpearAI : EnemyMonoBehaviour
             if (combatCoroutine != null)
             {
                 StopCoroutine(combatCoroutine);
+                StopCoroutine(rotateCoroutine);
             }
             sprd.color = Color.red;
             dropLoot();
