@@ -55,8 +55,6 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public AudioClip clickSound;
 
-    public Color inventoryItemUnavailable;
-
     public Transform animatorObject;
     
     private void Start()
@@ -79,19 +77,27 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
     private void Update()
     {
-        if (inventoryHealthPickupAmount == 0)
+        if (inventoryHealthPickupAmount > 0)
         {
-            inventoryButtonsInPanel[2].GetComponent<Animator>().enabled = false;
-            changeItemColor(inventoryButtonsInPanel[2].image, false);
+            inventoryButtonsInPanel[2].GetComponent<Animator>().enabled = true;
         }
+        else
+        {
+            inventoryButtonsInPanel[2].GetComponent<Animator>().enabled =false;
+        }
+
         inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventoryHealthPickupAmount + "/3";
 
-        if (inventoryBoostPickupAmount == 0)
+        if (inventoryBoostPickupAmount > 0)
+        {
+            inventoryButtonsInPanel[3].GetComponent<Animator>().enabled = true;
+        }
+        else
         {
             inventoryButtonsInPanel[3].GetComponent<Animator>().enabled = false;
-            changeItemColor(inventoryButtonsInPanel[3].image, false);
         }
-        inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + inventoryBoostPickupAmount;
+
+        inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventoryBoostPickupAmount + "/5";
 
     }
 
@@ -190,7 +196,7 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public void IncreaseHealthFromInventory()
     {
-        if (playerTakeDamage.currentHealth < playerTakeDamage.maxHealth && inventoryBoostPickupAmount > 0)
+        if (playerTakeDamage.currentHealth < playerTakeDamage.maxHealth && inventoryHealthPickupAmount > 0)
         {
             playerTakeDamage.currentHealth += healthPickupAmountToIncrease;
             inventoryHealthPickupAmount -= 1;
@@ -232,12 +238,9 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
     }
     
-    private void changeItemColor (Image image, bool isAvailable)
+    private void changeItemColor (GameObject gameObject)
     {
-        if (!isAvailable)
-        {
-            image.color = inventoryItemUnavailable; //färg för icke-tillgängliga items
-        }
+        gameObject.GetComponent<Animator>().SetTrigger("Disabled");
     }
 
     //tillagt av Elias: uppgradderingar :D
