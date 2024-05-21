@@ -42,6 +42,21 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd8c7b47179adf243aa2d29031d7a7a2
+    m_Address: Assets/LocaleSettings/Tables/GeneralInGame Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0254bb6a239688e4ba6c2b55aee6c507
+    m_Address: Assets/LocaleSettings/Tables/PopUpsInGame Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 24f86ba552992534b876554e99d0ea37
+    m_Address: Assets/LocaleSettings/Tables/InventoryPanel Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 3adbec62c589a1040a66074d9dc91315, type: 2}
   m_SchemaSet:

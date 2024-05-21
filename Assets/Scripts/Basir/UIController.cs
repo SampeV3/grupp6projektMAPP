@@ -77,7 +77,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     private void FixedUpdate()
     {
         xPPoint.text = "XP:" + playerSupervisor.XP + "/" + playerSupervisor.experienceRequired;
-        levelInfo.text = "Level: " + playerSupervisor.level;
+        levelInfo.text = ": " + playerSupervisor.level;
     }
     private void Update()
     {
