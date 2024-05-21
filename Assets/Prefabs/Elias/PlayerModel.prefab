@@ -13909,7 +13909,7 @@ MonoBehaviour:
   - {fileID: 2633762169044085051}
   shopLabelText: {fileID: 4145896142465505538}
   inactiveWhilePlayerFrozen:
-  - {fileID: 0}
+  - {fileID: 2886545901016887493}
   - {fileID: 1195882856954082024}
   - {fileID: 862636875313274779}
   - {fileID: 872894926314509509}

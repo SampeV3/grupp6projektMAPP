@@ -126,6 +126,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 
 
         onPermaDeath.Invoke();
+        //gameObject.GetComponent<Animator>().SetBool("IsDead", true);
         //Spela upp player death animation? effekter? ljud? delay?
         //lägg till scripts till eventet. 
 
