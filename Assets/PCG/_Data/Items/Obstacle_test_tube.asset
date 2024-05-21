@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a83f2a5bea8447489822be80764763e, type: 3}
-  m_Name: Torch
+  m_Name: Obstacle_test_tube
   m_EditorClassIdentifier: 
-  sprite: {fileID: 5860325458425312261, guid: a0d3fbbc155eb404a87f827b40a48dfe, type: 3}
+  sprite: {fileID: 21300000, guid: cdd3b4f798a638d479be3aca6ecc8efd, type: 3}
   size: {x: 1, y: 1}
   placementType: 1
-  addOffset: 0
-  health: -1
-  nonDestructible: 1
+  addOffset: 1
+  health: 1
+  nonDestructible: 0
