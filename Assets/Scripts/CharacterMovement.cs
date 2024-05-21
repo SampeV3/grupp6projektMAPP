@@ -48,10 +48,7 @@ public class CharacterMovement : MonoBehaviour
         }
         this.transform.position = Vector2.MoveTowards(character.transform.position, targetPosition, click_towards_speed * Time.deltaTime);
 
-        if (gameObject.GetComponent<PlayerTakeDamage>().currentHealth < 0)
-        {
-            anim.SetBool("IsDead", true);
-        }
+        
     }
 
     private void FixedUpdate()
