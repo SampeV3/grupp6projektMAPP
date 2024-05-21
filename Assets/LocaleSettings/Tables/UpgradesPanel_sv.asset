@@ -23,15 +23,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1251500699648
-    m_Localized: "F\xF6rb\xE4ttra r\xF6relsehastigheten med:"
+    m_Localized: 'Uppgradera spelarhastigheten med (silver):'
     m_Metadata:
       m_Items: []
   - m_Id: 1739533135872
-    m_Localized: "F\xF6rb\xE4ttra streckhastigheten med:"
+    m_Localized: 'Upgradera streckhastigheten med (silver):'
     m_Metadata:
       m_Items: []
   - m_Id: 1938674495488
-    m_Localized: "F\xF6rb\xE4ttra streckets varaktighet med:"
+    m_Localized: 'Upgradera streckets varaktighet med (silver):'
     m_Metadata:
       m_Items: []
   - m_Id: 2106798977024
@@ -41,7 +41,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2325141860352
-    m_Localized: "F\xF6rb\xE4ttra h\xE4lsans varaktighet med:"
+    m_Localized: "Uppgradera h\xE4lsans varaktighet med:"
     m_Metadata:
       m_Items: []
   references:

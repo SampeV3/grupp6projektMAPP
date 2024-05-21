@@ -62,8 +62,13 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 
     public Button healthBar;
 
+    private Animator anim;
+
+    public TextMeshProUGUI killerDialouge1;
+
     void Start()
     {
+        anim = GetComponent<Animator>();
         currentHealth = maxHealth;
         healthBar.GetComponent<Image>().sprite = healthBarSprites[maxHealth];
         if (spawnTransform == null)
@@ -176,6 +181,8 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         if (currentHealth <= 0 && !playerDied)
         {
             playerDied = true;
+            anim.SetBool("IsDead", true);
+
             if (Nemesis.NemesisController.nemesisEnabled && other.gameObject.GetComponent<BulletID>() != null)
             {
                 onFreezeActions.Invoke();
@@ -195,6 +202,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             }
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         int damageAmount = 1;
@@ -243,7 +251,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         enemyData.name = randomName;
         enemyData.enemyType = superEnemyClass.enemyType;
         
-        string killerDialouge = "Hahaha! I killed you! Now that might even give me a promotion!";
+        string killerDialouge = killerDialouge1.text; //Uppdateras med Localization
         
         
         MoveCameraClass moveCam = new MoveCameraClass

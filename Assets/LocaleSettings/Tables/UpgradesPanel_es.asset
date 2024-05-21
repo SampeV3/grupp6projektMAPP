@@ -23,15 +23,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1251500699648
-    m_Localized: 'Mejore la velocidad de movimiento con:'
+    m_Localized: 'Mejore la velocidad de movimiento con (plata):'
     m_Metadata:
       m_Items: []
   - m_Id: 1739533135872
-    m_Localized: 'Mejore la velocidad del tablero con:'
+    m_Localized: 'Mejore la velocidad del tablero con (plata):'
     m_Metadata:
       m_Items: []
   - m_Id: 1938674495488
-    m_Localized: "Mejore la duraci\xF3n del gui\xF3n con:"
+    m_Localized: "Mejore la duraci\xF3n del gui\xF3n con (plata):"
     m_Metadata:
       m_Items: []
   - m_Id: 2106798977024
