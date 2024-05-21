@@ -30,6 +30,7 @@ public class MinibossAI : EnemyMonoBehaviour
     private static int dmgMultiplier = 1;
     void Start()
     {
+        spawnLevelPortal();
         //tilldela värden på variabler
         beamDirection = 1;
         HP = 175;

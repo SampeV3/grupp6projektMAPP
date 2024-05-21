@@ -4138,7 +4138,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 197.41998, y: 64.95999}
+  m_AnchoredPosition: {x: 197.41998, y: 64.95996}
   m_SizeDelta: {x: 1432.2, y: 1383.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &207250664908126817
@@ -15736,6 +15736,10 @@ MonoBehaviour:
   - {fileID: 2886545901016887493}
   - {fileID: 715884746634807349}
   inactiveWhilePromptedQuestion: []
+  inactiveWhilePlayerFrozen:
+  - {fileID: 1195882856954082024}
+  - {fileID: 862636875313274779}
+  - {fileID: 872894926314509509}
   playerSupervisor: {fileID: 2865775353507046388}
   playerTakeDamage: {fileID: 4327680178570334430}
   xPPoint: {fileID: 5126506848938497498}
@@ -15759,11 +15763,6 @@ MonoBehaviour:
   - {fileID: 2041072995753216677}
   - {fileID: 2633762169044085051}
   shopLabelText: {fileID: 4145896142465505538}
-  inactiveWhilePlayerFrozen:
-  - {fileID: 0}
-  - {fileID: 1195882856954082024}
-  - {fileID: 862636875313274779}
-  - {fileID: 872894926314509509}
   promptFields: {fileID: 7323434508024323977}
 --- !u!82 &1090298304947279448
 AudioSource:
@@ -15883,6 +15882,7 @@ GameObject:
   - component: {fileID: 1664027291227482255}
   - component: {fileID: 4236000308082319359}
   - component: {fileID: 5487545113499771646}
+  - component: {fileID: 860616790108273139}
   m_Layer: 3
   m_Name: CharacterSprite
   m_TagString: Player
@@ -16368,6 +16368,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &860616790108273139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7726589997728872495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba025a266743dfd489caae948e22caa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  questionText: 
+  cancelText: 
+  progressText: 
+  uiController: {fileID: 2429949363606016822}
 --- !u!1 &7811106870592160213
 GameObject:
   m_ObjectHideFlags: 0
@@ -16953,7 +16970,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.022000002, y: 0.12617034}
   m_AnchorMax: {x: 0.51100004, y: 1}
-  m_AnchoredPosition: {x: 257.807, y: -7.500229}
+  m_AnchoredPosition: {x: 257.807, y: -7.500244}
   m_SizeDelta: {x: 97.26001, y: -49.124}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2087635434140815257
@@ -17011,7 +17028,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55
+  m_fontSize: 28.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

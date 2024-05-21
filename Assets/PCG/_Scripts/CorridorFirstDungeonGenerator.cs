@@ -8,6 +8,11 @@ using UnityEngine.Events;
 
 public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 {
+    private void Awake()
+    {
+        QualitySettings.vSyncCount = 0; //IMPORTANT GAME CRASHES IF SET TO OTHER THING
+    }
+
     //PCG parameters
     [SerializeField]
     private int corridorLength = 14, corridorCount = 5;

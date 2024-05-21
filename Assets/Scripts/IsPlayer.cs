@@ -67,7 +67,7 @@ public abstract class EnemyMonoBehaviour : MonoBehaviour
         instances.Add(this);
         Nemesis.NemesisController.OnEnemySpawned(this);
     }
-
+    
     protected virtual void OnDestroy()
     {
         // don't forget to also remove yourself at the end of your lifetime
@@ -84,8 +84,15 @@ public class IsPlayer : MonoBehaviour
 {
     public Transform playerTransform;
     //Jag la till denna kodsnutt f�r att g�ra det enklare i editorn. /Elias
+    public static Transform staticPlayerTransform;
+    
     public static Transform FindPlayerTransformAutomaticallyIfNull()
     {
+        if (staticPlayerTransform)
+        {
+            return staticPlayerTransform;
+        }
+        
         // get root objects in scene
         List<GameObject> rootObjects = new List<GameObject>();
         Scene scene = SceneManager.GetActiveScene();
@@ -97,6 +104,7 @@ public class IsPlayer : MonoBehaviour
             GameObject gameObject = rootObjects[i];
             if (gameObject.GetComponent<IsPlayer>())
             {
+                staticPlayerTransform = gameObject.GetComponent<IsPlayer>().playerTransform;
                 return gameObject.GetComponent<IsPlayer>().playerTransform;
             }
         }

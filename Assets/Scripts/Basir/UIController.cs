@@ -38,7 +38,8 @@ public class UIController : MonoBehaviour, IDataPersistance
     public GameObject inventoryButton, pauseButton, inventoryPanel, upgradesPanel, playerCharacter;
     public List<GameObject> inactiveWhilePaused;
     public List<GameObject> inactiveWhilePromptedQuestion;
-    
+    public List<GameObject> inactiveWhilePlayerFrozen;
+
 
     public PlayerSupervisor playerSupervisor;
     public PlayerTakeDamage playerTakeDamage;
@@ -503,7 +504,6 @@ public class UIController : MonoBehaviour, IDataPersistance
         //OnOpenUpgradeMenu();
     }
 
-    [SerializeField] private List<GameObject> inactiveWhilePlayerFrozen;
     public void OnCharacterFrozen()
     {
         SetActiveInList(inactiveWhilePlayerFrozen, false);    

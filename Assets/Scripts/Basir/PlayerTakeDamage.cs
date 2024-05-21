@@ -123,9 +123,9 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     {
         
         if (OnRespawn != null) OnRespawn(this); //trigga eventet s� att andra script kan lyssna.
-
-
+        
         onPermaDeath.Invoke();
+        
         //Spela upp player death animation? effekter? ljud? delay?
         //lägg till scripts till eventet. 
 
@@ -232,6 +232,11 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         
         GameObject enemy = info.KillerGameObject;
         EnemyMonoBehaviour superEnemyClass = enemy.GetComponent<EnemyMonoBehaviour>();
+        if (superEnemyClass == null)
+        {
+            if (ExecuteDoRespawn != null) ExecuteDoRespawn();
+            return;
+        }
         EnemyData enemyData = superEnemyClass.GetEnemyData() != null ? superEnemyClass.GetEnemyData() : new EnemyData();
         enemyData.SetDidEncounter(true); // ????
         
@@ -251,12 +256,13 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             targetTransform = enemy.transform,
             dialougeText = killerDialouge,
             callbackMethodName = null,
-            doRespawn = true
+            doRespawn = true //sätt till false för game over menu (play again knapp, kalla doRespawn()
         };
         StartCoroutine(CameraToTarget(moveCam));
         
         print("Create new killer EnemyData");
         superEnemyClass.SetEnemyData(enemyData);
+        
         if (OnKilledBy != null) OnKilledBy(this, enemyData, info.KillerGameObject);
     }
     

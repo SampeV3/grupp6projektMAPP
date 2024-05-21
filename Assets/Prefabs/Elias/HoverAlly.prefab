@@ -235,17 +235,18 @@ MonoBehaviour:
   showPath: 1
   showAhead: 1
   offsetPosition: {x: 0, y: 2, z: 0}
+  alliedToPlayer: 1
+  projectilePrefab: {fileID: 7557707295270203167, guid: 070402002764f414cb9b242074fc32e0, type: 3}
+  rangedTarget: {fileID: 0}
+  attackRange: 10
+  HP: 5
+  shootDelay: 3
   obstacleMask:
     serializedVersion: 2
     m_Bits: 64
   targetMask:
     serializedVersion: 2
     m_Bits: 1
-  projectilePrefab: {fileID: 7557707295270203167, guid: 070402002764f414cb9b242074fc32e0, type: 3}
-  rangedTarget: {fileID: 0}
-  attackRange: 10
-  HP: 5
-  shootDelay: 3
 --- !u!70 &-8318194841637667076
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

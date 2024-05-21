@@ -76,3 +76,5 @@ crashlytics-build.properties
 .DS_Store
 **/.DS_Store
 Assets/Plugins/CodeAssist/Editor/ExternalReferences/SystemBinariesForDotNetStandard20.unitypackage.meta
+Assets/Animations/InGameAnimations/Elevator/test.data
+Assets/Animations/InGameAnimations/Elevator/test.data.meta

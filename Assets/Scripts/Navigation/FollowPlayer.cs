@@ -7,6 +7,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 public class Chase : MonoBehaviour
 {
+    
+    public static ArrayList otherEnemies = new ArrayList();
     [SerializeField] private Transform target;
     private NavMeshAgent agent;
     private bool stop;
@@ -14,6 +16,7 @@ public class Chase : MonoBehaviour
     public bool showAhead;
     public Vector3 offsetPosition = new Vector3(0, 0, 0);
     public bool alliedToPlayer = true;
+    
     
     public GameObject projectilePrefab;
     public Transform rangedTarget;
@@ -40,7 +43,18 @@ public class Chase : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        if (!alliedToPlayer)
+        {
+            otherEnemies.Add(this.gameObject);
+        }
+    }
 
+    private void OnDestroy()
+    {
+        if (!alliedToPlayer)
+        {
+            otherEnemies.Remove(this.gameObject);
+        }
     }
 
     private void Awake()
@@ -72,7 +86,15 @@ public class Chase : MonoBehaviour
                 closestEnemy = enemy.gameObject.transform;
             }
         }
-
+        foreach (GameObject enemy in otherEnemies)
+        {
+            float distance = Vector3.Distance(this.transform.position, enemy.gameObject.transform.position);
+            if (distance < closest)
+            {
+                closest = distance;
+                closestEnemy = enemy.gameObject.transform;
+            }
+        }
         return closestEnemy;
     }
     
@@ -97,6 +119,11 @@ public class Chase : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         projectile.GetComponent<Rigidbody2D>().rotation = angle;
         projectile.GetComponent<Rigidbody2D>().velocity = direction * 3.5f;
+        if (!alliedToPlayer)
+        {
+            BulletID bulletID = projectile.GetComponent<BulletID>(); //spar data om vem som skadar spelaren i kulan så vi kan räkna ut vem som dödade den !
+            bulletID.KillerGameObject = gameObject;
+        }
     }
     
     //control loop
@@ -147,4 +174,5 @@ public class Chase : MonoBehaviour
     {
         Navigate.DrawGizmos(agent, showPath, showAhead);
     }
+    
 }

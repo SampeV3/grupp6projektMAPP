@@ -206,7 +206,7 @@ NavMeshAgent:
   m_Height: 1.25
   m_BaseOffset: 0.625
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!114 &4545743627234775992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,21 +232,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  showPath: 1
-  showAhead: 1
-  offsetPosition: {x: 0, y: 2, z: 0}
+  showPath: 0
+  showAhead: 0
+  offsetPosition: {x: 0, y: 0, z: 0}
   alliedToPlayer: 0
+  projectilePrefab: {fileID: 7557707295270203167, guid: 0fde888cd53bfac4d83ca659c1aa29bd, type: 3}
+  rangedTarget: {fileID: 0}
+  attackRange: 20
+  HP: 10
+  shootDelay: 1
   obstacleMask:
     serializedVersion: 2
     m_Bits: 64
   targetMask:
     serializedVersion: 2
     m_Bits: 1
-  projectilePrefab: {fileID: 7557707295270203167, guid: 0fde888cd53bfac4d83ca659c1aa29bd, type: 3}
-  rangedTarget: {fileID: 0}
-  attackRange: 20
-  HP: 10
-  shootDelay: 1
 --- !u!70 &-8318194841637667076
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

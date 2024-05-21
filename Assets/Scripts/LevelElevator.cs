@@ -62,26 +62,11 @@ public class LevelElevator : PromptQuestion
     {
         print(other.gameObject.tag);
         print(other.gameObject.tag.Equals("LevelElevator") && canOpenPrompt);
-        if (other.gameObject.tag.Equals("LevelElevator") && canOpenPrompt)
+        if (other.gameObject.CompareTag("LevelElevator") && canOpenPrompt)
         {
             canOpenPrompt = false;
             StartCoroutine(Open());
         }
     }
-
-    private int i = 1;
-    private void Start()
-    {
-        i++;
-        if (i > 5)
-        {
-            
-        }
-        else
-        {
-            //if (BeforeNextLevel != null) BeforeNextLevel();
-            //if (ToNextLevel != null) ToNextLevel();
-        }
-        
-    }
+    
 }
