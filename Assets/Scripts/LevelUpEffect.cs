@@ -31,7 +31,7 @@ public class LevelUpEffect : MonoBehaviour
     void OnLevelUp(int level)
     {
         levelUIParentToHideAndShow.SetActive(true);
-        description.text = "Level Up!";
+        //description.text = "Level Up!"; //Kommer uppdateras med localization
         levelText.text = "" + level;
         Invoke(nameof(Hide), timeToShow);
     }

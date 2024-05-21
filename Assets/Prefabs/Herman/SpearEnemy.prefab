@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1607346823342292292}
   - component: {fileID: 2036017114648096245}
   - component: {fileID: 3531516327751453957}
+  - component: {fileID: 1562471135323782633}
   m_Layer: 4
   m_Name: SpearEnemy
   m_TagString: Spear
@@ -267,6 +268,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KillerGameObject: {fileID: 2750494643715559943}
+--- !u!114 &1562471135323782633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2750494643715559943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473a50d880c997f478830523af273c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 0}
+  lootList: []
 --- !u!1 &3321344052363346186
 GameObject:
   m_ObjectHideFlags: 0

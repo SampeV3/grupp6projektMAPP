@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -34,8 +35,9 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
 
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
-    
-    public GameObject inventoryButton, pauseButton, inventoryPanel, upgradesPanel, playerCharacter;
+
+    public GameObject inventoryButton, pauseButton, inventoryPanel, upgradesPanel, pausePanel, playerCharacter;
+    public GameObject settingsPanelInPausePanel, audioSettingsPanel, GeneralSettingsPanel, tutorialInSettingsPanel;
     public List<GameObject> inactiveWhilePaused;
     public List<GameObject> inactiveWhilePromptedQuestion;
     public List<GameObject> inactiveWhilePlayerFrozen;
@@ -65,6 +67,8 @@ public class UIController : MonoBehaviour, IDataPersistance
         xPPoint.text = "00";
         inventoryPanel.SetActive(false);
         upgradesPanel.SetActive(false);
+        pausePanel.SetActive(false);
+        settingsPanelInPausePanel.SetActive(false);
     }
 
     
@@ -76,7 +80,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     private void FixedUpdate()
     {
         xPPoint.text = "XP:" + playerSupervisor.XP + "/" + playerSupervisor.experienceRequired;
-        levelInfo.text = "Level: " + playerSupervisor.level;
+        levelInfo.text = ": " + playerSupervisor.level;
     }
     private void Update()
     {
@@ -104,6 +108,31 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     }
 
+    public void OpenPausePanel()
+    {
+        SetTimeScale();
+        pausePanel.SetActive(true);
+
+    }
+
+    public void ExitPausePanel()
+    {
+        StartCoroutine(AnimationDelay("ExitPausePanel", pausePanel, 1f));
+    }
+
+    public void openSettingsPanelInPausePanel()
+    {
+        settingsPanelInPausePanel.SetActive(true);
+    }
+
+    public void ExitAnyPanelInSettingsPanel(GameObject gameObject)
+    {
+        StartCoroutine(AnimationDelay("ExitPanelInPanel", gameObject, 1f));
+    }
+    public void ExitSettingsPanelInPausePanel()
+    {
+        StartCoroutine(AnimationDelay("ExitSettingsPanel", settingsPanelInPausePanel, 1f));
+    }
     public void OpenInventory()
     {
         SetTimeScale();
@@ -112,7 +141,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     public void ExitInventory()
     {
         
-        StartCoroutine(AnimationDelay("ExitInventory", 0.5f));
+        StartCoroutine(AnimationDelay("ExitInventory", inventoryPanel, 0.5f));
     }
 
     public void OpenUpgradesPanel()
@@ -124,7 +153,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     public void ExitUpgradesPanel()
     {
         //SetTimeScale();
-        StartCoroutine(AnimationDelay("ExitUpgrades", 1f));
+        StartCoroutine(AnimationDelay("ExitUpgrades", upgradesPanel, 1f));
     }
 
     private void SetTimeScale()
@@ -143,7 +172,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
     public void ReturnToMainMenu()
     {
-       StartCoroutine(AnimationDelay("MainMenu", 1f));
+       StartCoroutine(AnimationDelay("MainMenu", null, 1f));
     }
 
     private void OnCombatChanged(bool isInCombat, string situation)
@@ -504,6 +533,7 @@ public class UIController : MonoBehaviour, IDataPersistance
         //OnOpenUpgradeMenu();
     }
 
+    [SerializeField] private List<GameObject> inactiveWhilePlayerFrozen;
     public void OnCharacterFrozen()
     {
         SetActiveInList(inactiveWhilePlayerFrozen, false);    
@@ -523,13 +553,13 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
 
 
-    private IEnumerator AnimationDelay(String command, float delay)
+    private IEnumerator AnimationDelay(String command,GameObject gameObject, float delay)
     {
         if (command == "ExitInventory")
         {
-            inventoryPanel.GetComponent<Animator>().SetTrigger("End");
+            gameObject.GetComponent<Animator>().SetTrigger("End");
             yield return new WaitForSecondsRealtime(delay);
-            inventoryPanel.SetActive(false);
+            gameObject.SetActive(false);
             SetTimeScale();
 
         }
@@ -541,12 +571,52 @@ public class UIController : MonoBehaviour, IDataPersistance
 
         if (command == "ExitUpgrades")
         {
-            upgradesPanel.GetComponent<Animator>().SetTrigger("End");
+            gameObject.GetComponent<Animator>().SetTrigger("End");
             yield return new WaitForSecondsRealtime(delay);
             
-            upgradesPanel.SetActive(false);
+            gameObject.SetActive(false);
             
 
+        }
+
+        if (command == "ExitPausePanel")
+        {
+            gameObject.GetComponent<Animator>().SetTrigger("End");
+            yield return new WaitForSecondsRealtime(delay);
+            gameObject.SetActive(false);
+            SetTimeScale();
+        }
+
+        if (command == "ExitSettingsPanel")
+        {
+            yield return new WaitForSecondsRealtime(delay / 3);
+            audioSettingsPanel.SetActive(false);
+            tutorialInSettingsPanel.SetActive(false);
+            GeneralSettingsPanel.SetActive(false);
+            gameObject.GetComponent<Animator>().SetTrigger("End");
+            yield return new WaitForSecondsRealtime(delay * 0.68f);
+            gameObject.SetActive(false);
+
+        }
+
+        if (command == "ExitPanelInPanel")
+        {
+            yield return new WaitForSecondsRealtime(delay / 3);
+            if (gameObject == audioSettingsPanel)
+            {
+                GeneralSettingsPanel.SetActive(false);
+                tutorialInSettingsPanel.SetActive(false) ;
+            }
+            if (gameObject == GeneralSettingsPanel)
+            {
+                audioSettingsPanel.SetActive(false);
+                tutorialInSettingsPanel.SetActive(false);
+            }
+            if (gameObject == tutorialInSettingsPanel)
+            {
+                GeneralSettingsPanel.SetActive(false);
+                audioSettingsPanel.SetActive(false);
+            }
         }
 
 

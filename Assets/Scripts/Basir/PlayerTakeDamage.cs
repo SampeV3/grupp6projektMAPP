@@ -123,9 +123,10 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     {
         
         if (OnRespawn != null) OnRespawn(this); //trigga eventet s� att andra script kan lyssna.
-        
+
+
         onPermaDeath.Invoke();
-        
+        //gameObject.GetComponent<Animator>().SetBool("IsDead", true);
         //Spela upp player death animation? effekter? ljud? delay?
         //lägg till scripts till eventet. 
 
@@ -262,7 +263,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         
         print("Create new killer EnemyData");
         superEnemyClass.SetEnemyData(enemyData);
-        
+
         if (OnKilledBy != null) OnKilledBy(this, enemyData, info.KillerGameObject);
     }
     
