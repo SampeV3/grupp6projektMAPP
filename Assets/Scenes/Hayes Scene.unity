@@ -373,6 +373,7 @@ MonoBehaviour:
   inventoryButton: {fileID: 1548585100}
   pauseButton: {fileID: 1483147218}
   inactiveWhileInventoryOpen: []
+  inactiveWhilePromptedQuestion: []
   inactiveWhilePause: []
   playerSupervisor: {fileID: 2081502779}
   playerTakeDamage: {fileID: 0}
@@ -391,6 +392,7 @@ MonoBehaviour:
   upgradeReferenceClasses: []
   shopLabelText: {fileID: 0}
   inactiveWhilePlayerFrozen: []
+  promptFields: {fileID: 0}
 --- !u!1001 &239974493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10332,7 +10334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4862111675377955003, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00036621094
+      value: 0.00012207031
       objectReference: {fileID: 0}
     - target: {fileID: 5165008194509831980, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_AnchorMax.x
@@ -10348,6 +10350,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5216616681716111260, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216616681716111260, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6375144792777688254, guid: fa0e45d85c9dca049b516c0ed14d72e9, type: 3}
