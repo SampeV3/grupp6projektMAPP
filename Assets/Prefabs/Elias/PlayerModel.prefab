@@ -11755,7 +11755,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.7847516, y: 0.71953285}
   m_AnchorMax: {x: 0.9742586, y: 0.9695012}
-  m_AnchoredPosition: {x: 122.999725, y: 86.69971}
+  m_AnchoredPosition: {x: 122.999756, y: 86.69971}
   m_SizeDelta: {x: -224.9, y: -65.28999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4822470515574501918
@@ -13873,6 +13873,7 @@ MonoBehaviour:
   inventoryPanel: {fileID: 2664994061003732979}
   upgradesPanel: {fileID: 8661509773083481886}
   pausePanel: {fileID: 6758899818699761756}
+  playerCharacter: {fileID: 0}
   settingsPanelInPausePanel: {fileID: 6912294531402853556}
   audioSettingsPanel: {fileID: 7060534882034456633}
   GeneralSettingsPanel: {fileID: 2880718631924325362}
@@ -13885,6 +13886,11 @@ MonoBehaviour:
   - {fileID: 2886545901016887493}
   - {fileID: 715884746634807349}
   inactiveWhilePromptedQuestion: []
+  inactiveWhilePlayerFrozen:
+  - {fileID: 2886545901016887493}
+  - {fileID: 1195882856954082024}
+  - {fileID: 862636875313274779}
+  - {fileID: 872894926314509509}
   playerSupervisor: {fileID: 2865775353507046388}
   playerTakeDamage: {fileID: 4327680178570334430}
   xPPoint: {fileID: 5126506848938497498}
@@ -13908,11 +13914,6 @@ MonoBehaviour:
   - {fileID: 2041072995753216677}
   - {fileID: 2633762169044085051}
   shopLabelText: {fileID: 4145896142465505538}
-  inactiveWhilePlayerFrozen:
-  - {fileID: 2886545901016887493}
-  - {fileID: 1195882856954082024}
-  - {fileID: 862636875313274779}
-  - {fileID: 872894926314509509}
   promptFields: {fileID: 7323434508024323977}
 --- !u!82 &1090298304947279448
 AudioSource:
@@ -14311,6 +14312,7 @@ GameObject:
   - component: {fileID: 1664027291227482255}
   - component: {fileID: 4236000308082319359}
   - component: {fileID: 5487545113499771646}
+  - component: {fileID: 5680441536478020640}
   m_Layer: 3
   m_Name: CharacterSprite
   m_TagString: Player
@@ -14796,6 +14798,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5680441536478020640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7726589997728872495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba025a266743dfd489caae948e22caa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  questionText: 
+  cancelText: 
+  progressText: 
+  uiController: {fileID: 2429949363606016822}
 --- !u!1 &7744600396994153774
 GameObject:
   m_ObjectHideFlags: 0
@@ -18731,7 +18750,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1867023723309860827, guid: 95e6f50e4795c0e44bd1d973fd520403, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 187.49991
+      value: 187.49994
       objectReference: {fileID: 0}
     - target: {fileID: 1867023723309860827, guid: 95e6f50e4795c0e44bd1d973fd520403, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

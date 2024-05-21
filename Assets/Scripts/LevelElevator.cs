@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 public class LevelElevator : PromptQuestion
 {
-    private bool canOpenPrompt = true;
+    private static bool canOpenPrompt = true;
     public UIController uiController;
     public delegate void GoToNextLevel();
 

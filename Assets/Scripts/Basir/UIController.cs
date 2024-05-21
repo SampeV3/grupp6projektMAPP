@@ -533,7 +533,6 @@ public class UIController : MonoBehaviour, IDataPersistance
         //OnOpenUpgradeMenu();
     }
 
-    [SerializeField] private List<GameObject> inactiveWhilePlayerFrozen;
     public void OnCharacterFrozen()
     {
         SetActiveInList(inactiveWhilePlayerFrozen, false);    
