@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: PausePanel_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 2da3fc2d41d67974cb99c62cf9dfa803, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 483271979008
+    m_Localized: Game Paused
+    m_Metadata:
+      m_Items: []
+  - m_Id: 490075140096
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 983161712640
+    m_Localized: Main Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1288444129280
+    m_Localized: System Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1725104730112
+    m_Localized: Here will be a tutorial series...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3084411547648
+    m_Localized: General
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5018468036608
+    m_Localized: Are you sure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5253877542912
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5323532349440
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10101754769408
+    m_Localized: Game Over
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10892125220864
+    m_Localized: Play Again
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
