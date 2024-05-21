@@ -17,7 +17,33 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 28105bd4a6eaac546a749060ed3941ff, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 7713402880
+    m_Localized: 'Balance (Silver : Gold):'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1251500699648
+    m_Localized: 'Improve move speed by:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1739533135872
+    m_Localized: 'Improve dash speed by:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1938674495488
+    m_Localized: 'Improve dash duration by:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2106798977024
+    m_Localized: 'Gold
+
+      (Permanent)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2325141860352
+    m_Localized: 'Improve health grace duration with:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -13,8 +13,32 @@ MonoBehaviour:
   m_Name: UpgradesPanel Shared Data
   m_EditorClassIdentifier: 
   m_TableCollectionName: UpgradesPanel
-  m_TableCollectionNameGuidString: 00000000000000000000000000000000
-  m_Entries: []
+  m_TableCollectionNameGuidString: 28105bd4a6eaac546a749060ed3941ff
+  m_Entries:
+  - m_Id: 7713402880
+    m_Key: upgradesInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1251500699648
+    m_Key: moveSpead
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1739533135872
+    m_Key: dashSpeed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1938674495488
+    m_Key: dashDuration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2106798977024
+    m_Key: gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2325141860352
+    m_Key: healthGrace
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

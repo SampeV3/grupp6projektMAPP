@@ -65,6 +65,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da1f01c50fc53e54887cb3049562d2a3
+    m_Address: UpgradesPanel_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 3adbec62c589a1040a66074d9dc91315, type: 2}
   m_SchemaSet:
