@@ -8,6 +8,7 @@ public class PlayerRoom : RoomGenerator
 {
     public GameObject player;
     public GameObject testAlly;
+    private IsPlayer playerObjectRef;
     
     public List<ItemPlacementData> itemData;
 
@@ -15,35 +16,58 @@ public class PlayerRoom : RoomGenerator
     private PrefabPlacer prefabPlacer;
 
     public override List<GameObject> ProcessRoom(
-        Vector2Int roomCenter, 
-        HashSet<Vector2Int> roomFloor, 
+        Vector2Int roomCenter,
+        HashSet<Vector2Int> roomFloor,
         HashSet<Vector2Int> roomFloorNoCorridors)
     {
 
-        ItemPlacementHelper itemPlacementHelper = 
+        ItemPlacementHelper itemPlacementHelper =
             new ItemPlacementHelper(roomFloor, roomFloorNoCorridors);
 
-        List<GameObject> placedObjects = 
+        List<GameObject> placedObjects =
             prefabPlacer.PlaceAllItems(itemData, itemPlacementHelper);
 
         Vector2Int playerSpawnPoint = roomCenter;
 
-        GameObject playerObject 
+        GameObject playerObject
             = prefabPlacer.CreateObject(player, playerSpawnPoint + new Vector2(0.5f, 0.5f));
-
+        playerObjectRef = playerObject.GetComponent<IsPlayer>();
+        
         if ((testAlly) != null)
-        { //try to spawn an ally near the player to test if the navigation mesh works!! ;)
+        {
+            //try to spawn an ally near the player to test if the navigation mesh works!! ;)
             for (int i = 0; i < 5; i++)
             {
-                GameObject localTestAlly = prefabPlacer.CreateObject(this.testAlly, playerSpawnPoint + new Vector2(0.5f, 0.5f));
+                GameObject localTestAlly =
+                    prefabPlacer.CreateObject(this.testAlly, playerSpawnPoint + new Vector2(0.5f, 0.5f));
                 placedObjects.Add(localTestAlly);
             }
-            
-        } 
-       
+
+        }
+
         placedObjects.Add(playerObject);
 
         return placedObjects;
+    }
+
+    private void SpawnAlly()
+    {
+        GameObject placedAlly =
+            prefabPlacer.CreateObject(this.testAlly, playerObjectRef.playerTransform.position);
+        if ((RoomContentGenerator.itemParent) != null)
+        {
+            placedAlly.transform.SetParent(RoomContentGenerator.itemParent, false);
+        }
+    }
+
+    private void OnEnable()
+    {
+        UIController.OnSpawnAlly += SpawnAlly;
+    }
+
+    private void OnDisable()
+    {
+        UIController.OnSpawnAlly -= SpawnAlly;
     }
 }
 

@@ -14036,7 +14036,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.7847516, y: 0.71953285}
   m_AnchorMax: {x: 0.9742586, y: 0.9695012}
-  m_AnchoredPosition: {x: 122.99902, y: 86.69972}
+  m_AnchoredPosition: {x: 122.99902, y: 86.69971}
   m_SizeDelta: {x: -224.9, y: -65.28999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4822470515574501918
@@ -15727,6 +15727,7 @@ MonoBehaviour:
   pauseButton: {fileID: 6921489906735509331}
   inventoryPanel: {fileID: 2664994061003732979}
   upgradesPanel: {fileID: 8661509773083481886}
+  playerCharacter: {fileID: 0}
   inactiveWhilePaused:
   - {fileID: 872894926314509509}
   - {fileID: 862636875313274779}
@@ -19267,7 +19268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.31711647, y: 0.19618326}
   m_AnchorMax: {x: 0.69941765, y: 0.9695012}
-  m_AnchoredPosition: {x: -43, y: -133.50005}
+  m_AnchoredPosition: {x: -43, y: -133.50006}
   m_SizeDelta: {x: -1716, y: -1273}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2094834827269006617
@@ -19435,7 +19436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1867023723309860827, guid: 95e6f50e4795c0e44bd1d973fd520403, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 187.4999
+      value: 187.49988
       objectReference: {fileID: 0}
     - target: {fileID: 1867023723309860827, guid: 95e6f50e4795c0e44bd1d973fd520403, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

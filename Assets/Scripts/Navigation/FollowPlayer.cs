@@ -15,6 +15,12 @@ public class Chase : MonoBehaviour
     public Vector3 offsetPosition = new Vector3(0, 0, 0);
     public bool alliedToPlayer = true;
     
+    public GameObject projectilePrefab;
+    public Transform rangedTarget;
+    public int attackRange = 30;
+    public int HP = 5;
+    public float shootDelay = 1f;
+    
     public LayerMask obstacleMask, targetMask;
     private bool CheckLineOfSight(Transform startTransform, Transform target, float length)
     {
@@ -35,7 +41,6 @@ public class Chase : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-        StartCoroutine(Combat());
     }
 
     private void Awake()
@@ -44,21 +49,15 @@ public class Chase : MonoBehaviour
         {
             target = IsPlayer.FindPlayerTransformAutomaticallyIfNull();
         }
+        StartCoroutine(Combat());
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         agent.speed = 8f;
         agent.SetDestination(target.position + offsetPosition);
     }
-
-    public GameObject projectilePrefab;
-    public Transform rangedTarget;
-    public int attackRange = 30;
-    public int HP = 5;
-    public float shootDelay = 1f;
-
+    
     private Transform FindNearestEnemy()
     //TODO: optimize this, the game is -- suprisingly -- (sometimes) becoming laggy in the editor.
     {
@@ -105,7 +104,7 @@ public class Chase : MonoBehaviour
     {
         while (HP > 0)
         {
-            Invoke(nameof(CheckAttack), 0.5f); // Sätt tid till hur länge animationen körs
+            CheckAttack();  
             yield return new WaitForSeconds(shootDelay);
         }
     }

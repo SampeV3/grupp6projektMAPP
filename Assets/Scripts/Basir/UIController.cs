@@ -10,7 +10,9 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour, IDataPersistance
 {
-    
+    public delegate void SpawnAlly();
+    public static event SpawnAlly OnSpawnAlly;
+
     
     private class PickupScript : MonoBehaviour
     {
@@ -33,7 +35,7 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
     
-    public GameObject inventoryButton, pauseButton, inventoryPanel, upgradesPanel;
+    public GameObject inventoryButton, pauseButton, inventoryPanel, upgradesPanel, playerCharacter;
     public List<GameObject> inactiveWhilePaused;
     public List<GameObject> inactiveWhilePromptedQuestion;
     
@@ -206,6 +208,10 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public void ActivateBoost() //ska ut�kas n�r boost item har en funktion
     {
+        //utökat av Elias! :D
+        //SpawnMinion.CreateMinionAt(playerCharacter.transform, );
+        if (OnSpawnAlly != null) OnSpawnAlly();
+
         if (inventoryBoostPickupAmount < 2 && inventoryBoostPickupAmount != 0)
         {
             inventoryBoostPickupAmount -= 1;

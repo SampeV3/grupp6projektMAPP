@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class SpawnMinion : MonoBehaviour
 {
-    [SerializeField] private static PrefabPlacer prefabPlacer;
-    public static Dictionary<string, GameObject> minionDictionary = new Dictionary<string, GameObject>();
+    [SerializeField] private PrefabPlacer prefabPlacer;
+    public Dictionary<string, GameObject> minionDictionary = new Dictionary<string, GameObject>();
 
     /// <summary>
     ///  Create minion with provided name indexed from minionDictionary.
     /// </summary>
     /// <param name="minionName"></param>
     /// <param name="placementPosition"></param>
-    public static void CreateMinionAt(string minionName, Vector3 placementPosition)
+    public void CreateMinionAt(string minionName, Vector3 placementPosition)
     {
         GameObject minionPrefab = minionDictionary[minionName];
         GameObject placedMinion = prefabPlacer.CreateObject(minionPrefab, placementPosition);

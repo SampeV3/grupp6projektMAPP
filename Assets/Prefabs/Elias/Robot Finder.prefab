@@ -242,11 +242,11 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 1
-  projectilePrefab: {fileID: 7557707295270203167, guid: 070402002764f414cb9b242074fc32e0, type: 3}
+  projectilePrefab: {fileID: 7557707295270203167, guid: 0fde888cd53bfac4d83ca659c1aa29bd, type: 3}
   rangedTarget: {fileID: 0}
   attackRange: 20
   HP: 10
-  shootDelay: 0.5
+  shootDelay: 1
 --- !u!70 &-8318194841637667076
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
