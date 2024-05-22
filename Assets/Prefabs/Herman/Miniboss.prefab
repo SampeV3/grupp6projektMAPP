@@ -1272,7 +1272,7 @@ MonoBehaviour:
   anim: {fileID: 2115987290943512436}
   topSprite: {fileID: 295197728295613427}
   botSprite: {fileID: 1312859416789004648}
-  elevator: {fileID: 0}
+  elevator: {fileID: 4262622908499571092, guid: e524d27cc2056c643ac82df3139d5407, type: 3}
 --- !u!58 &3286097240572091896
 CircleCollider2D:
   m_ObjectHideFlags: 0

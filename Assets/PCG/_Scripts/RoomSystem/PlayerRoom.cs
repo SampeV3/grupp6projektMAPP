@@ -29,22 +29,25 @@ public class PlayerRoom : RoomGenerator
         Vector2Int playerSpawnPoint = roomCenter;
 
         GameObject playerObject 
-            = prefabPlacer.CreateObject(player, playerSpawnPoint + new Vector2(0.5f, 0.5f));
+            = PrefabPlacer.CreateObject(player, playerSpawnPoint + new Vector2(0.5f, 0.5f));
 
+        /*
         if ((testAlly) != null)
         { //try to spawn an ally near the player to test if the navigation mesh works!! ;)
             for (int i = 0; i < 5; i++)
             {
                 GameObject localTestAlly = prefabPlacer.CreateObject(this.testAlly, playerSpawnPoint + new Vector2(0.5f, 0.5f));
                 placedObjects.Add(localTestAlly);
-            }
-            
+            }            
         } 
-       
+        */
+
         placedObjects.Add(playerObject);
 
         return placedObjects;
     }
+
+
 }
 
 public abstract class PlacementData

@@ -34,9 +34,11 @@ public class LevelElevator : PromptQuestion
 
     public override IEnumerator OnProgress(PromptData promptFields)
     {
-        
-        print("YAY!");
-        if (BeforeNextLevel != null) BeforeNextLevel();
+        if (BeforeNextLevel != null)
+        {
+            print("Fire Before Next Level");
+            BeforeNextLevel();
+        }
         yield return new WaitForSeconds(1f);
         if (ToNextLevel != null) ToNextLevel();
     }

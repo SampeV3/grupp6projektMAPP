@@ -5765,7 +5765,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3864146507711862050}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2429949363606016822}
+        m_TargetAssemblyTypeName: UIController, NewAssembly
+        m_MethodName: SpawnAllyBoost
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &6447648313917446284
 Animator:
   serializedVersion: 5
@@ -14868,7 +14880,10 @@ MonoBehaviour:
   - {fileID: 6921489906735509331}
   - {fileID: 2886545901016887493}
   - {fileID: 715884746634807349}
-  inactiveWhilePromptedQuestion: []
+  inactiveWhilePromptedQuestion:
+  - {fileID: 715884746634807349}
+  - {fileID: 8051578939609000730}
+  - {fileID: 6697306972140504854}
   playerSupervisor: {fileID: 2865775353507046388}
   playerTakeDamage: {fileID: 4327680178570334430}
   xPPoint: {fileID: 5126506848938497498}
@@ -15511,6 +15526,7 @@ GameObject:
   - component: {fileID: 1664027291227482255}
   - component: {fileID: 4236000308082319359}
   - component: {fileID: 5487545113499771646}
+  - component: {fileID: 4790628179650666080}
   m_Layer: 3
   m_Name: CharacterSprite
   m_TagString: Player
@@ -15997,6 +16013,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4790628179650666080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7726589997728872495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba025a266743dfd489caae948e22caa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  questionText: 
+  cancelText: 
+  progressText: 
+  uiController: {fileID: 2429949363606016822}
 --- !u!1 &7744600396994153774
 GameObject:
   m_ObjectHideFlags: 0
@@ -20529,7 +20562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1867023723309860827, guid: 95e6f50e4795c0e44bd1d973fd520403, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 187.49985
+      value: 187.49982
       objectReference: {fileID: 0}
     - target: {fileID: 1867023723309860827, guid: 95e6f50e4795c0e44bd1d973fd520403, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

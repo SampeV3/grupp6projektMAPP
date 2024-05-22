@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SpawnMinion : MonoBehaviour
 {
+    /*
     [SerializeField] private static PrefabPlacer prefabPlacer;
     public static Dictionary<string, GameObject> minionDictionary = new Dictionary<string, GameObject>();
 
@@ -31,6 +32,6 @@ public class SpawnMinion : MonoBehaviour
             print("Spawned " + minionName + "( " + placedMinion.name + ") at placement position" + placementPosition);
         }
     }
-
+    */
 
 }

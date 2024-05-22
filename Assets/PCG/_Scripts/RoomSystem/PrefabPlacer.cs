@@ -87,7 +87,7 @@ public class PrefabPlacer : MonoBehaviour, IDataPersistance
         return newItem;
     }
 
-    public GameObject CreateObject(GameObject prefab, Vector3 placementPosition)
+    public static GameObject CreateObject(GameObject prefab, Vector3 placementPosition)
     {
         if (prefab == null)
             return null;

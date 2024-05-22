@@ -22,7 +22,7 @@ public class GameData
     
     
     public int in_run_points_to_spend;
-    public int perkPoints;
+    public int perkPoints = 0;
 
     public SerializableDictionary<string, EnemyData> enemies;
     

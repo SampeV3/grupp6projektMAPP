@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static LevelElevator;
 
 
 
@@ -31,6 +32,10 @@ public class UIController : MonoBehaviour, IDataPersistance
             }
         }
     }
+
+    public delegate void SpawnAlly();
+
+    public static event SpawnAlly OnSpawnAlly;
 
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
     
@@ -233,10 +238,11 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
     }
 
-    public void ActivateBoost() //ska ut�kas n�r boost item har en funktion
+    public void SpawnAllyBoost() //ska ut�kas n�r boost item har en funktion
     {
         if (inventoryBoostPickupAmount < 2 && inventoryBoostPickupAmount != 0)
         {
+            OnSpawnAlly();
             inventoryBoostPickupAmount -= 1;
         }
     }
