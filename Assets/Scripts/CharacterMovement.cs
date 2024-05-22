@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class CharacterMovement : MonoBehaviour
 {
 
-    
+
     public GameObject character;
     public Camera characterCamera;
 
@@ -26,6 +26,10 @@ public class CharacterMovement : MonoBehaviour
 
     //herman - jag la till en dash :) ////ser jättebra ut! - Elias
     private bool canDash = true;
+
+    //Samuel - dash soundFX
+    public AudioSource dashAudioSource;
+    public AudioClip dashAudioClip;
     
     void Start()
     {
@@ -33,6 +37,14 @@ public class CharacterMovement : MonoBehaviour
         targetPosition = new Vector2(0.0f, 0.0f);
         _rigidbody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
+        if (dashAudioSource == null )
+        {
+            dashAudioSource  = GetComponent<AudioSource>();
+        }
+
+        dashAudioSource.clip = dashAudioClip;
+
     }
 
     void Update()
@@ -128,6 +140,7 @@ public class CharacterMovement : MonoBehaviour
         if (canDash)
         {
             StartCoroutine(PerformDash());
+            dashAudioSource.Play(); //Samuel adda
         }
     }
 
