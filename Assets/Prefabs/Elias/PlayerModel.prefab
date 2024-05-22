@@ -15633,6 +15633,8 @@ MonoBehaviour:
   use_click_towards: 0
   rotationSpeed: 720
   joystick_speed: 4
+  dashAudioSource: {fileID: 8081068771085152303}
+  dashAudioClip: {fileID: 8300000, guid: ab9f848cd9e9ab54ebb331e687b3e317, type: 3}
 --- !u!114 &7879900585608816939
 MonoBehaviour:
   m_ObjectHideFlags: 0

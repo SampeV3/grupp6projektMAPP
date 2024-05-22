@@ -140,6 +140,7 @@ public class CharacterMovement : MonoBehaviour
         if (canDash)
         {
             StartCoroutine(PerformDash());
+            dashAudioSource.Play(); //Samuel adda
         }
     }
 
