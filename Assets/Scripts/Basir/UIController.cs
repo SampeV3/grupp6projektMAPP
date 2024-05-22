@@ -39,9 +39,9 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
     
-    public GameObject inventoryButton, pauseButton, inventoryPanel, upgradesPanel, pausePanel;
-    public GameObject settingsPanelInPausePanel, audioSettingsPanel, GeneralSettingsPanel, tutorialInSettingsPanel;
-    public List<GameObject> inactiveWhilePaused;
+    public GameObject inventoryButton, pauseButton;
+    public GameObject settingsPanelInPausePanel, audioSettingsPanel, GeneralSettingsPanel, tutorialInSettingsPanel, inventoryPanel, upgradesPanel, pausePanel; //Basir
+    public List<GameObject> inactiveWhilePaused; //Basir
     public List<GameObject> inactiveWhilePromptedQuestion;
     
 
