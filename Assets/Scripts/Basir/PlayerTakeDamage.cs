@@ -15,6 +15,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     
     [SerializeField] private Transform spawnTransform;
 
+
     private Vector3 spawnPosition;
 
     public double takeDamageGraceDuration = 0.4;
@@ -23,6 +24,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     public int maxHealth = 5;
 
     public Sprite[] healthBarSprites = new Sprite[6];
+    public GameObject healthBar;
 
     [FormerlySerializedAs("OnPermaDeath")] [Description("Fires upon permanent death.")]
 
@@ -60,7 +62,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
     private bool playerDied = false;
     public bool IsInCombat = false;
 
-    public Button healthBar;
+    
 
     private Animator anim;
 

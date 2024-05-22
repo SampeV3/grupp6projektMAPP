@@ -10,7 +10,6 @@ public class StartMenu : MonoBehaviour
     public ParticleSystem playButtonEffekt;
 
     public GameObject settingsPanel, localizationsPanel;
-    public List<GameObject> mainMenuButtons;
 
     public AudioClip clickSound, openPanelSound, closePanelSound;
 
@@ -22,10 +21,6 @@ public class StartMenu : MonoBehaviour
         localizationsPanel.SetActive(false);
         Time.timeScale = 1.0f;
         audioSource = GetComponent<AudioSource>();
-        foreach (GameObject go in mainMenuButtons)
-        {
-            go.SetActive(true);
-        }
     }
 
     public void StartGame()
@@ -38,14 +33,13 @@ public class StartMenu : MonoBehaviour
     public void QuitGame()
     {
         StartCoroutine(AnimationDelay("Quit", 1.0f));
-        SetMainMenuButtonsAnimations("Disabled", mainMenuButtons);
         audioSource.PlayOneShot(clickSound);
     }
 
     public void OpenLocalizationsPanel()
     {
         localizationsPanel.SetActive(true);
-        SetMainMenuButtonsAnimations("Disabled", mainMenuButtons);
+        
         playButtonEffekt.Stop();
         audioSource.PlayOneShot(openPanelSound);
     }
@@ -53,7 +47,7 @@ public class StartMenu : MonoBehaviour
     public void ExitLocalizationsPanel()
     {
         StartCoroutine(AnimationDelay("ExitLocalization", 1f));
-        SetMainMenuButtonsAnimations("Normal", mainMenuButtons);
+        
         playButtonEffekt.Play();
         audioSource.PlayOneShot(openPanelSound);
     }
@@ -61,14 +55,13 @@ public class StartMenu : MonoBehaviour
     public void OpenSettings()
     {
         settingsPanel.SetActive(true);
-        SetMainMenuButtonsAnimations("Disabled", mainMenuButtons);
+        
         playButtonEffekt.Stop();
         audioSource.PlayOneShot(openPanelSound);
     }
     public void ExitSettings()
     {
         StartCoroutine(AnimationDelay("ExitSettings", 1f));
-        SetMainMenuButtonsAnimations("Normal", mainMenuButtons);
         playButtonEffekt.Play();
         audioSource.PlayOneShot(closePanelSound);
     }
@@ -79,21 +72,21 @@ public class StartMenu : MonoBehaviour
     {
         if (command == "ExitSettings")
         {
-            settingsPanel.GetComponent<Animator>().SetTrigger("Exit");
-            yield return new WaitForSeconds(delayTime);
+            settingsPanel.GetComponent<Animator>().SetTrigger("End");
+            yield return new WaitForSecondsRealtime(delayTime);
             settingsPanel.SetActive(false);
         }
         
         if (command == "Load")
         {
-            yield return new WaitForSeconds(delayTime);
+            yield return new WaitForSecondsRealtime(delayTime);
             transition.SetTrigger("Start");
             SceneManager.LoadScene(1);
         }
 
         if (command == "Quit")
         {
-            yield return new WaitForSeconds(delayTime);
+            yield return new WaitForSecondsRealtime(delayTime);
             transition.SetTrigger("Start");
             Application.Quit();
         }
@@ -101,19 +94,11 @@ public class StartMenu : MonoBehaviour
         if (command == "ExitLocalization")
         {
             localizationsPanel.GetComponent<Animator>().SetTrigger("End");
-            yield return new WaitForSeconds(delayTime);
+            yield return new WaitForSecondsRealtime(delayTime);
             localizationsPanel.SetActive(false);
         }
 
         
         
-    }
-
-    private void SetMainMenuButtonsAnimations(string trigger, List<GameObject> buttons)
-    {
-        foreach (GameObject go in buttons)
-        {
-            go.GetComponent<Animator>().SetTrigger(trigger);
-        }
     }
 }
