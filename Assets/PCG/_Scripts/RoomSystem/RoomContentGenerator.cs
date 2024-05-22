@@ -19,8 +19,9 @@ public class RoomContentGenerator : MonoBehaviour
     [SerializeField]
     private GraphTest graphTest;
 
+    [SerializeField] GameObject playerAlliedUnit;
 
-    public static Transform itemParent;
+    public Transform itemParent;
 
     [SerializeField]
     private CinemachineVirtualCamera cinemachineCamera;
@@ -31,6 +32,14 @@ public class RoomContentGenerator : MonoBehaviour
     //Bake a navmesh at runtime - Elias
     //Documentation: https://github.com/h8man/NavMeshPlus/wiki/HOW-TO#intro
     [FormerlySerializedAs("Surface2D")] public NavMeshSurface surface2D;
+
+    public static Transform staticItemParent;
+    public static Transform getItemParent()
+    {
+        if (staticItemParent == null)
+            staticItemParent = GameObject.FindGameObjectsWithTag("ItemParent")[0].transform;
+        return staticItemParent;
+    }
 
     private void Update()
     {
@@ -53,6 +62,7 @@ public class RoomContentGenerator : MonoBehaviour
 
     public void GenerateRoomContent(DungeonData dungeonData)
     {
+
         foreach (GameObject item in spawnedObjects)
         {
             DestroyImmediate(item);
@@ -173,14 +183,23 @@ public class RoomContentGenerator : MonoBehaviour
         }
     }
 
+    private void SpawnAlly()
+    {
+        Transform transform = IsPlayer.FindPlayerTransformAutomaticallyIfNull();
+        GameObject ally = Instantiate(playerAlliedUnit, transform.position, transform.rotation, getItemParent());
+    }
+
     private void OnEnable()
     {
+        itemParent = getItemParent();
+        UIController.OnSpawnAlly += SpawnAlly;
         PlayerTakeDamage.OnPermaDeathAction += ProcedurallyCreateNewDungeon;
         LevelElevator.ToNextLevel += LevelElevatorOnToNextLevel;
     }
 
     private void OnDisable()
     {
+        UIController.OnSpawnAlly -= SpawnAlly;
         PlayerTakeDamage.OnPermaDeathAction -= ProcedurallyCreateNewDungeon;
         LevelElevator.ToNextLevel -= LevelElevatorOnToNextLevel;
     }

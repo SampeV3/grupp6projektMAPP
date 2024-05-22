@@ -57,8 +57,10 @@ public class PlayerTakeDamage : MonoBehaviour
     
     public delegate void PlayerKilledByAction(PlayerTakeDamage playerTakeDamage, EnemyData enemyData, GameObject enemyKiller);
     public static event PlayerKilledByAction OnKilledBy;
+    
     private bool playerDied = false;
     public bool IsInCombat = false;
+    [SerializeField] bool godmode = true;
 
     public Button healthBar;
 
@@ -159,7 +161,7 @@ public class PlayerTakeDamage : MonoBehaviour
     void TakeDamage(int damageAmount, Collider2D other)
     {
 
-        if (TakeDamageGrace)
+        if (TakeDamageGrace || godmode)
         {
             return;
         }

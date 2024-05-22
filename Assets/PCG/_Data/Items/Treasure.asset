@@ -15,3 +15,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 080226571baca0d45b59c00d50580ed4, type: 3}
   size: {x: 1, y: 1}
   placementType: 0
+  addOffset: 0
+  health: 1
+  nonDestructible: 0

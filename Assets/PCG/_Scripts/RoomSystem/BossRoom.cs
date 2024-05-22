@@ -24,7 +24,7 @@ public class BossRoom : RoomGenerator
         Vector2Int bossSpawnPoint = roomCenter;
 
         GameObject bossObject
-            = prefabPlacer.CreateObject(boss, bossSpawnPoint + new Vector2(0.5f, 0.5f));
+            = PrefabPlacer.CreateObject(boss, bossSpawnPoint + new Vector2(0.5f, 0.5f));
 
 
         placedObjects.AddRange(prefabPlacer.PlaceEnemies(enemyPlacementData, itemPlacementHelper));

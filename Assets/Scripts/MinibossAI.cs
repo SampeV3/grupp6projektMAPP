@@ -295,11 +295,8 @@ public class MinibossAI : EnemyMonoBehaviour
     public GameObject elevator;
     private void spawnLevelPortal()
     {
-        GameObject levelElevator = Instantiate(elevator, transform.position, Quaternion.identity);
-        levelElevator.transform.SetParent(RoomContentGenerator.itemParent);
-        print("Spawned elevator prefab at " + transform + " " + levelElevator);
-        
-        
+        GameObject levelElevator = Instantiate(elevator, transform.position, Quaternion.identity, RoomContentGenerator.getItemParent());
+                
     }
 
     private IEnumerator Flash()

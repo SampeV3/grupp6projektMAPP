@@ -30,7 +30,6 @@ public abstract class EnemyMonoBehaviour : MonoBehaviour
 
     public EnemyData GetEnemyData()
     {
-        print("Return persistentEnemyData " + this.persistentEnemyData);
         if (this.persistentEnemyData == null)
         {
             return null;
@@ -84,9 +83,15 @@ public abstract class EnemyMonoBehaviour : MonoBehaviour
 public class IsPlayer : MonoBehaviour
 {
     public Transform playerTransform;
+    public static Transform staticPlayerTransform = null;
     //Jag la till denna kodsnutt f�r att g�ra det enklare i editorn. /Elias
     public static Transform FindPlayerTransformAutomaticallyIfNull()
     {
+        if (staticPlayerTransform && staticPlayerTransform.parent)
+        {
+            return staticPlayerTransform;
+        }
+
         // get root objects in scene
         List<GameObject> rootObjects = new List<GameObject>();
         Scene scene = SceneManager.GetActiveScene();
@@ -98,9 +103,12 @@ public class IsPlayer : MonoBehaviour
             GameObject gameObject = rootObjects[i];
             if (gameObject.GetComponent<IsPlayer>())
             {
-                return gameObject.GetComponent<IsPlayer>().playerTransform;
+                Transform transform = gameObject.GetComponent<IsPlayer>().playerTransform;
+                staticPlayerTransform = transform;
+                return transform;
             }
         }
+        staticPlayerTransform = null;
         return null;
     }
     
