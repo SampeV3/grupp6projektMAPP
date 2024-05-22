@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="92f67ad9-22a5-42c6-8d87-e54a15759399" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Animations/MainMenuAnimations/SettingsButtonInMenuAnimations/Audio/Effects/dashSound.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Animations/MainMenuAnimations/SettingsButtonInMenuAnimations/Audio/Effects/dashSound.wav.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlayerModel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/PlayerModel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Scripts/CharacterMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Scripts/CharacterMovement.cs" afterDir="false" />
-    </list>
+    <list default="true" id="92f67ad9-22a5-42c6-8d87-e54a15759399" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,9 +13,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2gpwV7NnMh8URGQp8EOhkIGak7v" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -26,8 +24,12 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging Elias2",
+    "git-widget-placeholder": "Elias2",
     "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -49,6 +51,7 @@
       <option name="presentableId" value="Default" />
       <updated>1716407848399</updated>
       <workItem from="1716407849976" duration="23000" />
+      <workItem from="1716407881875" duration="765000" />
     </task>
     <servers />
   </component>
