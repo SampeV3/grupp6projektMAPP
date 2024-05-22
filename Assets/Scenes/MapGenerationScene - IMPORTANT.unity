@@ -267,6 +267,8 @@ MonoBehaviour:
   bossRoom: {fileID: 2746710959080050701, guid: 98510c6821f276d42a2269def706d864, type: 3}
   dataPersistanceManager: {fileID: 709246188}
   graphTest: {fileID: 826419577}
+  playerAlliedUnit: {fileID: 3858980567652597406, guid: eddf911f7173ada41bfea45b6fd59cfd, type: 3}
+  itemParent: {fileID: 0}
   cinemachineCamera: {fileID: 1792208467}
   RegenerateDungeon:
     m_PersistentCalls:
@@ -25742,6 +25744,37 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!1 &1655510213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1655510214}
+  m_Layer: 0
+  m_Name: ItemParent
+  m_TagString: ItemParent
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1655510214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655510213}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1671293749
 GameObject:
   m_ObjectHideFlags: 0
@@ -26075,3 +26108,4 @@ SceneRoots:
   - {fileID: 1118239119}
   - {fileID: 709246187}
   - {fileID: 1106169467}
+  - {fileID: 1655510214}

@@ -23,6 +23,7 @@ TagManager:
   - DamageMultiplier
   - LevelElevator
   - Enemy
+  - ItemParent
   layers:
   - Default
   - TransparentFX
