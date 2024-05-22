@@ -30,6 +30,10 @@ MonoBehaviour:
     m_Localized: Avsluta
     m_Metadata:
       m_Items: []
+  - m_Id: 2678984106127360
+    m_Localized: Robotuppror
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

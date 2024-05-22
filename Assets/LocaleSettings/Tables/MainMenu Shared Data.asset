@@ -27,6 +27,10 @@ MonoBehaviour:
     m_Key: buttonQuit
     m_Metadata:
       m_Items: []
+  - m_Id: 2678984106127360
+    m_Key: title
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
