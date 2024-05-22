@@ -21,7 +21,7 @@ public class UIController : MonoBehaviour, IDataPersistance
         private bool pickedUp = false;
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision != null && collision.gameObject.tag == "Player")
+            if (collision != null && collision.gameObject.CompareTag("Player"))
             {
                 if (!pickedUp)
                 {
