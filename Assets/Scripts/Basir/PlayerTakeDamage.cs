@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using static PlayerTakeDamage;
-public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
+public class PlayerTakeDamage : MonoBehaviour
 {
     //public int health;
     
@@ -62,8 +62,13 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 
     public Button healthBar;
 
+    private Animator anim;
+
+    public TextMeshProUGUI killerDialouge1;
+
     void Start()
     {
+        anim = GetComponent<Animator>();
         currentHealth = maxHealth;
         healthBar.GetComponent<Image>().sprite = healthBarSprites[maxHealth];
         if (spawnTransform == null)
@@ -176,6 +181,8 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         if (currentHealth <= 0 && !playerDied)
         {
             playerDied = true;
+            anim.SetBool("IsDead", true);
+
             if (Nemesis.NemesisController.nemesisEnabled && other.gameObject.GetComponent<BulletID>() != null)
             {
                 onFreezeActions.Invoke();
@@ -195,6 +202,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             }
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         int damageAmount = 1;
@@ -223,21 +231,18 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             UpdateHealthBar();
         }
     }
+
+    private void OnKillCameraFinished()
+    {
+        
+        
+    }
     
     private void EnemyKilledPlayer (BulletID info)
     {
-        //NOW!
-        //Name the Enemy into a random name or ID not already used
-        //remember that name
-       
         
         GameObject enemy = info.KillerGameObject;
         EnemyMonoBehaviour superEnemyClass = enemy.GetComponent<EnemyMonoBehaviour>();
-        if (superEnemyClass == null)
-        {
-            if (ExecuteDoRespawn != null) ExecuteDoRespawn();
-            return;
-        }
         EnemyData enemyData = superEnemyClass.GetEnemyData() != null ? superEnemyClass.GetEnemyData() : new EnemyData();
         enemyData.SetDidEncounter(true); // ????
         
@@ -248,7 +253,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         enemyData.name = randomName;
         enemyData.enemyType = superEnemyClass.enemyType;
         
-        string killerDialouge = "Hahaha! I killed you! Now that might even give me a promotion!";
+        string killerDialouge = killerDialouge1.text; //Uppdateras med Localization
         
         
         MoveCameraClass moveCam = new MoveCameraClass
@@ -256,14 +261,13 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             secondsDuration = 3f,
             targetTransform = enemy.transform,
             dialougeText = killerDialouge,
-            callbackMethodName = null,
-            doRespawn = true //sätt till false för game over menu (play again knapp, kalla doRespawn()
+            callbackMethodName = nameof(OnKillCameraFinished),
+            doRespawn = true
         };
         StartCoroutine(CameraToTarget(moveCam));
         
         print("Create new killer EnemyData");
         superEnemyClass.SetEnemyData(enemyData);
-
         if (OnKilledBy != null) OnKilledBy(this, enemyData, info.KillerGameObject);
     }
     
@@ -342,6 +346,12 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 
     private void OnEnemyEncounter(List<EnemyMonoBehaviour> enemies)
     {
+
+        if (true)
+        {
+            return;
+        }
+        
         foreach (var enemy in enemies)
         {
             if (enemy.enemyDataFieldDefined)
@@ -417,15 +427,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         ExecuteDoRespawn -= DoRespawn;
     }
     private SerializableDictionary<string, EnemyData> enemyDataDict;
-    public void SaveData(ref GameData data)
-    {
-        
-    }
 
-    public void LoadData(GameData data)
-    {
-      
-    }
 }
 
 [System.Serializable]
