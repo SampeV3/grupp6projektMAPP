@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using static PlayerTakeDamage;
-public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
+public class PlayerTakeDamage : MonoBehaviour
 {
     //public int health;
     
@@ -231,13 +231,15 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             UpdateHealthBar();
         }
     }
+
+    private void OnKillCameraFinished()
+    {
+        
+        
+    }
     
     private void EnemyKilledPlayer (BulletID info)
     {
-        //NOW!
-        //Name the Enemy into a random name or ID not already used
-        //remember that name
-       
         
         GameObject enemy = info.KillerGameObject;
         EnemyMonoBehaviour superEnemyClass = enemy.GetComponent<EnemyMonoBehaviour>();
@@ -259,7 +261,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
             secondsDuration = 3f,
             targetTransform = enemy.transform,
             dialougeText = killerDialouge,
-            callbackMethodName = null,
+            callbackMethodName = nameof(OnKillCameraFinished),
             doRespawn = true
         };
         StartCoroutine(CameraToTarget(moveCam));
@@ -344,6 +346,12 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
 
     private void OnEnemyEncounter(List<EnemyMonoBehaviour> enemies)
     {
+
+        if (true)
+        {
+            return;
+        }
+        
         foreach (var enemy in enemies)
         {
             if (enemy.enemyDataFieldDefined)
@@ -419,15 +427,7 @@ public class PlayerTakeDamage : MonoBehaviour, IDataPersistance
         ExecuteDoRespawn -= DoRespawn;
     }
     private SerializableDictionary<string, EnemyData> enemyDataDict;
-    public void SaveData(ref GameData data)
-    {
-        
-    }
 
-    public void LoadData(GameData data)
-    {
-      
-    }
 }
 
 [System.Serializable]
