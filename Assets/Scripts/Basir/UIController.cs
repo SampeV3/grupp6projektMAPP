@@ -368,7 +368,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     {
         string text =
             string.Format(
-                "You have {0} skill points to spend and {1} perk points to spend. Perks are permanent upgrades while skill points will reset upon dying.",
+                "{0} : {1}",
                 playerSupervisor.in_run_points_to_spend, playerSupervisor.perkPoints);
         shopLabelText.text = text;
     }
@@ -427,7 +427,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     {
         
         
-        refs.infoText.text = "Upgrade " + skillName + " level " + skill.GetLevel() + " out of " + UpgradableStat.MAX_LEVEL + " currently is giving a bonus of " + skill.GetPercentageModifier() + "%.";
+        refs.infoText.text =  skill.GetPercentageModifier() + "%.";
     }
 
     
