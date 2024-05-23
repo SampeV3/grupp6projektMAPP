@@ -650,6 +650,7 @@ public class UIController : MonoBehaviour, IDataPersistance
         void CancelButtonOnclicked()
         {
             cleanupConnections();
+            SetActiveInList(inactiveWhilePromptedQuestion, true);
             StartCoroutine(prompt.OnCancel(promptFields));
         }
 
