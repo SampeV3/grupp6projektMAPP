@@ -286,6 +286,12 @@ public class MinibossAI : EnemyMonoBehaviour
     {
         if (hasRunned) return;
         hasRunned = true;
+        if (beam1)
+        {
+            Destroy(beam1);
+        }
+        if (beam2) { Destroy(beam2); }
+
         SingletonClass.OnEnemyKilled(this);
         int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 500;
         SingletonClass.AwardXP(XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY);

@@ -21,7 +21,7 @@ public class RoomContentGenerator : MonoBehaviour
 
     [SerializeField] GameObject playerAlliedUnit;
 
-    public Transform itemParent;
+    [SerializeField] private Transform itemParent;
 
     [SerializeField]
     private CinemachineVirtualCamera cinemachineCamera;
@@ -37,7 +37,13 @@ public class RoomContentGenerator : MonoBehaviour
     public static Transform getItemParent()
     {
         if (staticItemParent == null)
-            staticItemParent = GameObject.FindGameObjectsWithTag("ItemParent")[0].transform;
+        {
+            var list = GameObject.FindGameObjectsWithTag("ItemParent");
+            if (list.Length > 0)
+            {
+                return list[0].transform;
+            }
+        }        
         return staticItemParent;
     }
 
@@ -50,24 +56,43 @@ public class RoomContentGenerator : MonoBehaviour
         }
     }
 
+    public static void ClearAllChildren(Transform transform)
+    {
+        Debug.Log(transform.childCount);
+        int i = 0;
+
+        //Array to hold all child obj
+        GameObject[] allChildren = new GameObject[transform.childCount];
+
+        //Find all child obj and store to that array
+        foreach (Transform child in transform)
+        {
+            allChildren[i] = child.gameObject;
+            i += 1;
+        }
+
+        //Now destroy them
+        foreach (GameObject child in allChildren)
+        {
+            DestroyImmediate(child.gameObject);
+        }
+
+        Debug.Log(transform.childCount);
+    }
+
     public void ProcedurallyCreateNewDungeon()
     {
+        itemParent = getItemParent();
         dataPersistanceManager.SaveGame();
-        foreach (var item in spawnedObjects)
-        {
-            Destroy(item);
-        }
+        
+        ClearAllChildren(itemParent);
         RegenerateDungeon?.Invoke(); //Generera procedurellt ett ny karta.
     }
 
     public void GenerateRoomContent(DungeonData dungeonData)
     {
-
-        foreach (GameObject item in spawnedObjects)
-        {
-            DestroyImmediate(item);
-        }
         spawnedObjects.Clear();
+        ClearAllChildren(itemParent);
 
         SelectPlayerAndBossSpawnPoint(dungeonData);
         SelectEnemySpawnPoints(dungeonData);
