@@ -5040,7 +5040,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1196480172}
         m_TargetAssemblyTypeName: TipsDropdown, NewAssembly
         m_MethodName: HandleChoosenTips
-        m_Mode: 3
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
