@@ -43,7 +43,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5018468036608
-    m_Localized: "\xE5terg\xE5 till huvudmenyn?"
+    m_Localized: Avsluta spelet?
     m_Metadata:
       m_Items: []
   - m_Id: 5253877542912

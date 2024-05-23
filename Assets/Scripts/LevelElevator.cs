@@ -10,6 +10,7 @@ public class LevelElevator : PromptQuestion
     private bool canOpenPrompt = true;
     public UIController uiController;
     public delegate void GoToNextLevel();
+    private GameObject foundElevator;
 
     public static event GoToNextLevel BeforeNextLevel;
     public static event GoToNextLevel ToNextLevel;    
@@ -49,7 +50,7 @@ public class LevelElevator : PromptQuestion
         
         if (!doorOpenedAnimationHasPlayed)
         {
-            GetComponent<Animator>().SetBool("Open", true);
+            foundElevator.GetComponent<Animator>().SetBool("Open", true);
             yield return new WaitForSeconds(2);
         }
         else
@@ -67,6 +68,7 @@ public class LevelElevator : PromptQuestion
         if (other.gameObject.tag.Equals("LevelElevator") && canOpenPrompt)
         {
             canOpenPrompt = false;
+            foundElevator = other.gameObject;
             StartCoroutine(Open());
         }
     }
