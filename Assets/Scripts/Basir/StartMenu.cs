@@ -9,16 +9,19 @@ public class StartMenu : MonoBehaviour
 
     public ParticleSystem playButtonEffekt;
 
-    public GameObject settingsPanel, localizationsPanel;
+    public GameObject settingsPanel, localizationsPanel, quitButtonPopUpPanel;
 
     public AudioClip clickSound, openPanelSound, closePanelSound;
 
     private AudioSource audioSource;
 
+
+
     private void Start()
     {
         settingsPanel.SetActive(false);
         localizationsPanel.SetActive(false);
+        quitButtonPopUpPanel.SetActive(false);
         Time.timeScale = 1.0f;
         audioSource = GetComponent<AudioSource>();
     }
@@ -28,6 +31,18 @@ public class StartMenu : MonoBehaviour
         StartCoroutine(AnimationDelay("Load", 1.0f));
         Time.timeScale = 1; //ändrar time scale till 1 igen om man har kommit hit från pause panelen i spelet
         audioSource.PlayOneShot(clickSound);
+    }
+
+    public void OpenQuitButtonPopUpPanel()
+    {
+        quitButtonPopUpPanel.SetActive(true);
+        playButtonEffekt.Stop();
+    }
+
+    public void ExitQuitButtonPopUpPanel()
+    {
+        playButtonEffekt.Play();
+        StartCoroutine(AnimationDelay("QuitButtonPopUpPanel", 0.5f));
     }
 
     public void QuitGame()
@@ -96,6 +111,13 @@ public class StartMenu : MonoBehaviour
             localizationsPanel.GetComponent<Animator>().SetTrigger("End");
             yield return new WaitForSecondsRealtime(delayTime);
             localizationsPanel.SetActive(false);
+        }
+
+        if (command == "QuitButtonPopUpPanel")
+        {
+            quitButtonPopUpPanel.GetComponent<Animator>().SetTrigger("End");
+            yield return new WaitForSecondsRealtime(delayTime);
+            quitButtonPopUpPanel.SetActive(false);
         }
 
         
