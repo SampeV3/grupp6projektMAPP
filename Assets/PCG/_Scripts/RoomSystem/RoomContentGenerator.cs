@@ -37,7 +37,13 @@ public class RoomContentGenerator : MonoBehaviour
     public static Transform getItemParent()
     {
         if (staticItemParent == null)
-            staticItemParent = GameObject.FindGameObjectsWithTag("ItemParent")[0].transform;
+        {
+            var list = GameObject.FindGameObjectsWithTag("ItemParent");
+            if (list.Length > 0)
+            {
+                return list[0].transform;
+            }
+        }        
         return staticItemParent;
     }
 
