@@ -1900,7 +1900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 264, y: -67}
+  m_AnchoredPosition: {x: 234, y: -90}
   m_SizeDelta: {x: 1275, y: 650}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &438486645
@@ -5741,6 +5741,8 @@ MonoBehaviour:
   playButtonEffekt: {fileID: 374473843}
   settingsPanel: {fileID: 1664445786}
   localizationsPanel: {fileID: 1677256139}
+  quitButtonPopUpPanel: {fileID: 0}
+  loadingPanel: {fileID: 0}
   clickSound: {fileID: 8300000, guid: 64abca90c86633e4daff0e9be99c761a, type: 3}
   openPanelSound: {fileID: 8300000, guid: 64abca90c86633e4daff0e9be99c761a, type: 3}
   closePanelSound: {fileID: 8300000, guid: 64abca90c86633e4daff0e9be99c761a, type: 3}
@@ -9251,7 +9253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5183150050476656163, guid: 1cb7e3e5048b8a442b993d4821c0414b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 113.00003
+      value: 113
       objectReference: {fileID: 0}
     - target: {fileID: 5183150050476656163, guid: 1cb7e3e5048b8a442b993d4821c0414b, type: 3}
       propertyPath: m_AnchoredPosition.y
