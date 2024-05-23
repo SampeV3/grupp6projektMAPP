@@ -12,10 +12,19 @@ public class TipsDropdown : MonoBehaviour
     [SerializeField] GameObject HealingPanel;
     [SerializeField] GameObject PowerUpPanel;
     [SerializeField] GameObject UpgradesPanel;
+    [SerializeField] GameObject ChangeWeponPanel;
 
 
     public void HandleChoosenTips(int tipValue)
     {
+        WalkPanel.SetActive(true);
+        ShootPanel.SetActive(false);
+        DashPanel.SetActive(false);
+        HealingPanel.SetActive(false);
+        PowerUpPanel.SetActive(false);
+        UpgradesPanel.SetActive(false);
+        ChangeWeponPanel.SetActive(false);
+
         if (tipValue == 0)
         {
             WalkPanel.SetActive(true);
@@ -24,6 +33,7 @@ public class TipsDropdown : MonoBehaviour
             HealingPanel.SetActive(false);
             PowerUpPanel.SetActive(false);
             UpgradesPanel.SetActive(false);
+            ChangeWeponPanel.SetActive(false);
 
         }
         if (tipValue == 1)
@@ -34,6 +44,7 @@ public class TipsDropdown : MonoBehaviour
             HealingPanel.SetActive(false);
             PowerUpPanel.SetActive(false);
             UpgradesPanel.SetActive(false);
+            ChangeWeponPanel.SetActive(false);
         }
         if (tipValue == 2)
         {
@@ -43,6 +54,7 @@ public class TipsDropdown : MonoBehaviour
             HealingPanel.SetActive(false);
             PowerUpPanel.SetActive(false);
             UpgradesPanel.SetActive(false);
+            ChangeWeponPanel.SetActive(false);
         }
         if (tipValue == 3)
         {
@@ -52,6 +64,7 @@ public class TipsDropdown : MonoBehaviour
             HealingPanel.SetActive(true);
             PowerUpPanel.SetActive(false);
             UpgradesPanel.SetActive(false);
+            ChangeWeponPanel.SetActive(false);
         }
         if (tipValue == 4)
         {
@@ -61,6 +74,7 @@ public class TipsDropdown : MonoBehaviour
             HealingPanel.SetActive(false);
             PowerUpPanel.SetActive(true);
             UpgradesPanel.SetActive(false);
+            ChangeWeponPanel.SetActive(false);
         }
         if (tipValue == 5)
         {
@@ -70,6 +84,17 @@ public class TipsDropdown : MonoBehaviour
             HealingPanel.SetActive(false);
             PowerUpPanel.SetActive(false);
             UpgradesPanel.SetActive(true);
+            ChangeWeponPanel.SetActive(false);
+        }
+        if (tipValue == 6)
+        {
+            WalkPanel.SetActive(false);
+            ShootPanel.SetActive(false);
+            DashPanel.SetActive(false);
+            HealingPanel.SetActive(false);
+            PowerUpPanel.SetActive(false);
+            UpgradesPanel.SetActive(false);
+            ChangeWeponPanel.SetActive(true);
         }
     }
 }
