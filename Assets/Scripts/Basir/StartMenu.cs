@@ -23,8 +23,9 @@ public class StartMenu : MonoBehaviour
         localizationsPanel.SetActive(false);
         quitButtonPopUpPanel.SetActive(false);
         loadingPanel.SetActive(false);
-        Time.timeScale = 1.0f;
+        Time.timeScale = 1.0f; //ändrar time scale till 1 igen om man har kommit hit från pause panelen i spelet
         audioSource = GetComponent<AudioSource>();
+
     }
 
     public void StartGame()
@@ -32,7 +33,6 @@ public class StartMenu : MonoBehaviour
         loadingPanel.SetActive(true);
         playButtonEffekt.Stop();
         StartCoroutine(AnimationDelay("Load", 4f));
-        Time.timeScale = 1; //ändrar time scale till 1 igen om man har kommit hit från pause panelen i spelet
         audioSource.PlayOneShot(clickSound);
     }
 
