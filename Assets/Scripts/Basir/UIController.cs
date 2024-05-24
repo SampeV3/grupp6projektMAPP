@@ -61,12 +61,14 @@ public class UIController : MonoBehaviour, IDataPersistance
     public bool weapon_1_Selected = true;
     public bool weapon_2_Selected = false;
 
-    public AudioClip clickSound;
+    public AudioClip clickSound, spawnAllySound;
+    private AudioSource audioSource;
 
     public Transform animatorObject;
     
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         maxInventoryBoostPickupAmount = 15;
         xPPoint.text = "00";
         inventoryPanel.SetActive(false);
@@ -244,8 +246,9 @@ public class UIController : MonoBehaviour, IDataPersistance
     {
         if (inventoryBoostPickupAmount > 0)
         {
-            OnSpawnAlly();
             inventoryBoostPickupAmount -= 1;
+            audioSource.PlayOneShot(spawnAllySound, 1f);
+            OnSpawnAlly();
         }
     }
 

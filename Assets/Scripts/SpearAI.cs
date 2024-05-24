@@ -177,15 +177,10 @@ public class SpearAI : EnemyMonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public override void TakeDamage()
     {
-        if (other.gameObject.CompareTag("PlayerAttack"))
-        {
-            Destroy(other.gameObject);
-            HP -= 1 * dmgMultiplier;
-            StartCoroutine(Flash());
-
-        }
+        HP -= 1 * dmgMultiplier;
+        StartCoroutine(Flash());
         if (HP <= 0)
         {
             isDead = true;
@@ -199,7 +194,17 @@ public class SpearAI : EnemyMonoBehaviour
             Destroy(gameObject, 1f);
         }
 
-    
+
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlayerAttack"))
+        {
+            Destroy(other.gameObject);
+            TakeDamage();
+        }
         if (canhitSomething)
         {
             if (other.gameObject.CompareTag("Wall"))

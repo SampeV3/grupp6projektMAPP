@@ -10,6 +10,7 @@ namespace Nemesis
     public class NemesisController : MonoBehaviour, IDataPersistance
     {
         public static bool nemesisEnabled = true; //så att spelaren kan ha som preferens att ha det eller inte ;)
+        public static bool nemesisOnEnemyEncounter = false;
         public static SerializableDictionary<string, EnemyData> independentEnemyDataDict = new SerializableDictionary<string, EnemyData>();
         private static List<string> enemyIDsSpawned = new List<string>();
         
@@ -51,6 +52,7 @@ namespace Nemesis
          
         public void SaveData(ref GameData data)
         {
+            nemesisOnEnemyEncounter = false;
             data.enemies = independentEnemyDataDict;
         }
 

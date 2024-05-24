@@ -174,7 +174,7 @@ public class PlayerTakeDamage : MonoBehaviour
         TakeDamageGrace = false;
     }
     
-    void TakeDamage(int damageAmount, Collider2D other)
+    public void TakeDamage(int damageAmount, Collider2D other)
     {
 
         if (TakeDamageGrace || godmode)
@@ -353,7 +353,7 @@ public class PlayerTakeDamage : MonoBehaviour
     private void OnEnemyEncounter(List<EnemyMonoBehaviour> enemies)
     {
 
-        if (true)
+        if (Nemesis.NemesisController.nemesisOnEnemyEncounter == false)
         {
             return;
         }
