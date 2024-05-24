@@ -56,6 +56,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     public int boostPickupAmountToIncrease = 1;
     public int inventoryHealthPickupAmount = 0;
     public int inventoryBoostPickupAmount = 0;
+    public static int maxInventoryBoostPickupAmount = 15; //set in the start method.
 
     public bool weapon_1_Selected = true;
     public bool weapon_2_Selected = false;
@@ -66,6 +67,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     
     private void Start()
     {
+        maxInventoryBoostPickupAmount = 15;
         xPPoint.text = "00";
         inventoryPanel.SetActive(false);
         upgradesPanel.SetActive(false);
@@ -106,7 +108,7 @@ public class UIController : MonoBehaviour, IDataPersistance
             inventoryButtonsInPanel[3].GetComponent<Animator>().enabled = false;
         }
 
-        inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventoryBoostPickupAmount + "/5";
+        inventoryButtonsInPanel[3].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventoryBoostPickupAmount + "/"+ maxInventoryBoostPickupAmount;
 
     }
 
@@ -240,7 +242,7 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public void SpawnAllyBoost() //ska ut�kas n�r boost item har en funktion
     {
-        if (inventoryBoostPickupAmount < 2 && inventoryBoostPickupAmount != 0)
+        if (inventoryBoostPickupAmount > 0)
         {
             OnSpawnAlly();
             inventoryBoostPickupAmount -= 1;
