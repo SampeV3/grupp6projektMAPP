@@ -95,7 +95,7 @@ public class StartMenu : MonoBehaviour
             settingsPanel.SetActive(false);
         }
         
-        if (command == "Load")
+        if (command == "Load") //Loading Panel Animation
         {
             yield return new WaitForSecondsRealtime(delayTime/2);
             transition.SetTrigger("Start");
@@ -105,8 +105,8 @@ public class StartMenu : MonoBehaviour
 
         if (command == "Quit")
         {
-            yield return new WaitForSecondsRealtime(delayTime);
             transition.SetTrigger("Start");
+            yield return new WaitForSecondsRealtime(delayTime);
             Application.Quit();
         }
 
