@@ -23,7 +23,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1251500699648
-    m_Localized: 'Uppgradera spelarhastigheten med (silver):'
+    m_Localized: Uppgraddera hur snabbt allierade skjuter (silver)
     m_Metadata:
       m_Items: []
   - m_Id: 1739533135872
@@ -41,7 +41,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2325141860352
-    m_Localized: "Uppgradera h\xE4lsans varaktighet med:"
+    m_Localized: Uppgraddera hp grace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 981935892815872
+    m_Localized: Uppgradera spelarhastigheten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 981770419134464
+    m_Localized: "\xD6ka hitpoints f\xF6r allierade robotar"
     m_Metadata:
       m_Items: []
   references:

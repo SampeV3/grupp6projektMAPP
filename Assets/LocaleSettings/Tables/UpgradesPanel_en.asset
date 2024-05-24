@@ -23,7 +23,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1251500699648
-    m_Localized: 'Upgrade move speed by (silver):'
+    m_Localized: 'Upgrade allied FIRE RATE (IMPORTANT) with (silver):'
     m_Metadata:
       m_Items: []
   - m_Id: 1739533135872
@@ -41,7 +41,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2325141860352
-    m_Localized: 'Upgrade health grace duration with:'
+    m_Localized: Upgrade health grace duration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 981935892815872
+    m_Localized: Upgrade MoveSpeed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 981770419134464
+    m_Localized: Upgrade allied health
     m_Metadata:
       m_Items: []
   references:

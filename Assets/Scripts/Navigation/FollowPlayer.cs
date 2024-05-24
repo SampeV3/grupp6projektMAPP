@@ -55,8 +55,8 @@ public class Chase : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform rangedTarget;
     public int attackRange = 30;
-    public int HP = 5;
-    public float shootDelay = 1f;
+    public double HP = 5;
+    public float originalShootDelay = 1f;
 
     private Transform FindNearestEnemy()
     //TODO: optimize this, the game is -- suprisingly -- (sometimes) becoming laggy in the editor.
@@ -104,7 +104,9 @@ public class Chase : MonoBehaviour
     {
         while (HP > 0)
         {
-            Invoke(nameof(CheckAttack), 0.5f); // Sätt tid till hur länge animationen körs
+            CheckAttack();
+            float bonusValue = (float)UIController.GetSkillModifier("Allied Fire Rate");
+            float shootDelay = (2 - bonusValue) * originalShootDelay; 
             yield return new WaitForSeconds(shootDelay);
         }
     }
@@ -135,6 +137,7 @@ public class Chase : MonoBehaviour
 
     private void TakeDamage(int damageAmount, Collider2D other)
     {
+        HP = HP * UIController.GetSkillModifier("Allied Health");
         HP -= damageAmount;
         OnHealthChanged();
         if (HP <= 0)
