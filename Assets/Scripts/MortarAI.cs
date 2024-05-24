@@ -75,17 +75,12 @@ public class MortarAI : EnemyMonoBehaviour
 
         }
     }
-   
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("PlayerAttack")) 
-        {
-            Destroy(other.gameObject);
-            HP -= 1 * dmgMultiplier;
-            OnDied();
-            StartCoroutine(Flash());
 
-        }
+    public override void TakeDamage()
+    {
+        HP -= 1 * dmgMultiplier;
+        OnDied();
+        StartCoroutine(Flash());
 
         if (HP <= 0)
         {
@@ -97,8 +92,17 @@ public class MortarAI : EnemyMonoBehaviour
             sprd.color = Color.red;
             StartCoroutine(DropDelay()); //Tillagt av Basi
             Destroy(gameObject, 1f);     //Destroy(gameObject, 1f);
-            }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlayerAttack")) 
+        {
+            Destroy(other.gameObject);
+            TakeDamage();
+        }
+    }
 
     private void OnTriggerStay2D(Collider2D other)
     {

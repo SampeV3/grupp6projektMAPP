@@ -11,4 +11,5 @@ public class ItemData : ScriptableObject
     public bool addOffset;
     public int health = 1;
     public bool nonDestructible;
+    public bool explodeOnDestruction;
 }

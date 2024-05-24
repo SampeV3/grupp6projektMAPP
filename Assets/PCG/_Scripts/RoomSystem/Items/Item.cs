@@ -16,9 +16,10 @@ public class Item : MonoBehaviour
     int health = 3;
     [SerializeField]
     bool nonDestructible;
+    [SerializeField] bool explodeOnDestruction;
 
     [SerializeField]
-    private GameObject hitFeedback, destoyFeedback;
+    private GameObject hitFeedback, destroyFeedback, explosion;
 
     public UnityEvent OnGetHit { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
@@ -35,6 +36,7 @@ public class Item : MonoBehaviour
             nonDestructible = true;
 
         this.health = itemData.health;
+        this.explodeOnDestruction = itemData.explodeOnDestruction;
 
     }
 
@@ -43,9 +45,10 @@ public class Item : MonoBehaviour
         if (nonDestructible)
             return;
         if(health>1)
-            Instantiate(hitFeedback, spriteRenderer.transform.position, Quaternion.identity);
+            Destroy(Instantiate(hitFeedback, spriteRenderer.transform.position, Quaternion.identity), 2);
+            
         else
-            Instantiate(destoyFeedback, spriteRenderer.transform.position, Quaternion.identity);
+            Destroy(Instantiate(destroyFeedback, spriteRenderer.transform.position, Quaternion.identity), 3);
         spriteRenderer.transform.DOShakePosition(0.2f, 0.3f, 75, 1, false, true).OnComplete(ReduceHealth);
     }
 
@@ -54,6 +57,11 @@ public class Item : MonoBehaviour
         health--;
         if (health <= 0)
         {
+            if (explodeOnDestruction)
+            {
+                Instantiate(explosion, spriteRenderer.transform.position, spriteRenderer.transform.rotation, RoomContentGenerator.getItemParent());
+            }
+
             spriteRenderer.transform.DOComplete();
             Destroy(gameObject);
         }

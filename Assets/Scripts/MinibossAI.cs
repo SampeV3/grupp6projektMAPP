@@ -233,29 +233,33 @@ public class MinibossAI : EnemyMonoBehaviour
         }
     }
 
+    public override void TakeDamage()
+    {
+        HP -= 1 * dmgMultiplier;
+        StartCoroutine(Flash());
+        StartCoroutine(UpdateRedHealth());
+        if (HP <= 0)
+        {
+            OnDied();
+            if (combatCoroutine != null)
+            {
+                StopCoroutine(combatCoroutine);
+            }
+            topSprite.color = Color.red;
+            botSprite.color = Color.red;
+            Destroy(parent, 1f);
+            canvas.SetActive(false);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("PlayerAttack"))
         {
             Destroy(other.gameObject);
-            HP -= 1 * dmgMultiplier;
-            StartCoroutine(Flash());
-            StartCoroutine(UpdateRedHealth());
-
-        }
-            if(HP <= 0)
-            {
-                OnDied();
-                if (combatCoroutine != null)
-                {
-                    StopCoroutine(combatCoroutine);
-                }
-                topSprite.color = Color.red;
-                botSprite.color = Color.red;
-                Destroy(parent, 1f);
-                canvas.SetActive(false);
-            }
-        }
+            TakeDamage();
+        }        
+    }
 
     private void OnTriggerStay2D(Collider2D other)
     {

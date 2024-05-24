@@ -181,22 +181,16 @@ public class EnemyAI : EnemyMonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public override void TakeDamage()
     {
-        if (other.gameObject.CompareTag("PlayerAttack") )
-        {
-            Destroy(other.gameObject);
-            HP -= 1 * dmgMultiplier; // damagemultiplier to be added
-            StartCoroutine(Flash());
-            ActivateOnDamage();
-            ActivateNearbyEnemies();
-
-        }
-
+        HP -= 1 * dmgMultiplier; // damagemultiplier to be added
+        StartCoroutine(Flash());
+        ActivateOnDamage();
+        ActivateNearbyEnemies();
         if (HP <= 0)
         {
 
-            
+
             OnDied();
             isDead = true;
 
@@ -213,8 +207,15 @@ public class EnemyAI : EnemyMonoBehaviour
             dropLoot();
             Destroy(gameObject, 1f);
         }
+    }
 
-
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlayerAttack") )
+        {
+            Destroy(other.gameObject);
+            TakeDamage();
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)

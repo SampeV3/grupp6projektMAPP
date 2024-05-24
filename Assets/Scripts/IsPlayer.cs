@@ -22,8 +22,10 @@ public abstract class EnemyMonoBehaviour : MonoBehaviour
 
     public EnemyType enemyType;
     
-    [SerializeField] protected float HP = 10;
-    
+    public float HP = 10;
+
+    public abstract void TakeDamage();
+
     
     protected EnemyData persistentEnemyData = null;
     public bool enemyDataFieldDefined = false;
