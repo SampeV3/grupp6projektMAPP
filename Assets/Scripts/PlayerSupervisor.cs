@@ -26,7 +26,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
         startingExperienceRequired = experienceRequired;
         PlayerTakeDamage.OnRespawn += OnRespawn;
         PlayerTakeDamage.OnTakeDamage += OnTakeDamage;
-        PlayerTakeDamage.OnKilledBy += OnKilledBy;
+        PlayerTakeDamage.OnKilledByEvent += OnKilledBy;
         SingletonClass.OnXPAdded += AddXP;
         LevelElevator.BeforeNextLevel += LevelElevatorOnToNextLevel;
     }
@@ -35,7 +35,7 @@ public class PlayerSupervisor : MonoBehaviour, IDataPersistance
     {
         PlayerTakeDamage.OnRespawn -= OnRespawn;
         PlayerTakeDamage.OnTakeDamage -= OnTakeDamage;
-        PlayerTakeDamage.OnKilledBy -= OnKilledBy;
+        PlayerTakeDamage.OnKilledByEvent -= OnKilledBy;
         SingletonClass.OnXPAdded -= AddXP;
         LevelElevator.BeforeNextLevel -= LevelElevatorOnToNextLevel;
         

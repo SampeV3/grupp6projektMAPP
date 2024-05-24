@@ -14,7 +14,7 @@ public class PlayerTakeDamage : MonoBehaviour
     //public int health;
     
     [SerializeField] private Transform spawnTransform;
-
+    [SerializeField] private GameObject gameOverPanel;
 
     private Vector3 spawnPosition;
 
@@ -54,11 +54,11 @@ public class PlayerTakeDamage : MonoBehaviour
     
     public delegate void DoRespawnAction();
 
-    public static event DoRespawnAction ExecuteDoRespawn;
+    public static event DoRespawnAction ExecuteDoRespawnEvent;
     
     
     public delegate void PlayerKilledByAction(PlayerTakeDamage playerTakeDamage, EnemyData enemyData, GameObject enemyKiller);
-    public static event PlayerKilledByAction OnKilledBy;
+    public static event PlayerKilledByAction OnKilledByEvent;
     
     private bool playerDied = false;
     public bool IsInCombat = false;
@@ -128,16 +128,30 @@ public class PlayerTakeDamage : MonoBehaviour
 
     }
     
-    public void DoRespawn()
+    private void showGameOverScreen()
     {
-        
+        gameOverPanel.SetActive(true);
+        gameOverPanel.GetComponent<Animator>().enabled = true;
+    }
+
+
+
+    public void DoRespawn()
+    {   
+        if (gameOverPanel.activeInHierarchy == false) //this method is called by the play again button.
+        {
+            showGameOverScreen();
+            return;
+        }    
+
         if (OnRespawn != null) OnRespawn(this); //trigga eventet s� att andra script kan lyssna.
 
 
-        onPermaDeath.Invoke();
         //gameObject.GetComponent<Animator>().SetBool("IsDead", true);
         //Spela upp player death animation? effekter? ljud? delay?
         //lägg till scripts till eventet. 
+
+        
 
         if (OnPermaDeathAction != null)
         {
@@ -187,21 +201,15 @@ public class PlayerTakeDamage : MonoBehaviour
             playerDied = true;
             anim.SetBool("IsDead", true);
 
-            if (Nemesis.NemesisController.nemesisEnabled && other.gameObject.GetComponent<BulletID>() != null)
+            if (Nemesis.NemesisController.nemesisEnabled && other.gameObject.TryGetComponent<BulletID>(out BulletID bulletInfo) && bulletInfo.KillerGameObject != null)
             {
                 onFreezeActions.Invoke();
-                EnemyKilledPlayer(other.gameObject.GetComponent<BulletID>());
-                
-                //How about we tell this script to respawn the player
-                //when there is a cutscene event that fires!!
-                //then the player can choose when to exit the nemesis scene :D
-                
-                
+                onPermaDeath.Invoke();
+                EnemyKilledPlayer(bulletInfo);
             }
             else
             {
-                print((other.gameObject.GetComponent<BulletID>() != null) + " BulletID not found so respawn immidiately");
-
+                onPermaDeath.Invoke();
                 DoRespawn();   
             }
         }
@@ -235,12 +243,6 @@ public class PlayerTakeDamage : MonoBehaviour
             UpdateHealthBar();
         }
     }
-
-    private void OnKillCameraFinished()
-    {
-        
-        
-    }
     
     private void EnemyKilledPlayer (BulletID info)
     {
@@ -265,14 +267,14 @@ public class PlayerTakeDamage : MonoBehaviour
             secondsDuration = 3f,
             targetTransform = enemy.transform,
             dialougeText = killerDialouge,
-            callbackMethodName = nameof(OnKillCameraFinished),
+            callbackMethodName = null,
             doRespawn = true
         };
         StartCoroutine(CameraToTarget(moveCam));
         
         print("Create new killer EnemyData");
         superEnemyClass.SetEnemyData(enemyData);
-        if (OnKilledBy != null) OnKilledBy(this, enemyData, info.KillerGameObject);
+        if (OnKilledByEvent != null) OnKilledByEvent(this, enemyData, info.KillerGameObject);
     }
     
     public CameraFollow cameraFollow;
@@ -319,7 +321,7 @@ public class PlayerTakeDamage : MonoBehaviour
                     {
                         OnRespawn(this);
                     }
-                    ExecuteDoRespawn();
+                    ExecuteDoRespawnEvent();
                 }
                 break;
             }
@@ -422,13 +424,13 @@ public class PlayerTakeDamage : MonoBehaviour
 
     private void OnEnable()
     {
-        ExecuteDoRespawn += DoRespawn;
+        ExecuteDoRespawnEvent += DoRespawn;
         
     }
 
     private void OnDisable()
     {
-        ExecuteDoRespawn -= DoRespawn;
+        ExecuteDoRespawnEvent -= DoRespawn;
     }
     private SerializableDictionary<string, EnemyData> enemyDataDict;
 
