@@ -286,7 +286,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     {
         private bool isPerk;
         private int level;
-        public static int MAX_LEVEL = 12;
+        public int MAX_LEVEL = 100;
         private double modifier = 1;
         [SerializeField] double upgradeAmount = 0.03;
 
@@ -393,7 +393,7 @@ public class UIController : MonoBehaviour, IDataPersistance
         SetShopLabelPointsText();
         if (skill.CanLevelUp() == false)
         {
-            print("This skill is already maxed out at " + skill.GetLevel() + "/" + UpgradableStat.MAX_LEVEL);
+            print("This skill is already maxed out at " + skill.GetLevel() + "/" + skill.MAX_LEVEL);
             return;
         }
         

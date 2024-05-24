@@ -8,4 +8,5 @@ public class UpgradeTemplateReferences : MonoBehaviour
     public  TextMeshProUGUI upgradeButtonText;
     public TextMeshProUGUI infoText;
     public bool isPerk = false;
+    public int maxLevel = 100;
 }
