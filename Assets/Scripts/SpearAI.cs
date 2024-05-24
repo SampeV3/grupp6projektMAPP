@@ -81,7 +81,7 @@ public class SpearAI : EnemyMonoBehaviour
     private bool IsPlayerWithinDetectionRadius()
     {
         float dist = Vector2.Distance(transform.position, player.position);
-        if (dist <= 20f)
+        if (dist <= 15)
         {
             return true;
         }
@@ -159,10 +159,14 @@ public class SpearAI : EnemyMonoBehaviour
     {
         Vector3 directionToPlayer = player.position - transform.position;
 
-        RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, directionToPlayer, 50f, playerMask);
-        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, directionToPlayer, 50f, obstacleMask);
+        RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, directionToPlayer, 17f, playerMask);
+        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, directionToPlayer, 17f, obstacleMask);
 
-        if (hitWall.collider.CompareTag("Wall") && hitPlayer.collider.CompareTag("Player") && hitPlayer.distance < hitWall.distance)
+        if (hitWall.distance == 0)
+        {
+            hitWall.distance = 100;
+        }
+        if (hitPlayer.collider.CompareTag("Player") && hitPlayer.distance < hitWall.distance)
         {
             playerDetected = true;
             GameObject playerSpottedWarning = Instantiate(playerSpotted, transform.position, Quaternion.identity, transform);
