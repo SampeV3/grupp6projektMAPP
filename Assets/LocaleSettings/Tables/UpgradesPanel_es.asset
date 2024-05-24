@@ -23,7 +23,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1251500699648
-    m_Localized: 'Mejore la velocidad de movimiento con (plata):'
+    m_Localized: Mejora la cadencia de disparo de los aliados
     m_Metadata:
       m_Items: []
   - m_Id: 1739533135872
@@ -41,7 +41,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2325141860352
-    m_Localized: "Mejore la duraci\xF3n de la gracia de salud con:"
+    m_Localized: "Mejora la duraci\xF3n de la gracia de salud"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 981935892815872
+    m_Localized: Mejora la velocidad de tu jugador
+    m_Metadata:
+      m_Items: []
+  - m_Id: 981770419134464
+    m_Localized: Mejora la salud de los robots aliados
     m_Metadata:
       m_Items: []
   references:

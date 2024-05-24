@@ -20,7 +20,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1251500699648
-    m_Key: moveSpead
+    m_Key: fireRate
     m_Metadata:
       m_Items: []
   - m_Id: 1739533135872
@@ -36,7 +36,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2325141860352
-    m_Key: healthGrace
+    m_Key: t
+    m_Metadata:
+      m_Items: []
+  - m_Id: 981770419134464
+    m_Key: allyHealth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 981935892815872
+    m_Key: moveSpeed
     m_Metadata:
       m_Items: []
   m_Metadata:
