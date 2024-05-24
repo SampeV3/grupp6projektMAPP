@@ -6370,10 +6370,10 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: walk
-      m_Image: {fileID: 21300000, guid: 72a4d6a23ea64844a8e7e0751cf26aca, type: 3}
+    - m_Text: "walk / g\xE5 / caminar"
+      m_Image: {fileID: 0}
     - m_Text: shoot
-      m_Image: {fileID: 21300000, guid: 72a4d6a23ea64844a8e7e0751cf26aca, type: 3}
+      m_Image: {fileID: 0}
     - m_Text: dash
       m_Image: {fileID: 0}
     - m_Text: healing
@@ -12641,7 +12641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5183150050476656163, guid: 1cb7e3e5048b8a442b993d4821c0414b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 112.99951
+      value: 112.999756
       objectReference: {fileID: 0}
     - target: {fileID: 5183150050476656163, guid: 1cb7e3e5048b8a442b993d4821c0414b, type: 3}
       propertyPath: m_AnchoredPosition.y
