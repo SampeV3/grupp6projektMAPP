@@ -2111,6 +2111,7 @@ MonoBehaviour:
   upgradeButtonText: {fileID: 0}
   infoText: {fileID: 4945230053546488015}
   isPerk: 0
+  maxLevel: 100
 --- !u!1 &788181883480425296
 GameObject:
   m_ObjectHideFlags: 0
@@ -8959,6 +8960,7 @@ MonoBehaviour:
   upgradeButtonText: {fileID: 0}
   infoText: {fileID: 1079078412797127711}
   isPerk: 0
+  maxLevel: 100
 --- !u!1 &3672006904457799515
 GameObject:
   m_ObjectHideFlags: 0
@@ -10396,6 +10398,7 @@ MonoBehaviour:
   upgradeButtonText: {fileID: 0}
   infoText: {fileID: 5919250176477447102}
   isPerk: 0
+  maxLevel: 66
 --- !u!1 &4895717449259329197
 GameObject:
   m_ObjectHideFlags: 0
@@ -14786,6 +14789,7 @@ MonoBehaviour:
   upgradeButtonText: {fileID: 0}
   infoText: {fileID: 8111605988882940287}
   isPerk: 1
+  maxLevel: 100
 --- !u!1 &6817857507326263739
 GameObject:
   m_ObjectHideFlags: 0
@@ -21628,6 +21632,7 @@ MonoBehaviour:
   upgradeButtonText: {fileID: 0}
   infoText: {fileID: 4946423463418994790}
   isPerk: 0
+  maxLevel: 100
 --- !u!1 &8661509773083481886
 GameObject:
   m_ObjectHideFlags: 0
@@ -21836,6 +21841,7 @@ MonoBehaviour:
   upgradeButtonText: {fileID: 0}
   infoText: {fileID: 2323711170356204153}
   isPerk: 1
+  maxLevel: 100
 --- !u!1 &8743772822239562125
 GameObject:
   m_ObjectHideFlags: 0
