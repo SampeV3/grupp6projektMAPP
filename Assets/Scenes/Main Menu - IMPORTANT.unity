@@ -2595,13 +2595,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379502331}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1069331252}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -22.699997, y: 0}
@@ -4277,7 +4277,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7.5, y: -0.0000009536743}
+  m_AnchoredPosition: {x: -7.4999847, y: 0}
   m_SizeDelta: {x: -35, y: -0.665}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &642466144
@@ -4327,7 +4327,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.55
+  m_fontSize: 46.35
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6299,7 +6299,7 @@ GameObject:
   - component: {fileID: 1069331253}
   - component: {fileID: 1069331256}
   m_Layer: 5
-  m_Name: Dropdown
+  m_Name: DropdownTipMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6325,7 +6325,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -734}
-  m_SizeDelta: {x: 200, y: 30}
+  m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1069331253
 MonoBehaviour:
@@ -6378,9 +6378,9 @@ MonoBehaviour:
   m_Options:
     m_Options:
     - m_Text: walk
-      m_Image: {fileID: 0}
+      m_Image: {fileID: 21300000, guid: 72a4d6a23ea64844a8e7e0751cf26aca, type: 3}
     - m_Text: shoot
-      m_Image: {fileID: 0}
+      m_Image: {fileID: 21300000, guid: 72a4d6a23ea64844a8e7e0751cf26aca, type: 3}
     - m_Text: dash
       m_Image: {fileID: 0}
     - m_Text: healing
