@@ -61,16 +61,21 @@ namespace Nemesis
 
         void OnEnable()
         {
-            PlayerTakeDamage.OnKilledBy += OnPlayerKilled;
+            PlayerTakeDamage.OnKilledByEvent += OnPlayerKilled;
         }
 
         void OnDisable()
         {
-            PlayerTakeDamage.OnKilledBy -= OnPlayerKilled;
+            PlayerTakeDamage.OnKilledByEvent -= OnPlayerKilled;
         }
 
         private void OnPlayerKilled(PlayerTakeDamage playerTakeDamage, EnemyData enemyData, GameObject enemyKiller)
         {
+            if (independentEnemyDataDict.ContainsKey(enemyData.id))
+            {
+                Debug.Log("Error enemy id already exists, trying to make a new one!");
+                enemyData.id = enemyData.id + independentEnemyDataDict.Count;
+            }
             independentEnemyDataDict.Add(enemyData.id, enemyData);   
         }
 
