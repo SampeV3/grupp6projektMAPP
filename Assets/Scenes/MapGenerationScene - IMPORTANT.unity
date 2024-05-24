@@ -1248,10 +1248,12 @@ MonoBehaviour:
   goalTime: 0
   musicDuration: 0
   tryCombatMusic: 1
+  trySong: 1
   audioToggle: 0
   introAudioSource: {fileID: 1028667690}
   loopAudioSource: {fileID: 1028667689}
   combatAudioSource: {fileID: 1028667692}
+  song: {fileID: 8300000, guid: 8fcc3c1736996004bae5acef99b39a1d, type: 3}
 --- !u!82 &1028667689
 AudioSource:
   m_ObjectHideFlags: 0

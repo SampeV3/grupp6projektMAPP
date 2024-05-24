@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a83f2a5bea8447489822be80764763e, type: 3}
   m_Name: Explosive Barrel
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 080226571baca0d45b59c00d50580ed4, type: 3}
+  sprite: {fileID: 21300000, guid: 12a028460e0c2464185a06e0faea0888, type: 3}
   size: {x: 1, y: 1}
   placementType: 0
   addOffset: 0
   health: 1
   nonDestructible: 0
+  explodeOnDestruction: 1

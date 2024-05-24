@@ -6,16 +6,39 @@ using UnityEngine;
 
 public class Music : MonoBehaviour
 {
+    private static int instancesOfClass = 0;
 
     public double goalTime;
     public double musicDuration;
 
+
     public bool tryCombatMusic = false;
+    public bool trySong = true;
     public int audioToggle;
 
+
     public AudioSource introAudioSource , loopAudioSource, combatAudioSource;
+    public AudioClip song;
+
+    void Awake()
+    {
+        if (instancesOfClass < 1)
+        {
+            instancesOfClass++;
+            DontDestroyOnLoad(gameObject.transform.parent.gameObject);
+        } else {
+            Destroy(gameObject);
+        }
+    }
 
     void Start() {
+        if (trySong)
+        {
+            loopAudioSource.clip = song;
+            loopAudioSource.Play();
+            return;
+        }
+
         double introDuration = (double)introAudioSource.clip.samples / introAudioSource.clip.frequency;
         double startTime = AudioSettings.dspTime + 0.2;
         introAudioSource.PlayScheduled(startTime);
@@ -25,9 +48,8 @@ public class Music : MonoBehaviour
 
     void OnCombat(bool isInCombatMode, string situation)
     {
-        //bara en idé på combat mode music, men sättet eventet triggas behöver bli mer tillförlitligt först :)
-        //annars kan musiken stanna ex. mitt i en fight plötsligt i 1 - 2 sekunder
-        //dessutom måste nog båda låtarna matcha varandra, så att de inte skiljer sig så mycket och det blir för mycket dissonans?
+        
+
         if (!tryCombatMusic) {return;}
         if (isInCombatMode)
         {
