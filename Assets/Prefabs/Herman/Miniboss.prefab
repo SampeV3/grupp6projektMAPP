@@ -1269,6 +1269,7 @@ MonoBehaviour:
   healthRed: {fileID: 6630461416876858509}
   canvas: {fileID: 1888144498322717984}
   player: {fileID: 0}
+  projectileSFX: {fileID: 8300000, guid: 38af67b31aa53ef46832305e40b14546, type: 3}
   anim: {fileID: 2115987290943512436}
   topSprite: {fileID: 295197728295613427}
   botSprite: {fileID: 1312859416789004648}
