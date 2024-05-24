@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class MinibossAI : EnemyMonoBehaviour
     [SerializeField] private Material flashOnHit;
     [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar, parent, dropItem, pane, healthWhite, healthRed, canvas; //dropItem tillagt av Basir
     [SerializeField] private Transform player;
-    //[SerializeField] private AudioClip projectileSFX;
+    [SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer topSprite, botSprite;
     private List<GameObject> whitePanels = new List<GameObject>();
@@ -184,6 +185,7 @@ public class MinibossAI : EnemyMonoBehaviour
     }
     private void RangedAttack(float offset)
     {
+        
         for (int i = 0; i < 8; i++)
         {
             Vector2 direction = new Vector2(Mathf.Cos((offset + i * 45f) * Mathf.Deg2Rad), Mathf.Sin((offset + i * 45f) * Mathf.Deg2Rad));
@@ -193,8 +195,13 @@ public class MinibossAI : EnemyMonoBehaviour
             projectile.GetComponent<Rigidbody2D>().rotation = angle;
             projectile.GetComponent<Rigidbody2D>().velocity = direction * 0.8f;    
         }
+        Invoke("PlaySFX", 0.5f);
     }
-
+    private void PlaySFX()
+    {
+        audioSource.pitch = Random.Range(0.85f, 1.15f);
+        audioSource.PlayOneShot(projectileSFX, 0.15f);
+    }
     private void StoreKillerInfoInDamageGameObject(GameObject projectile)
     {
         BulletID bulletInfo = projectile.GetComponent<BulletID>();
