@@ -14,7 +14,7 @@ public class BoostPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && uIController.inventoryBoostPickupAmount < 5)
+        if (other.CompareTag("Player") && uIController.inventoryBoostPickupAmount < UIController.maxInventoryBoostPickupAmount)
         {
             Destroy(gameObject, 0.1f);
             uIController.inventoryBoostPickupAmount += uIController.healthPickupAmountToIncrease;
