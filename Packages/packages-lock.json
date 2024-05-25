@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.annulusgames.lucid-random": {
+      "version": "https://github.com/AnnulusGames/LucidRandom.git?path=/Assets/LucidRandom",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c5fce2228395fc5db6939dc045ff2522ea92c024"
+    },
     "com.h8man.2d.navmeshplus": {
       "version": "https://github.com/h8man/NavMeshPlus.git",
       "depth": 0,
@@ -305,7 +312,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.8",
+      "version": "3.0.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {

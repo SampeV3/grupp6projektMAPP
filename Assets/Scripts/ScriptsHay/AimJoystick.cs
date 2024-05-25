@@ -112,6 +112,6 @@ public class AimJoystick : MonoBehaviour
         // Flips the player.
         FacingRight = !FacingRight;
 
-        transform.Rotate(0, 180, 0);
+        //transform.Rotate(0, 180, 0);
     }
 }
