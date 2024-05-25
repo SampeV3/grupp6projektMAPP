@@ -148,6 +148,7 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     public void ExitAnyPanel(GameObject gameObject) //Basir
     {
+        
         Animator gameObjectAnimator = gameObject.GetComponent<Animator>();
         float delay = gameObjectAnimator.GetCurrentAnimatorStateInfo(0).length + 0.1f; //0.1f för att säkerställa att animationen har spelats klart
         StartCoroutine(AnimationDelay("ExitAnyPanel", gameObject, delay, gameObjectAnimator));
