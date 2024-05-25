@@ -98,7 +98,7 @@ AudioSource:
   m_GameObject: {fileID: 3858980567652597406}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1378499115207068962, guid: ce66407071fd096408fcc3dc9a13f133, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -245,7 +245,7 @@ MonoBehaviour:
   rangedTarget: {fileID: 0}
   attackRange: 10
   HP: 5
-  shootDelay: 3
+  originalShootDelay: 0.8
 --- !u!70 &-8318194841637667076
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
