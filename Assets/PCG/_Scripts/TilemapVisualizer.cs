@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using AnnulusGames.LucidTools.RandomKit;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -13,6 +14,13 @@ public class TilemapVisualizer : MonoBehaviour
         wallInnerCornerDownLeft, wallInnerCornerDownRight, 
         wallDiagonalCornerDownRight, wallDiagonalCornerDownLeft, wallDiagonalCornerUpRight, wallDiagonalCornerUpLeft;
 
+    public void SetRandomTilemapColor()
+    {
+        floorTilemap.color = LucidRandom.ColorHSV();
+        wallTilemap.color = LucidRandom.ColorHSV();
+
+    }
+    
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
     {
         PaintTiles(floorPositions, floorTilemap, floorTile);
