@@ -201,9 +201,17 @@ public class MortarAI : EnemyMonoBehaviour
 
     private IEnumerator DropDelay() //tillagt av Basir
     {
-        yield return new WaitForSeconds(0.9f);
-        gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        gameObject.transform.GetChild(0).gameObject.transform.parent = null;
+        yield return new WaitForSeconds(0.5f);
+        if (gameObject.transform.GetChild(0) != null)
+        {
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            gameObject.transform.GetChild(0).gameObject.transform.parent = null;
+        }
+        else
+        {
+            yield break;
+        }
+       
     }
 
     private void dropLoot()
