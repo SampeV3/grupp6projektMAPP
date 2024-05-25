@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -31,65 +30,90 @@ public class UIController : MonoBehaviour, IDataPersistance
                 }
             }
         }
-    }
+    } 
 
-    public delegate void SpawnAlly();
+    public delegate void SpawnAlly(); 
 
     public static event SpawnAlly OnSpawnAlly;
 
     public bool disableInventoryAndMenuButtonWhileInCombat = false;
     
     public GameObject inventoryButton, pauseButton;
-    public GameObject settingsPanelInPausePanel, audioSettingsPanel, GeneralSettingsPanel, tutorialInSettingsPanel, inventoryPanel, upgradesPanel, pausePanel; //Basir
+    //public GameObject settingsPanelInPausePanel, audioSettingsPanel, GeneralSettingsPanel, tutorialInSettingsPanel, inventoryPanel, upgradesPanel, pausePanel; //Basir
+
     public List<GameObject> inactiveWhilePaused; //Basir
+    public List<GameObject> inactiveAtStart;
+
     public List<GameObject> inactiveWhilePromptedQuestion;
-    
+
 
     public PlayerSupervisor playerSupervisor;
     public PlayerTakeDamage playerTakeDamage;
 
-    public TextMeshProUGUI xPPoint, levelInfo;
+    public TextMeshProUGUI xPPoint, levelInfo;//Basir
 
-    public List<Button> inventoryButtonsInPanel;
+    public List<Button> inventoryButtonsInPanel; //Basir
 
-    public int healthPickupAmountToIncrease = 1;
+    public int healthPickupAmountToIncrease = 1;//Basir
     public int boostPickupAmountToIncrease = 1;
     public int inventoryHealthPickupAmount = 0;
     public int inventoryBoostPickupAmount = 0;
+    public int maxHealthPickUpAmount = 3;
+
     public static int maxInventoryBoostPickupAmount = 15; //set in the start method.
 
-    public bool weapon_1_Selected = true;
+    public bool weapon_1_Selected = true;//Basir
     public bool weapon_2_Selected = false;
 
-    public AudioClip clickSound, spawnAllySound;
-    private AudioSource audioSource;
+    public AudioClip clickSound, spawnAllySound;//delvis Basir
+    private AudioSource audioSource;//Basir
 
-    public Transform animatorObject;
-    
-    private void Start()
+    public Transform crossfadeTranstionImage;//Basir
+    private Animator sceneTransitions;
+
+    private void Start()//Basir
     {
+        sceneTransitions = crossfadeTranstionImage.GetComponent<Animator>();
+        
+        foreach (GameObject panel in inactiveAtStart)
+        {
+            panel.SetActive(false);
+        }
+        
         audioSource = GetComponent<AudioSource>();
         maxInventoryBoostPickupAmount = 15;
         xPPoint.text = "00";
-        inventoryPanel.SetActive(false);
-        upgradesPanel.SetActive(false);
-        pausePanel.SetActive(false);
-        settingsPanelInPausePanel.SetActive(false);
     }
+
+
 
     
     [SerializeField]
     private static Dictionary<string, UpgradableStat> _upgradableStats = new Dictionary<string, UpgradableStat>();
 
     [SerializeField] private List<UpgradeTemplateReferences> upgradeReferenceClasses = new List<UpgradeTemplateReferences>();
+
+
+
+
     
-    private void FixedUpdate()
+    private void FixedUpdate()//Basir
     {
         xPPoint.text = "XP:" + playerSupervisor.XP + "/" + playerSupervisor.experienceRequired;
         levelInfo.text = ": " + playerSupervisor.level;
     }
-    private void Update()
+
+    private void Update() //Delvis Basir
     {
+        if (isAnyPanelActive())
+        {
+            PauseGame();
+        }
+        else
+        {
+            ResumeGame();
+        }
+
         if (inventoryHealthPickupAmount > 0)
         {
             inventoryButtonsInPanel[2].GetComponent<Animator>().enabled = true;
@@ -99,7 +123,7 @@ public class UIController : MonoBehaviour, IDataPersistance
             inventoryButtonsInPanel[2].GetComponent<Animator>().enabled =false;
         }
 
-        inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventoryHealthPickupAmount + "/3";
+        inventoryButtonsInPanel[2].gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inventoryHealthPickupAmount + "/" + maxHealthPickUpAmount;
 
         if (inventoryBoostPickupAmount > 0)
         {
@@ -114,71 +138,93 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     }
 
-    public void OpenPausePanel()
-    {
-        SetTimeScale();
-        pausePanel.SetActive(true);
-
-    }
-
-    public void ExitPausePanel()
-    {
-        StartCoroutine(AnimationDelay("ExitPausePanel", pausePanel, 1f));
-    }
-
-    public void openSettingsPanelInPausePanel()
-    {
-        settingsPanelInPausePanel.SetActive(true);
-    }
-
-    public void ExitAnyPanelInSettingsPanel(GameObject gameObject)
-    {
-        StartCoroutine(AnimationDelay("ExitPanelInPanel", gameObject, 1f));
-    }
-    public void ExitSettingsPanelInPausePanel()
-    {
-        StartCoroutine(AnimationDelay("ExitSettingsPanel", settingsPanelInPausePanel, 1f));
-    }
-    public void OpenInventory()
-    {
-        SetTimeScale();
-        inventoryPanel.SetActive(true);
-    }
-    public void ExitInventory()
+    public void OpenAnyPanel(GameObject gameObject) //Basir
     {
         
-        StartCoroutine(AnimationDelay("ExitInventory", inventoryPanel, 0.5f));
+        gameObject.SetActive(true);
+
     }
 
-    public void OpenUpgradesPanel()
+    public void ExitAnyPanel(GameObject gameObject) //Basir
     {
-        //SetTimeScale();
-        upgradesPanel.SetActive(true);
+        Animator gameObjectAnimator = gameObject.GetComponent<Animator>();
+        float delay = gameObjectAnimator.GetCurrentAnimatorStateInfo(0).length + 0.1f; //0.1f för att säkerställa att animationen har spelats klart
+        StartCoroutine(AnimationDelay("ExitAnyPanel", gameObject, delay, gameObjectAnimator));
     }
 
-    public void ExitUpgradesPanel()
-    {
-        //SetTimeScale();
-        StartCoroutine(AnimationDelay("ExitUpgrades", upgradesPanel, 1f));
-    }
+    //public void OpenPausePanel()
+    //{
+    //    SetTimeScale();
+    //    pausePanel.SetActive(true);
 
-    private void SetTimeScale()
-    {
-        Time.timeScale = (Time.timeScale == 0) ? 1 : 0;
+    //}
 
-        if (Time.timeScale > 0)
+    //public void ExitPausePanel()
+    //{
+    //    StartCoroutine(AnimationDelay("ExitPausePanel", pausePanel, 1f));
+    //}
+
+    //public void openSettingsPanelInPausePanel()
+    //{
+    //    settingsPanelInPausePanel.SetActive(true);
+    //}
+
+    //public void ExitAnyPanelInSettingsPanel(GameObject gameObject)
+    //{
+    //    StartCoroutine(AnimationDelay("ExitPanelInPanel", gameObject, 1f));
+    //}
+    //public void ExitSettingsPanelInPausePanel()
+    //{
+    //    StartCoroutine(AnimationDelay("ExitSettingsPanel", settingsPanelInPausePanel, 1f));
+    //}
+    //public void OpenInventory()
+    //{
+    //    SetTimeScale();
+    //    inventoryPanel.SetActive(true);
+    //}
+    //public void ExitInventory()
+    //{
+
+    //    StartCoroutine(AnimationDelay("ExitInventory", inventoryPanel, 0.5f));
+    //}
+
+    //public void OpenUpgradesPanel()
+    //{
+    //    //SetTimeScale();
+    //    upgradesPanel.SetActive(true);
+    //}
+
+    //public void ExitUpgradesPanel()
+    //{
+    //    //SetTimeScale();
+    //    StartCoroutine(AnimationDelay("ExitUpgrades", upgradesPanel, 1f));
+    //}
+
+    private bool isAnyPanelActive() //Basir
+    {
+        foreach (GameObject obj in inactiveAtStart)
         {
-            SetActiveInList(inactiveWhilePaused, true);
+            if (obj.activeSelf)
+            {
+                return true;
+            }
         }
-        else
-        {
-            SetActiveInList(inactiveWhilePaused, false);
-        }
-
+        return false;
     }
-    public void ReturnToMainMenu()
+    private void PauseGame()//Basir
     {
-       StartCoroutine(AnimationDelay("MainMenu", null, 1f));
+        Time.timeScale = 0;
+        SetActiveInList(inactiveWhilePaused, false);
+    }
+
+    private void ResumeGame()//Basir
+    {
+        Time.timeScale = 1;
+        SetActiveInList(inactiveWhilePaused, true);
+    }
+    public void ReturnToMainMenu()//Basir
+    {
+       StartCoroutine(AnimationDelay("MainMenu", null, 1f, sceneTransitions));
     }
 
     private void OnCombatChanged(bool isInCombat, string situation)
@@ -232,7 +278,7 @@ public class UIController : MonoBehaviour, IDataPersistance
         PickupScript.OnPickup -= PickupComplete;
     }
 
-    public void IncreaseHealthFromInventory()
+    public void IncreaseHealthFromInventory() //Basir
     {
         if (playerTakeDamage.currentHealth < playerTakeDamage.maxHealth && inventoryHealthPickupAmount > 0)
         {
@@ -242,7 +288,7 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
     }
 
-    public void SpawnAllyBoost() //ska ut�kas n�r boost item har en funktion
+    public void SpawnAllyBoost() //Basir och Elias
     {
         if (inventoryBoostPickupAmount > 0)
         {
@@ -252,7 +298,7 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
     }
 
-    public void SelectWeapon_1()
+    public void SelectWeapon_1() //Basir
     {
         if (weapon_2_Selected)
         {
@@ -261,7 +307,7 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
     }
 
-    public void SelectWeapon_2()
+    public void SelectWeapon_2() //Basir
     {
         if (weapon_1_Selected)
         {
@@ -278,10 +324,6 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
     }
     
-    private void changeItemColor (GameObject gameObject)
-    {
-        gameObject.GetComponent<Animator>().SetTrigger("Disabled");
-    }
 
     //tillagt av Elias: uppgradderingar :D
 
@@ -557,74 +599,86 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
 
 
-    private IEnumerator AnimationDelay(String command,GameObject gameObject, float delay)
+    private IEnumerator AnimationDelay(String command,GameObject gameObject, float delay, Animator gameObjectAnimator) //Basir
     {
-        if (command == "ExitInventory")
+        if (command == "ExitAnyPanel")
         {
-            gameObject.GetComponent<Animator>().SetTrigger("End");
+            gameObjectAnimator.SetTrigger("End");
             yield return new WaitForSecondsRealtime(delay);
             gameObject.SetActive(false);
-            SetTimeScale();
-
         }
-        if(command == "MainMenu")
+        if (command == "MainMenu")
         {
+            gameObjectAnimator.SetTrigger("Start");
             yield return new WaitForSecondsRealtime(delay);
             SceneManager.LoadScene(0);
         }
 
-        if (command == "ExitUpgrades")
-        {
-            gameObject.GetComponent<Animator>().SetTrigger("End");
-            yield return new WaitForSecondsRealtime(delay);
-            
-            gameObject.SetActive(false);
-            
+        
+            //if (command == "ExitInventory")
+            //{
+            //    gameObject.GetComponent<Animator>().SetTrigger("End");
+            //    yield return new WaitForSecondsRealtime(delay);
+            //    gameObject.SetActive(false);
+            //    SetTimeScale();
 
-        }
+            //}
+            //if (command == "MainMenu")
+            //{
+            //    yield return new WaitForSecondsRealtime(delay);
+            //    SceneManager.LoadScene(0);
+            //}
 
-        if (command == "ExitPausePanel")
-        {
-            gameObject.GetComponent<Animator>().SetTrigger("End");
-            yield return new WaitForSecondsRealtime(delay);
-            gameObject.SetActive(false);
-            SetTimeScale();
-        }
+            //if (command == "ExitUpgrades")
+            //{
+            //    gameObject.GetComponent<Animator>().SetTrigger("End");
+            //    yield return new WaitForSecondsRealtime(delay);
 
-        if (command == "ExitSettingsPanel")
-        {
-            yield return new WaitForSecondsRealtime(delay / 3);
-            audioSettingsPanel.SetActive(false);
-            tutorialInSettingsPanel.SetActive(false);
-            GeneralSettingsPanel.SetActive(false);
-            gameObject.GetComponent<Animator>().SetTrigger("End");
-            yield return new WaitForSecondsRealtime(delay * 0.68f);
-            gameObject.SetActive(false);
-            
-        }
-
-        if (command == "ExitPanelInPanel")
-        {
-            yield return new WaitForSecondsRealtime(delay / 3);
-            if (gameObject == audioSettingsPanel)
-            {
-                GeneralSettingsPanel.SetActive(false);
-                tutorialInSettingsPanel.SetActive(false) ;
-            }
-            if (gameObject == GeneralSettingsPanel)
-            {
-                audioSettingsPanel.SetActive(false);
-                tutorialInSettingsPanel.SetActive(false);
-            }
-            if (gameObject == tutorialInSettingsPanel)
-            {
-                GeneralSettingsPanel.SetActive(false);
-                audioSettingsPanel.SetActive(false);
-            }
-        }
+            //    gameObject.SetActive(false);
 
 
+            //}
 
+            //if (command == "ExitPausePanel")
+            //{
+            //    gameObject.GetComponent<Animator>().SetTrigger("End");
+            //    yield return new WaitForSecondsRealtime(delay);
+            //    gameObject.SetActive(false);
+            //    SetTimeScale();
+            //}
+
+            //if (command == "ExitSettingsPanel")
+            //{
+            //    yield return new WaitForSecondsRealtime(delay / 3);
+            //    audioSettingsPanel.SetActive(false);
+            //    tutorialInSettingsPanel.SetActive(false);
+            //    GeneralSettingsPanel.SetActive(false);
+            //    gameObject.GetComponent<Animator>().SetTrigger("End");
+            //    yield return new WaitForSecondsRealtime(delay * 0.68f);
+            //    gameObject.SetActive(false);
+
+            //}
+
+            //if (command == "ExitPanelInPanel")
+            //{
+            //    yield return new WaitForSecondsRealtime(delay / 3);
+            //    if (gameObject == audioSettingsPanel)
+            //    {
+            //        GeneralSettingsPanel.SetActive(false);
+            //        tutorialInSettingsPanel.SetActive(false);
+            //    }
+            //    if (gameObject == GeneralSettingsPanel)
+            //    {
+            //        audioSettingsPanel.SetActive(false);
+            //        tutorialInSettingsPanel.SetActive(false);
+            //    }
+            //    if (gameObject == tutorialInSettingsPanel)
+            //    {
+            //        GeneralSettingsPanel.SetActive(false);
+            //        audioSettingsPanel.SetActive(false);
+            //    }
+            //}
+        
     }
 
 

@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: TutorialsPanel_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 023c2131b48783b428faafaa454397fe, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 6014709760
+    m_Localized: use the left joystick to move around the map
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9999298560
+    m_Localized: use the right joystick to shoot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13740617728
+    m_Localized: use the button on the right do dash while moving in that direction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 720262737920
+    m_Localized: you can not dash while standing still
+    m_Metadata:
+      m_Items: []
+  - m_Id: 844267335680
+    m_Localized: 'use the bottom left button in the backpack (inventory) to heal '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 847459201024
+    m_Localized: use the bottom right button in the backpack (inventory) to summon
+      a helping ally
+    m_Metadata:
+      m_Items: []
+  - m_Id: 849543770112
+    m_Localized: use skill points gained from leveling up to upgrade your character
+    m_Metadata:
+      m_Items: []
+  - m_Id: 851376680960
+    m_Localized: you can find the upgrade menu in the backpack and in the paus menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2726159265792
+    m_Localized: use the top buttons in the backpack to change between weapons
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2739929165824
+    m_Localized: 'Pistol weapon: slower shooting but more damage, Laser weapon: faster
+      shooting lesser damage'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

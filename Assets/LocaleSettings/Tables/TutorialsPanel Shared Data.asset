@@ -10,51 +10,59 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: UpgradesPanel Shared Data
+  m_Name: TutorialsPanel Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: UpgradesPanel
-  m_TableCollectionNameGuidString: 28105bd4a6eaac546a749060ed3941ff
+  m_TableCollectionName: TutorialsPanel
+  m_TableCollectionNameGuidString: 023c2131b48783b428faafaa454397fe
   m_Entries:
-  - m_Id: 7713402880
-    m_Key: upgradesInfo
+  - m_Id: 6014709760
+    m_Key: walk
     m_Metadata:
       m_Items: []
-  - m_Id: 1251500699648
-    m_Key: fireRate
+  - m_Id: 9999298560
+    m_Key: shoot
     m_Metadata:
       m_Items: []
-  - m_Id: 1739533135872
-    m_Key: dashSpeed
+  - m_Id: 13740617728
+    m_Key: dash
     m_Metadata:
       m_Items: []
-  - m_Id: 1938674495488
-    m_Key: dashDuration
+  - m_Id: 720262737920
+    m_Key: dash2
     m_Metadata:
       m_Items: []
-  - m_Id: 2106798977024
-    m_Key: gold
+  - m_Id: 844267335680
+    m_Key: heal
     m_Metadata:
       m_Items: []
-  - m_Id: 2325141860352
-    m_Key: healthGrace
+  - m_Id: 847459201024
+    m_Key: ally
     m_Metadata:
       m_Items: []
-  - m_Id: 981770419134464
-    m_Key: allyHealth
+  - m_Id: 849543770112
+    m_Key: upgrade
     m_Metadata:
       m_Items: []
-  - m_Id: 981935892815872
-    m_Key: moveSpeed
+  - m_Id: 851376680960
+    m_Key: findUpgrade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2726159265792
+    m_Key: changeWeapon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2739929165824
+    m_Key: changeWeapon2
     m_Metadata:
       m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 4712666755648192651
+    rid: 4712666844407529477
   references:
     version: 2
     RefIds:
-    - rid: 4712666755648192651
+    - rid: 4712666844407529477
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1716327225879
+        m_CustomEpoch: 1716643913354

@@ -71,6 +71,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-sv
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f34de27e7642a242ba8cb38b78af1e9
+    m_Address: TutorialsPanel_sv
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-sv
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 3adbec62c589a1040a66074d9dc91315, type: 2}
   m_SchemaSet:

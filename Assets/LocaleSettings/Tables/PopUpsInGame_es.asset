@@ -16,12 +16,14 @@ MonoBehaviour:
     m_Code: es
   m_SharedData: {fileID: 11400000, guid: 0254bb6a239688e4ba6c2b55aee6c507, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 4712666844407529475
   m_TableData:
   - m_Id: 4819333120
     m_Localized: "\xA1Jajaja! \xA1Te mate! \xA1Eso podr\xEDa incluso darme un ascenso!"
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 4712666844407529475
   - m_Id: 288870182912
     m_Localized: "\xA1Elevar a mismo nivel!"
     m_Metadata:
@@ -40,4 +42,8 @@ MonoBehaviour:
       m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 4712666844407529475
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0030411f01000000
