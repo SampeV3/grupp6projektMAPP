@@ -16,12 +16,14 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 0254bb6a239688e4ba6c2b55aee6c507, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 4712666844407529474
   m_TableData:
   - m_Id: 4819333120
     m_Localized: Hahaha! I killed you! Now that might even give me a promotion!
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 4712666844407529474
   - m_Id: 288870182912
     m_Localized: Level Up!
     m_Metadata:
@@ -40,4 +42,8 @@ MonoBehaviour:
       m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 4712666844407529474
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0030411f01000000

@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: TutorialsPanel_es
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: 023c2131b48783b428faafaa454397fe, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 6014709760
+    m_Localized: Usa el joystick izquierdo para moverte por el mapa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9999298560
+    m_Localized: usa el joystick derecho para disparar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13740617728
+    m_Localized: "usa el bot\xF3n de la derecha para correr mientras te mueves en
+      esa direcci\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 720262737920
+    m_Localized: " no puedes correr mientras est\xE1s parado"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 844267335680
+    m_Localized: "Usa el bot\xF3n inferior izquierdo en la mochila (inventario) para
+      curar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 847459201024
+    m_Localized: "anv\xE4nd den nedre h\xF6gra knappen i ryggs\xE4cken f\xF6r att
+      skapa en hj\xE4lpande allierad "
+    m_Metadata:
+      m_Items: []
+  - m_Id: 849543770112
+    m_Localized: usa los puntos de habilidad obtenidos al subir de nivel para mejorar
+      tu personaje
+    m_Metadata:
+      m_Items: []
+  - m_Id: 851376680960
+    m_Localized: "puedes encontrar el men\xFA de actualizaci\xF3n en la mochila y
+      en el men\xFA de pausa"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2726159265792
+    m_Localized: usa los botones superiores de la mochila para cambiar entre armas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2739929165824
+    m_Localized: "Arma de pistola: disparo m\xE1s lento pero m\xE1s da\xF1o, Arma
+      l\xE1ser: disparo m\xE1s r\xE1pido y menor da\xF1o"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

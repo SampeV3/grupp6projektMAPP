@@ -24,6 +24,8 @@ TagManager:
   - LevelElevator
   - Enemy
   - ItemParent
+  - AllySpawner
+  - Healer
   layers:
   - Default
   - TransparentFX
