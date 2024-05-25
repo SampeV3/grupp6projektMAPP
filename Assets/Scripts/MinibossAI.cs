@@ -70,6 +70,8 @@ public class MinibossAI : EnemyMonoBehaviour
         canvas.SetActive(true);
         StartCoroutine(UpdateWhiteHealth());
         StartCoroutine(FlashBeam(beam1, 4));
+        beam1.transform.parent = transform;
+        beam2.transform.parent = transform;
         yield return new WaitUntil(() => beamsActive);
         while (HP > 135)
         {
@@ -85,6 +87,8 @@ public class MinibossAI : EnemyMonoBehaviour
             yield return new WaitForSeconds(1.6f);
         }
         StartCoroutine(FlashBeam(beam2, 4));
+        beam1.transform.parent = transform;
+        beam2.transform.parent = transform;
         while (HP > 75)
         {
             for (int i = 0; i < 2; i++)
@@ -105,6 +109,8 @@ public class MinibossAI : EnemyMonoBehaviour
                 StartCoroutine(RotateBeams());
             }
         }
+        beam1.transform.parent = transform;
+        beam2.transform.parent = transform;
         while (HP > 0)
             {
                 for (int i = 0; i < 2; i++)

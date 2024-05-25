@@ -16,7 +16,27 @@ public class ExplosionDamage : MonoBehaviour
         if (RoomContentGenerator.getItemParent().TryGetComponent<AudioSource>(out AudioSource audioSource)) {
             audioSource.PlayOneShot(explosionAudio);
         }
+        DamageThoseInRange();
         Destroy(gameObject, 2);
+    }
+
+    private void DamageThoseInRange()
+    {
+        foreach (EnemyMonoBehaviour enemy in IsPlayer.GetAllEnemies())
+        {
+            var dist = Vector3.Distance(enemy.transform.position, transform.position);
+            if (dist < circleCollider.radius)
+            {
+                enemy.TakeDamage();
+                enemy.TakeDamage();
+                enemy.TakeDamage();
+                enemy.TakeDamage();
+                enemy.TakeDamage();
+                enemy.TakeDamage();
+                enemy.TakeDamage();
+                enemy.TakeDamage();
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,7 +45,7 @@ public class ExplosionDamage : MonoBehaviour
             enemy.TakeDamage();
         }
         if (collision.gameObject.TryGetComponent<PlayerTakeDamage>(out PlayerTakeDamage playerTakeDamage)) {
-            playerTakeDamage.TakeDamage(1, circleCollider);
+            //playerTakeDamage.TakeDamage(1, circleCollider);
         }
     }
 }
