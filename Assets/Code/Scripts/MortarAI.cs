@@ -90,7 +90,6 @@ public class MortarAI : EnemyMonoBehaviour
                 StopCoroutine(combatCoroutine);
             }
             sprd.color = Color.red;
-            StartCoroutine(DropDelay()); //Tillagt av Basi
             Destroy(gameObject, 1f);     //Destroy(gameObject, 1f);
         }
     }
@@ -147,6 +146,8 @@ public class MortarAI : EnemyMonoBehaviour
         SingletonClass.OnEnemyKilled(this);
         int XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY = 10;
         SingletonClass.AwardXP(XP_TO_AWARD_PLAYER_FOR_KILLING_ENEMY);
+        StartCoroutine(DropDelay()); //Tillagt av Basi
+
     }
 
     private IEnumerator Flash()
@@ -202,10 +203,14 @@ public class MortarAI : EnemyMonoBehaviour
     private IEnumerator DropDelay() //tillagt av Basir
     {
         yield return new WaitForSeconds(0.5f);
-        if (gameObject.transform.GetChild(0) != null)
+        Transform chipTransform = gameObject.transform.GetChild(0);
+        if (chipTransform == null) { yield break; }
+        GameObject chip = chipTransform.gameObject;
+
+        if (chip != null)
         {
-            gameObject.transform.GetChild(0).gameObject.SetActive(true);
-            gameObject.transform.GetChild(0).gameObject.transform.parent = null;
+            chip.SetActive(true);
+            chip.transform.parent = RoomContentGenerator.getItemParent();
         }
         else
         {
