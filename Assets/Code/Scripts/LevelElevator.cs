@@ -40,7 +40,7 @@ public class LevelElevator : PromptQuestion
             print("Fire Before Next Level");
             BeforeNextLevel();
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         if (ToNextLevel != null) ToNextLevel();
     }
 
