@@ -11,9 +11,6 @@ public class StartMenu : MonoBehaviour
 
     public GameObject settingsPanel, localizationsPanel, quitButtonPopUpPanel, loadingPanel;
 
-    public AudioClip clickSound, openPanelSound, closePanelSound;
-
-    private AudioSource audioSource;
 
 
 
@@ -24,7 +21,6 @@ public class StartMenu : MonoBehaviour
         quitButtonPopUpPanel.SetActive(false);
         loadingPanel.SetActive(false);
         Time.timeScale = 1.0f; //ändrar time scale till 1 igen om man har kommit hit från pause panelen i spelet
-        audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -33,7 +29,6 @@ public class StartMenu : MonoBehaviour
         loadingPanel.SetActive(true);
         playButtonEffekt.Stop();
         StartCoroutine(AnimationDelay("Load", 4f));
-        audioSource.PlayOneShot(clickSound);
     }
 
     public void OpenQuitButtonPopUpPanel()
@@ -51,7 +46,7 @@ public class StartMenu : MonoBehaviour
     public void QuitGame()
     {
         StartCoroutine(AnimationDelay("Quit", 1.0f));
-        audioSource.PlayOneShot(clickSound);
+        
     }
 
     public void OpenLocalizationsPanel()
@@ -59,7 +54,6 @@ public class StartMenu : MonoBehaviour
         localizationsPanel.SetActive(true);
         
         playButtonEffekt.Stop();
-        audioSource.PlayOneShot(openPanelSound);
     }
 
     public void ExitLocalizationsPanel()
@@ -67,7 +61,6 @@ public class StartMenu : MonoBehaviour
         StartCoroutine(AnimationDelay("ExitLocalization", 1f));
         
         playButtonEffekt.Play();
-        audioSource.PlayOneShot(openPanelSound);
     }
 
     public void OpenSettings()
@@ -75,13 +68,13 @@ public class StartMenu : MonoBehaviour
         settingsPanel.SetActive(true);
         
         playButtonEffekt.Stop();
-        audioSource.PlayOneShot(openPanelSound);
+        
     }
     public void ExitSettings()
     {
         StartCoroutine(AnimationDelay("ExitSettings", 1f));
         playButtonEffekt.Play();
-        audioSource.PlayOneShot(closePanelSound);
+        
     }
 
     

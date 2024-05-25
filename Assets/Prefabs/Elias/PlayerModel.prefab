@@ -1338,7 +1338,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 508.38745}
+  m_AnchoredPosition: {x: 0, y: 508.38748}
   m_SizeDelta: {x: 2061.5, y: 2242.625}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &209127241627417535
@@ -4623,7 +4623,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7233094902056671011}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.7266921
+  m_Size: 0.7266693
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5515,7 +5515,7 @@ MonoBehaviour:
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 3cbd0329915caeb47813c5127328508d, type: 3}
+          m_ObjectArgument: {fileID: 8300000, guid: 9aae037bfafb4a444afccdad78bf4d49, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -7091,28 +7091,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1559888263532976180}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
+      - m_Target: {fileID: 7060534882034456633}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: End
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1731844242796942902}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
+      - m_Target: {fileID: 2880718631924325362}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: End
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &2252476166818685340
@@ -7686,8 +7686,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1812603353694423418}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.004220277, y: 0}
-  m_AnchorMax: {x: 0.99577975, y: 1}
+  m_AnchorMin: {x: 0.0042202473, y: 0}
+  m_AnchorMax: {x: 0.9957798, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8122,6 +8122,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1090298304947279448}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 9aae037bfafb4a444afccdad78bf4d49, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &4259947493465191557
 Animator:
   serializedVersion: 5
@@ -8272,7 +8284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1034092783910990727
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12588,7 +12600,7 @@ MonoBehaviour:
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 3cbd0329915caeb47813c5127328508d, type: 3}
+          m_ObjectArgument: {fileID: 8300000, guid: 2ce53488b8e6aa64f9d4998d95f08b76, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -13606,7 +13618,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4421510424589089148}
   m_HandleRect: {fileID: 2713220417674424015}
   m_Direction: 0
-  m_Value: 0.5
+  m_Value: 0.49999648
   m_Size: 0.99155945
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -13644,7 +13656,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7026086657584739040}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.27330792}
+  m_AnchorMin: {x: 0, y: 0.2733307}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -15391,7 +15403,7 @@ MonoBehaviour:
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 3cbd0329915caeb47813c5127328508d, type: 3}
+          m_ObjectArgument: {fileID: 8300000, guid: 2ce53488b8e6aa64f9d4998d95f08b76, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -15761,6 +15773,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1090298304947279448}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 9aae037bfafb4a444afccdad78bf4d49, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -16969,7 +16993,7 @@ MonoBehaviour:
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 944bea4cd616dea40825af41f842a04a, type: 3}
+          m_ObjectArgument: {fileID: 8300000, guid: 9aae037bfafb4a444afccdad78bf4d49, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -18447,7 +18471,7 @@ MonoBehaviour:
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 3cbd0329915caeb47813c5127328508d, type: 3}
+          m_ObjectArgument: {fileID: 8300000, guid: 2ce53488b8e6aa64f9d4998d95f08b76, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -20265,7 +20289,6 @@ MonoBehaviour:
   - {fileID: 6912294531402853556}
   - {fileID: 8661509773083481886}
   - {fileID: 7756732768159025259}
-  - {fileID: 6817857507326263739}
   - {fileID: 7060534882034456633}
   - {fileID: 2880718631924325362}
   - {fileID: 3490687127015087004}
@@ -20640,7 +20663,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 122.75
+  m_fontSize: 140
   m_fontSizeBase: 140
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -24491,6 +24514,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1090298304947279448}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 9aae037bfafb4a444afccdad78bf4d49, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &6040435489736097083
 Animator:
   serializedVersion: 5
@@ -27087,7 +27122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1867023723309860827, guid: 95e6f50e4795c0e44bd1d973fd520403, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 187.49983
+      value: 187.49982
       objectReference: {fileID: 0}
     - target: {fileID: 1867023723309860827, guid: 95e6f50e4795c0e44bd1d973fd520403, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
