@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 7d9af9c1fd93ef148aab0232689f260e
   m_currentHash:
     serializedVersion: 2
-    Hash: 164b50a1157e124011f7a33ced3c25ed
+    Hash: f8ff7edc2cabc015cc69e5f685c4cb92
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -97,7 +97,6 @@ MonoBehaviour:
     m_ProfileVersion: 1
   m_LabelTable:
     m_LabelNames:
-    - default
     - Locale
     - Locale-en
     - Locale-es
