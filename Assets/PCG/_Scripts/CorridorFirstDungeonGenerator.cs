@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AnnulusGames.LucidTools.RandomKit;
 using UnityEngine;
-using Cinemachine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 {
@@ -14,7 +16,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [SerializeField]
     [Range(0.1f,1)]
     private float roomPercent = 0.8f;
-
+    
     //PCG Data
     private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary 
         = new Dictionary<Vector2Int, HashSet<Vector2Int>>();
@@ -29,6 +31,10 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     //Events
     public UnityEvent<DungeonData> OnDungeonFloorReady;
 
+    //Boss
+    [SerializeField] private Vector2Int bossRoomPosition = Vector2Int.zero;
+    [SerializeField] private int bossRoomIndex = 0;
+    
     protected override void RunProceduralGeneration()
     {
         CorridorFirstGeneration();
@@ -186,14 +192,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             }
         }
     }
-
-    public GameObject testPrefab;
-    private void addPrefabPosition(Vector2Int position)
-    {
-        GameObject prefab = Instantiate(testPrefab, ((Vector3Int)position), Quaternion.identity);
-
-    }
-
+    
     private List<Vector2Int> FindAllDeadEnds(HashSet<Vector2Int> floorPositions)
     {
         int roomPrefabPositions = 1;
@@ -212,22 +211,16 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                 {
                     print(position);
                     roomPrefabPositions++;
-                    addPrefabPosition(position);
 
                 }
                 else
                 {
                     deadEnds.Add(position);
                 }
-                
-                
-
-                
         }
         return deadEnds;
     }
-    public Vector2Int bossRoomPosition = Vector2Int.zero;
-    public int bossRoomIndex = 0;
+
     private HashSet<Vector2Int> CreateRooms(HashSet<Vector2Int> potentialRoomPositions)
     {
         HashSet<Vector2Int> roomPositions = new HashSet<Vector2Int>();
@@ -319,4 +312,55 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             }
         }
     }
+    
+    [SerializeField] private WeightedList<Vector2Int> corridorCountWeightedList = new WeightedList<Vector2Int>();
+
+    public void RandomizeGenerationParametersAndGenerateNewDungeon()
+    {
+        
+        corridorLength = LucidRandom.Range(17, 21);
+        roomPercent = LucidRandom.Range(0.6f, 1f); //Random.Range(0.4f, 0.9f);
+        randomWalkParameters.walkLength = LucidRandom.Range(20, 25); // Random.Range(20, 30);
+        randomWalkParameters.iterations = LucidRandom.Range(100, 400); //Random.Range(100, 200);
+        
+        //Use a weighted list to randomize in a more controlled but still random way.
+        Vector2Int randomCorridorCount = corridorCountWeightedList.RandomElement();
+        corridorCount = LucidRandom.Range(randomCorridorCount.x, randomCorridorCount.y);
+        
+        tilemapVisualizer.SetRandomTilemapColor();
+   
+        GenerateDungeon();
+    }
+    
+    //Getter and Setter methods for some of the random generation parameters (allows randomization from another script)
+    public int GetCorridorLength()
+    {
+        return corridorLength;
+    }
+    
+    public void GetCorridorLength(int cl)
+    {
+        corridorLength = cl;
+    }
+
+    public void SetRoomPercent(float rP)
+    {
+        roomPercent = rP;
+    }
+
+    public float GetRoomPercent()
+    {
+        return roomPercent;
+    }
+
+    public SimpleRandomWalkSO GetRandomWalkParametersFightPitRoom()
+    {
+        return randomWalkParameters;
+    }
+
+    public void SetRandomWalkParameter(SimpleRandomWalkSO randomWalkParams)
+    {
+        randomWalkParameters = randomWalkParams;
+    }
+    
 }
