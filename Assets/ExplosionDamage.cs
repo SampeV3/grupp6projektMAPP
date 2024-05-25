@@ -28,6 +28,13 @@ public class ExplosionDamage : MonoBehaviour
             if (dist < circleCollider.radius)
             {
                 enemy.TakeDamage();
+                enemy.TakeDamage();
+                enemy.TakeDamage();
+                enemy.TakeDamage();
+                enemy.TakeDamage();
+                enemy.TakeDamage();
+                enemy.TakeDamage();
+                enemy.TakeDamage();
             }
         }
     }
