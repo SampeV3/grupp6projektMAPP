@@ -151,8 +151,9 @@ GameObject:
   - component: {fileID: 8055890790863937503}
   - component: {fileID: 3709382616963817710}
   - component: {fileID: -8648412382087547501}
+  - component: {fileID: 9216442198540598272}
   m_Layer: 7
-  m_Name: Circle
+  m_Name: PlayerBullet
   m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -336,3 +337,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9216442198540598272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246871847316479558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f38786c0eea194ca22a321f9ffcd88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
