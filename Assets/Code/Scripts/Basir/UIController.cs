@@ -105,6 +105,7 @@ public class UIController : MonoBehaviour, IDataPersistance
 
     private void Update() //Delvis Basir
     {
+
         if (isAnyPanelActive())
         {
             PauseGame();
@@ -691,6 +692,9 @@ public class UIController : MonoBehaviour, IDataPersistance
             print("Already prompting the user");
             return;
         }
+
+        //PAUSA TIDEN
+
         SetActiveInList(inactiveWhilePromptedQuestion, false);
         promptFields.questionText.text = prompt.questionText;
         promptFields.cancelText.text = prompt.cancelText;
@@ -701,8 +705,10 @@ public class UIController : MonoBehaviour, IDataPersistance
 
         void cleanupConnections()
         {
+            
+            //SÄTT PÅ TIDEN
             promptFields.CancelButton.onClick.RemoveListener(CancelButtonOnclicked);
-            promptFields.ProgressButton.onClick.AddListener(ProgressButtonOnclicked);
+            promptFields.ProgressButton.onClick.RemoveListener(ProgressButtonOnclicked);
             
         }
         
