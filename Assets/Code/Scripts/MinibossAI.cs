@@ -1,10 +1,12 @@
 ﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class MinibossAI : EnemyMonoBehaviour
 {
@@ -336,7 +338,6 @@ public class MinibossAI : EnemyMonoBehaviour
     }
     void FixedUpdate()
     {
-        GetComponent<Rigidbody2D>().WakeUp();
         if (beamsActive)
         {
             transform.Rotate(0f, 0f, beamDirection*18f * Time.fixedDeltaTime);
@@ -346,6 +347,7 @@ public class MinibossAI : EnemyMonoBehaviour
             if (IsPlayerWithinDetectionRadius())
             {
                 playerDetected = true;
+                GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.NeverSleep;
                 combatCoroutine = StartCoroutine(Combat());
             }
         }
