@@ -24,7 +24,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector2 _movemenetInputSmoothVelocity;
     private float _smoothDampResponseTime = 0.01f;
 
-    //herman - jag la till en dash :) ////ser jättebra ut! - Elias
+    //herman - jag la till en dash :)
     private bool canDash = true;
 
     //Samuel - dash soundFX
@@ -101,6 +101,8 @@ public class CharacterMovement : MonoBehaviour
     private void OnMove(InputValue inputValue)
     {
         _movementInput = inputValue.Get<Vector2>();
+        anim.SetFloat("xAxis", _movementInput.x);
+        anim.SetFloat("yAxis", _movementInput.y);
     }
 
     private bool useJoystick = true;
