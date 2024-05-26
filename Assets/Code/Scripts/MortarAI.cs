@@ -79,12 +79,12 @@ public class MortarAI : EnemyMonoBehaviour
     public override void TakeDamage()
     {
         HP -= 1 * dmgMultiplier;
-        OnDied();
         StartCoroutine(Flash());
 
         if (HP <= 0)
         {
             isDead = true;
+            OnDied();
             if (combatCoroutine != null)
             {
                 StopCoroutine(combatCoroutine);
