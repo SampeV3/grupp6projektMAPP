@@ -106,7 +106,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     private void Update() //Delvis Basir
     {
 
-        if (isAnyPanelActive())
+        if (IsAnyPanelActive())
         {
             PauseGame();
         }
@@ -202,7 +202,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     //    StartCoroutine(AnimationDelay("ExitUpgrades", upgradesPanel, 1f));
     //}
 
-    private bool isAnyPanelActive() //Basir
+    private bool IsAnyPanelActive() //Basir
     {
         foreach (GameObject obj in inactiveAtStart)
         {
@@ -226,7 +226,8 @@ public class UIController : MonoBehaviour, IDataPersistance
     }
     public void ReturnToMainMenu()//Basir
     {
-       StartCoroutine(AnimationDelay("MainMenu", null, 1f, sceneTransitions));
+        float delay = sceneTransitions.GetCurrentAnimatorStateInfo(0).length + 0.01f;
+        StartCoroutine(AnimationDelay("MainMenu", null, delay, sceneTransitions));
     }
 
     private void OnCombatChanged(bool isInCombat, string situation)
@@ -605,9 +606,17 @@ public class UIController : MonoBehaviour, IDataPersistance
     {
         if (command == "ExitAnyPanel")
         {
-            gameObjectAnimator.SetTrigger("End");
-            yield return new WaitForSecondsRealtime(delay);
-            gameObject.SetActive(false);
+            if (!gameObject.activeSelf)
+            {
+                yield break;
+            }
+            else
+            {
+                gameObjectAnimator.SetTrigger("End");
+                yield return new WaitForSecondsRealtime(delay);
+                gameObject.SetActive(false);
+            }
+            
         }
         if (command == "MainMenu")
         {

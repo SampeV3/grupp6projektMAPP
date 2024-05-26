@@ -1,123 +1,125 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
-    public Animator transition;
+    public Animator crossfadeTransition;
 
     public ParticleSystem playButtonEffekt;
 
-    public GameObject settingsPanel, localizationsPanel, quitButtonPopUpPanel, loadingPanel;
+    public Button playButton;
+
+    public List<GameObject> panelsInactiveAtStart;
+
+    public GameObject loadingPanel;
+
+    private float crossfadeTransitionLength;
 
 
 
 
     private void Start()
     {
-        settingsPanel.SetActive(false);
-        localizationsPanel.SetActive(false);
-        quitButtonPopUpPanel.SetActive(false);
-        loadingPanel.SetActive(false);
+        foreach (GameObject go in panelsInactiveAtStart) 
+        {
+            go.SetActive(false); 
+        }
+
         Time.timeScale = 1.0f; //ändrar time scale till 1 igen om man har kommit hit från pause panelen i spelet
 
+        crossfadeTransitionLength = crossfadeTransition.GetCurrentAnimatorStateInfo(0).length;
+
     }
 
-    public void StartGame()
+    private void Update()
     {
-        loadingPanel.SetActive(true);
-        playButtonEffekt.Stop();
-        StartCoroutine(AnimationDelay("Load", 4f));
+        if (IsAnyPanelActive())
+        {
+            playButton.GetComponent<Animator>().enabled = false;
+            playButtonEffekt.Stop();
+        }
+        else
+        {
+            playButton.GetComponent <Animator>().enabled = true;
+            playButtonEffekt.Play();
+        }
     }
 
-    public void OpenQuitButtonPopUpPanel()
+    private bool IsAnyPanelActive()
     {
-        quitButtonPopUpPanel.SetActive(true);
-        playButtonEffekt.Stop();
+        foreach(GameObject go in panelsInactiveAtStart)
+        {
+            if (go.activeSelf)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void ExitQuitButtonPopUpPanel()
+    public void OpenAnyPanel( GameObject gameObject ) 
     {
-        playButtonEffekt.Play();
-        StartCoroutine(AnimationDelay("QuitButtonPopUpPanel", 0.5f));
+        Animator gameObjectAnimator = gameObject.GetComponent<Animator>();
+        float delay = gameObjectAnimator.GetCurrentAnimatorStateInfo(0).length + 0.01f;
+        StartCoroutine(AnimationDelay("OpenAnyPanel", delay, gameObject, gameObjectAnimator));
+    }
+
+    public void ExitAnyPanel( GameObject gameObject )
+    {
+        Animator gameObjectAnimator = gameObject.GetComponent<Animator>();
+        float delay = gameObjectAnimator.GetCurrentAnimatorStateInfo(0).length + 0.01f;
+        StartCoroutine(AnimationDelay("ExitAnyPanel", delay , gameObject, gameObjectAnimator));
+
     }
 
     public void QuitGame()
     {
-        StartCoroutine(AnimationDelay("Quit", 1.0f));
-        
-    }
-
-    public void OpenLocalizationsPanel()
-    {
-        localizationsPanel.SetActive(true);
-        
-        playButtonEffekt.Stop();
-    }
-
-    public void ExitLocalizationsPanel()
-    {
-        StartCoroutine(AnimationDelay("ExitLocalization", 1f));
-        
-        playButtonEffekt.Play();
-    }
-
-    public void OpenSettings()
-    {
-        settingsPanel.SetActive(true);
-        
-        playButtonEffekt.Stop();
-        
-    }
-    public void ExitSettings()
-    {
-        StartCoroutine(AnimationDelay("ExitSettings", 1f));
-        playButtonEffekt.Play();
-        
+        StartCoroutine(AnimationDelay("QuitGame", crossfadeTransitionLength, null, crossfadeTransition));
     }
 
     
 
-    private IEnumerator AnimationDelay(string command, float delayTime)
+    private IEnumerator AnimationDelay(string command, float delay, GameObject gameObject, Animator gameObjectAnimator)
     {
-        if (command == "ExitSettings")
+        if (command == "OpenAnyPanel" && gameObject == loadingPanel)
         {
-            settingsPanel.GetComponent<Animator>().SetTrigger("End");
-            yield return new WaitForSecondsRealtime(delayTime);
-            settingsPanel.SetActive(false);
-        }
-        
-        if (command == "Load") //Loading Panel Animation
-        {
-            yield return new WaitForSecondsRealtime(delayTime/2);
-            transition.SetTrigger("Start");
-            yield return new WaitForSecondsRealtime(delayTime/5);
+            gameObject.SetActive(true);
+            yield return new WaitForSecondsRealtime(delay - crossfadeTransitionLength);
+            crossfadeTransition.SetTrigger("Start");
+            yield return new WaitForSecondsRealtime(crossfadeTransitionLength);
             SceneManager.LoadScene(1);
         }
 
-        if (command == "Quit")
+        if (command == "OpenAnyPanel" && gameObject != loadingPanel)
         {
-            transition.SetTrigger("Start");
-            yield return new WaitForSecondsRealtime(delayTime);
+            gameObject.SetActive(true);
+            yield break;
+        }
+
+        if (command == "ExitAnyPanel")
+        {
+            if (!gameObject.activeSelf)
+            {
+                yield break;
+            }
+            else
+            {
+                gameObjectAnimator.SetTrigger("End");
+                yield return new WaitForSecondsRealtime(delay);
+                gameObject.SetActive(false);
+            }
+
+        }
+
+        if (command == "QuitGame")
+        {
+            gameObjectAnimator.SetTrigger("Start");
+            yield return new WaitForSecondsRealtime(delay);
             Application.Quit();
         }
-
-        if (command == "ExitLocalization")
-        {
-            localizationsPanel.GetComponent<Animator>().SetTrigger("End");
-            yield return new WaitForSecondsRealtime(delayTime);
-            localizationsPanel.SetActive(false);
-        }
-
-        if (command == "QuitButtonPopUpPanel")
-        {
-            quitButtonPopUpPanel.GetComponent<Animator>().SetTrigger("End");
-            yield return new WaitForSecondsRealtime(delayTime);
-            quitButtonPopUpPanel.SetActive(false);
-        }
-
-        
-        
     }
 }
