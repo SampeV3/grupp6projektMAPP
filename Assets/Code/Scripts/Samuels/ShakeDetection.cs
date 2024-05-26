@@ -18,8 +18,8 @@ public class ShakeDetection : MonoBehaviour
     {
      
         Vector3 shakeDetection = Input.acceleration;
-        //Kollar efter om mobilen skakar eller ej. Om den skakar så ska den 
-        // runna metoden Dash  från character movement scriptet
+        //Kollar efter om mobilen skakar eller ej. Om den skakar sÃ¥ ska den 
+        // runna metoden Dash  frÃ¥n character movement scriptet
 
         if (shakeDetection.sqrMagnitude >= 5f)
         {    
