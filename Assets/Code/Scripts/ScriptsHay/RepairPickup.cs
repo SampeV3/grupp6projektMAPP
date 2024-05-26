@@ -34,10 +34,10 @@ public class RepairPickup : MonoBehaviour
                 playerHealth.currentHealth += (int)healthBonus;
                 playerHealth.UpdateHealthBar();
             }
-            if (playerHealth.currentHealth == playerHealth.maxHealth && uIController.inventoryHealthPickupAmount < 3) //tillagt av Basir
+            if (playerHealth.currentHealth == playerHealth.maxHealth && uIController.inventoryHealthPickupAmount < uIController.maxHealthPickUpAmount) //tillagt av Basir
             {
                 uIController.inventoryHealthPickupAmount += 1;
-                gameObject.SetActive(false);
+                Destroy(gameObject, 0.01f);
             }
         }
     }

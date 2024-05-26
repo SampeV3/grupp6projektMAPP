@@ -200,7 +200,7 @@ public class MortarAI : EnemyMonoBehaviour
         return playerDetected;
     } 
 
-    private IEnumerator DropDelay() //tillagt av Basir
+    private IEnumerator DropDelay() //tillagt av Basir och korrigerat av Elias
     {
         yield return new WaitForSeconds(0.5f);
         Transform chipTransform = gameObject.transform.GetChild(0);

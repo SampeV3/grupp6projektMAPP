@@ -58,7 +58,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     public int boostPickupAmountToIncrease = 1;
     public int inventoryHealthPickupAmount = 0;
     public int inventoryBoostPickupAmount = 0;
-    public int maxHealthPickUpAmount = 3;
+    public int maxHealthPickUpAmount = 10;
 
     public static int maxInventoryBoostPickupAmount = 15; //set in the start method.
 

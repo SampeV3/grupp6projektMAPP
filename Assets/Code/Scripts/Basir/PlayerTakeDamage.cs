@@ -23,8 +23,8 @@ public class PlayerTakeDamage : MonoBehaviour
     public int currentHealth;
     public int maxHealth = 5;
 
-    public Sprite[] healthBarSprites = new Sprite[6];
-    public GameObject healthBar;
+    public Sprite[] healthBarSprites = new Sprite[6]; //Basir
+    public GameObject healthBar; //Basir
 
     [FormerlySerializedAs("OnPermaDeath")] [Description("Fires upon permanent death.")]
 
@@ -108,7 +108,7 @@ public class PlayerTakeDamage : MonoBehaviour
         }
     }
     
-    public void UpdateHealthBar()
+    public void UpdateHealthBar() //Basir
     {
         for (int i = 0; i <= maxHealth; i++)
         {
@@ -146,8 +146,6 @@ public class PlayerTakeDamage : MonoBehaviour
 
         if (OnRespawn != null) OnRespawn(this); //trigga eventet s� att andra script kan lyssna.
 
-
-        //gameObject.GetComponent<Animator>().SetBool("IsDead", true);
         //Spela upp player death animation? effekter? ljud? delay?
         //lägg till scripts till eventet. 
 
