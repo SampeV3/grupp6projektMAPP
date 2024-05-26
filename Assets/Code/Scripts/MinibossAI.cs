@@ -25,6 +25,7 @@ public class MinibossAI : EnemyMonoBehaviour
     private Coroutine combatCoroutine;
     private Coroutine whiteHealthCoroutine = null;
 
+    private Camera playerCamera;
     private bool playerDetected;
     private bool isDead, droppedLoot = false;
     private bool canDealDamage = true;
@@ -57,12 +58,14 @@ public class MinibossAI : EnemyMonoBehaviour
 
     protected override void Awake()
     {
-
         base.Awake(); // Make sure to always keep that line
         if (player == null)
         {
             player = IsPlayer.FindPlayerTransformAutomaticallyIfNull(); //Tillagt av Elias
         }
+
+        playerCamera = IsPlayer.GetFirstTaggedGameObject("PlayerCamera").GetComponent<Camera>();
+        canvas.GetComponent<Canvas>().worldCamera = playerCamera;
     }
 
     private IEnumerator Combat()

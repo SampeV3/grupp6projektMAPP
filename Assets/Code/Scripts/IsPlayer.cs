@@ -82,8 +82,21 @@ public abstract class EnemyMonoBehaviour : MonoBehaviour
 }
 
 
+
 public class IsPlayer : MonoBehaviour
 {
+    public static GameObject GetFirstTaggedGameObject(String tag)
+    {
+        {
+            var list = GameObject.FindGameObjectsWithTag(tag);
+            if (list.Length > 0)
+            {
+                return list[0];
+            }
+        }
+        return null;
+    }
+    
     public Transform playerTransform;
     public static Transform staticPlayerTransform = null;
     //Jag la till denna kodsnutt f�r att g�ra det enklare i editorn. /Elias
