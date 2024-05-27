@@ -17,13 +17,13 @@ public class LocaleSelector : MonoBehaviour
         ChangeLocale(ID);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!localizationActivated)
         {
+            localizationActivated = true;
             int ID = PlayerPrefs.GetInt("LocaleKey", 0);
             ChangeLocale(ID);
-            localizationActivated = true;
         }
     }
 

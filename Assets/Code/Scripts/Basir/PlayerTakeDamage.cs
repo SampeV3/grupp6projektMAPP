@@ -5,6 +5,7 @@ using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Localization.Components;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -256,15 +257,16 @@ public class PlayerTakeDamage : MonoBehaviour
         
         enemyData.name = randomName;
         enemyData.enemyType = superEnemyClass.enemyType;
-        
-        string killerDialouge = killerDialouge1.text; //Uppdateras med Localization
+                
+
+        //string killerDialouge = killerDialouge1.text; //Uppdateras med Localization
         
         
         MoveCameraClass moveCam = new MoveCameraClass
         {
-            secondsDuration = 3f,
+            secondsDuration = 5f,
             targetTransform = enemy.transform,
-            dialougeText = killerDialouge,
+            dialougeText = "",
             callbackMethodName = null,
             doRespawn = true
         };
@@ -333,9 +335,11 @@ public class PlayerTakeDamage : MonoBehaviour
         //TODO zoom the camera closer to the enemy
         playerCamera.orthographicSize = 2;
         dialougeText.gameObject.SetActive(true);
-        dialougeText.text = text;
-        
-        
+        if (!text.Equals(""))
+        {
+            dialougeText.text = text;
+        }
+
         cameraFollow.followTransform = enemyTransform;
     }
 
