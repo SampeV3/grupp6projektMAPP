@@ -72,7 +72,12 @@ public class SpearAI : EnemyMonoBehaviour
                 if (combatCoroutine != null)
                 {
                     StopCoroutine(combatCoroutine);
+                    combatCoroutine = null;       
+                }
+                if (rotateCoroutine != null)
+                {
                     StopCoroutine(rotateCoroutine);
+                    rotateCoroutine = null;
                 }
             }
         }
@@ -107,7 +112,11 @@ public class SpearAI : EnemyMonoBehaviour
                 transform.position = transform.position + -transform.up * 8f * Time.deltaTime;
                 yield return null;
             }
-            StopCoroutine(rotateCoroutine);
+            if (rotateCoroutine != null)
+            {
+                StopCoroutine(rotateCoroutine);
+                rotateCoroutine = null;
+            }
             anim.SetTrigger("Stunned");
             canhitSomething = false;
             Vector3 originalPosition = transform.position;
@@ -187,7 +196,12 @@ public class SpearAI : EnemyMonoBehaviour
             if (combatCoroutine != null)
             {
                 StopCoroutine(combatCoroutine);
+                combatCoroutine = null;
+            }
+            if (rotateCoroutine != null)
+            {
                 StopCoroutine(rotateCoroutine);
+                rotateCoroutine = null;
             }
             sprd.color = Color.red;
             dropLoot();
@@ -238,14 +252,15 @@ public class SpearAI : EnemyMonoBehaviour
             isDead = true;
 
 
-            if (rotateCoroutine != null)
-             {
-                 StopCoroutine(rotateCoroutine);
-             }
-            
             if (combatCoroutine != null)
             {
                 StopCoroutine(combatCoroutine);
+                combatCoroutine = null;
+            }
+            if (rotateCoroutine != null)
+            {
+                StopCoroutine(rotateCoroutine);
+                rotateCoroutine = null;
             }
             sprd.color = Color.red;
             OnDied();
