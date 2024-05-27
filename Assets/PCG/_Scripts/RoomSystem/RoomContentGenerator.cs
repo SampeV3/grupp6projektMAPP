@@ -22,6 +22,7 @@ public class RoomContentGenerator : MonoBehaviour
     [SerializeField] GameObject playerAlliedUnit;
 
     [SerializeField] private Transform itemParent;
+    
 
     [SerializeField]
     private CinemachineVirtualCamera cinemachineCamera;

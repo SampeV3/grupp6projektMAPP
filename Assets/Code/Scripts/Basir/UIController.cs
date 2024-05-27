@@ -521,7 +521,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     {
 
         data.allies = Chase.GetAlliesAlive();
-        
+        print("Saving allies " + data.allies);
         //print("Save data from UI Controller");
         //print("These keys will be stored: ");
         //foreach (string skillName in _upgradableStats.Keys)
@@ -583,6 +583,12 @@ public class UIController : MonoBehaviour, IDataPersistance
         
         //only really need to run this line if the menu is open when the game starts, e.g. when testing
         //OnOpenUpgradeMenu();
+
+        for (int i = 0; i < data.allies; i++)
+        {
+            OnSpawnAlly();
+        }
+
     }
 
     [SerializeField] private List<GameObject> inactiveWhilePlayerFrozen;
