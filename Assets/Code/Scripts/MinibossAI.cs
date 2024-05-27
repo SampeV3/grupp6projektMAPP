@@ -16,10 +16,13 @@ public class MinibossAI : EnemyMonoBehaviour
     [SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer topSprite, botSprite;
+    [SerializeField] private float beamAngularVelocity = 10f;
+    private Rigidbody2D rigidBody;
     private SpriteRenderer beamsprd1;
     private SpriteRenderer beamsprd2;
     private List<GameObject> whitePanels = new List<GameObject>();
     private List<GameObject> redPanels = new List<GameObject>();
+
 
     private AudioSource audioSource;
     //[SerializeField] private Material originalMatTop, originalMatBot;
@@ -28,6 +31,7 @@ public class MinibossAI : EnemyMonoBehaviour
     private Material topMat, botMat;
     private Coroutine combatCoroutine;
     private Coroutine whiteHealthCoroutine = null;
+
 
     private Camera playerCamera;
     private bool playerDetected;
@@ -57,6 +61,7 @@ public class MinibossAI : EnemyMonoBehaviour
             panel.GetComponent<Image>().color = Color.red;
             redPanels.Add(panel);
         }
+        rigidBody = GetComponent<Rigidbody2D>();
         beamsprd1 = beam1.GetComponent<SpriteRenderer>();
         beamsprd2 = beam2.GetComponent<SpriteRenderer>();
     }
@@ -158,6 +163,7 @@ public class MinibossAI : EnemyMonoBehaviour
         }   
         beamsprd.color = new Color(beamsprd.color.r, beamsprd.color.g, beamsprd.color.b, 1f);
         beamsActive = true;
+        rigidBody.angularVelocity = beamAngularVelocity * beamDirection;
         beam.GetComponent<BoxCollider2D>().enabled = true;
     }
 
@@ -193,7 +199,8 @@ public class MinibossAI : EnemyMonoBehaviour
             yield return new WaitForSeconds(0.4f);
 
         }
-        beamDirection = beamDirection * -1;
+        beamDirection *= -1;
+        rigidBody.angularVelocity = beamAngularVelocity * beamDirection;
         beamsprd1.color = ogColor;
         beamsprd2.color = ogColor;
     }
@@ -339,11 +346,18 @@ public class MinibossAI : EnemyMonoBehaviour
         topSprite.material = topMat;
         botSprite.material = botMat;
     }
+
+    //private float angle = 0;
+
     void FixedUpdate()
     {
         if (beamsActive)
         {
-            transform.Rotate(0f, 0f, beamDirection*18f * Time.fixedDeltaTime);
+            //rigidBody.angularVelocity = angle;
+            //rigidBody.SetRotation(angle);
+            //angle += 1 * beamDirection;
+            //rigidBody.SetRotation(angle);            
+            //transform.Rotate(0f, 0f, beamDirection*18f * Time.fixedDeltaTime);
         }
         if (!playerDetected)
         {
