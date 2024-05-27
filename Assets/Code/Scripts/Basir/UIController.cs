@@ -74,7 +74,14 @@ public class UIController : MonoBehaviour, IDataPersistance
     private void Start()//Basir
     {
         sceneTransitions = crossfadeTranstionImage.GetComponent<Animator>();
-        
+
+        //Så att skärmen roterar automatiskt
+        Screen.autorotateToLandscapeRight = true;
+        Screen.autorotateToLandscapeLeft = true;
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+        Screen.orientation = ScreenOrientation.AutoRotation;
+
         foreach (GameObject panel in inactiveAtStart)
         {
             panel.SetActive(false);

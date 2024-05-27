@@ -1,16 +1,19 @@
 using Cinemachine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using NavMeshPlus.Components;
 using UnityEngine.Serialization;
+using AnnulusGames.LucidTools.RandomKit;
 
 public class RoomContentGenerator : MonoBehaviour
 {
     [SerializeField]
     private RoomGenerator playerRoom, defaultRoom, bossRoom;
+    [SerializeField] private WeightedList<Vector2Int> mortarSpawnRateWeightedList = new WeightedList<Vector2Int>();
+    [SerializeField] private WeightedList<Vector2Int> hoverEnemySpawnRateWeightedList = new WeightedList<Vector2Int>();
+    [SerializeField] private WeightedList<Vector2Int> spearEnemySpawnRateWeightedList = new WeightedList<Vector2Int>();
 
     [SerializeField] private DataPersistanceManager dataPersistanceManager;
 
@@ -94,6 +97,8 @@ public class RoomContentGenerator : MonoBehaviour
     {
         spawnedObjects.Clear();
         ClearAllChildren(itemParent);
+
+        RandomizeEnemySpawnParams();
 
         SelectPlayerAndBossSpawnPoint(dungeonData);
         SelectEnemySpawnPoints(dungeonData);
@@ -206,6 +211,41 @@ public class RoomContentGenerator : MonoBehaviour
                     )
             );
 
+        }
+    }
+
+    private void RandomizeEnemySpawnParams ()
+    {
+        //Randomize enemy spawn rates
+        foreach (var placementData in defaultRoom.GetComponent<FightingPitRoom>().enemyPlacementData) 
+        {
+            if (placementData.enemyPrefab.TryGetComponent<EnemyMonoBehaviour>(out EnemyMonoBehaviour enemy))
+            {
+                switch (enemy.enemyType)
+                {
+                    case EnemyType.Mortar:
+                        Vector2Int randomMortarSpawnRate = mortarSpawnRateWeightedList.RandomElement();
+
+                        placementData.minQuantity = randomMortarSpawnRate.x;
+                        placementData.maxQuantity = randomMortarSpawnRate.y;
+
+                        break;
+                    case EnemyType.HoverEnemy:
+                        Vector2Int hoverEnemySpawnRate = hoverEnemySpawnRateWeightedList.RandomElement();
+                        placementData.minQuantity = hoverEnemySpawnRate.x;
+                        placementData.maxQuantity = hoverEnemySpawnRate.y;
+
+                        break;
+                    case EnemyType.SpearEnemy:
+                        Vector2Int spearEnemySpawnRate = hoverEnemySpawnRateWeightedList.RandomElement();
+                        placementData.minQuantity = spearEnemySpawnRate.x;
+                        placementData.maxQuantity = spearEnemySpawnRate.y;
+
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 

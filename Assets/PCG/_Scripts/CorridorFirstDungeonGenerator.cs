@@ -16,7 +16,11 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [SerializeField]
     [Range(0.1f,1)]
     private float roomPercent = 0.8f;
-    
+
+    [SerializeField] private FightingPitRoom fightPit;
+    [SerializeField] private BossRoom bossRoom;
+    [SerializeField] private PlayerRoom playerRoom;
+
     //PCG Data
     private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary 
         = new Dictionary<Vector2Int, HashSet<Vector2Int>>();
@@ -327,6 +331,8 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         Vector2Int randomCorridorCount = corridorCountWeightedList.RandomElement();
         corridorCount = LucidRandom.Range(randomCorridorCount.x, randomCorridorCount.y);
         
+        
+
         tilemapVisualizer.SetRandomTilemapColor();
    
         GenerateDungeon();

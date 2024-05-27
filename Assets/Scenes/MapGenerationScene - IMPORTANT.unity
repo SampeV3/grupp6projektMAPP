@@ -265,6 +265,42 @@ MonoBehaviour:
   playerRoom: {fileID: 378666303130500032, guid: afdc382d653128043b97c6bfaffe7852, type: 3}
   defaultRoom: {fileID: 7777476307801422254, guid: 377fa56baa708c045ab0ed6a3b4e6926, type: 3}
   bossRoom: {fileID: 2746710959080050701, guid: 98510c6821f276d42a2269def706d864, type: 3}
+  mortarSpawnRateWeightedList:
+    list:
+    - value: {x: 3, y: 6}
+      weight: 0.5
+    - value: {x: 1, y: 4}
+      weight: 2.5
+    - value: {x: 1, y: 3}
+      weight: 12
+    - value: {x: 0, y: 4}
+      weight: 25
+    - value: {x: 0, y: 2}
+      weight: 60
+  hoverEnemySpawnRateWeightedList:
+    list:
+    - value: {x: 0, y: 2}
+      weight: 0.5
+    - value: {x: 0, y: 2}
+      weight: 2.5
+    - value: {x: 1, y: 4}
+      weight: 12
+    - value: {x: 1, y: 4}
+      weight: 25
+    - value: {x: 1, y: 4}
+      weight: 60
+  spearEnemySpawnRateWeightedList:
+    list:
+    - value: {x: 0, y: 1}
+      weight: 0.5
+    - value: {x: 0, y: 1}
+      weight: 2.5
+    - value: {x: 0, y: 1}
+      weight: 12
+    - value: {x: 0, y: 0}
+      weight: 40
+    - value: {x: 0, y: 1}
+      weight: 45
   dataPersistanceManager: {fileID: 709246188}
   graphTest: {fileID: 826419577}
   playerAlliedUnit: {fileID: 3858980567652597406, guid: eddf911f7173ada41bfea45b6fd59cfd, type: 3}
@@ -2533,6 +2569,9 @@ MonoBehaviour:
   corridorLength: 20
   corridorCount: 12
   roomPercent: 0.86
+  fightPit: {fileID: 0}
+  bossRoom: {fileID: 0}
+  playerRoom: {fileID: 0}
   showRoomGizmo: 1
   showCorridorsGizmo: 1
   OnDungeonFloorReady:
