@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 public class MinibossAI : EnemyMonoBehaviour
 {
     [SerializeField] private Material flashOnHit;
-    [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar, parent, dropItem, pane, healthWhite, healthRed, canvas; //dropItem tillagt av Basir
+    [SerializeField] private GameObject projectilePrefab, beam1, beam2, mortar, parent, pane, healthWhite, healthRed, canvas;
     [SerializeField] private Transform player;
     [SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Animator anim;

@@ -2,6 +2,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 
+using System.Collections;
+using UnityEngine;
+using UnityEngine.Localization.Settings;
+
 public class LocaleSelector : MonoBehaviour
 {
     private bool _active = false;
