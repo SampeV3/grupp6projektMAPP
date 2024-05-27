@@ -21415,7 +21415,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   IsInCombat: 0
-  godmode: 0
+  godmode: 1
   killerDialouge1: {fileID: 301676320361147668}
   cameraFollow: {fileID: 4113035927147576998}
   playerCamera: {fileID: 8989249721829577698}
@@ -27111,7 +27111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1867023723309860827, guid: 95e6f50e4795c0e44bd1d973fd520403, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 187.49982
+      value: 187.49979
       objectReference: {fileID: 0}
     - target: {fileID: 1867023723309860827, guid: 95e6f50e4795c0e44bd1d973fd520403, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
