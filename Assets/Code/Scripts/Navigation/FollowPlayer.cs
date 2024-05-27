@@ -7,11 +7,13 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 public class Chase : MonoBehaviour
 {
+    private static int alliesAlive = 0;
+
     [SerializeField] private Transform target;
     private NavMeshAgent agent;
-    private bool stop;
     public bool showPath;
     public bool showAhead;
+    private bool isDead;
     public Vector3 offsetPosition = new Vector3(0, -1, 0);
 
     public LayerMask obstacleMask, targetMask;
@@ -37,12 +39,21 @@ public class Chase : MonoBehaviour
         StartCoroutine(Combat());
     }
 
+
+
     private void Awake()
     {
+        alliesAlive++;
         if (target == null)
         {
             target = IsPlayer.FindPlayerTransformAutomaticallyIfNull();
         }
+    }
+
+    private void OnDeath()
+    {
+        alliesAlive--;
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
@@ -140,10 +151,22 @@ public class Chase : MonoBehaviour
         HP = HP * UIController.GetSkillModifier("Allied Health");
         HP -= damageAmount;
         OnHealthChanged();
-        if (HP <= 0)
+        if (HP <= 0 && !isDead)
         {
-            Destroy(gameObject);
+            isDead = true;
+            OnDeath();
         }
+    }
+
+    public static int GetAlliesAlive() //Make class attribute alliesAlive not settable outside this class to minimize the risk of undesired outcomes.
+    {
+        return alliesAlive;
+    }
+
+    //Called when the player is perma killed.
+    public static void OnPermaDeath()
+    {
+        alliesAlive = 0;
     }
 
     private void OnDrawGizmos()

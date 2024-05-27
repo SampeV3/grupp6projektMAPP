@@ -11,6 +11,7 @@ public class GameData
     public int totalKillCount = 0;
     public SerializableDictionary<string, int> totalEnemyKillTrackingDictionary;
 
+    public int allies;
     public int level = 0;
     public int experience_required = 100;
     public int XP = 0; //current XP
@@ -35,6 +36,7 @@ public class GameData
 
     public GameData()
     {
+        this.allies = 0;
         this.totalDeathCount = 0;
         this.coinsCollected = new SerializableDictionary<string, bool>();
         this.skillLevels = new SerializableDictionary<string, int>();

@@ -16,6 +16,8 @@ public class MinibossAI : EnemyMonoBehaviour
     [SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer topSprite, botSprite;
+    private SpriteRenderer beamsprd1;
+    private SpriteRenderer beamsprd2;
     private List<GameObject> whitePanels = new List<GameObject>();
     private List<GameObject> redPanels = new List<GameObject>();
 
@@ -55,7 +57,8 @@ public class MinibossAI : EnemyMonoBehaviour
             panel.GetComponent<Image>().color = Color.red;
             redPanels.Add(panel);
         }
-
+        beamsprd1 = beam1.GetComponent<SpriteRenderer>();
+        beamsprd2 = beam2.GetComponent<SpriteRenderer>();
     }
 
     protected override void Awake()
@@ -77,6 +80,7 @@ public class MinibossAI : EnemyMonoBehaviour
         StartCoroutine(FlashBeam(beam1, 4));
         beam1.transform.parent = transform;
         beam2.transform.parent = transform;
+
         yield return new WaitUntil(() => beamsActive);
         while (HP > 135)
         {
@@ -177,8 +181,7 @@ public class MinibossAI : EnemyMonoBehaviour
     }
     private IEnumerator RotateBeams()
     {
-        SpriteRenderer beamsprd1 = beam1.GetComponent<SpriteRenderer>();
-        SpriteRenderer beamsprd2 = beam2.GetComponent<SpriteRenderer>();
+
         Color ogColor = beamsprd1.color;
         for (int i = 0; i < 3; i++)
         {
