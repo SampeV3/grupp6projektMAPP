@@ -21415,7 +21415,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   IsInCombat: 0
-  godmode: 0
+  godmode: 1
   killerDialouge1: {fileID: 301676320361147668}
   cameraFollow: {fileID: 4113035927147576998}
   playerCamera: {fileID: 8989249721829577698}
@@ -27923,6 +27923,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7384603155160793669}
     m_Modifications:
+    - target: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+      propertyPath: deadZone
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
       propertyPath: methodName
       value: OnJoystickMove

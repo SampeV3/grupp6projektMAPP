@@ -519,12 +519,15 @@ public class UIController : MonoBehaviour, IDataPersistance
     private const string PerkIdentifierString = "#";
     public void SaveData(ref GameData data)
     {
-        print("Save data from UI Controller");
-        print("These keys will be stored: ");
-        foreach (string skillName in _upgradableStats.Keys)
-        {
-            print(skillName);
-        }
+
+        data.allies = Chase.GetAlliesAlive();
+        
+        //print("Save data from UI Controller");
+        //print("These keys will be stored: ");
+        //foreach (string skillName in _upgradableStats.Keys)
+        //{
+        //    print(skillName);
+        //}
 
         foreach (string unmodifiedSkillName in _upgradableStats.Keys)
         {
@@ -555,11 +558,11 @@ public class UIController : MonoBehaviour, IDataPersistance
     public void LoadData(GameData data)
     {
         
-        print("These keys will be loaded: ");
-        foreach (string skillName in _upgradableStats.Keys)
-        {
-            print(skillName);
-        }
+        //print("These keys will be loaded: ");
+        //foreach (string skillName in _upgradableStats.Keys)
+        //{
+        //    print(skillName);
+        //}
         
         foreach (var unmodifiedSkillName in data.skillLevels.Keys)
         {
@@ -598,7 +601,7 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
         inventoryHealthPickupAmount = 0;
         inventoryBoostPickupAmount = 0;
-
+        Chase.OnPermaDeath();
     }
 
 

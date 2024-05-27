@@ -4,15 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerRoom : RoomGenerator
+public class PlayerRoom : RoomGenerator, IDataPersistance
 {
     public GameObject player;
     public GameObject testAlly;
-    
+    private int alliesToSpawn;
+
     public List<ItemPlacementData> itemData;
 
     [SerializeField]
     private PrefabPlacer prefabPlacer;
+
+
+    public void LoadData(GameData data)
+    {
+        alliesToSpawn = data.allies;
+    }
 
     public override List<GameObject> ProcessRoom(
         Vector2Int roomCenter, 
@@ -31,23 +38,29 @@ public class PlayerRoom : RoomGenerator
         GameObject playerObject 
             = PrefabPlacer.CreateObject(player, playerSpawnPoint + new Vector2(0.5f, 0.5f));
 
-        /*
+        
         if ((testAlly) != null)
-        { //try to spawn an ally near the player to test if the navigation mesh works!! ;)
-            for (int i = 0; i < 5; i++)
+        { //spawn allies near the player if the player had any last time he or she played.
+            for (int i = 0; i < alliesToSpawn; i++)
             {
-                GameObject localTestAlly = prefabPlacer.CreateObject(this.testAlly, playerSpawnPoint + new Vector2(0.5f, 0.5f));
-                placedObjects.Add(localTestAlly);
+                GameObject ally = Instantiate<GameObject>(testAlly, playerObject.transform.position, playerObject.transform.rotation, RoomContentGenerator.getItemParent());
+                
+                //GameObject ally = PrefabPlacer.CreateObject(this.testAlly, playerSpawnPoint + new Vector2(0.5f, 0.5f));
+                placedObjects.Add(ally);
             }            
         } 
-        */
+        
 
         placedObjects.Add(playerObject);
 
         return placedObjects;
     }
 
-
+    public void SaveData(ref GameData data)
+    {
+        //it's not good to save e.g. data.allies = Chase.alliesAlive here since the UI Controller is a better place to do that,
+        //but we still need this method for the interface. / Elias.
+    }
 }
 
 public abstract class PlacementData
