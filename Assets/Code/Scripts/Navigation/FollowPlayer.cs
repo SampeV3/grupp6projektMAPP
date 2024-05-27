@@ -13,7 +13,7 @@ public class Chase : MonoBehaviour
     private NavMeshAgent agent;
     public bool showPath;
     public bool showAhead;
-    private bool isDead;
+    private bool isDead = false;
     public Vector3 offsetPosition = new Vector3(0, -1, 0);
 
     public LayerMask obstacleMask, targetMask;

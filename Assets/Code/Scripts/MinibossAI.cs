@@ -351,14 +351,10 @@ public class MinibossAI : EnemyMonoBehaviour
 
     void FixedUpdate()
     {
-        if (beamsActive)
-        {
-            //rigidBody.angularVelocity = angle;
-            //rigidBody.SetRotation(angle);
-            //angle += 1 * beamDirection;
-            //rigidBody.SetRotation(angle);            
+        //if (beamsActive)
+        //{  
             //transform.Rotate(0f, 0f, beamDirection*18f * Time.fixedDeltaTime);
-        }
+        //}
         if (!playerDetected)
         {
             if (IsPlayerWithinDetectionRadius())
