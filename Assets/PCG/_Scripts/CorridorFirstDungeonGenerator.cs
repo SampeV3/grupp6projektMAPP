@@ -17,10 +17,6 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [Range(0.1f,1)]
     private float roomPercent = 0.8f;
 
-    [SerializeField] private FightingPitRoom fightPit;
-    [SerializeField] private BossRoom bossRoom;
-    [SerializeField] private PlayerRoom playerRoom;
-
     //PCG Data
     private Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary 
         = new Dictionary<Vector2Int, HashSet<Vector2Int>>();
@@ -38,7 +34,10 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     //Boss
     [SerializeField] private Vector2Int bossRoomPosition = Vector2Int.zero;
     [SerializeField] private int bossRoomIndex = 0;
-    
+
+    [Header("Sets size params")]
+    [SerializeField] private WeightedList<Vector2Int> corridorCountWeightedList = new WeightedList<Vector2Int>();
+
     protected override void RunProceduralGeneration()
     {
         CorridorFirstGeneration();
@@ -317,7 +316,6 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         }
     }
     
-    [SerializeField] private WeightedList<Vector2Int> corridorCountWeightedList = new WeightedList<Vector2Int>();
 
     public void RandomizeGenerationParametersAndGenerateNewDungeon()
     {
