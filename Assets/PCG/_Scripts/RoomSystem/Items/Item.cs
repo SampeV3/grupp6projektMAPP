@@ -64,8 +64,28 @@ public class Item : MonoBehaviour
 
             spriteRenderer.transform.DOComplete();
             Destroy(gameObject);
-        }
-            
+        }       
     }
+    private bool canDealDamage = true;
+
+    private void damageCooldownReset()
+    {
+        canDealDamage = true;
+
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("PlasmaGunLaser") && canDealDamage)
+        {
+            canDealDamage = false;
+            Invoke("damageCooldownReset", .2f);
+            GetHit(1, other.gameObject);
+        }
+
+
+    }
+
+
 }
 

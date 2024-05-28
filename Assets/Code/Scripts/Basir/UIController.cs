@@ -527,7 +527,7 @@ public class UIController : MonoBehaviour, IDataPersistance
     public void SaveData(ref GameData data)
     {
 
-        data.allies = Chase.GetAlliesAlive();
+        data.allies = Chase.allies.Count;
         print("Saving allies " + data.allies);
         //print("Save data from UI Controller");
         //print("These keys will be stored: ");
@@ -591,20 +591,18 @@ public class UIController : MonoBehaviour, IDataPersistance
         //only really need to run this line if the menu is open when the game starts, e.g. when testing
         //OnOpenUpgradeMenu();
 
-        print("spawn " + data.allies);
-        if (Chase.GetAlliesAlive() <= 15)
-        {
-            StartCoroutine(nameof(LoadAlliesFromLastLevel), data.allies);
-        }
+
+        StartCoroutine(nameof(LoadAlliesFromLastLevel), data.allies);
+        
     }
 
     private IEnumerator LoadAlliesFromLastLevel(int alliesToSpawn)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         for (int i = 0; i < alliesToSpawn; i++)
         {
             yield return new WaitForSeconds(0.1f);
-            if (Chase.GetAlliesAlive() <= 15)
+            if (Chase.allies.Count <= 15)
             {
                 OnSpawnAlly();
             } else
@@ -630,7 +628,7 @@ public class UIController : MonoBehaviour, IDataPersistance
         }
         inventoryHealthPickupAmount = 0;
         inventoryBoostPickupAmount = 0;
-        Chase.OnPermaDeath();
+        Chase.allies.Clear();
     }
 
 
