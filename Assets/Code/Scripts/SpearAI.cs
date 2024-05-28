@@ -9,7 +9,7 @@ public class SpearAI : EnemyMonoBehaviour
     //[SerializeField] private AudioClip projectileSFX;
     [SerializeField] private Transform player;
     [SerializeField] private LayerMask playerMask, obstacleMask;
-
+    [SerializeField] private GameObject loot;
 
     private AudioSource audioSource;
     private Material originalMat;
