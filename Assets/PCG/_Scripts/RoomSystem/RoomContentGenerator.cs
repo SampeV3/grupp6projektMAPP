@@ -14,7 +14,6 @@ public class RoomContentGenerator : MonoBehaviour
     [SerializeField] private WeightedList<Vector2Int> mortarSpawnRateWeightedList = new WeightedList<Vector2Int>();
     [SerializeField] private WeightedList<Vector2Int> hoverEnemySpawnRateWeightedList = new WeightedList<Vector2Int>();
     [SerializeField] private WeightedList<Vector2Int> spearEnemySpawnRateWeightedList = new WeightedList<Vector2Int>();
-
     [SerializeField] private DataPersistanceManager dataPersistanceManager;
 
     List<GameObject> spawnedObjects = new List<GameObject>();

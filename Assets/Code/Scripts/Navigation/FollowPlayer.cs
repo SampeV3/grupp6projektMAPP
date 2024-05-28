@@ -7,7 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 public class Chase : MonoBehaviour
 {
-    private static int alliesAlive = 0;
+    public static ArrayList allies = new ArrayList();
 
     [SerializeField] private Transform target;
     private NavMeshAgent agent;
@@ -35,19 +35,23 @@ public class Chase : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-
+        allies.Add(gameObject);
         StartCoroutine(Combat());
     }
 
-
+    private void OnDestroy()
+    {
+        allies.Remove(gameObject);
+    }
 
     private void Awake()
     {
-        alliesAlive++;
+        
         if (target == null)
         {
             target = IsPlayer.FindPlayerTransformAutomaticallyIfNull();
         }
+        
     }
 
     private void OnDeath()
@@ -116,7 +120,7 @@ public class Chase : MonoBehaviour
         {
             CheckAttack();
             float bonusValue = (float)UIController.GetSkillModifier("Allied Fire Rate");
-            float shootDelay = (2 - bonusValue) * originalShootDelay; 
+            float shootDelay = Math.Clamp((2 - bonusValue) * originalShootDelay, 0.1f, originalShootDelay); 
             yield return new WaitForSeconds(shootDelay);
         }
     }
@@ -155,22 +159,6 @@ public class Chase : MonoBehaviour
             isDead = true;
             OnDeath();
         }
-    }
-
-    public static int GetAlliesAlive() //Make class attribute alliesAlive not settable outside this class to minimize the risk of undesired outcomes.
-    {
-        return alliesAlive;
-    }
-
-    //Called when the player is perma killed.
-    public static void OnPermaDeath()
-    {
-        alliesAlive = 0;
-    }
-
-    private void OnDestroy()
-    {
-        alliesAlive--;
     }
 
 
