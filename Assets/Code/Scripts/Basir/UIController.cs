@@ -587,15 +587,31 @@ public class UIController : MonoBehaviour, IDataPersistance
             
             _upgradableStats[skillName] = new UpgradableStat(levelLoaded, isPerk);
         }
-        
+
         //only really need to run this line if the menu is open when the game starts, e.g. when testing
         //OnOpenUpgradeMenu();
 
-        for (int i = 0; i < data.allies; i++)
+        print("spawn " + data.allies);
+        if (Chase.GetAlliesAlive() <= 15)
         {
-            OnSpawnAlly();
+            StartCoroutine(nameof(LoadAlliesFromLastLevel), data.allies);
         }
+    }
 
+    private IEnumerator LoadAlliesFromLastLevel(int alliesToSpawn)
+    {
+        yield return new WaitForSeconds(3);
+        for (int i = 0; i < alliesToSpawn; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            if (Chase.GetAlliesAlive() <= 15)
+            {
+                OnSpawnAlly();
+            } else
+            {
+                break;
+            }
+        }
     }
 
     [SerializeField] private List<GameObject> inactiveWhilePlayerFrozen;

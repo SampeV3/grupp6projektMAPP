@@ -52,7 +52,6 @@ public class Chase : MonoBehaviour
 
     private void OnDeath()
     {
-        alliesAlive--;
         Destroy(gameObject);
     }
 
@@ -168,6 +167,12 @@ public class Chase : MonoBehaviour
     {
         alliesAlive = 0;
     }
+
+    private void OnDestroy()
+    {
+        alliesAlive--;
+    }
+
 
     private void OnDrawGizmos()
     {

@@ -99,7 +99,8 @@ public class RoomContentGenerator : MonoBehaviour
         ClearAllChildren(itemParent);
 
         RandomizeEnemySpawnParams();
-
+        //Måste placeras i den faktiska scenen för att uppdatteras.
+        print("Randomized Enemy Spawn Params to " + defaultRoom);
         SelectPlayerAndBossSpawnPoint(dungeonData);
         SelectEnemySpawnPoints(dungeonData);
 
@@ -237,7 +238,7 @@ public class RoomContentGenerator : MonoBehaviour
 
                         break;
                     case EnemyType.SpearEnemy:
-                        Vector2Int spearEnemySpawnRate = hoverEnemySpawnRateWeightedList.RandomElement();
+                        Vector2Int spearEnemySpawnRate = spearEnemySpawnRateWeightedList.RandomElement();
                         placementData.minQuantity = spearEnemySpawnRate.x;
                         placementData.maxQuantity = spearEnemySpawnRate.y;
 
