@@ -267,13 +267,13 @@ MonoBehaviour:
   bossRoom: {fileID: 2746710959080050701, guid: 98510c6821f276d42a2269def706d864, type: 3}
   mortarSpawnRateWeightedList:
     list:
-    - value: {x: 3, y: 3}
-      weight: 0.5
-    - value: {x: 2, y: 3}
-      weight: 2.5
     - value: {x: 0, y: 4}
-      weight: 12
+      weight: 0.5
     - value: {x: 0, y: 3}
+      weight: 2.5
+    - value: {x: 0, y: 3}
+      weight: 12
+    - value: {x: 0, y: 2}
       weight: 25
     - value: {x: 0, y: 2}
       weight: 60
@@ -291,13 +291,13 @@ MonoBehaviour:
       weight: 60
   spearEnemySpawnRateWeightedList:
     list:
-    - value: {x: 0, y: 1}
+    - value: {x: 0, y: 0}
       weight: 0.5
     - value: {x: 0, y: 1}
       weight: 2.5
     - value: {x: 0, y: 1}
       weight: 12
-    - value: {x: 0, y: 0}
+    - value: {x: 0, y: 1}
       weight: 40
     - value: {x: 0, y: 1}
       weight: 45
@@ -385,7 +385,8 @@ Transform:
   m_LocalPosition: {x: 40.322346, y: 85.655495, z: -161.95781}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 724426564}
   m_Father: {fileID: 1118239119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &357306960
@@ -1042,7 +1043,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1671293751}
+    m_TransformParent: {fileID: 355307592}
     m_Modifications:
     - target: {fileID: 3303421395954220802, guid: 377fa56baa708c045ab0ed6a3b4e6926, type: 3}
       propertyPath: m_Name
@@ -1050,15 +1051,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8264800944264846316, guid: 377fa56baa708c045ab0ed6a3b4e6926, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40.322346
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8264800944264846316, guid: 377fa56baa708c045ab0ed6a3b4e6926, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 85.655495
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8264800944264846316, guid: 377fa56baa708c045ab0ed6a3b4e6926, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -161.95781
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8264800944264846316, guid: 377fa56baa708c045ab0ed6a3b4e6926, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2685,8 +2686,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 724426564}
+  m_Children: []
   m_Father: {fileID: 1118239119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1681224901
