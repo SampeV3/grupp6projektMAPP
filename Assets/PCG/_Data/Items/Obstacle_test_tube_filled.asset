@@ -18,3 +18,4 @@ MonoBehaviour:
   addOffset: 0
   health: 2
   nonDestructible: 0
+  explodeOnDestruction: 0
