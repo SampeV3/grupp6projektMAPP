@@ -140,7 +140,6 @@ PlayerSettings:
   bundleVersion: 1.0
   preloadedAssets:
   - {fileID: 11400000, guid: 46c0cf67132ad494c8f3afa138e5ec35, type: 2}
-  - {fileID: 11400000, guid: 4db9fcd5b25c818498482afcb2093834, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -161,6 +160,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: Grupp6.RobotRampage
     Standalone: com.DefaultCompany.2DProject
   buildNumber:
     Standalone: 0
