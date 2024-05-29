@@ -11366,7 +11366,7 @@ MonoBehaviour:
   goalTime: 0
   musicDuration: 0
   tryCombatMusic: 0
-  trySong: 1
+  trySong: 0
   audioToggle: 0
   introAudioSource: {fileID: 1844462053}
   loopAudioSource: {fileID: 1844462052}

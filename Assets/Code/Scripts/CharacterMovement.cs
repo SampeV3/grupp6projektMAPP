@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -156,4 +157,18 @@ public class CharacterMovement : MonoBehaviour
         canDash = true;
         _rigidbody.velocity = Vector2.zero;
     }
+
+    //take screenshot
+    
+    private void OnTakeScreenshot()
+    {
+        DateTime theTime = DateTime.Now;
+        string date = theTime.ToString("yyyy-MM-dd\\Z");
+        string time = theTime.ToString("HH-mm-ss\\Z");
+        string datetime = theTime.ToString("yyyy-MM-dd\\THH-mm-ss\\Z");
+        ScreenCapture.CaptureScreenshot(datetime + "ingameScreenShot.png");
+
+
+    }
+
 }
